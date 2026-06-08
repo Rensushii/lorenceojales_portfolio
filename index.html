@@ -271,7 +271,7 @@
             min-height: 75vh;
         }
         .two-col-layout.about-active {
-            min-height: 100vh;
+            min-height: 120vh;
         }
         .content-col {
             flex: 1 1 55%;
@@ -294,10 +294,13 @@
             will-change: transform;
         }
         .portrait-col.portrait-sticky {
+            position: -webkit-sticky;
             position: sticky;
             top: 50vh;
             transform: translateY(-50%);
             align-self: flex-start;
+            transition: none !important;
+            -webkit-transition: none !important;
         }
         .portrait-col.portrait-order-left {
             order: 1;
@@ -331,28 +334,38 @@
             pointer-events: auto;
         }
         .content-slide.slide-exit-left {
+            position: absolute;
             transform: translateX(-120%);
             opacity: 0;
             z-index: 1;
             pointer-events: none;
         }
         .content-slide.slide-enter-right {
+            position: absolute;
             transform: translateX(120%);
             opacity: 0;
             z-index: 1;
             pointer-events: none;
         }
         .content-slide.slide-exit-right {
+            position: absolute;
             transform: translateX(120%);
             opacity: 0;
             z-index: 1;
             pointer-events: none;
         }
         .content-slide.slide-enter-left {
+            position: absolute;
             transform: translateX(-120%);
             opacity: 0;
             z-index: 1;
             pointer-events: none;
+        }
+        /* Ensure transitioning slides stay absolute */
+        .content-slide.slide-animating-in {
+            position: absolute;
+            z-index: 3;
+            pointer-events: auto;
         }
 
         /* Portrait canvas container */
@@ -1523,11 +1536,13 @@
             // ========== HELPER: get pixel distance for portrait to slide ==========
             function getPortraitSlideDistance() {
                 const contentRect = contentCol.getBoundingClientRect();
-                const portraitRect = portraitCol.getBoundingClientRect();
                 const gap = parseFloat(getComputedStyle(twoColLayout).gap) || 40;
-                // Distance portrait needs to move left to swap positions:
-                // content width + gap (from right side to left side)
                 return contentRect.width + gap;
+            }
+
+            // ========== FORCE REFLOW HELPER ==========
+            function forceReflow(el) {
+                void el.offsetWidth;
             }
 
             // ========== NAVIGATION FUNCTION ==========
@@ -1554,88 +1569,147 @@
                     portraitCol.style.display = 'flex';
 
                     if (sectionName === 'about' && prevSection === 'home') {
-                        // HOME → ABOUT: portrait slides LEFT, content swaps
+                        // ─── HOME → ABOUT ───
                         const slideDist = getPortraitSlideDistance();
 
-                        // Enable transition on portrait
+                        // Prepare portrait for sliding left
                         portraitCol.style.transition = 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
                         portraitCol.style.transform = 'translateX(-' + slideDist + 'px)';
 
-                        // Content slides
+                        // Home slide: exit left
                         slideHome.classList.remove('slide-active');
                         slideHome.classList.add('slide-exit-left');
-                        slideAbout.classList.remove('slide-enter-right', 'slide-exit-left', 'slide-exit-right',
-                            'slide-enter-left');
-                        slideAbout.classList.add('slide-enter-right');
-                        void slideAbout.offsetWidth;
-                        slideAbout.classList.remove('slide-enter-right');
-                        slideAbout.classList.add('slide-active');
+                        // Ensure home stays absolute during exit
+                        slideHome.style.position = 'absolute';
 
-                        // Switch to about layout mode
+                        // About slide: prepare to enter from right
+                        slideAbout.classList.remove('slide-active', 'slide-exit-left', 'slide-exit-right',
+                            'slide-enter-left', 'slide-enter-right');
+                        // Set it up as absolute, off-screen right
+                        slideAbout.style.position = 'absolute';
+                        slideAbout.style.transform = 'translateX(120%)';
+                        slideAbout.style.opacity = '0';
+                        slideAbout.style.zIndex = '1';
+                        slideAbout.style.pointerEvents = 'none';
+                        forceReflow(slideAbout);
+
+                        // Now animate about slide in
+                        slideAbout.style.transition =
+                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+                        slideAbout.style.transform = 'translateX(0)';
+                        slideAbout.style.opacity = '1';
+                        slideAbout.style.zIndex = '3';
+                        slideAbout.style.pointerEvents = 'auto';
+
+                        // Switch layout to about mode
                         twoColLayout.classList.add('about-active');
 
+                        // After transition completes
                         setTimeout(() => {
-                            // Swap flex order
+                            // Swap flex order: portrait left, content right
                             contentCol.classList.add('content-order-right');
                             portraitCol.classList.add('portrait-order-left');
                             portraitCol.classList.add('portrait-sticky');
-                            // Remove transform now that order is swapped
+                            // Clear inline transform so CSS sticky transform takes over
                             portraitCol.style.transition = 'none';
                             portraitCol.style.transform = '';
-                            // Cleanup slides
-                            slideHome.classList.remove('slide-exit-left');
-                            slideHome.classList.remove('slide-active');
+                            // Finalize about slide: make it the active slide (position: relative)
+                            slideAbout.style.transition = '';
+                            slideAbout.style.transform = '';
+                            slideAbout.style.opacity = '';
+                            slideAbout.style.position = '';
+                            slideAbout.style.zIndex = '';
+                            slideAbout.style.pointerEvents = '';
                             slideAbout.classList.add('slide-active');
-                            slideHome.classList.remove('slide-active');
-                            // Force reflow
-                            void portraitCol.offsetWidth;
-                            portraitCol.style.transition = 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+                            // Clean up home slide
+                            slideHome.classList.remove('slide-exit-left', 'slide-active');
+                            slideHome.style.position = '';
+                            slideHome.style.transform = '';
+                            slideHome.style.opacity = '';
+                            slideHome.style.zIndex = '';
+                            // Force reflow then lock portrait with no transition
+                            forceReflow(portraitCol);
+                            portraitCol.style.transition = 'none';
                             isTransitioning = false;
                             refreshRevealObservers();
                             resizeAllCanvases();
-                        }, 550);
+                        }, 580);
 
                     } else if (sectionName === 'home' && prevSection === 'about') {
-                        // ABOUT → HOME: portrait slides RIGHT back
-                        // Remove sticky and swap order first
+                        // ─── ABOUT → HOME ───
+                        // Remove sticky first
                         portraitCol.classList.remove('portrait-sticky');
                         portraitCol.classList.remove('portrait-order-left');
                         contentCol.classList.remove('content-order-right');
                         twoColLayout.classList.remove('about-active');
 
-                        // Now portrait is back on right (order 2), but we need it to appear
-                        // to slide from left. Apply transform to simulate it coming from left.
+                        // Portrait is now back on the right (order 2). Simulate it coming from the left.
                         const slideDist = getPortraitSlideDistance();
                         portraitCol.style.transition = 'none';
                         portraitCol.style.transform = 'translateX(-' + slideDist + 'px)';
-                        void portraitCol.offsetWidth;
-                        portraitCol.style.transition = 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+                        forceReflow(portraitCol);
+                        portraitCol.style.transition =
+                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
                         portraitCol.style.transform = 'translateX(0)';
 
-                        // Content slides
+                        // About slide: exit right
                         slideAbout.classList.remove('slide-active');
-                        slideAbout.classList.add('slide-exit-right');
-                        slideHome.classList.remove('slide-enter-right', 'slide-exit-left', 'slide-exit-right',
-                            'slide-enter-left');
-                        slideHome.classList.add('slide-enter-left');
-                        void slideHome.offsetWidth;
-                        slideHome.classList.remove('slide-enter-left');
-                        slideHome.classList.add('slide-active');
+                        slideAbout.style.position = 'absolute';
+                        slideAbout.style.transform = 'translateX(0)';
+                        slideAbout.style.opacity = '1';
+                        slideAbout.style.zIndex = '2';
+                        forceReflow(slideAbout);
+                        slideAbout.style.transition =
+                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+                        slideAbout.style.transform = 'translateX(120%)';
+                        slideAbout.style.opacity = '0';
+                        slideAbout.style.zIndex = '1';
+                        slideAbout.style.pointerEvents = 'none';
 
+                        // Home slide: prepare to enter from left
+                        slideHome.classList.remove('slide-active', 'slide-exit-left', 'slide-exit-right',
+                            'slide-enter-right', 'slide-enter-left');
+                        slideHome.style.position = 'absolute';
+                        slideHome.style.transform = 'translateX(-120%)';
+                        slideHome.style.opacity = '0';
+                        slideHome.style.zIndex = '1';
+                        slideHome.style.pointerEvents = 'none';
+                        forceReflow(slideHome);
+                        slideHome.style.transition =
+                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+                        slideHome.style.transform = 'translateX(0)';
+                        slideHome.style.opacity = '1';
+                        slideHome.style.zIndex = '3';
+                        slideHome.style.pointerEvents = 'auto';
+
+                        // After transition completes
                         setTimeout(() => {
                             portraitCol.style.transition = 'none';
                             portraitCol.style.transform = '';
-                            slideAbout.classList.remove('slide-exit-right');
-                            slideAbout.classList.remove('slide-active');
+                            // Finalize home slide
+                            slideHome.style.transition = '';
+                            slideHome.style.transform = '';
+                            slideHome.style.opacity = '';
+                            slideHome.style.position = '';
+                            slideHome.style.zIndex = '';
+                            slideHome.style.pointerEvents = '';
                             slideHome.classList.add('slide-active');
+                            // Clean up about slide
                             slideAbout.classList.remove('slide-active');
-                            void portraitCol.offsetWidth;
+                            slideAbout.style.transition = '';
+                            slideAbout.style.transform = '';
+                            slideAbout.style.opacity = '';
+                            slideAbout.style.position = '';
+                            slideAbout.style.zIndex = '';
+                            slideAbout.style.pointerEvents = '';
+                            slideAbout.classList.add('slide-enter-right');
+                            forceReflow(portraitCol);
                             portraitCol.style.transition =
                                 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
                             isTransitioning = false;
                             refreshRevealObservers();
                             resizeAllCanvases();
-                        }, 550);
+                        }, 580);
                     }
 
                 } else if (nextIsTwoCol && !prevIsTwoCol) {
@@ -1651,14 +1725,28 @@
                     if (sectionName === 'home') {
                         slideHome.classList.add('slide-active');
                         slideAbout.classList.remove('slide-active');
-                        [slideHome, slideAbout].forEach(s => s.classList.remove('slide-exit-left',
-                            'slide-exit-right', 'slide-enter-right', 'slide-enter-left'));
+                        slideAbout.classList.add('slide-enter-right');
+                        [slideHome, slideAbout].forEach(s => {
+                            s.style.position = '';
+                            s.style.transform = '';
+                            s.style.opacity = '';
+                            s.style.zIndex = '';
+                            s.style.pointerEvents = '';
+                            s.style.transition = '';
+                        });
                     } else {
                         // About
                         slideAbout.classList.add('slide-active');
                         slideHome.classList.remove('slide-active');
-                        [slideHome, slideAbout].forEach(s => s.classList.remove('slide-exit-left',
-                            'slide-exit-right', 'slide-enter-right', 'slide-enter-left'));
+                        slideAbout.classList.remove('slide-enter-right');
+                        [slideHome, slideAbout].forEach(s => {
+                            s.style.position = '';
+                            s.style.transform = '';
+                            s.style.opacity = '';
+                            s.style.zIndex = '';
+                            s.style.pointerEvents = '';
+                            s.style.transition = '';
+                        });
                         contentCol.classList.add('content-order-right');
                         portraitCol.classList.add('portrait-order-left', 'portrait-sticky');
                         twoColLayout.classList.add('about-active');
@@ -1666,6 +1754,9 @@
                     setTimeout(() => {
                         portraitCol.style.transition =
                             'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+                        if (sectionName === 'about') {
+                            portraitCol.style.transition = 'none';
+                        }
                         isTransitioning = false;
                         refreshRevealObservers();
                         resizeAllCanvases();
@@ -1679,6 +1770,8 @@
                     contentCol.classList.remove('content-order-right');
                     twoColLayout.classList.remove('about-active');
                     portraitCol.style.transform = '';
+                    portraitCol.style.transition =
+                        'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
                     fullWidthSections[sectionName].classList.add('section-visible');
                     setTimeout(() => {
                         isTransitioning = false;
@@ -1860,10 +1953,22 @@
                 portraitCol.style.display = 'flex';
                 slideHome.classList.add('slide-active');
                 slideAbout.classList.remove('slide-active');
+                slideAbout.classList.add('slide-enter-right');
+                // Reset all inline styles on slides
+                [slideHome, slideAbout].forEach(s => {
+                    s.style.position = '';
+                    s.style.transform = '';
+                    s.style.opacity = '';
+                    s.style.zIndex = '';
+                    s.style.pointerEvents = '';
+                    s.style.transition = '';
+                });
                 contentCol.classList.remove('content-order-right');
                 portraitCol.classList.remove('portrait-order-left', 'portrait-sticky');
                 twoColLayout.classList.remove('about-active');
                 portraitCol.style.transform = '';
+                portraitCol.style.transition =
+                    'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
                 Object.values(fullWidthSections).forEach(s => s.classList.remove('section-visible'));
                 setupRevealObserver();
             }
@@ -2308,11 +2413,8 @@
                     renderer.render(scene, camera);
                 }
 
-                // Initial resize after a short delay to ensure layout is settled
                 setTimeout(resizeAll, 300);
                 window.addEventListener('resize', resizeAll);
-
-                // Expose for navigation
                 window._fluidResizeAll = resizeAll;
             })();
 
@@ -2326,7 +2428,6 @@
                 if (window._fluidResizeAll) window._fluidResizeAll();
             };
 
-            // ========== EXPOSE FOR EXTERNAL USE ==========
             window._navigateTo = navigateTo;
             window._resizeAllCanvases = resizeAllCanvases;
 
