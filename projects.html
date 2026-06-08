@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects · Lorence B. Ojales</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    a.project-card-link { text-decoration: none; color: inherit; display: block; }
+    a.project-card-link:hover .card { border-color: var(--border-accent); box-shadow: var(--shadow-elevated); transform: translateY(-5px); }
+    .card-view-details { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: var(--accent-primary); margin-top: 14px; opacity: 0; transition: opacity 0.3s; }
+    a.project-card-link:hover .card-view-details { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+  <div class="grid-overlay"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link"><span class="logo-dot"></span><span class="logo-text">Lorence Ojales</span></a>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="achievements.html">Achievements</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="hamburger-btn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+      </nav>
+    </div>
+    <div class="mobile-nav">
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="experience.html">Experience</a>
+      <a href="projects.html">Projects</a><a href="achievements.html">Achievements</a><a href="skills.html">Skills</a><a href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <div class="section-header reveal">
+      <span class="section-label">Projects</span>
+      <h2 class="section-title">Featured work</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card-grid reveal">
+
+      <!-- Tugon Lipa (NEW) -->
+      <a href="project-tugon-lipa.html" class="project-card-link">
+        <div class="card" style="text-align:center;">
+          <div style="font-size:4rem; margin-bottom:16px; color:var(--accent-gold);">🏙️🤖</div>
+          <div class="project-meta">
+            <h3>Tugon Lipa · Smart Community Platform</h3>
+            <p>AI-powered citizen reporting & response system — 2nd Place, Hack the Future.</p>
+          </div>
+          <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <!-- Eco Flow (combined) -->
+      <a href="project-eco-flow.html" class="project-card-link">
+        <div class="card">
+          <div class="project-embed" style="height:260px;">
+            <iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="project-embed" style="height:260px; margin-top:12px;">
+            <iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="project-meta">
+            <h3>Eco Flow · Smart Greenhouse</h3>
+            <p>AI‑powered IoT system with automated irrigation, analytics, and real‑time monitoring. Undergraduate thesis.</p>
+          </div>
+          <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <!-- MazeBot -->
+      <a href="project-mazebot.html" class="project-card-link">
+        <div class="card">
+          <div class="project-embed" style="height:360px;">
+            <iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="project-meta">
+            <h3>MazeBot</h3>
+            <p>Autonomous wall‑following robot using IR sensors and reactive control on an ESP32.</p>
+          </div>
+          <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+      <!-- NYC Crash Analytics -->
+      <a href="project-nyc-crash.html" class="project-card-link">
+        <div class="card" style="text-align:center;">
+          <div style="font-size:4rem; margin-bottom:16px; color:var(--accent-primary);">🚗💥</div>
+          <div class="project-meta">
+            <h3>NYC Crash Analytics</h3>
+            <p>Interactive dashboard with Leaflet, heatmaps, Chart.js, and PHP/MySQL backend.</p>
+          </div>
+          <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="currentYear">2025</span> <span class="footer-name">Lorence B. Ojales</span> — Computer Engineer. Built with precision.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

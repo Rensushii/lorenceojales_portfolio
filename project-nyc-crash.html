@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NYC Crash Analytics | Lorence B. Ojales</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .project-hero { margin-bottom: 40px; }
+    .project-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #fff; }
+    .project-tagline { font-size: 1.2rem; color: var(--accent-primary); margin: 10px 0 20px; }
+    .project-body { font-size: 1rem; line-height: 1.8; color: var(--text-secondary); }
+    .project-body h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin: 32px 0 14px; }
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 28px; }
+    .tech-stack span { background: rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.3); border-radius: 50px; padding: 6px 16px; font-size: 0.85rem; color: var(--text-primary); }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; color: var(--accent-primary); font-weight: 600; text-decoration: none; }
+    .live-link { display: inline-flex; align-items: center; gap: 8px; margin: 20px 0; background: var(--accent-primary); color: white; padding: 10px 24px; border-radius: 40px; text-decoration: none; font-weight: 600; }
+    .live-link:hover { background: #7c3aed; }
+    .screenshot-box { border-radius: var(--radius-lg); overflow: hidden; background: #060b14; border:1px solid var(--border-subtle); margin: 24px 0; }
+    .screenshot-box img { width: 100%; display: block; }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+  <div class="grid-overlay"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link"><span class="logo-dot"></span><span class="logo-text">Lorence Ojales</span></a>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="experience.html">Experience</a></li>
+          <li><a href="projects.html">Projects</a></li><li><a href="achievements.html">Achievements</a></li><li><a href="skills.html">Skills</a></li><li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="hamburger-btn"><i class="fas fa-bars"></i></button>
+      </nav>
+    </div>
+    <div class="mobile-nav">
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="experience.html">Experience</a>
+      <a href="projects.html">Projects</a><a href="achievements.html">Achievements</a><a href="skills.html">Skills</a><a href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <div class="project-hero reveal">
+      <h1>NYC Crash Analytics</h1>
+      <p class="project-tagline">Full‑stack interactive dashboard for motor‑vehicle collision data</p>
+    </div>
+
+    <div class="reveal">
+      <div class="screenshot-box">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23111827'/%3E%3Ctext x='400' y='200' font-size='24' fill='%238b5cf6' text-anchor='middle' font-family='Inter,sans-serif'%3ENYC Crash Analytics Dashboard%3C/text%3E%3C/svg%3E" alt="NYC Crash Analytics Dashboard screenshot">
+      </div>
+      <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="live-link">
+        <i class="fas fa-external-link-alt"></i> View Live Site
+      </a>
+    </div>
+
+    <div class="project-body reveal">
+      <h2>Overview</h2>
+      <p>
+        <strong>NYC Crash Analytics</strong> is a full‑stack web dashboard that transforms raw NYC Open Data into an interactive visual exploration tool. Built with PHP, MySQL, and vanilla JavaScript on the front end, it lets users filter hundreds of thousands of motor‑vehicle collision records by borough, date, vehicle type, contributing factor, and severity.
+      </p>
+
+      <h2>Key Features</h2>
+      <p>
+        A responsive dark‑theme interface presents a live <strong>Leaflet</strong> map with marker clustering, heatmaps, a time‑slider, and on‑map drawing tools for spatial filtering. Side‑by‑side, a paginated data table shows detailed records, while integrated <strong>Chart.js</strong> visualizations reveal trends, borough breakdowns, and injury summaries.
+      </p>
+
+      <h2>Under the Hood</h2>
+      <p>
+        A custom data importer pulls fresh crash data from the NYC Open Data API, supports multi‑year imports, and allows users to delete or replace existing data via a management modal. The project also includes secure user authentication, CSV/JSON/PDF exports, and a built‑in guided tour for onboarding.
+      </p>
+
+      <h2>Tech Stack</h2>
+      <div class="tech-stack">
+        <span>PHP</span><span>MySQL</span><span>JavaScript</span><span>Leaflet</span>
+        <span>Chart.js</span><span>Bootstrap</span><span>REST APIs</span>
+        <span>CSV/JSON/PDF Export</span>
+      </div>
+
+      <p style="font-style:italic; color:var(--text-muted);">
+        This portfolio piece demonstrates skills in back‑end development, API integration, interactive mapping, and responsive UI design — a complete, production‑ready analytics platform.
+      </p>
+    </div>
+
+    <a href="projects.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to all projects</a>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="currentYear">2025</span> <span class="footer-name">Lorence B. Ojales</span> — Computer Engineer. Built with precision.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
