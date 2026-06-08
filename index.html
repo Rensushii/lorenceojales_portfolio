@@ -261,21 +261,26 @@
             min-height: calc(100vh - 200px);
         }
 
-        /* Two-column layout for Home & About */
+        /* Two-column layout */
         .two-col-layout {
             display: flex;
             gap: 40px;
             align-items: stretch;
             min-height: 75vh;
             position: relative;
+            overflow: hidden;
+            transition: flex-direction var(--transition-slide);
+        }
+        .two-col-layout.layout-about {
+            flex-direction: row-reverse;
         }
         .content-col {
             flex: 1 1 55%;
             display: flex;
             align-items: center;
             position: relative;
-            overflow: hidden;
             min-height: 500px;
+            z-index: 2;
         }
         .portrait-col {
             flex: 0 0 42%;
@@ -284,12 +289,21 @@
             justify-content: center;
             position: relative;
             min-height: 500px;
+            z-index: 1;
+            transition: transform var(--transition-slide);
+            will-change: transform;
+        }
+        .portrait-col.sliding-left {
+            transform: translateX(0);
+        }
+        .portrait-col.sliding-right {
+            transform: translateX(0);
         }
         .content-slide-wrapper {
             position: relative;
             width: 100%;
+            min-height: 420px;
             overflow: hidden;
-            min-height: 400px;
         }
         .content-slide {
             position: absolute;
@@ -299,51 +313,35 @@
             transition: transform var(--transition-slide), opacity var(--transition-slide);
             will-change: transform, opacity;
             padding: 10px 0;
+            pointer-events: none;
+            opacity: 0;
         }
         .content-slide.slide-active {
             position: relative;
             transform: translateX(0);
             opacity: 1;
             z-index: 2;
+            pointer-events: auto;
         }
         .content-slide.slide-exit-left {
             transform: translateX(-120%);
             opacity: 0;
             z-index: 1;
-            pointer-events: none;
         }
         .content-slide.slide-enter-right {
             transform: translateX(120%);
             opacity: 0;
             z-index: 1;
-            pointer-events: none;
         }
         .content-slide.slide-exit-right {
             transform: translateX(120%);
             opacity: 0;
             z-index: 1;
-            pointer-events: none;
         }
         .content-slide.slide-enter-left {
             transform: translateX(-120%);
             opacity: 0;
             z-index: 1;
-            pointer-events: none;
-        }
-        /* Hidden off-screen state for inactive slides */
-        .content-slide.slide-hidden-left {
-            transform: translateX(-120%);
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-            transition: none;
-        }
-        .content-slide.slide-hidden-right {
-            transform: translateX(120%);
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-            transition: none;
         }
 
         /* Portrait canvas container */
@@ -355,7 +353,7 @@
             overflow: hidden;
             position: relative;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(139, 92, 246, 0.2);
-            background: transparent;
+            background: #060b14;
             cursor: none;
             flex-shrink: 0;
         }
@@ -366,6 +364,7 @@
             width: 100%;
             height: 100%;
             display: block;
+            object-fit: cover;
         }
         #lightraysCanvas {
             z-index: 0;
@@ -1110,9 +1109,12 @@
                 display: flex;
             }
             .two-col-layout {
-                flex-direction: column-reverse;
+                flex-direction: column-reverse !important;
                 gap: 24px;
                 min-height: auto;
+            }
+            .two-col-layout.layout-about {
+                flex-direction: column !important;
             }
             .content-col {
                 min-height: auto;
@@ -1124,13 +1126,14 @@
                 max-width: 320px;
                 margin: 0 auto;
                 width: 100%;
+                order: -1 !important;
             }
             .hero-reveal {
                 max-width: 100%;
                 aspect-ratio: 3/4;
             }
             .content-slide-wrapper {
-                min-height: auto;
+                min-height: 380px;
             }
             .hero-name {
                 font-size: 2rem;
@@ -1196,6 +1199,9 @@
                 aspect-ratio: 3/4;
                 border-radius: 24px;
             }
+            .content-slide-wrapper {
+                min-height: 340px;
+            }
         }
     </style>
 </head>
@@ -1237,7 +1243,7 @@
         <!-- ========== TWO-COLUMN LAYOUT (Home & About) ========== -->
         <div class="two-col-layout" id="twoColLayout">
             <!-- Left: sliding content -->
-            <div class="content-col">
+            <div class="content-col" id="contentCol">
                 <div class="content-slide-wrapper" id="contentSlideWrapper">
                     <!-- Home Slide -->
                     <div class="content-slide slide-active" id="slideHome">
@@ -1255,7 +1261,7 @@
                         </div>
                     </div>
                     <!-- About Slide -->
-                    <div class="content-slide slide-hidden-right" id="slideAbout">
+                    <div class="content-slide" id="slideAbout">
                         <span class="section-label">About Me</span>
                         <h2 class="section-title">Get to know me</h2>
                         <div class="section-line"></div>
@@ -1481,6 +1487,7 @@
             // ========== DOM REFS ==========
             const twoColLayout = document.getElementById('twoColLayout');
             const portraitCol = document.getElementById('portraitCol');
+            const contentCol = document.getElementById('contentCol');
             const slideHome = document.getElementById('slideHome');
             const slideAbout = document.getElementById('slideAbout');
             const contentSlideWrapper = document.getElementById('contentSlideWrapper');
@@ -1497,29 +1504,6 @@
             const mobileNav = document.getElementById('mobileNav');
             const navList = document.getElementById('navList');
             const headerInner = document.getElementById('headerInner');
-
-            // All slide state classes
-            const slideStateClasses = ['slide-active', 'slide-exit-left', 'slide-enter-right',
-                'slide-exit-right', 'slide-enter-left', 'slide-hidden-left', 'slide-hidden-right'
-            ];
-
-            function clearSlideStates(slide) {
-                slideStateClasses.forEach(cls => slide.classList.remove(cls));
-            }
-
-            function hideSlideOffscreen(slide, direction) {
-                clearSlideStates(slide);
-                if (direction === 'left') {
-                    slide.classList.add('slide-hidden-left');
-                } else {
-                    slide.classList.add('slide-hidden-right');
-                }
-            }
-
-            function activateSlide(slide) {
-                clearSlideStates(slide);
-                slide.classList.add('slide-active');
-            }
 
             // ========== NAVIGATION FUNCTION ==========
             function navigateTo(sectionName) {
@@ -1540,81 +1524,135 @@
                 Object.values(fullWidthSections).forEach(s => s.classList.remove('section-visible'));
 
                 if (nextIsTwoCol && prevIsTwoCol) {
-                    // Both are two-col: slide transition
+                    // Both are two-col: slide transition including portrait
                     twoColLayout.style.display = 'flex';
                     portraitCol.style.display = 'flex';
+                    contentCol.style.display = 'flex';
 
-                    const exitingSlide = prevSection === 'home' ? slideHome : slideAbout;
-                    const enteringSlide = sectionName === 'home' ? slideHome : slideAbout;
-                    const exitDir = prevSection === 'home' ? 'left' : 'right';
-                    const enterDir = prevSection === 'home' ? 'right' : 'left';
+                    // Update layout class for portrait position
+                    if (sectionName === 'about') {
+                        twoColLayout.classList.add('layout-about');
+                    } else {
+                        twoColLayout.classList.remove('layout-about');
+                    }
 
-                    // Set exit animation on the leaving slide
-                    clearSlideStates(exitingSlide);
-                    exitingSlide.classList.add(exitDir === 'left' ? 'slide-exit-left' : 'slide-exit-right');
+                    // Calculate slide distance for portrait
+                    const layoutWidth = twoColLayout.offsetWidth;
+                    const portraitWidth = portraitCol.offsetWidth;
+                    const gap = 40; // matches CSS gap
+                    // Distance portrait needs to travel (approx content column width + gap)
+                    const slideDistance = layoutWidth - portraitWidth - gap;
 
-                    // Set enter start position on the entering slide
-                    clearSlideStates(enteringSlide);
-                    enteringSlide.classList.add(enterDir === 'right' ? 'slide-enter-right' : 'slide-enter-left');
+                    if (sectionName === 'about' && prevSection === 'home') {
+                        // HOME → ABOUT: portrait slides left, content slides
+                        portraitCol.style.transition = 'transform ' + getComputedStyle(document.documentElement)
+                            .getPropertyValue('--transition-slide').trim().replace('cubic-bezier',
+                                'cubic-bezier') || 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+                        portraitCol.style.transform = 'translateX(-' + slideDistance + 'px)';
 
-                    // Force reflow so the enter start position is painted
-                    void enteringSlide.offsetWidth;
+                        slideHome.classList.remove('slide-active');
+                        slideHome.classList.add('slide-exit-left');
+                        slideAbout.classList.remove('slide-enter-right', 'slide-exit-left', 'slide-exit-right',
+                            'slide-enter-left');
+                        slideAbout.classList.add('slide-enter-right');
+                        void slideAbout.offsetWidth;
+                        slideAbout.classList.remove('slide-enter-right');
+                        slideAbout.classList.add('slide-active');
 
-                    // Now trigger the enter animation
-                    requestAnimationFrame(() => {
-                        enteringSlide.classList.remove('slide-enter-right', 'slide-enter-left');
-                        enteringSlide.classList.add('slide-active');
-                    });
+                    } else if (sectionName === 'home' && prevSection === 'about') {
+                        // ABOUT → HOME: portrait slides right, content slides
+                        portraitCol.style.transition = 'transform ' + getComputedStyle(document.documentElement)
+                            .getPropertyValue('--transition-slide').trim().replace('cubic-bezier',
+                                'cubic-bezier') || 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+                        portraitCol.style.transform = 'translateX(0px)';
 
-                    // After transition completes, clean up
+                        slideAbout.classList.remove('slide-active');
+                        slideAbout.classList.add('slide-exit-right');
+                        slideHome.classList.remove('slide-enter-right', 'slide-exit-left', 'slide-exit-right',
+                            'slide-enter-left');
+                        slideHome.classList.add('slide-enter-left');
+                        void slideHome.offsetWidth;
+                        slideHome.classList.remove('slide-enter-left');
+                        slideHome.classList.add('slide-active');
+                    }
+
                     setTimeout(() => {
-                        // Ensure entering slide is active and clean
-                        activateSlide(enteringSlide);
-                        // Hide exiting slide off-screen
-                        hideSlideOffscreen(exitingSlide, exitDir);
+                        // Cleanup slide classes
+                        [slideHome, slideAbout].forEach(s => {
+                            s.classList.remove('slide-exit-left', 'slide-exit-right',
+                                'slide-enter-right', 'slide-enter-left');
+                        });
+                        // Ensure correct slide is active
+                        if (sectionName === 'home') {
+                            slideHome.classList.add('slide-active');
+                            slideAbout.classList.remove('slide-active');
+                        } else {
+                            slideAbout.classList.add('slide-active');
+                            slideHome.classList.remove('slide-active');
+                        }
+                        // Reset portrait transform
+                        portraitCol.style.transition = 'none';
+                        portraitCol.style.transform = 'translateX(0px)';
+                        // Force layout recalculation
+                        void portraitCol.offsetWidth;
+                        portraitCol.style.transition = 'transform ' + getComputedStyle(document
+                            .documentElement).getPropertyValue('--transition-slide').trim().replace(
+                            'cubic-bezier', 'cubic-bezier') ||
+                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+
                         isTransitioning = false;
                         refreshRevealObservers();
                         resizeAllCanvases();
-                    }, 580);
+                    }, 550);
 
                 } else if (nextIsTwoCol && !prevIsTwoCol) {
                     // Coming from full-width to two-col
                     twoColLayout.style.display = 'flex';
                     portraitCol.style.display = 'flex';
+                    contentCol.style.display = 'flex';
+                    portraitCol.style.transition = 'none';
+                    portraitCol.style.transform = 'translateX(0px)';
+
                     if (sectionName === 'home') {
-                        activateSlide(slideHome);
-                        hideSlideOffscreen(slideAbout, 'right');
+                        twoColLayout.classList.remove('layout-about');
+                        slideHome.classList.add('slide-active');
+                        slideAbout.classList.remove('slide-active');
                     } else {
-                        activateSlide(slideAbout);
-                        hideSlideOffscreen(slideHome, 'left');
+                        twoColLayout.classList.add('layout-about');
+                        slideAbout.classList.add('slide-active');
+                        slideHome.classList.remove('slide-active');
                     }
+                    [slideHome, slideAbout].forEach(s => s.classList.remove('slide-exit-left', 'slide-exit-right',
+                        'slide-enter-right', 'slide-enter-left'));
                     setTimeout(() => {
                         isTransitioning = false;
                         refreshRevealObservers();
                         resizeAllCanvases();
-                    }, 100);
+                    }, 400);
 
                 } else if (!nextIsTwoCol && prevIsTwoCol) {
                     // Going from two-col to full-width
                     twoColLayout.style.display = 'none';
                     portraitCol.style.display = 'none';
+                    contentCol.style.display = 'none';
                     fullWidthSections[sectionName].classList.add('section-visible');
                     setTimeout(() => {
                         isTransitioning = false;
                         refreshRevealObservers();
                         resizeAllCanvases();
-                    }, 100);
+                    }, 400);
 
                 } else {
                     // Both full-width
                     twoColLayout.style.display = 'none';
                     portraitCol.style.display = 'none';
+                    contentCol.style.display = 'none';
                     fullWidthSections[sectionName].classList.add('section-visible');
                     setTimeout(() => {
                         isTransitioning = false;
                         refreshRevealObservers();
                         resizeAllCanvases();
-                    }, 100);
+                    }, 400);
                 }
 
                 // Scroll to top
@@ -1627,7 +1665,6 @@
                     e.preventDefault();
                     const section = this.getAttribute('data-nav');
                     if (section) navigateTo(section);
-                    // Close mobile nav
                     mobileNav.classList.remove('open');
                     hamburgerBtn.querySelector('i').className = 'fas fa-bars';
                 });
@@ -1720,7 +1757,6 @@
                 `;
                 modalOverlay.classList.add('modal-open');
                 document.body.style.overflow = 'hidden';
-
                 document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
                 document.getElementById('modalBackLink').addEventListener('click', closeModal);
             }
@@ -1737,7 +1773,6 @@
                 if (e.key === 'Escape' && modalOverlay.classList.contains('modal-open')) closeModal();
             });
 
-            // Project card modal triggers
             document.querySelectorAll('[data-modal]').forEach(el => {
                 el.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1760,7 +1795,7 @@
             }
 
             function refreshRevealObservers() {
-                setTimeout(setupRevealObserver, 150);
+                setTimeout(setupRevealObserver, 100);
             }
 
             // ========== STICKY HEADER ==========
@@ -1774,11 +1809,16 @@
 
             // ========== INITIAL SETUP ==========
             function init() {
-                // Start with home visible
                 twoColLayout.style.display = 'flex';
                 portraitCol.style.display = 'flex';
-                activateSlide(slideHome);
-                hideSlideOffscreen(slideAbout, 'right');
+                contentCol.style.display = 'flex';
+                twoColLayout.classList.remove('layout-about');
+                portraitCol.style.transition = 'none';
+                portraitCol.style.transform = 'translateX(0px)';
+                slideHome.classList.add('slide-active');
+                slideAbout.classList.remove('slide-active');
+                [slideHome, slideAbout].forEach(s => s.classList.remove('slide-exit-left', 'slide-exit-right',
+                    'slide-enter-right', 'slide-enter-left'));
                 Object.values(fullWidthSections).forEach(s => s.classList.remove('section-visible'));
                 setupRevealObserver();
             }
@@ -2058,26 +2098,24 @@
                     uniform float uTogaAspect;
                     uniform vec2 uCursor;
                     uniform float uParallaxStrength;
-
                     vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) {
                         vec2 newUV = uv - 0.5;
                         if (canvasAspect > imageAspect) {
-                            newUV.y *= canvasAspect / imageAspect;
+                            newUV.x *= canvasAspect / imageAspect;
                         } else {
-                            newUV.x *= imageAspect / canvasAspect;
+                            newUV.y *= imageAspect / canvasAspect;
                         }
                         newUV += 0.5;
                         return clamp(newUV, 0.0, 1.0);
                     }
-
                     void main() {
                         vec2 centerOffset = uCursor - 0.5;
                         vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5;
                         vec2 offsetToga   = -centerOffset * uParallaxStrength * 0.5;
-                        vec2 uvBarongRaw = vUv + offsetBarong;
-                        vec2 uvTogaRaw   = vUv + offsetToga;
-                        vec2 uvBarong = coverUV(uvBarongRaw, uBarongAspect, uAspect);
-                        vec2 uvToga   = coverUV(uvTogaRaw, uTogaAspect, uAspect);
+                        vec2 uvBarongCover = coverUV(vUv, uBarongAspect, uAspect);
+                        vec2 uvTogaCover   = coverUV(vUv, uTogaAspect, uAspect);
+                        vec2 uvBarong = clamp(uvBarongCover + offsetBarong, 0.0, 1.0);
+                        vec2 uvToga   = clamp(uvTogaCover + offsetToga, 0.0, 1.0);
                         float water = texture2D(uFluidMask, vUv).r;
                         float blend = smoothstep(0.18, 0.22, water);
                         vec4 barongColor = texture2D(uBarong, uvBarong);
@@ -2109,7 +2147,7 @@
 
                 function imageLoaded(tex, which) {
                     imagesLoaded++;
-                    if (tex && tex.image) {
+                    if (tex && tex.image && tex.image.width > 0 && tex.image.height > 0) {
                         if (which === 'barong') {
                             mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
                         } else {
@@ -2228,8 +2266,6 @@
                     updateFluid(dt);
                     renderer.render(scene, camera);
                 }
-
-                // Initial resize after a short delay to ensure layout is settled
                 setTimeout(resizeAll, 300);
                 window.addEventListener('resize', resizeAll);
             })();
