@@ -10,12 +10,17 @@
         :root {
             --bg-deep: #060b14;
             --bg-surface: #0d1321;
-            --bg-card: rgba(16, 23, 41, 0.75);
-            --border-subtle: rgba(255, 255, 255, 0.06);
+            --bg-card-dark: rgba(16, 23, 41, 0.75);
+            --bg-card-light: rgba(255, 255, 255, 0.92);
+            --border-subtle-dark: rgba(255, 255, 255, 0.06);
+            --border-subtle-light: rgba(0, 0, 0, 0.08);
             --border-accent: rgba(139, 92, 246, 0.35);
-            --text-primary: #e8ecf2;
-            --text-secondary: #9aa4b8;
-            --text-muted: #5f6b7c;
+            --text-primary-dark: #e8ecf2;
+            --text-secondary-dark: #9aa4b8;
+            --text-muted-dark: #5f6b7c;
+            --text-primary-light: #1a1a2e;
+            --text-secondary-light: #4a4a5e;
+            --text-muted-light: #7a7a8e;
             --accent-primary: #8b5cf6;
             --accent-secondary: #10b981;
             --accent-gold: #f59e0b;
@@ -25,13 +30,15 @@
             --radius-md: 16px;
             --radius-lg: 24px;
             --radius-xl: 32px;
-            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border-subtle);
-            --shadow-elevated: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px var(--border-accent);
+            --shadow-card-dark: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            --shadow-card-light: 0 4px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06);
+            --shadow-elevated-dark: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(139, 92, 246, 0.35);
+            --shadow-elevated-light: 0 16px 48px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(139, 92, 246, 0.25);
             --transition-fast: 0.18s ease;
             --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slide: 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-            --col-gap: 40px;
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+
         * {
             margin: 0;
             padding: 0;
@@ -40,18 +47,21 @@
         html {
             scroll-behavior: smooth;
             overflow-x: hidden;
+            scroll-padding-top: 90px;
         }
         body {
             background-color: var(--bg-deep);
-            color: var(--text-primary);
+            color: var(--text-primary-dark);
             font-family: var(--font-sans);
             line-height: 1.7;
             overflow-x: hidden;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-            padding-top: 80px;
+            padding-top: 0;
         }
-        .bg-glow {
+
+        /* ========== GLOBAL BACKGROUND (visible behind fixed elements) ========== */
+        .global-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -59,33 +69,33 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.35;
+            opacity: 0.28;
         }
-        .bg-glow .orb {
+        .global-bg .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(120px);
+            filter: blur(140px);
         }
-        .bg-glow .orb-1 {
+        .global-bg .orb-1 {
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.18), transparent);
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.16), transparent);
             top: -200px;
             left: -150px;
             animation: floatOrb 14s infinite;
         }
-        .bg-glow .orb-2 {
+        .global-bg .orb-2 {
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.14), transparent);
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.12), transparent);
             bottom: -180px;
             right: -130px;
             animation: floatOrb 18s infinite reverse;
         }
-        .bg-glow .orb-3 {
+        .global-bg .orb-3 {
             width: 350px;
             height: 350px;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.10), transparent);
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.08), transparent);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -106,22 +116,11 @@
                 transform: translate(-20px, -30px) scale(1.05);
             }
         }
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.03;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
+
+        /* ========== FIXED HEADER ========== */
         .site-header {
             position: fixed;
-            top: 12px;
+            top: 10px;
             left: 0;
             right: 0;
             z-index: 1000;
@@ -133,9 +132,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(11, 16, 28, 0.82);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(11, 16, 28, 0.85);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
             border: 1px solid rgba(139, 92, 246, 0.25);
             border-radius: 60px;
             padding: 13px 28px;
@@ -143,7 +142,7 @@
             transition: var(--transition-smooth);
         }
         .header-inner.scrolled {
-            background: rgba(11, 16, 28, 0.93);
+            background: rgba(11, 16, 28, 0.94);
             border-color: rgba(139, 92, 246, 0.45);
         }
         .logo-link {
@@ -153,8 +152,7 @@
             gap: 10px;
             font-weight: 800;
             font-size: 1.35rem;
-            color: var(--text-primary);
-            cursor: pointer;
+            color: #e8ecf2;
         }
         .logo-dot {
             width: 10px;
@@ -183,15 +181,15 @@
         .nav-list {
             display: flex;
             list-style: none;
-            gap: 6px;
+            gap: 4px;
             align-items: center;
         }
         .nav-list a {
-            color: var(--text-secondary);
+            color: #9aa4b8;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.925rem;
-            padding: 9px 16px;
+            font-size: 0.9rem;
+            padding: 9px 15px;
             border-radius: 40px;
             transition: var(--transition-fast);
             cursor: pointer;
@@ -205,7 +203,7 @@
             display: none;
             background: none;
             border: none;
-            color: var(--text-primary);
+            color: #e8ecf2;
             font-size: 1.6rem;
             cursor: pointer;
             padding: 6px;
@@ -226,7 +224,6 @@
             right: 20px;
             background: rgba(13, 19, 33, 0.97);
             backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(139, 92, 246, 0.4);
             border-radius: 28px;
             padding: 20px;
@@ -238,7 +235,7 @@
             display: flex;
         }
         .mobile-nav a {
-            color: var(--text-primary);
+            color: #e8ecf2;
             text-decoration: none;
             font-size: 1.05rem;
             font-weight: 500;
@@ -252,125 +249,336 @@
             color: #fff;
         }
 
-        /* ========== MAIN LAYOUT ========== */
-        .app-container {
+        /* ========== SECTION BASE STYLES ========== */
+        .page-section {
             position: relative;
             z-index: 10;
-            max-width: 1200px;
+            padding: 80px 24px 100px;
+            transition: background 0.5s ease;
+        }
+        .section-inner {
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 20px 24px 60px;
-            min-height: calc(100vh - 200px);
-        }
-
-        /* Two-column layout */
-        .two-col-layout {
-            display: flex;
-            gap: var(--col-gap);
-            align-items: flex-start;
             position: relative;
-            min-height: 75vh;
-        }
-        .two-col-layout.about-active {
-            min-height: 120vh;
-        }
-        .content-col {
-            flex: 1 1 55%;
-            position: relative;
-            overflow: hidden;
-            min-height: 400px;
-            order: 1;
             z-index: 2;
         }
-        .portrait-col {
-            flex: 0 0 42%;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            position: relative;
-            min-height: 400px;
-            order: 2;
-            z-index: 1;
-            transition: transform var(--transition-slide), -webkit-transform var(--transition-slide);
-            will-change: transform;
+        .section-dark {
+            background: #060b14;
+            color: #e8ecf2;
         }
-        .portrait-col.portrait-sticky {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 50vh;
-            transform: translateY(-50%);
-            align-self: flex-start;
-            transition: none !important;
-            -webkit-transition: none !important;
+        .section-light {
+            background: #f7f7f9;
+            color: #1a1a2e;
         }
-        .portrait-col.portrait-order-left {
-            order: 1;
+        .section-dark .section-title {
+            color: #fff;
         }
-        .content-col.content-order-right {
-            order: 2;
+        .section-light .section-title {
+            color: #1a1a2e;
         }
-        .content-slide-wrapper {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            min-height: 400px;
+        .section-dark .section-label {
+            color: #8b5cf6;
         }
-        .content-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            transition: transform var(--transition-slide), opacity var(--transition-slide);
-            will-change: transform, opacity;
-            padding: 10px 0;
-            pointer-events: none;
-            opacity: 0;
-            z-index: 1;
+        .section-light .section-label {
+            color: #6d28d9;
         }
-        .content-slide.slide-active {
-            position: relative;
-            transform: translateX(0);
-            opacity: 1;
-            z-index: 2;
-            pointer-events: auto;
+        .section-dark .card {
+            background: var(--bg-card-dark);
+            border: 1px solid var(--border-subtle-dark);
+            box-shadow: var(--shadow-card-dark);
+            color: #e8ecf2;
         }
-        .content-slide.slide-exit-left {
-            position: absolute;
-            transform: translateX(-120%);
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
+        .section-light .card {
+            background: var(--bg-card-light);
+            border: 1px solid var(--border-subtle-light);
+            box-shadow: var(--shadow-card-light);
+            color: #1a1a2e;
         }
-        .content-slide.slide-enter-right {
-            position: absolute;
-            transform: translateX(120%);
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
+        .section-dark .card:hover {
+            border-color: var(--border-accent);
+            box-shadow: var(--shadow-elevated-dark);
         }
-        .content-slide.slide-exit-right {
-            position: absolute;
-            transform: translateX(120%);
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-        .content-slide.slide-enter-left {
-            position: absolute;
-            transform: translateX(-120%);
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-        /* Ensure transitioning slides stay absolute */
-        .content-slide.slide-animating-in {
-            position: absolute;
-            z-index: 3;
-            pointer-events: auto;
+        .section-light .card:hover {
+            border-color: rgba(139, 92, 246, 0.35);
+            box-shadow: var(--shadow-elevated-light);
         }
 
-        /* Portrait canvas container */
+        /* ========== SECTION DIVIDERS ========== */
+        .section-divider {
+            position: relative;
+            z-index: 11;
+            height: 60px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .section-divider svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .divider-diagonal-down-dark {
+            background: #060b14;
+        }
+        .divider-diagonal-down-dark svg polygon {
+            fill: #f7f7f9;
+        }
+        .divider-diagonal-down-light {
+            background: #f7f7f9;
+        }
+        .divider-diagonal-down-light svg polygon {
+            fill: #060b14;
+        }
+        .divider-wave-dark {
+            background: #060b14;
+        }
+        .divider-wave-dark svg path {
+            fill: #f7f7f9;
+        }
+        .divider-wave-light {
+            background: #f7f7f9;
+        }
+        .divider-wave-light svg path {
+            fill: #060b14;
+        }
+        .divider-curve-dark {
+            background: #060b14;
+        }
+        .divider-curve-dark svg path {
+            fill: #f7f7f9;
+        }
+        .divider-curve-light {
+            background: #f7f7f9;
+        }
+        .divider-curve-light svg path {
+            fill: #060b14;
+        }
+
+        /* ========== UNIQUE SECTION BACKGROUNDS ========== */
+        /* Hero - dark with orbs + grid + canvas */
+        #hero {
+            background: #060b14;
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+        }
+        #hero .hero-grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        #hero .hero-orbs {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        #hero .hero-orbs .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.3;
+        }
+        #hero .hero-orbs .orb-a {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent);
+            top: -150px;
+            left: -100px;
+        }
+        #hero .hero-orbs .orb-b {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15), transparent);
+            bottom: -100px;
+            right: -80px;
+        }
+
+        /* About - light with subtle dot grid */
+        #about {
+            background: #f7f7f9;
+            position: relative;
+        }
+        #about::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+            background-image: radial-gradient(circle, #d4d4d8 1px, transparent 1px);
+            background-size: 36px 36px;
+        }
+
+        /* Experience - dark with subtle angled lines */
+        #experience {
+            background: #080c16;
+            position: relative;
+        }
+        #experience::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.04;
+            background-image: repeating-linear-gradient(35deg,
+                    transparent,
+                    transparent 30px,
+                    rgba(255, 255, 255, 0.6) 30px,
+                    rgba(255, 255, 255, 0.6) 31px);
+        }
+
+        /* Projects - light with larger subtle circles */
+        #projects {
+            background: #f2f2f5;
+            position: relative;
+        }
+        #projects::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+            background-image: radial-gradient(circle at 20% 30%, #e0e0e5 0px, transparent 180px),
+                radial-gradient(circle at 75% 60%, #e8e8ed 0px, transparent 200px),
+                radial-gradient(circle at 50% 85%, #dcdce2 0px, transparent 150px);
+        }
+
+        /* Achievements - dark with gold glow */
+        #achievements {
+            background: #0a0d18;
+            position: relative;
+        }
+        #achievements::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.06;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.5), transparent);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+        #achievements::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.025;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0.5px, transparent 0.5px);
+            background-size: 28px 28px;
+        }
+
+        /* Skills - light with subtle border frame feel */
+        #skills {
+            background: #fafafa;
+            position: relative;
+        }
+        #skills::before {
+            content: '';
+            position: absolute;
+            inset: 30px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+            border: 2px dashed #e0e0e5;
+            border-radius: 40px;
+        }
+
+        /* Contact - dark with gradient mesh */
+        #contact {
+            background: #050a12;
+            position: relative;
+        }
+        #contact::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.04) 0%, transparent 60%);
+        }
+
+        /* ========== SECTION HEADERS ========== */
+        .section-header {
+            margin-bottom: 44px;
+            text-align: center;
+        }
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4.5vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        .section-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #8b5cf6, #10b981);
+            border-radius: 4px;
+            margin: 12px auto 0;
+        }
+
+        /* ========== CARDS ========== */
+        .card {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            transition: var(--transition-smooth);
+        }
+        .card:hover {
+            transform: translateY(-3px);
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .card-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        /* ========== HERO ========== */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-text {
+            flex: 1 1 400px;
+        }
         .hero-reveal {
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 4 / 5;
             width: 100%;
             max-width: 500px;
             border-radius: 32px;
@@ -388,7 +596,6 @@
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover;
         }
         #lightraysCanvas {
             z-index: 0;
@@ -397,82 +604,6 @@
             z-index: 1;
             background: transparent;
         }
-
-        /* Full-width sections */
-        .full-width-section {
-            display: none;
-            animation: fadeSlideIn 0.5s ease forwards;
-        }
-        .full-width-section.section-visible {
-            display: block;
-        }
-        @keyframes fadeSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Section headers */
-        .section-header {
-            margin-bottom: 44px;
-        }
-        .section-label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--accent-primary);
-            margin-bottom: 8px;
-            display: inline-block;
-        }
-        .section-title {
-            font-size: clamp(2rem, 4.5vw, 2.8rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: #fff;
-            line-height: 1.2;
-        }
-        .section-line {
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            border-radius: 4px;
-            margin-top: 12px;
-        }
-
-        /* Cards */
-        .card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 36px;
-            transition: var(--transition-smooth);
-            box-shadow: var(--shadow-card);
-        }
-        .card:hover {
-            border-color: var(--border-accent);
-            box-shadow: var(--shadow-elevated);
-            transform: translateY(-3px);
-        }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-        .card-grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        /* Hero text */
         .hero-greeting {
             display: inline-flex;
             align-items: center;
@@ -501,7 +632,7 @@
         }
         .hero-subtitle {
             font-size: 1.25rem;
-            color: var(--text-secondary);
+            color: #9aa4b8;
             margin-bottom: 28px;
             max-width: 500px;
         }
@@ -522,10 +653,9 @@
             cursor: pointer;
             transition: var(--transition-smooth);
             border: none;
-            font-family: var(--font-sans);
         }
         .btn-primary {
-            background: var(--accent-primary);
+            background: #8b5cf6;
             color: #fff;
             box-shadow: 0 6px 22px rgba(139, 92, 246, 0.35);
         }
@@ -535,12 +665,22 @@
         }
         .btn-outline {
             background: transparent;
-            color: var(--text-primary);
+            color: #e8ecf2;
             border: 1.5px solid rgba(255, 255, 255, 0.22);
         }
         .btn-outline:hover {
-            border-color: var(--accent-primary);
+            border-color: #8b5cf6;
             background: rgba(139, 92, 246, 0.08);
+            transform: translateY(-2px);
+        }
+        .btn-outline-light {
+            background: transparent;
+            color: #1a1a2e;
+            border: 1.5px solid rgba(0, 0, 0, 0.2);
+        }
+        .btn-outline-light:hover {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.06);
             transform: translateY(-2px);
         }
         .hero-badges {
@@ -551,75 +691,95 @@
         }
         .badge {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-subtle);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 50px;
             padding: 7px 16px;
             font-size: 0.85rem;
-            color: var(--text-secondary);
+            color: #9aa4b8;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        /* About */
+        /* ========== ABOUT ========== */
         .about-layout {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
         }
         .about-main {
-            flex: 2 1 400px;
+            flex: 2 1 500px;
         }
         .about-sidebar {
-            flex: 1 1 220px;
+            flex: 1 1 260px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
         .info-row {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border-subtle);
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        .section-light .info-row {
+            border-bottom-color: rgba(0, 0, 0, 0.06);
+        }
+        .section-dark .info-row {
+            border-bottom-color: rgba(255, 255, 255, 0.06);
         }
         .info-row:last-child {
             border-bottom: none;
         }
         .info-icon {
-            width: 34px;
-            height: 34px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             background: rgba(139, 92, 246, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-primary);
+            color: #8b5cf6;
             flex-shrink: 0;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
         }
         .info-label {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: var(--text-muted);
-            margin-bottom: 1px;
+            margin-bottom: 2px;
+        }
+        .section-light .info-label {
+            color: #7a7a8e;
+        }
+        .section-dark .info-label {
+            color: #5f6b7c;
         }
         .info-value {
             font-weight: 500;
-            color: var(--text-primary);
-            font-size: 0.9rem;
+        }
+        .section-light .info-value {
+            color: #1a1a2e;
+        }
+        .section-dark .info-value {
+            color: #e8ecf2;
         }
         .objective-text {
-            font-size: 1rem;
-            color: var(--text-secondary);
+            font-size: 1.05rem;
             line-height: 1.8;
-            border-left: 3px solid var(--accent-primary);
-            padding-left: 18px;
+            border-left: 3px solid #8b5cf6;
+            padding-left: 20px;
             font-style: italic;
         }
+        .section-light .objective-text {
+            color: #4a4a5e;
+        }
+        .section-dark .objective-text {
+            color: #9aa4b8;
+        }
 
-        /* Timeline */
+        /* ========== TIMELINE ========== */
         .timeline {
             position: relative;
             padding-left: 30px;
@@ -631,7 +791,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary), transparent);
+            background: linear-gradient(180deg, #8b5cf6, #10b981, transparent);
             border-radius: 2px;
         }
         .timeline-item {
@@ -647,48 +807,66 @@
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            background: var(--accent-primary);
-            border: 3px solid var(--bg-deep);
+            background: #8b5cf6;
+            border: 3px solid #060b14;
             box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
+        }
+        .section-light .timeline-item::before {
+            border-color: #f7f7f9;
         }
         .timeline-date {
             font-size: 0.82rem;
             font-weight: 600;
-            color: var(--accent-secondary);
+            color: #10b981;
             letter-spacing: 0.04em;
             margin-bottom: 6px;
         }
         .timeline-title {
             font-size: 1.2rem;
             font-weight: 700;
-            color: #fff;
             margin-bottom: 4px;
+        }
+        .section-dark .timeline-title {
+            color: #fff;
+        }
+        .section-light .timeline-title {
+            color: #1a1a2e;
         }
         .timeline-org {
             font-size: 0.95rem;
-            color: var(--text-secondary);
             margin-bottom: 8px;
         }
+        .section-dark .timeline-org {
+            color: #9aa4b8;
+        }
+        .section-light .timeline-org {
+            color: #4a4a5e;
+        }
         .timeline-details {
-            color: var(--text-muted);
             font-size: 0.9rem;
             line-height: 1.7;
+        }
+        .section-dark .timeline-details {
+            color: #5f6b7c;
+        }
+        .section-light .timeline-details {
+            color: #7a7a8e;
         }
         .timeline-details li {
             margin-bottom: 4px;
             list-style: disc inside;
         }
 
-        /* Projects */
+        /* ========== PROJECTS ========== */
         .project-embed {
             border-radius: var(--radius-lg);
             overflow: hidden;
             background: #060b14;
-            border: 1px solid var(--border-subtle);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             width: 100%;
             height: 480px;
             position: relative;
-            box-shadow: var(--shadow-card);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
         .project-embed iframe {
             width: 100%;
@@ -702,22 +880,34 @@
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 4px;
+        }
+        .section-dark .project-meta h3 {
             color: #fff;
         }
+        .section-light .project-meta h3 {
+            color: #1a1a2e;
+        }
         .project-meta p {
-            color: var(--text-secondary);
             font-size: 0.9rem;
         }
-        a.project-card-link {
+        .section-dark .project-meta p {
+            color: #9aa4b8;
+        }
+        .section-light .project-meta p {
+            color: #4a4a5e;
+        }
+        .project-card-link {
             text-decoration: none;
             color: inherit;
             display: block;
-            cursor: pointer;
         }
-        a.project-card-link:hover .card {
-            border-color: var(--border-accent);
-            box-shadow: var(--shadow-elevated);
+        .project-card-link:hover .card {
+            border-color: rgba(139, 92, 246, 0.35);
+            box-shadow: var(--shadow-elevated-dark);
             transform: translateY(-5px);
+        }
+        .section-light .project-card-link:hover .card {
+            box-shadow: var(--shadow-elevated-light);
         }
         .card-view-details {
             display: flex;
@@ -725,16 +915,16 @@
             gap: 6px;
             font-size: 0.85rem;
             font-weight: 600;
-            color: var(--accent-primary);
+            color: #8b5cf6;
             margin-top: 14px;
             opacity: 0;
             transition: opacity 0.3s;
         }
-        a.project-card-link:hover .card-view-details {
+        .project-card-link:hover .card-view-details {
             opacity: 1;
         }
 
-        /* Achievements */
+        /* ========== ACHIEVEMENTS ========== */
         .achievement-card {
             text-align: center;
             padding: 34px 22px;
@@ -748,29 +938,44 @@
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 6px;
+        }
+        .section-dark .achievement-card h3 {
             color: #fff;
+        }
+        .section-light .achievement-card h3 {
+            color: #1a1a2e;
         }
         .achievement-card .event-name {
             font-size: 0.9rem;
-            color: var(--accent-primary);
+            color: #8b5cf6;
             font-weight: 500;
             margin-bottom: 4px;
         }
         .achievement-card .event-date {
             font-size: 0.8rem;
-            color: var(--text-muted);
             margin-bottom: 8px;
+        }
+        .section-dark .achievement-card .event-date {
+            color: #5f6b7c;
+        }
+        .section-light .achievement-card .event-date {
+            color: #7a7a8e;
         }
         .achievement-card .event-venue {
             font-size: 0.82rem;
-            color: var(--text-secondary);
+        }
+        .section-dark .achievement-card .event-venue {
+            color: #9aa4b8;
+        }
+        .section-light .achievement-card .event-venue {
+            color: #4a4a5e;
         }
         .award-link {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             margin-top: 14px;
-            color: var(--accent-gold);
+            color: #f59e0b;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
@@ -781,7 +986,7 @@
         }
         .award-link:hover {
             background: rgba(245, 158, 11, 0.1);
-            border-color: var(--accent-gold);
+            border-color: #f59e0b;
             color: #fbbf24;
         }
         .medal-badge {
@@ -793,21 +998,32 @@
             padding: 4px 12px;
             border-radius: 20px;
             letter-spacing: 0.05em;
-            margin-bottom: 8px;
+        }
+        .highlight-box {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin: 20px 0;
         }
 
-        /* Skills */
+        /* ========== SKILLS ========== */
         .skills-section {
             margin-bottom: 32px;
         }
         .skills-section h3 {
             font-size: 1.15rem;
             font-weight: 700;
-            color: #fff;
             margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        .section-dark .skills-section h3 {
+            color: #fff;
+        }
+        .section-light .skills-section h3 {
+            color: #1a1a2e;
         }
         .skill-tags {
             display: flex;
@@ -820,19 +1036,24 @@
             border-radius: 50px;
             padding: 9px 18px;
             font-size: 0.9rem;
-            color: var(--text-primary);
             transition: var(--transition-fast);
             cursor: default;
             font-weight: 500;
         }
+        .section-dark .skill-tag {
+            color: #e8ecf2;
+        }
+        .section-light .skill-tag {
+            color: #1a1a2e;
+        }
         .skill-tag:hover {
             background: rgba(139, 92, 246, 0.18);
-            border-color: var(--accent-primary);
+            border-color: #8b5cf6;
             color: #fff;
             transform: translateY(-2px);
         }
 
-        /* Contact */
+        /* ========== CONTACT ========== */
         .contact-layout {
             display: flex;
             flex-wrap: wrap;
@@ -849,13 +1070,23 @@
             align-items: center;
             gap: 12px;
             padding: 13px 0;
-            color: var(--text-secondary);
             text-decoration: none;
             transition: var(--transition-fast);
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .section-dark .contact-link {
+            color: #9aa4b8;
+            border-bottom-color: rgba(255, 255, 255, 0.06);
+        }
+        .section-light .contact-link {
+            color: #4a4a5e;
+            border-bottom-color: rgba(0, 0, 0, 0.06);
         }
         .contact-link:hover {
             color: #fff;
+        }
+        .section-light .contact-link:hover {
+            color: #1a1a2e;
         }
         .contact-link i {
             width: 36px;
@@ -865,7 +1096,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-primary);
+            color: #8b5cf6;
             font-size: 0.95rem;
         }
         .social-row {
@@ -879,19 +1110,24 @@
             height: 44px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-subtle);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-secondary);
+            color: #9aa4b8;
             text-decoration: none;
             transition: var(--transition-fast);
             font-size: 1.1rem;
         }
+        .section-light .social-btn {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.08);
+            color: #4a4a5e;
+        }
         .social-btn:hover {
-            background: var(--accent-primary);
+            background: #8b5cf6;
             color: #fff;
-            border-color: var(--accent-primary);
+            border-color: #8b5cf6;
             transform: translateY(-3px);
         }
         .form-group {
@@ -900,17 +1136,22 @@
         .form-input {
             width: 100%;
             background: rgba(255, 255, 255, 0.03);
-            border: 1.5px solid var(--border-subtle);
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
             border-radius: 50px;
             padding: 14px 20px;
-            color: var(--text-primary);
+            color: #e8ecf2;
             font-family: var(--font-sans);
             font-size: 0.95rem;
             transition: var(--transition-fast);
             outline: none;
         }
+        .section-light .form-input {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.1);
+            color: #1a1a2e;
+        }
         .form-input:focus {
-            border-color: var(--accent-primary);
+            border-color: #8b5cf6;
             background: rgba(139, 92, 246, 0.04);
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.08);
         }
@@ -920,200 +1161,59 @@
             min-height: 120px;
         }
 
-        /* Footer */
+        /* ========== FOOTER ========== */
         .site-footer {
             text-align: center;
             padding: 40px 24px;
-            color: var(--text-muted);
             font-size: 0.85rem;
-            border-top: 1px solid var(--border-subtle);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
             max-width: 1100px;
             margin: 0 auto;
             position: relative;
             z-index: 10;
+            background: #050a12;
+            color: #5f6b7c;
         }
         .site-footer .footer-name {
-            color: var(--text-primary);
+            color: #e8ecf2;
             font-weight: 600;
         }
 
-        /* ========== MODAL ========== */
-        .modal-overlay {
+        /* ========== SCROLL TO TOP ========== */
+        .scroll-top-btn {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.35s ease;
-            padding: 20px;
-        }
-        .modal-overlay.modal-open {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .modal-content {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-accent);
-            border-radius: var(--radius-xl);
-            max-width: 900px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 40px;
-            position: relative;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-            animation: modalIn 0.4s ease;
-        }
-        @keyframes modalIn {
-            from {
-                transform: translateY(40px) scale(0.95);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-        }
-        .modal-close {
-            position: sticky;
-            top: 0;
-            float: right;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--border-subtle);
-            color: #fff;
-            width: 40px;
-            height: 40px;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
+            background: #8b5cf6;
+            color: #fff;
+            border: none;
             cursor: pointer;
             font-size: 1.2rem;
+            box-shadow: 0 8px 28px rgba(139, 92, 246, 0.4);
+            transition: var(--transition-smooth);
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
-            transition: var(--transition-fast);
         }
-        .modal-close:hover {
-            background: var(--accent-rose);
-            border-color: var(--accent-rose);
+        .scroll-top-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
-        .modal-content .project-hero h1 {
-            font-size: clamp(1.6rem, 3vw, 2.4rem);
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-        .modal-content .project-tagline {
-            font-size: 1rem;
-            color: var(--accent-primary);
-            margin-bottom: 20px;
-        }
-        .modal-content .project-body {
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-        }
-        .modal-content .project-body h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            margin: 28px 0 12px;
-        }
-        .modal-content .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 16px 0 24px;
-        }
-        .modal-content .tech-stack span {
-            background: rgba(139, 92, 246, 0.12);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 50px;
-            padding: 5px 14px;
-            font-size: 0.8rem;
-            color: var(--text-primary);
-        }
-        .modal-content .dual-embed {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 20px 0;
-        }
-        .modal-content .single-embed,
-        .modal-content .embed-box {
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            background: #060b14;
-            border: 1px solid var(--border-subtle);
-            height: 280px;
-            margin: 16px 0;
-        }
-        .modal-content .embed-box iframe,
-        .modal-content .single-embed iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .modal-content .screenshot-box {
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            background: #060b14;
-            border: 1px solid var(--border-subtle);
-            margin: 16px 0;
-        }
-        .modal-content .screenshot-box img {
-            width: 100%;
-            display: block;
-        }
-        .modal-content .live-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin: 16px 0;
-            background: var(--accent-primary);
-            color: #fff;
-            padding: 10px 22px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .modal-content .live-link:hover {
+        .scroll-top-btn:hover {
             background: #7c3aed;
-        }
-        .modal-content .highlight-box {
-            background: rgba(245, 158, 11, 0.08);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: var(--radius-lg);
-            padding: 18px;
-            margin: 16px 0;
-        }
-        .modal-content .highlight-box .award-text {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
-        .modal-content .back-link-inline {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 20px;
-            color: var(--accent-primary);
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .modal-content .back-link-inline:hover {
-            text-decoration: underline;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(139, 92, 246, 0.55);
         }
 
-        /* Reveal */
+        /* ========== REVEAL ANIMATIONS ========== */
         .reveal {
             opacity: 0;
             transform: translateY(28px);
@@ -1123,8 +1223,62 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .reveal-scale.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .stagger-reveal>* {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .stagger-reveal.revealed>*:nth-child(1) {
+            transition-delay: 0s;
+        }
+        .stagger-reveal.revealed>*:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+        .stagger-reveal.revealed>*:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+        .stagger-reveal.revealed>*:nth-child(4) {
+            transition-delay: 0.3s;
+        }
+        .stagger-reveal.revealed>*:nth-child(5) {
+            transition-delay: 0.4s;
+        }
+        .stagger-reveal.revealed>*:nth-child(6) {
+            transition-delay: 0.5s;
+        }
+        .stagger-reveal.revealed>* {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        /* Responsive */
+        /* ========== RESPONSIVE ========== */
         @media (max-width: 850px) {
             .nav-list {
                 display: none;
@@ -1132,53 +1286,28 @@
             .hamburger-btn {
                 display: flex;
             }
-            .two-col-layout {
-                flex-direction: column-reverse !important;
-                gap: 24px;
+            .hero-section {
+                flex-direction: column-reverse;
+                text-align: center;
                 min-height: auto;
-            }
-            .content-col {
-                min-height: auto;
-                flex: auto;
-                order: 2 !important;
-            }
-            .portrait-col {
-                flex: auto;
-                min-height: auto;
-                max-width: 320px;
-                margin: 0 auto;
-                width: 100%;
-                order: 1 !important;
-                position: relative !important;
-                top: auto !important;
-                transform: none !important;
-            }
-            .portrait-col.portrait-sticky {
-                position: relative !important;
-                top: auto !important;
-                transform: none !important;
-            }
-            .hero-reveal {
-                max-width: 100%;
-                aspect-ratio: 3/4;
-            }
-            .content-slide-wrapper {
-                min-height: auto;
-            }
-            .hero-name {
-                font-size: 2rem;
+                padding: 20px 0 40px;
             }
             .hero-cta {
-                justify-content: flex-start;
+                justify-content: center;
             }
             .hero-badges {
-                justify-content: flex-start;
+                justify-content: center;
+            }
+            .hero-reveal {
+                width: 100%;
+                max-width: 100%;
+                margin-top: 20px;
             }
             .card {
                 padding: 24px;
             }
             .project-embed {
-                height: 260px;
+                height: 320px;
             }
             .about-layout {
                 flex-direction: column;
@@ -1189,12 +1318,12 @@
             .section-title {
                 font-size: 1.8rem;
             }
-            .modal-content .dual-embed {
-                grid-template-columns: 1fr;
+            .page-section {
+                padding: 50px 16px 70px;
             }
-            .modal-content {
-                padding: 24px;
-                max-height: 90vh;
+            #hero {
+                padding-top: 80px;
+                min-height: auto;
             }
         }
         @media (max-width: 480px) {
@@ -1206,7 +1335,7 @@
                 font-size: 1.1rem;
             }
             .hero-name {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .btn {
                 padding: 11px 20px;
@@ -1217,117 +1346,134 @@
                 grid-template-columns: 1fr;
             }
             .project-embed {
-                height: 200px;
+                height: 240px;
             }
-            body {
-                padding-top: 70px;
-            }
-            .portrait-col {
-                max-width: 260px;
-            }
-            .hero-reveal {
-                aspect-ratio: 3/4;
-                border-radius: 24px;
+            .section-divider {
+                height: 35px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="bg-glow">
+
+    <!-- Global Background Glow -->
+    <div class="global-bg">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
-    <div class="grid-overlay"></div>
 
-    <!-- Header -->
+    <!-- ==================== FIXED HEADER ==================== -->
     <header class="site-header">
-        <div class="header-inner" id="headerInner">
-            <a class="logo-link" data-nav="home">
+        <div class="header-inner">
+            <a href="#hero" class="logo-link" onclick="scrollToSection('hero'); return false;">
                 <span class="logo-dot"></span><span class="logo-text">Lorence Ojales</span>
             </a>
             <nav>
                 <ul class="nav-list" id="navList">
-                    <li><a data-nav="home" class="active">Home</a></li>
-                    <li><a data-nav="about">About</a></li>
-                    <li><a data-nav="experience">Experience</a></li>
-                    <li><a data-nav="projects">Projects</a></li>
-                    <li><a data-nav="achievements">Achievements</a></li>
-                    <li><a data-nav="skills">Skills</a></li>
-                    <li><a data-nav="contact">Contact</a></li>
+                    <li><a href="#hero" onclick="scrollToSection('hero'); return false;">Home</a></li>
+                    <li><a href="#about" onclick="scrollToSection('about'); return false;">About</a></li>
+                    <li><a href="#experience" onclick="scrollToSection('experience'); return false;">Experience</a></li>
+                    <li><a href="#projects" onclick="scrollToSection('projects'); return false;">Projects</a></li>
+                    <li><a href="#achievements" onclick="scrollToSection('achievements'); return false;">Achievements</a></li>
+                    <li><a href="#skills" onclick="scrollToSection('skills'); return false;">Skills</a></li>
+                    <li><a href="#contact" onclick="scrollToSection('contact'); return false;">Contact</a></li>
                 </ul>
-                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+                <button class="hamburger-btn" aria-label="Menu" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
             </nav>
         </div>
         <div class="mobile-nav" id="mobileNav">
-            <a data-nav="home">Home</a><a data-nav="about">About</a><a data-nav="experience">Experience</a>
-            <a data-nav="projects">Projects</a><a data-nav="achievements">Achievements</a><a data-nav="skills">Skills</a><a data-nav="contact">Contact</a>
+            <a href="#hero" onclick="scrollToSection('hero'); closeMobileNav(); return false;">Home</a>
+            <a href="#about" onclick="scrollToSection('about'); closeMobileNav(); return false;">About</a>
+            <a href="#experience" onclick="scrollToSection('experience'); closeMobileNav(); return false;">Experience</a>
+            <a href="#projects" onclick="scrollToSection('projects'); closeMobileNav(); return false;">Projects</a>
+            <a href="#achievements" onclick="scrollToSection('achievements'); closeMobileNav(); return false;">Achievements</a>
+            <a href="#skills" onclick="scrollToSection('skills'); closeMobileNav(); return false;">Skills</a>
+            <a href="#contact" onclick="scrollToSection('contact'); closeMobileNav(); return false;">Contact</a>
         </div>
     </header>
 
-    <!-- Main App Container -->
-    <div class="app-container" id="appContainer">
-        <!-- ========== TWO-COLUMN LAYOUT (Home & About) ========== -->
-        <div class="two-col-layout" id="twoColLayout">
-            <!-- Left: sliding content -->
-            <div class="content-col" id="contentCol">
-                <div class="content-slide-wrapper" id="contentSlideWrapper">
-                    <!-- Home Slide -->
-                    <div class="content-slide slide-active" id="slideHome">
-                        <span class="hero-greeting">👋 Hello, I'm</span>
-                        <h1 class="hero-name"><span class="highlight">Lorence B.</span><br>Ojales</h1>
-                        <p class="hero-subtitle">A passionate <strong>Computer Engineer</strong> building at the intersection of hardware, software, and AI — eager to innovate and grow.</p>
-                        <div class="hero-cta">
-                            <button class="btn btn-primary" data-nav="projects"><i class="fas fa-code"></i> View Projects</button>
-                            <button class="btn btn-outline" data-nav="contact"><i class="fas fa-paper-plane"></i> Get in Touch</button>
-                        </div>
-                        <div class="hero-badges">
-                            <span class="badge"><i class="fas fa-map-marker-alt"></i> Lipa City, Batangas</span>
-                            <span class="badge"><i class="fas fa-graduation-cap"></i> 4th Year · BS CpE</span>
-                            <span class="badge"><i class="fas fa-trophy"></i> Hackathon 2nd Place</span>
-                        </div>
+    <!-- ==================== HERO SECTION (DARK) ==================== -->
+    <section class="page-section section-dark" id="hero">
+        <div class="hero-orbs">
+            <div class="orb orb-a"></div>
+            <div class="orb orb-b"></div>
+        </div>
+        <div class="hero-grid"></div>
+        <div class="section-inner">
+            <div class="hero-section reveal">
+                <div class="hero-text">
+                    <span class="hero-greeting">👋 Hello, I'm</span>
+                    <h1 class="hero-name"><span class="highlight">Lorence B.</span><br>Ojales</h1>
+                    <p class="hero-subtitle">A passionate <strong>Computer Engineer</strong> building at the intersection of hardware, software, and AI — eager to innovate and grow.</p>
+                    <div class="hero-cta">
+                        <a href="#projects" class="btn btn-primary" onclick="scrollToSection('projects'); return false;"><i class="fas fa-code"></i> View Projects</a>
+                        <a href="#contact" class="btn btn-outline" onclick="scrollToSection('contact'); return false;"><i class="fas fa-paper-plane"></i> Get in Touch</a>
                     </div>
-                    <!-- About Slide -->
-                    <div class="content-slide slide-enter-right" id="slideAbout">
-                        <span class="section-label">About Me</span>
-                        <h2 class="section-title">Get to know me</h2>
-                        <div class="section-line"></div>
-                        <div class="about-layout" style="margin-top:20px;">
-                            <div class="about-main card">
-                                <h3 style="font-weight:700;margin-bottom:14px;color:#fff;"><i class="fas fa-bullseye" style="color:var(--accent-primary);"></i> Objective</h3>
-                                <p class="objective-text">A computer engineer passionate about hardware and software development. Eager to apply and enhance my skills, learn new technologies, and contribute towards projects fostering innovation and growth.</p>
-                                <p style="margin-top:16px;color:var(--text-secondary);">Currently a 4th-year BS Computer Engineering student at the University of Batangas – Lipa Campus.</p>
-                            </div>
-                            <div class="about-sidebar card">
-                                <h3 style="font-weight:700;margin-bottom:14px;color:#fff;"><i class="fas fa-address-card" style="color:var(--accent-primary);"></i> Details</h3>
-                                <div class="info-row"><div class="info-icon"><i class="fas fa-user"></i></div><div><div class="info-label">Full Name</div><div class="info-value">Lorence B. Ojales</div></div></div>
-                                <div class="info-row"><div class="info-icon"><i class="fas fa-location-dot"></i></div><div><div class="info-label">Address</div><div class="info-value">Brgy. San Isidro, Lipa City, Batangas</div></div></div>
-                                <div class="info-row"><div class="info-icon"><i class="fas fa-phone"></i></div><div><div class="info-label">Contact No.</div><div class="info-value">09682313762</div></div></div>
-                                <div class="info-row"><div class="info-icon"><i class="fas fa-envelope"></i></div><div><div class="info-label">Email</div><div class="info-value">lorence.ojales@gmail.com</div></div></div>
-                                <div class="info-row"><div class="info-icon"><i class="fas fa-building-columns"></i></div><div><div class="info-label">University Email</div><div class="info-value">1620052@ub.edu.ph</div></div></div>
-                            </div>
-                        </div>
+                    <div class="hero-badges">
+                        <span class="badge"><i class="fas fa-map-marker-alt"></i> Lipa City, Batangas</span>
+                        <span class="badge"><i class="fas fa-graduation-cap"></i> 4th Year · BS CpE</span>
+                        <span class="badge"><i class="fas fa-trophy"></i> Hackathon 2nd Place</span>
                     </div>
                 </div>
-            </div>
-            <!-- Right: Portrait -->
-            <div class="portrait-col" id="portraitCol">
                 <div class="hero-reveal" id="canvasContainer">
                     <canvas id="lightraysCanvas"></canvas>
                     <canvas id="webglCanvas"></canvas>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- ========== FULL-WIDTH SECTIONS ========== -->
-        <div class="full-width-section" id="sectionExperience">
+    <!-- Divider: Hero → About (diagonal down) -->
+    <div class="section-divider divider-diagonal-down-dark">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <polygon points="0,60 1440,0 1440,60 0,60" />
+        </svg>
+    </div>
+
+    <!-- ==================== ABOUT SECTION (LIGHT) ==================== -->
+    <section class="page-section section-light" id="about">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="section-label">About Me</span>
+                <h2 class="section-title">Get to know me</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-layout">
+                <div class="about-main card reveal-left">
+                    <h3 style="font-weight:700;margin-bottom:16px;color:#1a1a2e;"><i class="fas fa-bullseye" style="color:#8b5cf6;"></i> Objective</h3>
+                    <p class="objective-text">A computer engineer passionate about hardware and software development. Eager to apply and enhance my skills, learn new technologies, and contribute towards projects fostering innovation and growth.</p>
+                    <p style="margin-top:18px;color:#4a4a5e;">Currently a 4th-year BS Computer Engineering student at the University of Batangas – Lipa Campus.</p>
+                </div>
+                <div class="about-sidebar card reveal-right">
+                    <h3 style="font-weight:700;margin-bottom:16px;color:#1a1a2e;"><i class="fas fa-address-card" style="color:#8b5cf6;"></i> Details</h3>
+                    <div class="info-row"><div class="info-icon"><i class="fas fa-user"></i></div><div><div class="info-label">Full Name</div><div class="info-value">Lorence B. Ojales</div></div></div>
+                    <div class="info-row"><div class="info-icon"><i class="fas fa-location-dot"></i></div><div><div class="info-label">Address</div><div class="info-value">Brgy. San Isidro, Lipa City, Batangas</div></div></div>
+                    <div class="info-row"><div class="info-icon"><i class="fas fa-phone"></i></div><div><div class="info-label">Contact No.</div><div class="info-value">09682313762</div></div></div>
+                    <div class="info-row"><div class="info-icon"><i class="fas fa-envelope"></i></div><div><div class="info-label">Email</div><div class="info-value">lorence.ojales@gmail.com</div></div></div>
+                    <div class="info-row"><div class="info-icon"><i class="fas fa-building-columns"></i></div><div><div class="info-label">University Email</div><div class="info-value">1620052@ub.edu.ph</div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider: About → Experience (wave) -->
+    <div class="section-divider divider-wave-light">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <path d="M0,30 C360,0 720,60 1080,30 C1260,15 1380,0 1440,0 L1440,60 L0,60 Z" />
+        </svg>
+    </div>
+
+    <!-- ==================== EXPERIENCE SECTION (DARK) ==================== -->
+    <section class="page-section section-dark" id="experience">
+        <div class="section-inner">
             <div class="section-header reveal">
                 <span class="section-label">Experience & Education</span>
                 <h2 class="section-title">Where I've worked & studied</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="card reveal" style="margin-bottom:40px;">
-                <h3 style="font-weight:700;margin-bottom:20px;color:#fff;"><i class="fas fa-briefcase" style="color:var(--accent-primary);"></i> Work Experience</h3>
+            <div class="card reveal stagger-reveal" style="margin-bottom:40px;">
+                <h3 style="font-weight:700;margin-bottom:20px;color:#fff;"><i class="fas fa-briefcase" style="color:#8b5cf6;"></i> Work Experience</h3>
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-date">June 18, 2025 – August 5, 2025</div>
@@ -1351,7 +1497,7 @@
                 </div>
             </div>
             <div class="card reveal">
-                <h3 style="font-weight:700;margin-bottom:16px;color:#fff;"><i class="fas fa-graduation-cap" style="color:var(--accent-primary);"></i> Education</h3>
+                <h3 style="font-weight:700;margin-bottom:16px;color:#fff;"><i class="fas fa-graduation-cap" style="color:#8b5cf6;"></i> Education</h3>
                 <div style="padding:10px 0;">
                     <div class="timeline-title">BS Computer Engineering</div>
                     <div class="timeline-org">University of Batangas – Lipa Campus</div>
@@ -1359,53 +1505,100 @@
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="full-width-section" id="sectionProjects">
+    <!-- Divider: Experience → Projects (curve) -->
+    <div class="section-divider divider-curve-dark">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <path d="M0,0 C480,60 960,60 1440,0 L1440,60 L0,60 Z" />
+        </svg>
+    </div>
+
+    <!-- ==================== PROJECTS SECTION (LIGHT) ==================== -->
+    <section class="page-section section-light" id="projects">
+        <div class="section-inner">
             <div class="section-header reveal">
                 <span class="section-label">Projects</span>
                 <h2 class="section-title">Featured work</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="card-grid reveal">
-                <a class="project-card-link" data-modal="modalTugonLipa">
+            <div class="card-grid stagger-reveal reveal">
+
+                <!-- Tugon Lipa -->
+                <a href="project-tugon-lipa.html" class="project-card-link">
                     <div class="card" style="text-align:center;">
-                        <div style="font-size:4rem;margin-bottom:16px;color:var(--accent-gold);">🏙️🤖</div>
-                        <div class="project-meta"><h3>Tugon Lipa · Smart Community Platform</h3><p>AI-powered citizen reporting & response system — 2nd Place, Hack the Future.</p></div>
+                        <div style="font-size:4rem;margin-bottom:16px;color:#f59e0b;">🏙️🤖</div>
+                        <div class="project-meta">
+                            <h3>Tugon Lipa · Smart Community Platform</h3>
+                            <p>AI-powered citizen reporting & response system — 2nd Place, Hack the Future.</p>
+                        </div>
                         <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
-                <a class="project-card-link" data-modal="modalEcoFlow">
+
+                <!-- Eco Flow -->
+                <a href="project-eco-flow.html" class="project-card-link">
                     <div class="card">
-                        <div class="project-embed" style="height:220px;"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
-                        <div class="project-embed" style="height:220px;margin-top:10px;"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div>
-                        <div class="project-meta"><h3>Eco Flow · Smart Greenhouse</h3><p>AI‑powered IoT system with automated irrigation, analytics, and real‑time monitoring. Undergraduate thesis.</p></div>
+                        <div class="project-embed" style="height:260px;">
+                            <iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                        <div class="project-embed" style="height:260px;margin-top:12px;">
+                            <iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                        <div class="project-meta">
+                            <h3>Eco Flow · Smart Greenhouse</h3>
+                            <p>AI‑powered IoT system with automated irrigation, analytics, and real‑time monitoring. Undergraduate thesis.</p>
+                        </div>
                         <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
-                <a class="project-card-link" data-modal="modalMazebot">
+
+                <!-- MazeBot -->
+                <a href="project-mazebot.html" class="project-card-link">
                     <div class="card">
-                        <div class="project-embed" style="height:300px;"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
-                        <div class="project-meta"><h3>MazeBot</h3><p>Autonomous wall‑following robot using IR sensors and reactive control on an ESP32.</p></div>
+                        <div class="project-embed" style="height:360px;">
+                            <iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                        <div class="project-meta">
+                            <h3>MazeBot</h3>
+                            <p>Autonomous wall‑following robot using IR sensors and reactive control on an ESP32.</p>
+                        </div>
                         <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
-                <a class="project-card-link" data-modal="modalNycCrash">
+
+                <!-- NYC Crash Analytics -->
+                <a href="project-nyc-crash.html" class="project-card-link">
                     <div class="card" style="text-align:center;">
-                        <div style="font-size:4rem;margin-bottom:16px;color:var(--accent-primary);">🚗💥</div>
-                        <div class="project-meta"><h3>NYC Crash Analytics</h3><p>Interactive dashboard with Leaflet, heatmaps, Chart.js, and PHP/MySQL backend.</p></div>
+                        <div style="font-size:4rem;margin-bottom:16px;color:#8b5cf6;">🚗💥</div>
+                        <div class="project-meta">
+                            <h3>NYC Crash Analytics</h3>
+                            <p>Interactive dashboard with Leaflet, heatmaps, Chart.js, and PHP/MySQL backend.</p>
+                        </div>
                         <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
                     </div>
                 </a>
+
             </div>
         </div>
+    </section>
 
-        <div class="full-width-section" id="sectionAchievements">
+    <!-- Divider: Projects → Achievements (diagonal down) -->
+    <div class="section-divider divider-diagonal-down-light">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <polygon points="0,0 1440,60 1440,0" />
+        </svg>
+    </div>
+
+    <!-- ==================== ACHIEVEMENTS SECTION (DARK) ==================== -->
+    <section class="page-section section-dark" id="achievements">
+        <div class="section-inner">
             <div class="section-header reveal">
                 <span class="section-label">Achievements</span>
                 <h2 class="section-title">Awards & Competitions</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="card-grid-3 reveal">
+            <div class="card-grid-3 stagger-reveal reveal">
                 <div class="card achievement-card">
                     <span class="achievement-icon">🥈</span>
                     <span class="medal-badge">2nd Place</span>
@@ -1413,7 +1606,9 @@
                     <p class="event-name">Hack the Future: Smart Batangas Province Hackathon Challenge</p>
                     <p class="event-venue">University of Batangas, Batangas City</p>
                     <p class="event-date">November 21–22, 2025</p>
-                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link"><i class="fas fa-newspaper"></i> Read Article</a>
+                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link">
+                        <i class="fas fa-newspaper"></i> Read Article
+                    </a>
                 </div>
                 <div class="card achievement-card">
                     <span class="achievement-icon">🔌</span>
@@ -1433,40 +1628,76 @@
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="full-width-section" id="sectionSkills">
+    <!-- Divider: Achievements → Skills (wave) -->
+    <div class="section-divider divider-wave-dark">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,60 1440,60 L1440,0 L0,0 Z" />
+        </svg>
+    </div>
+
+    <!-- ==================== SKILLS SECTION (LIGHT) ==================== -->
+    <section class="page-section section-light" id="skills">
+        <div class="section-inner">
             <div class="section-header reveal">
                 <span class="section-label">Skills</span>
                 <h2 class="section-title">Technical expertise</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="card reveal skills-section">
-                <h3><i class="fas fa-code" style="color:var(--accent-primary);"></i> Programming & Web</h3>
-                <div class="skill-tags"><span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">PHP</span><span class="skill-tag">JavaScript</span></div>
-            </div>
-            <div class="card reveal skills-section">
-                <h3><i class="fas fa-cube" style="color:var(--accent-primary);"></i> 3D Modeling & PCB Design</h3>
-                <div class="skill-tags"><span class="skill-tag">Fusion 360</span><span class="skill-tag">Eagle CAD</span><span class="skill-tag">PCB Design</span><span class="skill-tag">Circuit Schematics</span></div>
-            </div>
-            <div class="card reveal skills-section">
-                <h3><i class="fas fa-tools" style="color:var(--accent-primary);"></i> IT & Infrastructure</h3>
-                <div class="skill-tags"><span class="skill-tag">IT Support</span><span class="skill-tag">Server Monitoring</span><span class="skill-tag">Network Troubleshooting</span><span class="skill-tag">System Backups</span><span class="skill-tag">Technical Documentation</span></div>
-            </div>
-            <div class="card reveal skills-section">
-                <h3><i class="fas fa-lightbulb" style="color:var(--accent-primary);"></i> Soft Skills</h3>
-                <div class="skill-tags"><span class="skill-tag">Analytical Thinking</span><span class="skill-tag">Troubleshooting</span><span class="skill-tag">Team Collaboration</span><span class="skill-tag">Clear Communication</span><span class="skill-tag">Quick Adaptability</span><span class="skill-tag">Problem Solving</span></div>
+            <div class="stagger-reveal reveal">
+                <div class="card skills-section">
+                    <h3><i class="fas fa-code" style="color:#8b5cf6;"></i> Programming & Web</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span>
+                        <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">PHP</span><span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="card skills-section">
+                    <h3><i class="fas fa-cube" style="color:#8b5cf6;"></i> 3D Modeling & PCB Design</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Fusion 360</span><span class="skill-tag">Eagle CAD</span>
+                        <span class="skill-tag">PCB Design</span><span class="skill-tag">Circuit Schematics</span>
+                    </div>
+                </div>
+                <div class="card skills-section">
+                    <h3><i class="fas fa-tools" style="color:#8b5cf6;"></i> IT & Infrastructure</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">IT Support</span><span class="skill-tag">Server Monitoring</span>
+                        <span class="skill-tag">Network Troubleshooting</span><span class="skill-tag">System Backups</span>
+                        <span class="skill-tag">Technical Documentation</span>
+                    </div>
+                </div>
+                <div class="card skills-section">
+                    <h3><i class="fas fa-lightbulb" style="color:#8b5cf6;"></i> Soft Skills</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Analytical Thinking</span><span class="skill-tag">Troubleshooting</span>
+                        <span class="skill-tag">Team Collaboration</span><span class="skill-tag">Clear Communication</span>
+                        <span class="skill-tag">Quick Adaptability</span><span class="skill-tag">Problem Solving</span>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="full-width-section" id="sectionContact">
+    <!-- Divider: Skills → Contact (curve) -->
+    <div class="section-divider divider-curve-light">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <path d="M0,60 C480,0 960,0 1440,60 L1440,0 L0,0 Z" />
+        </svg>
+    </div>
+
+    <!-- ==================== CONTACT SECTION (DARK) ==================== -->
+    <section class="page-section section-dark" id="contact">
+        <div class="section-inner">
             <div class="section-header reveal">
                 <span class="section-label">Contact</span>
                 <h2 class="section-title">Let's connect</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="contact-layout reveal">
-                <div class="contact-info-card card">
-                    <h3 style="font-weight:700;margin-bottom:18px;color:#fff;"><i class="fas fa-address-book" style="color:var(--accent-primary);"></i> Reach me</h3>
+            <div class="contact-layout">
+                <div class="contact-info-card card reveal-left">
+                    <h3 style="font-weight:700;margin-bottom:18px;color:#fff;"><i class="fas fa-address-book" style="color:#8b5cf6;"></i> Reach me</h3>
                     <a href="mailto:lorence.ojales@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> lorence.ojales@gmail.com</a>
                     <a href="mailto:1620052@ub.edu.ph" class="contact-link"><i class="fas fa-building-columns"></i> 1620052@ub.edu.ph</a>
                     <a href="tel:09682313762" class="contact-link"><i class="fas fa-phone"></i> 09682313762</a>
@@ -1477,8 +1708,8 @@
                         <a href="https://www.linkedin.com/in/lorenceojales/" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-                <div class="contact-form-card card">
-                    <h3 style="font-weight:700;margin-bottom:18px;color:#fff;"><i class="fas fa-paper-plane" style="color:var(--accent-primary);"></i> Send a message</h3>
+                <div class="contact-form-card card reveal-right">
+                    <h3 style="font-weight:700;margin-bottom:18px;color:#fff;"><i class="fas fa-paper-plane" style="color:#8b5cf6;"></i> Send a message</h3>
                     <form action="#" method="POST">
                         <div class="form-group"><input type="text" class="form-input" placeholder="Your name" required></div>
                         <div class="form-group"><input type="email" class="form-input" placeholder="Your email" required></div>
@@ -1488,950 +1719,401 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ========== MODALS ========== -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content" id="modalContent"></div>
-    </div>
-
-    <!-- Footer -->
+    <!-- ==================== FOOTER ==================== -->
     <footer class="site-footer">
         <p>&copy; <span id="currentYear">2025</span> <span class="footer-name">Lorence B. Ojales</span> — Computer Engineer. Built with precision.</p>
     </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
 
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
     </script>
 
     <script>
-        (function() {
-            // ========== NAVIGATION STATE ==========
-            let currentSection = 'home';
-            let isTransitioning = false;
-            const twoColSections = ['home', 'about'];
+        // ==================== SMOOTH SCROLL ====================
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
 
-            // ========== DOM REFS ==========
-            const twoColLayout = document.getElementById('twoColLayout');
-            const contentCol = document.getElementById('contentCol');
-            const portraitCol = document.getElementById('portraitCol');
-            const slideHome = document.getElementById('slideHome');
-            const slideAbout = document.getElementById('slideAbout');
-            const contentSlideWrapper = document.getElementById('contentSlideWrapper');
-            const fullWidthSections = {
-                experience: document.getElementById('sectionExperience'),
-                projects: document.getElementById('sectionProjects'),
-                achievements: document.getElementById('sectionAchievements'),
-                skills: document.getElementById('sectionSkills'),
-                contact: document.getElementById('sectionContact'),
-            };
-            const modalOverlay = document.getElementById('modalOverlay');
-            const modalContent = document.getElementById('modalContent');
+        function closeMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            if (mobileNav && hamburgerBtn) {
+                mobileNav.classList.remove('open');
+                hamburgerBtn.querySelector('i').className = 'fas fa-bars';
+            }
+        }
+
+        // ==================== DOM READY ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sticky header scroll effect
+            const headerInner = document.querySelector('.header-inner');
+            if (headerInner) {
+                window.addEventListener('scroll', () => {
+                    headerInner.classList.toggle('scrolled', window.scrollY > 20);
+                });
+            }
+
+            // Mobile menu toggle
             const hamburgerBtn = document.getElementById('hamburgerBtn');
             const mobileNav = document.getElementById('mobileNav');
-            const navList = document.getElementById('navList');
-            const headerInner = document.getElementById('headerInner');
-            const appContainer = document.getElementById('appContainer');
-
-            // ========== HELPER: get pixel distance for portrait to slide ==========
-            function getPortraitSlideDistance() {
-                const contentRect = contentCol.getBoundingClientRect();
-                const gap = parseFloat(getComputedStyle(twoColLayout).gap) || 40;
-                return contentRect.width + gap;
-            }
-
-            // ========== FORCE REFLOW HELPER ==========
-            function forceReflow(el) {
-                void el.offsetWidth;
-            }
-
-            // ========== NAVIGATION FUNCTION ==========
-            function navigateTo(sectionName) {
-                if (isTransitioning || sectionName === currentSection) return;
-                const prevSection = currentSection;
-                currentSection = sectionName;
-                isTransitioning = true;
-
-                // Update active nav links
-                document.querySelectorAll('.nav-list a, .mobile-nav a').forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('data-nav') === sectionName);
+            if (hamburgerBtn && mobileNav) {
+                hamburgerBtn.addEventListener('click', () => {
+                    mobileNav.classList.toggle('open');
+                    const icon = hamburgerBtn.querySelector('i');
+                    icon.className = mobileNav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
                 });
-
-                const prevIsTwoCol = twoColSections.includes(prevSection);
-                const nextIsTwoCol = twoColSections.includes(sectionName);
-
-                // Hide all full-width sections
-                Object.values(fullWidthSections).forEach(s => s.classList.remove('section-visible'));
-
-                if (nextIsTwoCol && prevIsTwoCol) {
-                    // Both are two-col: coordinated slide transition
-                    twoColLayout.style.display = 'flex';
-                    portraitCol.style.display = 'flex';
-
-                    if (sectionName === 'about' && prevSection === 'home') {
-                        // ─── HOME → ABOUT ───
-                        const slideDist = getPortraitSlideDistance();
-
-                        // Prepare portrait for sliding left
-                        portraitCol.style.transition = 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-                        portraitCol.style.transform = 'translateX(-' + slideDist + 'px)';
-
-                        // Home slide: exit left
-                        slideHome.classList.remove('slide-active');
-                        slideHome.classList.add('slide-exit-left');
-                        // Ensure home stays absolute during exit
-                        slideHome.style.position = 'absolute';
-
-                        // About slide: prepare to enter from right
-                        slideAbout.classList.remove('slide-active', 'slide-exit-left', 'slide-exit-right',
-                            'slide-enter-left', 'slide-enter-right');
-                        // Set it up as absolute, off-screen right
-                        slideAbout.style.position = 'absolute';
-                        slideAbout.style.transform = 'translateX(120%)';
-                        slideAbout.style.opacity = '0';
-                        slideAbout.style.zIndex = '1';
-                        slideAbout.style.pointerEvents = 'none';
-                        forceReflow(slideAbout);
-
-                        // Now animate about slide in
-                        slideAbout.style.transition =
-                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-                        slideAbout.style.transform = 'translateX(0)';
-                        slideAbout.style.opacity = '1';
-                        slideAbout.style.zIndex = '3';
-                        slideAbout.style.pointerEvents = 'auto';
-
-                        // Switch layout to about mode
-                        twoColLayout.classList.add('about-active');
-
-                        // After transition completes
-                        setTimeout(() => {
-                            // Swap flex order: portrait left, content right
-                            contentCol.classList.add('content-order-right');
-                            portraitCol.classList.add('portrait-order-left');
-                            portraitCol.classList.add('portrait-sticky');
-                            // Clear inline transform so CSS sticky transform takes over
-                            portraitCol.style.transition = 'none';
-                            portraitCol.style.transform = '';
-                            // Finalize about slide: make it the active slide (position: relative)
-                            slideAbout.style.transition = '';
-                            slideAbout.style.transform = '';
-                            slideAbout.style.opacity = '';
-                            slideAbout.style.position = '';
-                            slideAbout.style.zIndex = '';
-                            slideAbout.style.pointerEvents = '';
-                            slideAbout.classList.add('slide-active');
-                            // Clean up home slide
-                            slideHome.classList.remove('slide-exit-left', 'slide-active');
-                            slideHome.style.position = '';
-                            slideHome.style.transform = '';
-                            slideHome.style.opacity = '';
-                            slideHome.style.zIndex = '';
-                            // Force reflow then lock portrait with no transition
-                            forceReflow(portraitCol);
-                            portraitCol.style.transition = 'none';
-                            isTransitioning = false;
-                            refreshRevealObservers();
-                            resizeAllCanvases();
-                        }, 580);
-
-                    } else if (sectionName === 'home' && prevSection === 'about') {
-                        // ─── ABOUT → HOME ───
-                        // Remove sticky first
-                        portraitCol.classList.remove('portrait-sticky');
-                        portraitCol.classList.remove('portrait-order-left');
-                        contentCol.classList.remove('content-order-right');
-                        twoColLayout.classList.remove('about-active');
-
-                        // Portrait is now back on the right (order 2). Simulate it coming from the left.
-                        const slideDist = getPortraitSlideDistance();
-                        portraitCol.style.transition = 'none';
-                        portraitCol.style.transform = 'translateX(-' + slideDist + 'px)';
-                        forceReflow(portraitCol);
-                        portraitCol.style.transition =
-                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-                        portraitCol.style.transform = 'translateX(0)';
-
-                        // About slide: exit right
-                        slideAbout.classList.remove('slide-active');
-                        slideAbout.style.position = 'absolute';
-                        slideAbout.style.transform = 'translateX(0)';
-                        slideAbout.style.opacity = '1';
-                        slideAbout.style.zIndex = '2';
-                        forceReflow(slideAbout);
-                        slideAbout.style.transition =
-                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-                        slideAbout.style.transform = 'translateX(120%)';
-                        slideAbout.style.opacity = '0';
-                        slideAbout.style.zIndex = '1';
-                        slideAbout.style.pointerEvents = 'none';
-
-                        // Home slide: prepare to enter from left
-                        slideHome.classList.remove('slide-active', 'slide-exit-left', 'slide-exit-right',
-                            'slide-enter-right', 'slide-enter-left');
-                        slideHome.style.position = 'absolute';
-                        slideHome.style.transform = 'translateX(-120%)';
-                        slideHome.style.opacity = '0';
-                        slideHome.style.zIndex = '1';
-                        slideHome.style.pointerEvents = 'none';
-                        forceReflow(slideHome);
-                        slideHome.style.transition =
-                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-                        slideHome.style.transform = 'translateX(0)';
-                        slideHome.style.opacity = '1';
-                        slideHome.style.zIndex = '3';
-                        slideHome.style.pointerEvents = 'auto';
-
-                        // After transition completes
-                        setTimeout(() => {
-                            portraitCol.style.transition = 'none';
-                            portraitCol.style.transform = '';
-                            // Finalize home slide
-                            slideHome.style.transition = '';
-                            slideHome.style.transform = '';
-                            slideHome.style.opacity = '';
-                            slideHome.style.position = '';
-                            slideHome.style.zIndex = '';
-                            slideHome.style.pointerEvents = '';
-                            slideHome.classList.add('slide-active');
-                            // Clean up about slide
-                            slideAbout.classList.remove('slide-active');
-                            slideAbout.style.transition = '';
-                            slideAbout.style.transform = '';
-                            slideAbout.style.opacity = '';
-                            slideAbout.style.position = '';
-                            slideAbout.style.zIndex = '';
-                            slideAbout.style.pointerEvents = '';
-                            slideAbout.classList.add('slide-enter-right');
-                            forceReflow(portraitCol);
-                            portraitCol.style.transition =
-                                'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-                            isTransitioning = false;
-                            refreshRevealObservers();
-                            resizeAllCanvases();
-                        }, 580);
+                document.addEventListener('click', (e) => {
+                    if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+                        mobileNav.classList.remove('open');
+                        hamburgerBtn.querySelector('i').className = 'fas fa-bars';
                     }
+                });
+            }
 
-                } else if (nextIsTwoCol && !prevIsTwoCol) {
-                    // Coming from full-width to two-col
-                    twoColLayout.style.display = 'flex';
-                    portraitCol.style.display = 'flex';
-                    portraitCol.style.transition = 'none';
-                    portraitCol.style.transform = '';
-                    portraitCol.classList.remove('portrait-sticky', 'portrait-order-left');
-                    contentCol.classList.remove('content-order-right');
-                    twoColLayout.classList.remove('about-active');
+            // Scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (scrollTopBtn) {
+                window.addEventListener('scroll', () => {
+                    scrollTopBtn.classList.toggle('visible', window.scrollY > 600);
+                });
+                scrollTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
 
-                    if (sectionName === 'home') {
-                        slideHome.classList.add('slide-active');
-                        slideAbout.classList.remove('slide-active');
-                        slideAbout.classList.add('slide-enter-right');
-                        [slideHome, slideAbout].forEach(s => {
-                            s.style.position = '';
-                            s.style.transform = '';
-                            s.style.opacity = '';
-                            s.style.zIndex = '';
-                            s.style.pointerEvents = '';
-                            s.style.transition = '';
-                        });
+            // Active nav link detection (scrollspy)
+            const sections = document.querySelectorAll('.page-section');
+            const navLinks = document.querySelectorAll('.nav-list a, .mobile-nav a');
+            function updateActiveNav() {
+                let currentId = 'hero';
+                sections.forEach(sec => {
+                    const rect = sec.getBoundingClientRect();
+                    if (rect.top <= 150) {
+                        currentId = sec.id;
+                    }
+                });
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === '#' + currentId) {
+                        link.classList.add('active');
                     } else {
-                        // About
-                        slideAbout.classList.add('slide-active');
-                        slideHome.classList.remove('slide-active');
-                        slideAbout.classList.remove('slide-enter-right');
-                        [slideHome, slideAbout].forEach(s => {
-                            s.style.position = '';
-                            s.style.transform = '';
-                            s.style.opacity = '';
-                            s.style.zIndex = '';
-                            s.style.pointerEvents = '';
-                            s.style.transition = '';
-                        });
-                        contentCol.classList.add('content-order-right');
-                        portraitCol.classList.add('portrait-order-left', 'portrait-sticky');
-                        twoColLayout.classList.add('about-active');
+                        link.classList.remove('active');
                     }
-                    setTimeout(() => {
-                        portraitCol.style.transition =
-                            'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-                        if (sectionName === 'about') {
-                            portraitCol.style.transition = 'none';
-                        }
-                        isTransitioning = false;
-                        refreshRevealObservers();
-                        resizeAllCanvases();
-                    }, 400);
-
-                } else if (!nextIsTwoCol && prevIsTwoCol) {
-                    // Going from two-col to full-width
-                    twoColLayout.style.display = 'none';
-                    portraitCol.style.display = 'none';
-                    portraitCol.classList.remove('portrait-sticky', 'portrait-order-left');
-                    contentCol.classList.remove('content-order-right');
-                    twoColLayout.classList.remove('about-active');
-                    portraitCol.style.transform = '';
-                    portraitCol.style.transition =
-                        'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-                    fullWidthSections[sectionName].classList.add('section-visible');
-                    setTimeout(() => {
-                        isTransitioning = false;
-                        refreshRevealObservers();
-                        resizeAllCanvases();
-                    }, 400);
-
-                } else {
-                    // Both full-width
-                    twoColLayout.style.display = 'none';
-                    portraitCol.style.display = 'none';
-                    portraitCol.classList.remove('portrait-sticky', 'portrait-order-left');
-                    contentCol.classList.remove('content-order-right');
-                    twoColLayout.classList.remove('about-active');
-                    portraitCol.style.transform = '';
-                    fullWidthSections[sectionName].classList.add('section-visible');
-                    setTimeout(() => {
-                        isTransitioning = false;
-                        refreshRevealObservers();
-                        resizeAllCanvases();
-                    }, 400);
-                }
-
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            // ========== EVENT LISTENERS ==========
-            document.querySelectorAll('[data-nav]').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const section = this.getAttribute('data-nav');
-                    if (section) navigateTo(section);
-                    mobileNav.classList.remove('open');
-                    hamburgerBtn.querySelector('i').className = 'fas fa-bars';
                 });
-            });
-
-            // Hamburger
-            hamburgerBtn.addEventListener('click', () => {
-                const isOpen = mobileNav.classList.toggle('open');
-                hamburgerBtn.querySelector('i').className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-            });
-            document.addEventListener('click', (e) => {
-                if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) {
-                    mobileNav.classList.remove('open');
-                    hamburgerBtn.querySelector('i').className = 'fas fa-bars';
-                }
-            });
-
-            // ========== MODAL SYSTEM ==========
-            const modalData = {
-                modalTugonLipa: {
-                    title: 'Tugon Lipa · AI‑Powered Smart Community Platform',
-                    tagline: '2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge',
-                    taglineColor: 'var(--accent-gold)',
-                    body: `
-                        <div class="highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:8px;color:var(--text-secondary);">University of Batangas, Batangas City · November 21–22, 2025</p></div>
-                        <div class="project-body">
-                            <h2>The Problem</h2><p>In Lipa City, citizens struggled with fragmented public service channels. Reporting a broken streetlight or a local concern meant navigating confusing phone trees or relying on social media posts that often went unanswered. LGUs lacked a centralized system to track and resolve citizen reports efficiently.</p>
-                            <h2>The Solution</h2><p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent — all in one unified interface.</p>
-                            <h2>The Technical Approach</h2><p>Reports are automatically categorized by AI and routed to the appropriate LGU through a structured ticketing workflow. An AI agent provides instant support, answering citizen queries and guiding users through the system.</p>
-                            <h2>The Results</h2><p>TugonLipa reduces misinformation, speeds up local government response times, and strengthens citizen trust in public services — a scalable model for smart governance in Batangas Province.</p>
-                            <h2>Tech Stack</h2><div class="tech-stack"><span>AI‑powered ticketing</span><span>Multi‑department admin portals</span><span>Real‑time case tracking</span><span>Automated report categorization</span><span>Citizen‑facing chatbot</span><span>Social feed integration</span></div>
-                            <p style="font-style:italic;color:var(--text-muted);">Recognized 2nd Place. This project was a team effort demonstrating rapid prototyping, AI integration, and civic technology innovation.</p>
-                        </div>`
-                },
-                modalEcoFlow: {
-                    title: 'Eco Flow: AI‑Powered Smart Greenhouse',
-                    tagline: 'Undergraduate Thesis · University of Batangas Lipa Campus (2025‑2026)',
-                    taglineColor: 'var(--accent-primary)',
-                    body: `
-                        <div class="dual-embed"><div class="embed-box"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div><div class="embed-box"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div></div>
-                        <div class="project-body">
-                            <h2>The Problem</h2><p>At the University of Batangas Lipa Campus, the <strong>"Punla Para sa Kalikasan"</strong> greenhouse relied on manual irrigation — inconsistent watering, subjective judgment, and no real‑time data. Plants were overwatered or underwatered, labor demands were high.</p>
-                            <h2>The Solution</h2><p>I co‑developed <strong>Eco Flow</strong>, a fully automated greenhouse system integrating IoT monitoring, data analytics, and AI‑based water scheduling using capacitive soil moisture sensors, DHT22 sensors, a <strong>Raspberry Pi 5</strong>, and <strong>ESP32</strong> microcontrollers.</p>
-                            <h2>The Technical Approach</h2><p>The AI engine combines <strong>Linear Regression</strong> for soil moisture trend prediction and <strong>Q‑Learning</strong> for adaptive irrigation scheduling. A local SQLite database ensures continuous operation even during network outages.</p>
-                            <h2>The Results</h2><p>Eco Flow achieved a <strong>94.74% water utilization efficiency</strong> (vs. 70.83% manual), reduced daily water consumption by 29%, and earned a <strong>95.4% performance rating</strong> under ISO 25010 standards.</p>
-                            <h2>Tech Stack</h2><div class="tech-stack"><span>Raspberry Pi 5</span><span>ESP32</span><span>Python (Flask)</span><span>SQLite</span><span>Scikit-learn</span><span>Arduino IDE</span><span>DHT22</span><span>Capacitive soil moisture</span><span>Solid‑state relays</span><span>Fusion 360</span><span>Eagle CAD</span></div>
-                        </div>`
-                },
-                modalMazebot: {
-                    title: 'MazeBot · Autonomous Wall‑Following Robot',
-                    tagline: 'Embedded Systems Exercise · Reactive Control & Sensor Fusion',
-                    taglineColor: 'var(--accent-primary)',
-                    body: `
-                        <div class="single-embed"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
-                        <div class="project-body">
-                            <h2>The Problem</h2><p>Maze navigation and autonomous obstacle avoidance are fundamental challenges in mobile robotics. A robust, low‑cost solution was needed to demonstrate real‑time decision‑making and sensor‑based navigation.</p>
-                            <h2>The Solution</h2><p>I built <strong>MazeBot</strong>, an autonomous wall‑following robot using three TCRT5000 infrared sensors and a reactive control algorithm on an ESP32 microcontroller.</p>
-                            <h2>The Technical Approach</h2><p>An ESP32 reads three IR sensors at high frequency. A wall‑following algorithm (left‑hand rule) processes inputs to command two GA12‑NC20 DC geared motors via a DRV8833 motor driver with differential steering. Two 18650 lithium‑ion batteries supply power.</p>
-                            <h2>The Results</h2><p>MazeBot reliably follows walls, navigates 90° and 180° turns, and resolves T‑junctions. The entire build cost under ₱1,500, proving low‑cost components can achieve autonomous behaviour.</p>
-                            <h2>Tech Stack</h2><div class="tech-stack"><span>ESP32</span><span>Arduino IDE</span><span>TCRT5000 IR (x3)</span><span>GA12‑NC20 motors</span><span>DRV8833 driver</span><span>18650 Li‑ion</span><span>Fusion 360</span></div>
-                        </div>`
-                },
-                modalNycCrash: {
-                    title: 'NYC Crash Analytics',
-                    tagline: 'Full‑stack interactive dashboard for motor‑vehicle collision data',
-                    taglineColor: 'var(--accent-primary)',
-                    body: `
-                        <div class="screenshot-box"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23111827'/%3E%3Ctext x='400' y='200' font-size='24' fill='%238b5cf6' text-anchor='middle' font-family='Inter,sans-serif'%3ENYC Crash Analytics Dashboard%3C/text%3E%3C/svg%3E" alt="NYC Crash Analytics Dashboard"></div>
-                        <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="live-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
-                        <div class="project-body">
-                            <h2>Overview</h2><p><strong>NYC Crash Analytics</strong> is a full‑stack web dashboard transforming raw NYC Open Data into an interactive visual exploration tool. Built with PHP, MySQL, and vanilla JavaScript.</p>
-                            <h2>Key Features</h2><p>A responsive dark‑theme interface with a live <strong>Leaflet</strong> map, marker clustering, heatmaps, time‑slider, on‑map drawing tools, paginated data table, and <strong>Chart.js</strong> visualizations.</p>
-                            <h2>Under the Hood</h2><p>A custom data importer pulls fresh crash data from the NYC Open Data API with multi‑year import support. Includes secure user authentication, CSV/JSON/PDF exports, and a built‑in guided tour.</p>
-                            <h2>Tech Stack</h2><div class="tech-stack"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>Leaflet</span><span>Chart.js</span><span>Bootstrap</span><span>REST APIs</span><span>CSV/JSON/PDF Export</span></div>
-                        </div>`
-                }
-            };
-
-            function openModal(modalId) {
-                const data = modalData[modalId];
-                if (!data) return;
-                modalContent.innerHTML = `
-                    <button class="modal-close" id="modalCloseBtn"><i class="fas fa-times"></i></button>
-                    <div class="project-hero">
-                        <h1>${data.title}</h1>
-                        <p class="project-tagline" style="color:${data.taglineColor || 'var(--accent-primary)'}">${data.tagline}</p>
-                    </div>
-                    ${data.body}
-                    <a class="back-link-inline" id="modalBackLink"><i class="fas fa-arrow-left"></i> Close</a>
-                `;
-                modalOverlay.classList.add('modal-open');
-                document.body.style.overflow = 'hidden';
-                document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
-                document.getElementById('modalBackLink').addEventListener('click', closeModal);
             }
+            window.addEventListener('scroll', updateActiveNav);
+            updateActiveNav();
 
-            function closeModal() {
-                modalOverlay.classList.remove('modal-open');
-                document.body.style.overflow = '';
-                setTimeout(() => { modalContent.innerHTML = ''; }, 350);
-            }
-            modalOverlay.addEventListener('click', function(e) {
-                if (e.target === modalOverlay) closeModal();
-            });
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modalOverlay.classList.contains('modal-open')) closeModal();
-            });
-
-            document.querySelectorAll('[data-modal]').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const modalId = this.getAttribute('data-modal');
-                    if (modalId) openModal(modalId);
+            // Intersection Observer for reveal animations
+            const revealEls = document.querySelectorAll(
+                '.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
                 });
-            });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            revealEls.forEach(el => observer.observe(el));
 
-            // ========== SCROLL REVEAL ==========
-            let revealObserver;
-
-            function setupRevealObserver() {
-                if (revealObserver) revealObserver.disconnect();
-                revealObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) entry.target.classList.add('revealed');
-                    });
-                }, { threshold: 0.15 });
-                document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-            }
-
-            function refreshRevealObservers() {
-                setTimeout(setupRevealObserver, 100);
-            }
-
-            // ========== STICKY HEADER ==========
-            window.addEventListener('scroll', () => {
-                headerInner.classList.toggle('scrolled', window.scrollY > 20);
-            });
-
-            // ========== FOOTER YEAR ==========
+            // Footer year
             const yearSpan = document.getElementById('currentYear');
             if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+        });
 
-            // ========== INITIAL SETUP ==========
-            function init() {
-                twoColLayout.style.display = 'flex';
-                portraitCol.style.display = 'flex';
-                slideHome.classList.add('slide-active');
-                slideAbout.classList.remove('slide-active');
-                slideAbout.classList.add('slide-enter-right');
-                // Reset all inline styles on slides
-                [slideHome, slideAbout].forEach(s => {
-                    s.style.position = '';
-                    s.style.transform = '';
-                    s.style.opacity = '';
-                    s.style.zIndex = '';
-                    s.style.pointerEvents = '';
-                    s.style.transition = '';
-                });
-                contentCol.classList.remove('content-order-right');
-                portraitCol.classList.remove('portrait-order-left', 'portrait-sticky');
-                twoColLayout.classList.remove('about-active');
-                portraitCol.style.transform = '';
-                portraitCol.style.transition =
-                    'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-                Object.values(fullWidthSections).forEach(s => s.classList.remove('section-visible'));
-                setupRevealObserver();
+        // ==================== LIGHT RAYS BACKGROUND (Hero Canvas) ====================
+        (function() {
+            const container = document.getElementById('canvasContainer');
+            const canvas = document.getElementById('lightraysCanvas');
+            if (!container || !canvas) return;
+            const config = { raysOrigin: 'top-center', raysColor: '#ffffff', raysSpeed: 1, lightSpread: 1,
+                rayLength: 2, pulsating: false, fadeDistance: 1.0, saturation: 1.0, followMouse: true,
+                mouseInfluence: 0.1, noiseAmount: 0.0, distortion: 0.0 };
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            const scene = new THREE.Scene();
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+            camera.position.z = 1;
+            const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [
+                    parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255
+                ] : [1, 1, 1]; };
+            const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left':
+                        return { anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w,
+                                -outside * h
+                            ], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] };
+                    case 'right':
+                        return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case 'bottom-left': return { anchor: [
+                                0, (1 + outside) * h
+                            ], dir: [0, -1] }; case 'bottom-center': return { anchor: [0.5 * w, (1 + outside) * h],
+                            dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h], dir: [0, -1] };
+                    default:
+                        return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
+            const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE
+                        .Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(
+                        ...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config
+                        .lightSpread }, rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ? 1.0 :
+                        0.0 }, fadeDistance: { value: config.fadeDistance }, saturation: { value: config.saturation },
+                mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence },
+                noiseAmount: { value: config.noiseAmount }, distortion: { value: config.distortion } };
+            const vertexShader =
+                `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+            const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
+            const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true,
+                depthWrite: false, depthTest: false });
+            const geometry = new THREE.PlaneGeometry(2, 2);
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            const mouse = { x: 0.5, y: 0.5 },
+                smoothMouse = { x: 0.5, y: 0.5 };
+            window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect();
+                mouse.x = (e.clientX - rect.left) / rect.width;
+                mouse.y = (e.clientY - rect.top) / rect.height; });
+
+            function resizeLR() { const rect = container.getBoundingClientRect();
+                const w = rect.width,
+                    h = rect.height;
+                renderer.setSize(w, h); const dpr = renderer.getPixelRatio();
+                uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config
+                    .raysOrigin, w * dpr, h * dpr);
+                uniforms.rayPos.value.set(anchor[0], anchor[1]);
+                uniforms.rayDir.value.set(dir[0], dir[1]); }
+            window.addEventListener('resize', resizeLR);
+            resizeLR();
+
+            function animateLR(time) { requestAnimationFrame(animateLR);
+                uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const
+                        smoothing = 0.92;
+                    smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
+                    smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
+                    uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); }
+                renderer.render(scene, camera); }
+            requestAnimationFrame(animateLR);
+        })();
+
+        // ==================== FLUID WATER REVEAL + IDLE SCAN + 3D PARALLAX ====================
+        (function() {
+            const container = document.getElementById('canvasContainer');
+            const webglCanvas = document.getElementById('webglCanvas');
+            if (!container || !webglCanvas) return;
+
+            const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false,
+                antialias: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+            camera.position.z = 1;
+
+            let fluidRT_A, fluidRT_B;
+            let simScene, simCamera, simQuad;
+            let fluidRes = new THREE.Vector2(512, 512);
+
+            const mouse = { x: 0.5, y: 0.5, prevX: 0.5, prevY: 0.5, inside: false };
+            let lastMoveTime = performance.now();
+            let idleActive = false;
+
+            const IDLE_DELAY = 2000;
+            const SWEEP_PAUSE = 4000;
+            let scanVirtualX = 0.0;
+            let scanVirtualY = 0.0;
+            let scanDirX = 1;
+            let scanDirY = 1;
+            let scanPauseUntil = 0;
+            let scanComplete = true;
+            const SCAN_SPEED_X = 3.5;
+            const SCAN_SPEED_Y = 0.5;
+
+            const loader = new THREE.TextureLoader();
+            let imagesLoaded = 0,
+                animationStarted = false;
+
+            function initFluid() {
+                simScene = new THREE.Scene();
+                simCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+                simCamera.position.z = 1;
+                const format = THREE.RGBAFormat;
+                const type = THREE.FloatType;
+                fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type,
+                    minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+                fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type,
+                    minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+                const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+                const simFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
+                const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture },
+                        uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0,
+                            0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) },
+                        uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
+                simQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMat);
+                simScene.add(simQuad);
+                renderer.setRenderTarget(fluidRT_A);
+                renderer.clear();
+                renderer.setRenderTarget(fluidRT_B);
+                renderer.clear();
+                renderer.setRenderTarget(null);
             }
 
-            // ========== CANVAS RESIZE HELPER ==========
-            function resizeAllCanvases() {
-                window.dispatchEvent(new Event('resize'));
+            function resizeFluid() {
+                const rect = container.getBoundingClientRect();
+                const aspect = rect.width / rect.height;
+                const h = 512;
+                const w = Math.floor(h * aspect);
+                fluidRes.set(w, h);
+                fluidRT_A.setSize(w, h);
+                fluidRT_B.setSize(w, h);
+                simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h);
             }
 
-            // ========== LIGHT RAYS BACKGROUND ==========
-            (function() {
-                const container = document.getElementById('canvasContainer');
-                const canvas = document.getElementById('lightraysCanvas');
-                if (!container || !canvas) return;
-                const config = { raysOrigin: 'top-center', raysColor: '#ffffff', raysSpeed: 1, lightSpread: 1,
-                    rayLength: 2, pulsating: false, fadeDistance: 1.0, saturation: 1.0, followMouse: true,
-                    mouseInfluence: 0.1, noiseAmount: 0.0, distortion: 0.0 };
-                const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                const scene = new THREE.Scene();
-                const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-                camera.position.z = 1;
-                const hexToRgb = (hex) => { const m =
-                        /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [parseInt(m[1], 16) /
-                        255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255
-                    ] : [1, 1, 1]; };
-                const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) {
-                        case 'top-left':
-                            return { anchor: [0, -outside * h], dir: [0, 1] };
-                        case 'top-right':
-                            return { anchor: [w, -outside * h], dir: [0, 1] };
-                        case 'left':
-                            return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] };
-                        case 'right':
-                            return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] };
-                        case 'bottom-left':
-                            return { anchor: [0, (1 + outside) * h], dir: [0, -1] };
-                        case 'bottom-center':
-                            return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] };
-                        case 'bottom-right':
-                            return { anchor: [w, (1 + outside) * h], dir: [0, -1] };
-                        default:
-                            return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
-                const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE
-                            .Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE
-                            .Vector3(...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed },
-                    lightSpread: { value: config.lightSpread }, rayLength: { value: config.rayLength },
-                    pulsating: { value: config.pulsating ? 1.0 : 0.0 }, fadeDistance: { value: config
-                            .fadeDistance }, saturation: { value: config.saturation }, mousePos: { value: new THREE
-                            .Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence }, noiseAmount: { value: config
-                            .noiseAmount }, distortion: { value: config.distortion } };
-                const vertexShader =
-                    `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-                const fragmentShader = `
-                    precision highp float;
-                    varying vec2 vUv;
-                    uniform float iTime;
-                    uniform vec2 iResolution;
-                    uniform vec2 rayPos;
-                    uniform vec2 rayDir;
-                    uniform vec3 raysColor;
-                    uniform float raysSpeed;
-                    uniform float lightSpread;
-                    uniform float rayLength;
-                    uniform float pulsating;
-                    uniform float fadeDistance;
-                    uniform float saturation;
-                    uniform vec2 mousePos;
-                    uniform float mouseInfluence;
-                    uniform float noiseAmount;
-                    uniform float distortion;
-                    float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); }
-                    float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) {
-                        vec2 sourceToCoord = coord - raySource;
-                        vec2 dirNorm = normalize(sourceToCoord);
-                        float cosAngle = dot(dirNorm, rayRefDirection);
-                        float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2;
-                        float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001));
-                        float distance = length(sourceToCoord);
-                        float maxDistance = iResolution.x * rayLength;
-                        float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0);
-                        float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0);
-                        float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0;
-                        float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0);
-                        return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse;
-                    }
-                    void main() {
-                        vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y);
-                        vec2 finalRayDir = rayDir;
-                        if (mouseInfluence > 0.0) {
-                            vec2 mouseScreenPos = mousePos * iResolution;
-                            vec2 mouseDirection = normalize(mouseScreenPos - rayPos);
-                            finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence));
-                        }
-                        vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed);
-                        vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed);
-                        vec4 color = rays1 * 0.5 + rays2 * 0.4;
-                        if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); }
-                        float brightness = 1.0 - (coord.y / iResolution.y);
-                        color.x *= 0.1 + brightness * 0.8;
-                        color.y *= 0.3 + brightness * 0.6;
-                        color.z *= 0.5 + brightness * 0.5;
-                        if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114)); color.rgb = mix(vec3(gray), color.rgb, saturation); }
-                        color.rgb *= raysColor;
-                        gl_FragColor = color;
-                    }`;
-                const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader,
-                    transparent: true, depthWrite: false, depthTest: false });
-                const geometry = new THREE.PlaneGeometry(2, 2);
-                const mesh = new THREE.Mesh(geometry, material);
-                scene.add(mesh);
-                const mouse = { x: 0.5, y: 0.5 },
-                    smoothMouse = { x: 0.5, y: 0.5 };
-                window.addEventListener('mousemove', (e) => {
-                    const rect = container.getBoundingClientRect();
-                    mouse.x = (e.clientX - rect.left) / rect.width;
-                    mouse.y = (e.clientY - rect.top) / rect.height;
-                });
+            initFluid();
+            window.addEventListener('resize', resizeFluid);
 
-                function resize() {
-                    const rect = container.getBoundingClientRect();
-                    const w = rect.width,
-                        h = rect.height;
-                    if (w <= 0 || h <= 0) return;
-                    renderer.setSize(w, h);
-                    const dpr = renderer.getPixelRatio();
-                    uniforms.iResolution.value.set(w * dpr, h * dpr);
-                    const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr);
-                    uniforms.rayPos.value.set(anchor[0], anchor[1]);
-                    uniforms.rayDir.value.set(dir[0], dir[1]);
-                }
-                window.addEventListener('resize', resize);
-                resize();
+            const mainVert =
+                `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
+            const mainFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
 
-                function animate(time) {
-                    requestAnimationFrame(animate);
-                    uniforms.iTime.value = time * 0.001;
-                    if (config.followMouse && config.mouseInfluence > 0) {
-                        const smoothing = 0.92;
-                        smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
-                        smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
-                        uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y);
-                    }
-                    renderer.render(scene, camera);
-                }
-                requestAnimationFrame(animate);
-            })();
-
-            // ========== FLUID WATER REVEAL + IDLE SCAN + 3D PARALLAX ==========
-            (function() {
-                const container = document.getElementById('canvasContainer');
-                const webglCanvas = document.getElementById('webglCanvas');
-                if (!container || !webglCanvas) return;
-
-                const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true,
-                    premultipliedAlpha: false, antialias: true });
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                const scene = new THREE.Scene();
-                const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-                camera.position.z = 1;
-
-                let fluidRT_A, fluidRT_B;
-                let simScene, simCamera, simQuad;
-                let fluidRes = new THREE.Vector2(512, 512);
-                const mouse = { x: 0.5, y: 0.5, prevX: 0.5, prevY: 0.5, inside: false };
-                let lastMoveTime = performance.now();
-                let idleActive = false;
-                const IDLE_DELAY = 2000;
-                const SWEEP_PAUSE = 4000;
-                let scanVirtualX = 0.0,
-                    scanVirtualY = 0.0,
-                    scanDirX = 1,
-                    scanDirY = 1,
-                    scanPauseUntil = 0,
-                    scanComplete = true;
-                const SCAN_SPEED_X = 3.5,
-                    SCAN_SPEED_Y = 0.5;
-                const loader = new THREE.TextureLoader();
-                let imagesLoaded = 0,
-                    animationStarted = false;
-
-                function initFluid() {
-                    simScene = new THREE.Scene();
-                    simCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-                    simCamera.position.z = 1;
-                    const format = THREE.RGBAFormat;
-                    const type = THREE.FloatType;
-                    fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type,
-                        minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-                    fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type,
-                        minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-                    const simVert =
-                        `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-                    const simFrag = `
-                        precision highp float;
-                        varying vec2 vUv;
-                        uniform sampler2D uPrevFrame;
-                        uniform vec2 uMouse;
-                        uniform vec2 uVelocity;
-                        uniform vec2 uTexelSize;
-                        uniform bool uMouseDown;
-                        void main() {
-                            vec2 uv = vUv;
-                            vec4 prev = texture2D(uPrevFrame, uv);
-                            float inkPrev = prev.r;
-                            vec2 velPrev = (prev.gb - 0.5) * 2.0;
-                            float advecScale = 1.2;
-                            vec2 advectedUV = uv - velPrev * uTexelSize * advecScale;
-                            vec4 advected = texture2D(uPrevFrame, advectedUV);
-                            vec2 velAdvected = (advected.gb - 0.5) * 2.0;
-                            float inkAdvected = advected.r;
-                            vec2 diff = uv - uMouse;
-                            float dist = length(diff);
-                            float inkRadius = 0.04;
-                            float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0);
-                            float velRadius = 0.04;
-                            float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0);
-                            vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight);
-                            float velDecay = 1.0;
-                            vec2 newVel = velAdvected * velDecay + injectedVel * 0.8;
-                            float inkDecay = 0.98;
-                            float inkNew = inkAdvected * inkDecay + inkInject * 0.9;
-                            vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0));
-                            vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0));
-                            vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y));
-                            vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y));
-                            float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2;
-                            inkNew = mix(inkNew, inkDiffuse, 0.02);
-                            gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0);
-                        }`;
-                    const simMat = new THREE.ShaderMaterial({
-                        uniforms: {
-                            uPrevFrame: { value: fluidRT_A.texture },
-                            uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-                            uVelocity: { value: new THREE.Vector2(0, 0) },
-                            uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) },
-                            uMouseDown: { value: false }
-                        },
-                        vertexShader: simVert,
-                        fragmentShader: simFrag
-                    });
-                    simQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMat);
-                    simScene.add(simQuad);
-                    renderer.setRenderTarget(fluidRT_A);
-                    renderer.clear();
-                    renderer.setRenderTarget(fluidRT_B);
-                    renderer.clear();
-                    renderer.setRenderTarget(null);
-                }
-
-                function resizeFluid() {
-                    const rect = container.getBoundingClientRect();
-                    if (rect.width <= 0 || rect.height <= 0) return;
-                    const aspect = rect.width / rect.height;
-                    const h = 512;
-                    const w = Math.floor(h * aspect);
-                    fluidRes.set(w, h);
-                    fluidRT_A.setSize(w, h);
-                    fluidRT_B.setSize(w, h);
-                    if (simQuad && simQuad.material && simQuad.material.uniforms) {
-                        simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h);
-                    }
-                }
-                initFluid();
-                window.addEventListener('resize', resizeFluid);
-
-                const mainVert =
-                    `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
-                const mainFrag = `
-                    precision highp float;
-                    varying vec2 vUv;
-                    uniform sampler2D uBarong;
-                    uniform sampler2D uToga;
-                    uniform sampler2D uFluidMask;
-                    uniform float uAspect;
-                    uniform float uBarongAspect;
-                    uniform float uTogaAspect;
-                    uniform vec2 uCursor;
-                    uniform float uParallaxStrength;
-                    vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) {
-                        vec2 newUV = uv - 0.5;
-                        if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; }
-                        else { newUV.y *= imageAspect / canvasAspect; }
-                        newUV += 0.5;
-                        return clamp(newUV, 0.0, 1.0);
-                    }
-                    void main() {
-                        vec2 centerOffset = uCursor - 0.5;
-                        vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5;
-                        vec2 offsetToga   = -centerOffset * uParallaxStrength * 0.5;
-                        vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect);
-                        vec2 uvToga   = coverUV(vUv + offsetToga,   uTogaAspect,   uAspect);
-                        float water = texture2D(uFluidMask, vUv).r;
-                        float blend = smoothstep(0.18, 0.22, water);
-                        vec4 barongColor = texture2D(uBarong, uvBarong);
-                        vec4 togaColor   = texture2D(uToga, uvToga);
-                        vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend);
-                        float mixedAlpha = mix(barongColor.a, togaColor.a, blend);
-                        gl_FragColor = vec4(mixedRGB, mixedAlpha);
-                    }`;
-                const mainUniforms = {
-                    uBarong: { value: null },
-                    uToga: { value: null },
-                    uFluidMask: { value: fluidRT_A ? fluidRT_A.texture : null },
-                    uAspect: { value: 1.0 },
-                    uBarongAspect: { value: 1.0 },
-                    uTogaAspect: { value: 1.0 },
-                    uCursor: { value: new THREE.Vector2(0.5, 0.5) },
-                    uParallaxStrength: { value: 0.025 }
-                };
-                const mainMat = new THREE.ShaderMaterial({
-                    uniforms: mainUniforms,
-                    vertexShader: mainVert,
-                    fragmentShader: mainFrag,
-                    transparent: true,
-                    depthWrite: false,
-                    depthTest: false
-                });
-                const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
-                scene.add(mainQuad);
-
-                function imageLoaded(tex, which) {
-                    imagesLoaded++;
-                    if (tex && tex.image) {
-                        if (which === 'barong') {
-                            mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
-                        } else {
-                            mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height;
-                        }
-                    }
-                    if (imagesLoaded === 2 && !animationStarted) {
-                        animationStarted = true;
-                        resizeAll();
-                        animate();
-                    }
-                }
-                loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
-                    imageLoaded(tex, 'barong'); }, undefined, () => { imagesLoaded++;
-                    imageLoaded(null, 'barong'); });
-                loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex;
-                    imageLoaded(tex, 'toga'); }, undefined, () => { imagesLoaded++;
-                    imageLoaded(null, 'toga'); });
-
-                function updateMouse(clientX, clientY) {
-                    const rect = container.getBoundingClientRect();
-                    const newX = (clientX - rect.left) / rect.width;
-                    const newY = 1.0 - (clientY - rect.top) / rect.height;
-                    mouse.prevX = mouse.x;
-                    mouse.prevY = mouse.y;
-                    mouse.x = Math.max(0, Math.min(1, newX));
-                    mouse.y = Math.max(0, Math.min(1, newY));
-                    lastMoveTime = performance.now();
-                    idleActive = false;
-                    scanComplete = true;
-                }
-                webglCanvas.addEventListener('mousemove', (e) => { updateMouse(e.clientX, e.clientY);
-                    mouse.inside = true; });
-                webglCanvas.addEventListener('mouseenter', () => { mouse.inside = true; });
-                webglCanvas.addEventListener('mouseleave', () => { mouse.inside = false; });
-                webglCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches[
-                        0];
-                    updateMouse(t.clientX, t.clientY);
-                    mouse.inside = true; }, { passive: false });
-                webglCanvas.addEventListener('touchend', () => { mouse.inside = false; });
-
-                function updateFluid(dt) {
-                    if (!simQuad || !simQuad.material || !fluidRT_A || !fluidRT_B) return;
-                    const now = performance.now();
-                    const simMat = simQuad.material;
-                    if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) {
-                        idleActive = true;
-                        scanComplete = false;
-                        if (Math.random() < 0.5) { scanVirtualX = 0.0;
-                            scanDirX = 1; } else { scanVirtualX = 1.0;
-                            scanDirX = -1; }
-                        scanVirtualY = 0.0;
-                        scanDirY = 1;
-                        scanPauseUntil = 0;
-                    }
-                    if (idleActive) {
-                        if (scanComplete) {
-                            if (now > scanPauseUntil) {
-                                scanComplete = false;
-                                if (Math.random() < 0.5) { scanVirtualX = 0.0;
-                                    scanDirX = 1; } else { scanVirtualX = 1.0;
-                                    scanDirX = -1; }
-                                scanVirtualY = 0.0;
-                                scanDirY = 1;
-                            }
-                        } else {
-                            scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
-                            scanVirtualY += scanDirY * SCAN_SPEED_Y * dt;
-                            if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
-                                scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0;
-                                scanDirX = 1; }
-                            if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
-                                scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0;
-                                scanComplete = true;
-                                scanPauseUntil = now + SWEEP_PAUSE; }
-                        }
-                        simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
-                        simMat.uniforms.uMouseDown.value = true;
-                        simMat.uniforms.uVelocity.value.set(0, 0);
-                    } else {
-                        simMat.uniforms.uMouse.value.set(mouse.x, mouse.y);
-                        const sensitivity = 10.0;
-                        const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity;
-                        const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
-                        simMat.uniforms.uVelocity.value.set(velX, velY);
-                        const movingThreshold = 0.01;
-                        const isMoving = (Math.abs(velX) > movingThreshold || Math.abs(velY) >
-                            movingThreshold);
-                        simMat.uniforms.uMouseDown.value = isMoving && mouse.inside;
-                    }
-                    mainUniforms.uCursor.value.set(mouse.x, mouse.y);
-                    simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
-                    renderer.setRenderTarget(fluidRT_B);
-                    renderer.render(simScene, simCamera);
-                    renderer.setRenderTarget(null);
-                    const temp = fluidRT_A;
-                    fluidRT_A = fluidRT_B;
-                    fluidRT_B = temp;
-                    mainUniforms.uFluidMask.value = fluidRT_A.texture;
-                }
-
-                function resizeAll() {
-                    const rect = container.getBoundingClientRect();
-                    if (rect.width <= 0 || rect.height <= 0) return;
-                    renderer.setSize(rect.width, rect.height);
-                    mainUniforms.uAspect.value = rect.width / rect.height;
-                    resizeFluid();
-                    if (fluidRT_A) mainUniforms.uFluidMask.value = fluidRT_A.texture;
-                }
-                let lastTime = 0;
-
-                function animate(time) {
-                    if (!animationStarted) return;
-                    requestAnimationFrame(animate);
-                    const dt = lastTime ? Math.min((time - lastTime) * 0.001, 0.1) : 0.016;
-                    lastTime = time;
-                    updateFluid(dt);
-                    renderer.render(scene, camera);
-                }
-
-                setTimeout(resizeAll, 300);
-                window.addEventListener('resize', resizeAll);
-                window._fluidResizeAll = resizeAll;
-            })();
-
-            // ========== INITIALIZE ==========
-            init();
-
-            // Override resizeAllCanvases to include fluid resize
-            const origResizeAllCanvases = resizeAllCanvases;
-            resizeAllCanvases = function() {
-                origResizeAllCanvases();
-                if (window._fluidResizeAll) window._fluidResizeAll();
+            const mainUniforms = {
+                uBarong: { value: null },
+                uToga: { value: null },
+                uFluidMask: { value: fluidRT_A.texture },
+                uAspect: { value: 1.0 },
+                uBarongAspect: { value: 1.0 },
+                uTogaAspect: { value: 1.0 },
+                uCursor: { value: new THREE.Vector2(0.5, 0.5) },
+                uParallaxStrength: { value: 0.025 }
             };
 
-            window._navigateTo = navigateTo;
-            window._resizeAllCanvases = resizeAllCanvases;
+            const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert,
+                fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
+            const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
+            scene.add(mainQuad);
 
-            console.log('✅ Single-page portfolio initialized. All sections ready.');
+            function imageLoaded(tex, which) {
+                imagesLoaded++;
+                if (tex.image) {
+                    if (which === 'barong') {
+                        mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
+                        container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`;
+                    } else {
+                        mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height;
+                    }
+                }
+                if (imagesLoaded === 2 && !animationStarted) {
+                    animationStarted = true;
+                    resizeAll();
+                    animate();
+                }
+            }
+
+            loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
+                imageLoaded(tex, 'barong'); });
+            loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex;
+                imageLoaded(tex, 'toga'); });
+
+            function updateMouse(clientX, clientY) {
+                const rect = container.getBoundingClientRect();
+                const newX = (clientX - rect.left) / rect.width;
+                const newY = 1.0 - (clientY - rect.top) / rect.height;
+                mouse.prevX = mouse.x;
+                mouse.prevY = mouse.y;
+                mouse.x = newX;
+                mouse.y = newY;
+                lastMoveTime = performance.now();
+                idleActive = false;
+                scanComplete = true;
+            }
+
+            webglCanvas.addEventListener('mousemove', (e) => { updateMouse(e.clientX, e.clientY);
+                mouse.inside = true; });
+            webglCanvas.addEventListener('mouseenter', () => { mouse.inside = true; });
+            webglCanvas.addEventListener('mouseleave', () => { mouse.inside = false; });
+            webglCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches[0];
+                updateMouse(t.clientX, t.clientY);
+                mouse.inside = true; }, { passive: false });
+            webglCanvas.addEventListener('touchend', () => { mouse.inside = false; });
+
+            function updateFluid(dt) {
+                const now = performance.now();
+                const simMat = simQuad.material;
+                if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) {
+                    idleActive = true;
+                    scanComplete = false;
+                    if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                        scanDirX = 1; } else { scanVirtualX = 1.0;
+                        scanDirX = -1; }
+                    scanVirtualY = 0.0;
+                    scanDirY = 1;
+                    scanPauseUntil = 0;
+                }
+                if (idleActive) {
+                    if (scanComplete) {
+                        if (now > scanPauseUntil) {
+                            scanComplete = false;
+                            if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                                scanDirX = 1; } else { scanVirtualX = 1.0;
+                                scanDirX = -1; }
+                            scanVirtualY = 0.0;
+                            scanDirY = 1;
+                        }
+                    } else {
+                        scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
+                        scanVirtualY += scanDirY * SCAN_SPEED_Y * dt;
+                        if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
+                            scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0;
+                            scanDirX = 1; }
+                        if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
+                            scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0;
+                            scanComplete = true;
+                            scanPauseUntil = now + SWEEP_PAUSE; }
+                    }
+                    simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
+                    simMat.uniforms.uMouseDown.value = true;
+                    simMat.uniforms.uVelocity.value.set(0, 0);
+                } else {
+                    simMat.uniforms.uMouse.value.set(mouse.x, mouse.y);
+                    const sensitivity = 10.0;
+                    const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity;
+                    const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
+                    simMat.uniforms.uVelocity.value.set(velX, velY);
+                    const movingThreshold = 0.01;
+                    const isMoving = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold);
+                    simMat.uniforms.uMouseDown.value = isMoving && mouse.inside;
+                }
+                mainUniforms.uCursor.value.set(mouse.x, mouse.y);
+                simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
+                renderer.setRenderTarget(fluidRT_B);
+                renderer.render(simScene, simCamera);
+                renderer.setRenderTarget(null);
+                const temp = fluidRT_A;
+                fluidRT_A = fluidRT_B;
+                fluidRT_B = temp;
+                mainUniforms.uFluidMask.value = fluidRT_A.texture;
+            }
+
+            function resizeAll() {
+                const rect = container.getBoundingClientRect();
+                renderer.setSize(rect.width, rect.height);
+                mainUniforms.uAspect.value = rect.width / rect.height;
+                resizeFluid();
+                mainUniforms.uFluidMask.value = fluidRT_A.texture;
+            }
+
+            let lastTime = 0;
+
+            function animate(time) {
+                if (!animationStarted) return;
+                requestAnimationFrame(animate);
+                const dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
+                lastTime = time;
+                updateFluid(dt);
+                renderer.render(scene, camera);
+            }
         })();
     </script>
 </body>
