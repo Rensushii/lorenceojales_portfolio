@@ -330,6 +330,21 @@
             z-index: 1;
             pointer-events: none;
         }
+        /* Hidden off-screen state for inactive slides */
+        .content-slide.slide-hidden-left {
+            transform: translateX(-120%);
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+            transition: none;
+        }
+        .content-slide.slide-hidden-right {
+            transform: translateX(120%);
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+            transition: none;
+        }
 
         /* Portrait canvas container */
         .hero-reveal {
@@ -1240,7 +1255,7 @@
                         </div>
                     </div>
                     <!-- About Slide -->
-                    <div class="content-slide slide-enter-right" id="slideAbout">
+                    <div class="content-slide slide-hidden-right" id="slideAbout">
                         <span class="section-label">About Me</span>
                         <h2 class="section-title">Get to know me</h2>
                         <div class="section-line"></div>
@@ -1482,7 +1497,29 @@
             const mobileNav = document.getElementById('mobileNav');
             const navList = document.getElementById('navList');
             const headerInner = document.getElementById('headerInner');
-            const appContainer = document.getElementById('appContainer');
+
+            // All slide state classes
+            const slideStateClasses = ['slide-active', 'slide-exit-left', 'slide-enter-right',
+                'slide-exit-right', 'slide-enter-left', 'slide-hidden-left', 'slide-hidden-right'
+            ];
+
+            function clearSlideStates(slide) {
+                slideStateClasses.forEach(cls => slide.classList.remove(cls));
+            }
+
+            function hideSlideOffscreen(slide, direction) {
+                clearSlideStates(slide);
+                if (direction === 'left') {
+                    slide.classList.add('slide-hidden-left');
+                } else {
+                    slide.classList.add('slide-hidden-right');
+                }
+            }
+
+            function activateSlide(slide) {
+                clearSlideStates(slide);
+                slide.classList.add('slide-active');
+            }
 
             // ========== NAVIGATION FUNCTION ==========
             function navigateTo(sectionName) {
@@ -1507,74 +1544,55 @@
                     twoColLayout.style.display = 'flex';
                     portraitCol.style.display = 'flex';
 
-                    if (sectionName === 'about' && prevSection === 'home') {
-                        // Slide home OUT to left, about IN from right
-                        slideHome.classList.remove('slide-active');
-                        slideHome.classList.add('slide-exit-left');
-                        slideAbout.classList.remove('slide-enter-right', 'slide-exit-left', 'slide-exit-right',
-                            'slide-enter-left');
-                        slideAbout.classList.add('slide-enter-right');
-                        // Force reflow
-                        void slideAbout.offsetWidth;
-                        slideAbout.classList.remove('slide-enter-right');
-                        slideAbout.classList.add('slide-active');
-                    } else if (sectionName === 'home' && prevSection === 'about') {
-                        // Slide about OUT to right, home IN from left
-                        slideAbout.classList.remove('slide-active');
-                        slideAbout.classList.add('slide-exit-right');
-                        slideHome.classList.remove('slide-enter-right', 'slide-exit-left', 'slide-exit-right',
-                            'slide-enter-left');
-                        slideHome.classList.add('slide-enter-left');
-                        void slideHome.offsetWidth;
-                        slideHome.classList.remove('slide-enter-left');
-                        slideHome.classList.add('slide-active');
-                    }
+                    const exitingSlide = prevSection === 'home' ? slideHome : slideAbout;
+                    const enteringSlide = sectionName === 'home' ? slideHome : slideAbout;
+                    const exitDir = prevSection === 'home' ? 'left' : 'right';
+                    const enterDir = prevSection === 'home' ? 'right' : 'left';
 
+                    // Set exit animation on the leaving slide
+                    clearSlideStates(exitingSlide);
+                    exitingSlide.classList.add(exitDir === 'left' ? 'slide-exit-left' : 'slide-exit-right');
+
+                    // Set enter start position on the entering slide
+                    clearSlideStates(enteringSlide);
+                    enteringSlide.classList.add(enterDir === 'right' ? 'slide-enter-right' : 'slide-enter-left');
+
+                    // Force reflow so the enter start position is painted
+                    void enteringSlide.offsetWidth;
+
+                    // Now trigger the enter animation
+                    requestAnimationFrame(() => {
+                        enteringSlide.classList.remove('slide-enter-right', 'slide-enter-left');
+                        enteringSlide.classList.add('slide-active');
+                    });
+
+                    // After transition completes, clean up
                     setTimeout(() => {
-                        // Cleanup
-                        [slideHome, slideAbout].forEach(s => {
-                            s.classList.remove('slide-exit-left', 'slide-exit-right', 'slide-enter-right',
-                                'slide-enter-left');
-                            if (!s.classList.contains('slide-active') && s === (sectionName === 'home' ?
-                                    slideHome : slideAbout)) {
-                                s.classList.add('slide-active');
-                            }
-                            if (s !== (sectionName === 'home' ? slideHome : slideAbout) && s.classList.contains(
-                                    'slide-active')) {
-                                s.classList.remove('slide-active');
-                            }
-                        });
-                        // Ensure correct slide is active
-                        if (sectionName === 'home') {
-                            slideHome.classList.add('slide-active');
-                            slideAbout.classList.remove('slide-active');
-                        } else {
-                            slideAbout.classList.add('slide-active');
-                            slideHome.classList.remove('slide-active');
-                        }
+                        // Ensure entering slide is active and clean
+                        activateSlide(enteringSlide);
+                        // Hide exiting slide off-screen
+                        hideSlideOffscreen(exitingSlide, exitDir);
                         isTransitioning = false;
                         refreshRevealObservers();
                         resizeAllCanvases();
-                    }, 550);
+                    }, 580);
 
                 } else if (nextIsTwoCol && !prevIsTwoCol) {
                     // Coming from full-width to two-col
                     twoColLayout.style.display = 'flex';
                     portraitCol.style.display = 'flex';
                     if (sectionName === 'home') {
-                        slideHome.classList.add('slide-active');
-                        slideAbout.classList.remove('slide-active');
+                        activateSlide(slideHome);
+                        hideSlideOffscreen(slideAbout, 'right');
                     } else {
-                        slideAbout.classList.add('slide-active');
-                        slideHome.classList.remove('slide-active');
+                        activateSlide(slideAbout);
+                        hideSlideOffscreen(slideHome, 'left');
                     }
-                    [slideHome, slideAbout].forEach(s => s.classList.remove('slide-exit-left', 'slide-exit-right',
-                        'slide-enter-right', 'slide-enter-left'));
                     setTimeout(() => {
                         isTransitioning = false;
                         refreshRevealObservers();
                         resizeAllCanvases();
-                    }, 400);
+                    }, 100);
 
                 } else if (!nextIsTwoCol && prevIsTwoCol) {
                     // Going from two-col to full-width
@@ -1585,7 +1603,7 @@
                         isTransitioning = false;
                         refreshRevealObservers();
                         resizeAllCanvases();
-                    }, 400);
+                    }, 100);
 
                 } else {
                     // Both full-width
@@ -1596,7 +1614,7 @@
                         isTransitioning = false;
                         refreshRevealObservers();
                         resizeAllCanvases();
-                    }, 400);
+                    }, 100);
                 }
 
                 // Scroll to top
@@ -1730,6 +1748,7 @@
 
             // ========== SCROLL REVEAL ==========
             let revealObserver;
+
             function setupRevealObserver() {
                 if (revealObserver) revealObserver.disconnect();
                 revealObserver = new IntersectionObserver((entries) => {
@@ -1741,7 +1760,7 @@
             }
 
             function refreshRevealObservers() {
-                setTimeout(setupRevealObserver, 100);
+                setTimeout(setupRevealObserver, 150);
             }
 
             // ========== STICKY HEADER ==========
@@ -1758,8 +1777,8 @@
                 // Start with home visible
                 twoColLayout.style.display = 'flex';
                 portraitCol.style.display = 'flex';
-                slideHome.classList.add('slide-active');
-                slideAbout.classList.remove('slide-active');
+                activateSlide(slideHome);
+                hideSlideOffscreen(slideAbout, 'right');
                 Object.values(fullWidthSections).forEach(s => s.classList.remove('section-visible'));
                 setupRevealObserver();
             }
@@ -2039,19 +2058,26 @@
                     uniform float uTogaAspect;
                     uniform vec2 uCursor;
                     uniform float uParallaxStrength;
+
                     vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) {
                         vec2 newUV = uv - 0.5;
-                        if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; }
-                        else { newUV.y *= imageAspect / canvasAspect; }
+                        if (canvasAspect > imageAspect) {
+                            newUV.y *= canvasAspect / imageAspect;
+                        } else {
+                            newUV.x *= imageAspect / canvasAspect;
+                        }
                         newUV += 0.5;
                         return clamp(newUV, 0.0, 1.0);
                     }
+
                     void main() {
                         vec2 centerOffset = uCursor - 0.5;
                         vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5;
                         vec2 offsetToga   = -centerOffset * uParallaxStrength * 0.5;
-                        vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect);
-                        vec2 uvToga   = coverUV(vUv + offsetToga,   uTogaAspect,   uAspect);
+                        vec2 uvBarongRaw = vUv + offsetBarong;
+                        vec2 uvTogaRaw   = vUv + offsetToga;
+                        vec2 uvBarong = coverUV(uvBarongRaw, uBarongAspect, uAspect);
+                        vec2 uvToga   = coverUV(uvTogaRaw, uTogaAspect, uAspect);
                         float water = texture2D(uFluidMask, vUv).r;
                         float blend = smoothstep(0.18, 0.22, water);
                         vec4 barongColor = texture2D(uBarong, uvBarong);
