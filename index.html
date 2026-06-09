@@ -1679,7 +1679,6 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
             height: 280px;
             margin: 14px 0;
-            position: relative; /* important for canvas */
         }
         .modal-embed iframe {
             width: 100%;
@@ -1872,7 +1871,7 @@
         <div class="hero-aurora-layer"></div>
         <!-- Spotlight overlay -->
         <div class="hero-spotlight-overlay"></div>
-        <!-- Floating gradient orbs -->
+        <!-- Floating gradient orbs (Vercel + Linear inspired) -->
         <div class="hero-float-orb orb-1"></div>
         <div class="hero-float-orb orb-2"></div>
         <div class="hero-float-orb orb-3"></div>
@@ -1880,20 +1879,29 @@
         <div class="hero-flex">
             <!-- ── LEFT: TEXT CONTENT ── -->
             <div class="hero-text-col">
+                <!-- Greeting badge -->
                 <span class="hero-greeting-badge">
                     <span style="font-size:0.9rem;">👋</span> Hello, I'm
                 </span>
+
+                <!-- Premium name headline with animated gradient -->
                 <h1 class="hero-name-premium">
                     <span class="gradient-text">Lorence B. Ojales</span>
                 </h1>
+
+                <!-- Animated role switcher -->
                 <div class="role-switcher-wrapper">
                     <span class="role-switcher-inner" id="roleSwitcherText">Computer Engineering</span>
                     <span class="role-switcher-cursor"></span>
                 </div>
+
+                <!-- Professional description -->
                 <p class="hero-desc-premium">
                     Designing <strong>intelligent systems</strong>, building <strong>embedded solutions</strong>, and creating
                     <strong>innovative technologies</strong> that bridge hardware and software.
                 </p>
+
+                <!-- Specialization badges — recruiter-first -->
                 <div class="hero-spec-badges">
                     <span class="spec-badge"><span class="spec-dot cyan"></span> Computer Engineering</span>
                     <span class="spec-badge"><span class="spec-dot blue"></span> Embedded Systems</span>
@@ -1901,6 +1909,8 @@
                     <span class="spec-badge"><span class="spec-dot emerald"></span> Robotics</span>
                     <span class="spec-badge"><span class="spec-dot gold"></span> Software Development</span>
                 </div>
+
+                <!-- Premium CTA buttons with magnetic effect -->
                 <div class="hero-cta-premium">
                     <span class="magnetic-wrap" data-magnetic>
                         <a href="#projects" class="btn-premium primary">
@@ -1922,6 +1932,9 @@
             </div>
         </div>
     </section>
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ───── END ENHANCED HERO SECTION ───── -->
+    <!-- ═══════════════════════════════════════════════ -->
 
     <!-- ==================== ABOUT SECTION ==================== -->
     <section id="about" class="section-light">
@@ -2031,7 +2044,7 @@
                 <!-- Eco Flow -->
                 <div class="project-card-link" onclick="openModal('modal-ecoflow')">
                     <div class="card-light-premium">
-                        <div class="project-embed-sm" id="greenhouse-viewer"></div>
+                        <div class="project-embed-sm"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
                         <div class="project-meta" style="margin-top:10px;">
                             <h3>Eco Flow · Smart Greenhouse</h3>
                             <p>AI‑powered IoT system with automated irrigation, analytics, and real‑time monitoring. Undergraduate thesis.</p>
@@ -2046,7 +2059,7 @@
                 <!-- MazeBot -->
                 <div class="project-card-link" onclick="openModal('modal-mazebot')">
                     <div class="card-light-premium">
-                        <div class="project-embed-sm" id="mazebot-viewer"></div>
+                        <div class="project-embed-sm"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
                         <div class="project-meta" style="margin-top:10px;">
                             <h3>MazeBot</h3>
                             <p>Autonomous wall‑following robot using IR sensors and reactive control on an ESP32.</p>
@@ -2244,8 +2257,8 @@
             <h2>Eco Flow: AI‑Powered Smart Greenhouse</h2>
             <p class="modal-tagline">Undergraduate Thesis · University of Batangas Lipa Campus (2025‑2026)</p>
             <div class="modal-dual-embed">
-                <div class="modal-embed" id="modal-greenhouse-viewer"></div>
-                <div class="modal-embed" id="modal-controlhub-viewer"></div>
+                <div class="modal-embed"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
+                <div class="modal-embed"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div>
             </div>
             <div class="modal-body">
                 <h3>The Problem</h3>
@@ -2270,7 +2283,7 @@
             <button class="modal-close" onclick="closeModal('modal-mazebot')"><i class="fas fa-times"></i></button>
             <h2>MazeBot · Autonomous Wall‑Following Robot</h2>
             <p class="modal-tagline">Embedded Systems Exercise · Reactive Control &amp; Sensor Fusion</p>
-            <div class="modal-embed" id="modal-mazebot-viewer"></div>
+            <div class="modal-embed"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
             <div class="modal-body">
                 <h3>The Problem</h3>
                 <p>Maze navigation and autonomous obstacle avoidance are fundamental challenges in mobile robotics. A robust, low‑cost solution was needed to demonstrate real‑time decision‑making and sensor‑based navigation.</p>
@@ -2311,98 +2324,8 @@
         </div>
     </div>
 
-    <!-- Three.js and loaders -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-
-    <script>
-        // ── Global array to keep track of all model viewers ──
-        const modelViewers = [];
-
-        function createModelViewer(containerId, modelPath) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-
-            // Prevent double initialization
-            if (container.dataset.viewerInitialized === 'true') return;
-            container.dataset.viewerInitialized = 'true';
-
-            const scene = new THREE.Scene();
-            scene.background = null;
-
-            // Use a minimal size initially, will be resized later
-            const width = container.clientWidth || 1;
-            const height = container.clientHeight || 1;
-            const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-            camera.position.set(5, 3, 7);
-
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.setSize(width, height);
-            container.appendChild(renderer.domElement);
-
-            // Lights
-            scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            dirLight.position.set(10, 20, 10);
-            scene.add(dirLight);
-            const backLight = new THREE.DirectionalLight(0xffffff, 0.3);
-            backLight.position.set(-5, 0, -5);
-            scene.add(backLight);
-
-            // Orbit controls
-            const controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.autoRotate = true;
-            controls.autoRotateSpeed = 0.5;
-
-            // Load model
-            const loader = new THREE.GLTFLoader();
-            loader.load(
-                modelPath,
-                (gltf) => {
-                    const model = gltf.scene;
-                    const box = new THREE.Box3().setFromObject(model);
-                    const center = box.getCenter(new THREE.Vector3());
-                    const size = box.getSize(new THREE.Vector3());
-                    const maxDim = Math.max(size.x, size.y, size.z);
-                    const scale = 4 / maxDim;
-                    model.scale.setScalar(scale);
-                    model.position.sub(center.multiplyScalar(scale));
-                    scene.add(model);
-                },
-                undefined,
-                (error) => {
-                    console.error('Error loading model:', error);
-                    container.innerHTML = '<p style="color:#aaa; text-align:center; padding-top:40px;">Model failed to load.</p>';
-                }
-            );
-
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                controls.update();
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            // Store viewer data for resizing
-            modelViewers.push({ container, renderer, camera, controls });
-        }
-
-        function resizeAllViewers() {
-            modelViewers.forEach(({ container, renderer, camera }) => {
-                const w = container.clientWidth;
-                const h = container.clientHeight;
-                if (w > 0 && h > 0) {
-                    renderer.setSize(w, h);
-                    camera.aspect = w / h;
-                    camera.updateProjectionMatrix();
-                }
-            });
-        }
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
     </script>
 
     <script>
@@ -2453,7 +2376,8 @@
                         const target = document.querySelector(href);
                         if (target) {
                             const headerHeight = 90;
-                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset -
+                                headerHeight;
                             window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                         }
                     }
@@ -2493,8 +2417,10 @@
 
             // ── Spotlight effect ──
             if (spotlight) {
-                let mouseX = -500, mouseY = -500;
-                let targetX = mouseX, targetY = mouseY;
+                let mouseX = -500,
+                    mouseY = -500;
+                let targetX = mouseX,
+                    targetY = mouseY;
                 document.addEventListener('mousemove', (e) => {
                     targetX = e.clientX;
                     targetY = e.clientY;
@@ -2537,18 +2463,27 @@
                     'Full-Stack Developer',
                 ];
                 let roleIndex = 0;
-                const displayDuration = 3200;
-                const transitionDuration = 400;
+                const displayDuration = 3200; // How long each role is fully visible
+                const transitionDuration = 400; // How long the blur/fade transition takes
 
                 function switchRole() {
+                    // Trigger transition out
                     roleSwitcherText.classList.add('transitioning');
+
                     setTimeout(() => {
+                        // Change text while blurred/invisible
                         roleIndex = (roleIndex + 1) % roles.length;
                         roleSwitcherText.textContent = roles[roleIndex];
+
+                        // Remove transition class to fade back in
                         roleSwitcherText.classList.remove('transitioning');
                     }, transitionDuration);
+
+                    // Schedule next switch
                     setTimeout(switchRole, displayDuration + transitionDuration);
                 }
+
+                // Start the cycle after initial display
                 setTimeout(switchRole, displayDuration);
             }
 
@@ -2564,16 +2499,6 @@
                     document.body.removeChild(link);
                 });
             }
-
-            // ── Initialize 3D model viewers for all project cards and modals ──
-            createModelViewer('greenhouse-viewer', 'greenhouse.glb');
-            createModelViewer('mazebot-viewer', 'mazebot.glb');
-            createModelViewer('modal-greenhouse-viewer', 'greenhouse.glb');
-            createModelViewer('modal-controlhub-viewer', 'control_hub.glb');
-            createModelViewer('modal-mazebot-viewer', 'mazebot.glb');
-
-            // ── Resize viewers on window resize ──
-            window.addEventListener('resize', resizeAllViewers);
         });
 
         // ==================== MODAL FUNCTIONS ====================
@@ -2582,8 +2507,6 @@
             if (modal) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                // Ensure any WebGL canvases inside the modal get resized properly
-                setTimeout(resizeAllViewers, 50);
             }
         }
 
@@ -2594,14 +2517,12 @@
                 document.body.style.overflow = '';
             }
         }
-
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
                 e.target.classList.remove('active');
                 document.body.style.overflow = '';
             }
         });
-
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const activeModals = document.querySelectorAll('.modal-overlay.active');
@@ -2904,4 +2825,4 @@
         })();
     </script>
 </body>
-</html>
+</html> 
