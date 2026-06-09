@@ -77,7 +77,6 @@
             cursor: default;
         }
 
-        /* ───── AURORA BACKGROUND ───── */
         .aurora-bg {
             position: fixed;
             top: 0;
@@ -87,8 +86,7 @@
             pointer-events: none;
             z-index: 0;
             opacity: 0.5;
-            background:
-                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+            background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
                 radial-gradient(ellipse 60% 50% at 80% 30%, rgba(59, 130, 246, 0.07) 0%, transparent 55%),
                 radial-gradient(ellipse 70% 70% at 50% 70%, rgba(99, 102, 241, 0.06) 0%, transparent 55%),
                 radial-gradient(ellipse 50% 40% at 30% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
@@ -114,7 +112,6 @@
             }
         }
 
-        /* ───── GRID OVERLAY ───── */
         .grid-overlay {
             position: fixed;
             top: 0;
@@ -124,8 +121,7 @@
             pointer-events: none;
             z-index: 0;
             opacity: 0.03;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+            background-image: linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: gridShift 30s linear infinite;
@@ -139,7 +135,6 @@
             }
         }
 
-        /* ───── SPOTLIGHT ───── */
         .spotlight {
             position: fixed;
             pointer-events: none;
@@ -157,7 +152,6 @@
             opacity: 1;
         }
 
-        /* ───── HERO-SPECIFIC SPOTLIGHT ENHANCEMENT ───── */
         .hero-spotlight-fixed {
             position: absolute;
             pointer-events: none;
@@ -166,8 +160,7 @@
             left: -10%;
             width: 120%;
             height: 140%;
-            background:
-                radial-gradient(ellipse 50% 40% at 30% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 55%),
+            background: radial-gradient(ellipse 50% 40% at 30% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 55%),
                 radial-gradient(ellipse 40% 35% at 65% 30%, rgba(59, 130, 246, 0.07) 0%, transparent 50%),
                 radial-gradient(ellipse 35% 30% at 50% 55%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
             animation: heroSpotPulse 8s ease-in-out infinite;
@@ -182,7 +175,6 @@
             }
         }
 
-        /* ───── FLOATING GRADIENT ACCENTS ───── */
         .floating-accent {
             position: absolute;
             pointer-events: none;
@@ -254,7 +246,6 @@
             }
         }
 
-        /* ───── HEADER ───── */
         .site-header {
             position: fixed;
             top: 14px;
@@ -400,7 +391,6 @@
             color: #fff;
         }
 
-        /* ───── SECTIONS ───── */
         .section-dark {
             position: relative;
             z-index: 10;
@@ -440,7 +430,6 @@
             z-index: 5;
         }
 
-        /* ───── SECTION HEADERS ───── */
         .section-header {
             margin-bottom: 48px;
             text-align: center;
@@ -474,7 +463,6 @@
             margin: 16px auto 0;
         }
 
-        /* ───── CARDS ───── */
         .card-premium {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
@@ -548,7 +536,6 @@
             z-index: 1;
         }
 
-        /* ───── CARD GRIDS ───── */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -565,10 +552,295 @@
             gap: 20px;
         }
 
-        /* ═══════════════════════════════════════════ */
-        /* ───── ENHANCED HERO SECTION STYLES ───── */
-        /* ═══════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════ */
+        /* ───── HORIZONTAL PROJECT CARDS ───── */
+        /* ═══════════════════════════════════════════════ */
+        .project-cards-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+        .project-card-horizontal {
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            min-height: 280px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            transition: all var(--transition-smooth);
+            box-shadow: var(--shadow-card);
+            text-decoration: none;
+            color: inherit;
+            isolation: isolate;
+        }
+        .project-card-horizontal:hover {
+            border-color: var(--border-accent);
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-5px);
+        }
+        /* Background layer */
+        .project-card-horizontal .card-bg-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+        }
+        .project-card-horizontal:hover .card-bg-layer {
+            transform: scale(1.06);
+            filter: brightness(1.15);
+        }
+        /* Fade overlay — fades from transparent (left) to deep dark (right) */
+        .project-card-horizontal .card-fade-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: linear-gradient(110deg,
+                    transparent 0%,
+                    rgba(3, 7, 17, 0.15) 28%,
+                    rgba(3, 7, 17, 0.5) 48%,
+                    rgba(3, 7, 17, 0.82) 64%,
+                    rgba(3, 7, 17, 0.96) 78%,
+                    rgba(3, 7, 17, 1) 100%);
+        }
+        /* Subtle top-to-bottom vignette */
+        .project-card-horizontal .card-vignette {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 30% 50%, transparent 40%, rgba(3, 7, 17, 0.45) 100%);
+        }
+        /* Content wrapper */
+        .project-card-horizontal .card-content-right {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 32px 36px;
+            margin-left: auto;
+            width: 52%;
+            min-width: 340px;
+            text-align: left;
+        }
+        .project-card-horizontal .card-content-right h3 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+        .project-card-horizontal .card-content-right p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-bottom: 10px;
+            max-width: 420px;
+        }
+        .project-card-horizontal .project-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-bottom: 10px;
+        }
+        .project-card-horizontal .project-tech-tag {
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #67e8f9;
+            letter-spacing: 0.02em;
+            font-family: var(--font-mono);
+            transition: all var(--transition-fast);
+        }
+        .project-card-horizontal:hover .project-tech-tag {
+            background: rgba(6, 182, 212, 0.14);
+            border-color: rgba(6, 182, 212, 0.4);
+        }
+        .project-card-horizontal .card-view-details-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            transition: gap 0.3s ease;
+            margin-top: 2px;
+        }
+        .project-card-horizontal:hover .card-view-details-inline {
+            gap: 11px;
+            color: #67e8f9;
+        }
+        /* Left-side icon watermark */
+        .project-card-horizontal .card-icon-watermark {
+            position: absolute;
+            z-index: 0;
+            left: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 7rem;
+            opacity: 0.12;
+            pointer-events: none;
+            filter: blur(1px);
+            transition: all var(--transition-smooth);
+            color: #fff;
+        }
+        .project-card-horizontal:hover .card-icon-watermark {
+            opacity: 0.22;
+            filter: blur(0px);
+            transform: translateY(-50%) scale(1.08);
+        }
 
+        /* ── Per-project background themes ── */
+        .bg-tugon {
+            background: radial-gradient(ellipse at 28% 45%, rgba(245, 158, 11, 0.22) 0%, transparent 55%),
+                radial-gradient(ellipse at 65% 30%, rgba(251, 191, 36, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 70%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
+                linear-gradient(155deg, #1a1008 0%, #1f1408 25%, #140e06 55%, #0a0906 100%);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+        }
+        .bg-ecoflow {
+            background: radial-gradient(ellipse at 25% 40%, rgba(16, 185, 129, 0.22) 0%, transparent 55%),
+                radial-gradient(ellipse at 60% 30%, rgba(6, 182, 212, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 45% 65%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+                linear-gradient(155deg, #081a10 0%, #0a1a12 25%, #08120c 55%, #060a07 100%);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+        }
+        .bg-mazebot {
+            background: radial-gradient(ellipse at 28% 45%, rgba(99, 102, 241, 0.22) 0%, transparent 55%),
+                radial-gradient(ellipse at 62% 32%, rgba(139, 92, 246, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 48% 68%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+                linear-gradient(155deg, #0a0a1a 0%, #0e0a1e 25%, #0a0814 55%, #06050a 100%);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+        }
+        .bg-nyc {
+            background: radial-gradient(ellipse at 28% 45%, rgba(59, 130, 246, 0.22) 0%, transparent 55%),
+                radial-gradient(ellipse at 60% 35%, rgba(6, 182, 212, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 65%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+                linear-gradient(155deg, #080a18 0%, #0a0e1c 25%, #080b14 55%, #05060a 100%);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+        }
+
+        /* ── Responsive for horizontal cards ── */
+        @media (max-width: 800px) {
+            .project-card-horizontal {
+                flex-direction: column;
+                min-height: 340px;
+            }
+            .project-card-horizontal .card-fade-overlay {
+                background: linear-gradient(180deg,
+                        transparent 0%,
+                        rgba(3, 7, 17, 0.1) 20%,
+                        rgba(3, 7, 17, 0.55) 48%,
+                        rgba(3, 7, 17, 0.85) 65%,
+                        rgba(3, 7, 17, 0.97) 78%,
+                        rgba(3, 7, 17, 1) 100%);
+            }
+            .project-card-horizontal .card-content-right {
+                width: 100%;
+                min-width: unset;
+                padding: 24px 22px;
+                margin-left: 0;
+                margin-top: auto;
+                justify-content: flex-end;
+            }
+            .project-card-horizontal .card-icon-watermark {
+                left: 50%;
+                top: 25%;
+                transform: translate(-50%, -50%);
+                font-size: 5rem;
+            }
+            .project-card-horizontal:hover .card-icon-watermark {
+                transform: translate(-50%, -50%) scale(1.08);
+            }
+            .project-card-horizontal .card-content-right h3 {
+                font-size: 1.15rem;
+            }
+            .project-card-horizontal .card-content-right p {
+                font-size: 0.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .project-card-horizontal {
+                min-height: 300px;
+                border-radius: var(--radius-lg);
+            }
+            .project-card-horizontal .card-content-right {
+                padding: 18px 16px;
+            }
+            .project-card-horizontal .card-icon-watermark {
+                font-size: 3.5rem;
+                top: 20%;
+            }
+            .project-card-horizontal .card-content-right h3 {
+                font-size: 1.05rem;
+            }
+            .project-card-horizontal .card-content-right p {
+                font-size: 0.75rem;
+            }
+            .project-card-horizontal .project-tech-tag {
+                font-size: 0.65rem;
+                padding: 4px 9px;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* ───── ENLARGED MODAL 3D EMBEDS ───── */
+        /* ═══════════════════════════════════════════════ */
+        .modal-embed.modal-embed-3d {
+            height: 500px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: #020510;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 16px 0;
+        }
+        .modal-embed.modal-embed-3d iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .modal-dual-embed.modal-dual-3d {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .modal-dual-embed.modal-dual-3d .modal-embed {
+            height: 420px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: #020510;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .modal-dual-embed.modal-dual-3d .modal-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        @media (max-width: 700px) {
+            .modal-embed.modal-embed-3d {
+                height: 320px;
+            }
+            .modal-dual-embed.modal-dual-3d {
+                grid-template-columns: 1fr;
+            }
+            .modal-dual-embed.modal-dual-3d .modal-embed {
+                height: 280px;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* ───── ENHANCED HERO SECTION STYLES ───── */
+        /* ═══════════════════════════════════════════════ */
         .hero-section-wrapper {
             position: relative;
             min-height: 100vh;
@@ -578,15 +850,12 @@
             overflow: hidden;
             isolation: isolate;
         }
-
-        /* ── Hero aurora backdrop ── */
         .hero-aurora-layer {
             position: absolute;
             inset: 0;
             pointer-events: none;
             z-index: 0;
-            background:
-                radial-gradient(ellipse 70% 50% at 25% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
+            background: radial-gradient(ellipse 70% 50% at 25% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
                 radial-gradient(ellipse 55% 45% at 60% 25%, rgba(59, 130, 246, 0.08) 0%, transparent 55%),
                 radial-gradient(ellipse 50% 55% at 45% 60%, rgba(99, 102, 241, 0.06) 0%, transparent 55%),
                 radial-gradient(ellipse 40% 35% at 70% 70%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
@@ -607,8 +876,6 @@
                 transform: scale(1.03);
             }
         }
-
-        /* ── Hero spotlight overlay ── */
         .hero-spotlight-overlay {
             position: absolute;
             inset: 0;
@@ -627,8 +894,6 @@
                 opacity: 1;
             }
         }
-
-        /* ── Floating accent orbs ── */
         .hero-float-orb {
             position: absolute;
             pointer-events: none;
@@ -694,8 +959,6 @@
                 transform: translate(25px, 25px) scale(1.35);
             }
         }
-
-        /* ── Hero flex layout ── */
         .hero-flex {
             display: flex;
             flex-wrap: wrap;
@@ -707,15 +970,11 @@
             position: relative;
             z-index: 5;
         }
-
-        /* ── Hero text column ── */
         .hero-text-col {
             flex: 1 1 420px;
             position: relative;
             z-index: 2;
         }
-
-        /* ── Greeting badge ── */
         .hero-greeting-badge {
             display: inline-flex;
             align-items: center;
@@ -733,8 +992,6 @@
             transform: translateY(16px);
             animation: heroStaggerIn 0.7s 0.05s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
-
-        /* ── Premium name headline ── */
         .hero-name-premium {
             font-size: clamp(2.8rem, 7.5vw, 5.4rem);
             font-weight: 900;
@@ -776,8 +1033,6 @@
                 background-position: 0% 100%;
             }
         }
-
-        /* ── Role switcher ── */
         .role-switcher-wrapper {
             display: flex;
             align-items: center;
@@ -822,8 +1077,6 @@
                 opacity: 0;
             }
         }
-
-        /* ── Hero description ── */
         .hero-desc-premium {
             font-size: 1.05rem;
             color: var(--text-secondary);
@@ -838,8 +1091,6 @@
             color: #e8ecf4;
             font-weight: 600;
         }
-
-        /* ── Specialization badges ── */
         .hero-spec-badges {
             display: flex;
             flex-wrap: wrap;
@@ -898,8 +1149,6 @@
             background: #f59e0b;
             box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
         }
-
-        /* ── CTA buttons premium ── */
         .hero-cta-premium {
             display: flex;
             gap: 14px;
@@ -956,22 +1205,17 @@
         .btn-premium.secondary:active {
             transform: translateY(-1px) scale(0.97);
         }
-        /* Magnetic wrapper */
         .magnetic-wrap {
             display: inline-block;
             transition: transform 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform;
         }
-
-        /* ── Staggered entrance keyframes ── */
         @keyframes heroStaggerIn {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
-        /* ── Hero reveal (canvas) column ── */
         .hero-reveal-col {
             flex-shrink: 0;
             aspect-ratio: 4 / 5;
@@ -1007,8 +1251,6 @@
             z-index: 1;
             background: transparent;
         }
-
-        /* ── Responsive hero ── */
         @media (max-width: 900px) {
             .hero-flex {
                 flex-direction: column;
@@ -1077,10 +1319,6 @@
                 display: none;
             }
         }
-
-        /* ═══════════════════════════════════════════ */
-        /* ───── END ENHANCED HERO STYLES ───── */
-        /* ═══════════════════════════════════════════ */
 
         /* ───── ABOUT ───── */
         .about-layout {
@@ -1248,89 +1486,6 @@
             left: 0;
             color: var(--accent-cyan);
             font-weight: 700;
-        }
-
-        /* ───── PROJECT CARDS ───── */
-        .project-card-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            cursor: pointer;
-        }
-        .project-card-link:hover .card-light-premium {
-            border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(6, 182, 212, 0.25), 0 0 50px rgba(6, 182, 212, 0.06);
-            transform: translateY(-6px);
-        }
-        .project-card-link:hover .card-premium {
-            border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(6, 182, 212, 0.25), 0 0 50px rgba(6, 182, 212, 0.06);
-            transform: translateY(-6px);
-        }
-        .card-view-details {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--accent-cyan);
-            margin-top: 14px;
-            opacity: 0;
-            transition: opacity 0.3s, gap 0.3s;
-        }
-        .project-card-link:hover .card-view-details {
-            opacity: 1;
-            gap: 10px;
-        }
-        .project-embed-sm {
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            background: #020510;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            width: 100%;
-            height: 200px;
-            position: relative;
-            margin-bottom: 6px;
-        }
-        .project-embed-sm iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .project-meta h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: #fff;
-            letter-spacing: -0.02em;
-        }
-        .project-meta p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-        .project-icon-large {
-            font-size: 3.2rem;
-            margin-bottom: 12px;
-            display: block;
-            text-align: center;
-        }
-        .project-tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 10px;
-        }
-        .project-tech-tag {
-            background: rgba(6, 182, 212, 0.06);
-            border: 1px solid rgba(6, 182, 212, 0.18);
-            border-radius: 20px;
-            padding: 4px 10px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #67e8f9;
-            letter-spacing: 0.02em;
-            font-family: var(--font-mono);
         }
 
         /* ───── ACHIEVEMENTS ───── */
@@ -1598,9 +1753,9 @@
             border: 1px solid rgba(6, 182, 212, 0.25);
             border-radius: var(--radius-2xl);
             padding: 36px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
-            max-height: 85vh;
+            max-height: 90vh;
             overflow-y: auto;
             position: relative;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(6, 182, 212, 0.2);
@@ -1833,14 +1988,10 @@
     </style>
 </head>
 <body>
-    <!-- Aurora Background -->
     <div class="aurora-bg"></div>
-    <!-- Grid Overlay -->
     <div class="grid-overlay"></div>
-    <!-- Spotlight -->
     <div class="spotlight" id="spotlight"></div>
 
-    <!-- Fixed Header -->
     <header class="site-header">
         <div class="header-inner" id="headerInner">
             <a href="#home" class="logo-link"><span class="logo-dot"></span><span class="logo-text">Lorence Ojales</span></a>
@@ -1863,45 +2014,25 @@
         </div>
     </header>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- ───── ENHANCED HERO SECTION ───── -->
-    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ═══════════════ HERO SECTION ═══════════════ -->
     <section id="home" class="hero-section-wrapper">
-        <!-- Aurora glow backdrop -->
         <div class="hero-aurora-layer"></div>
-        <!-- Spotlight overlay -->
         <div class="hero-spotlight-overlay"></div>
-        <!-- Floating gradient orbs (Vercel + Linear inspired) -->
         <div class="hero-float-orb orb-1"></div>
         <div class="hero-float-orb orb-2"></div>
         <div class="hero-float-orb orb-3"></div>
-
         <div class="hero-flex">
-            <!-- ── LEFT: TEXT CONTENT ── -->
             <div class="hero-text-col">
-                <!-- Greeting badge -->
-                <span class="hero-greeting-badge">
-                    <span style="font-size:0.9rem;">👋</span> Hello, I'm
-                </span>
-
-                <!-- Premium name headline with animated gradient -->
-                <h1 class="hero-name-premium">
-                    <span class="gradient-text">Lorence B. Ojales</span>
-                </h1>
-
-                <!-- Animated role switcher -->
+                <span class="hero-greeting-badge"><span style="font-size:0.9rem;">👋</span> Hello, I'm</span>
+                <h1 class="hero-name-premium"><span class="gradient-text">Lorence B. Ojales</span></h1>
                 <div class="role-switcher-wrapper">
                     <span class="role-switcher-inner" id="roleSwitcherText">Computer Engineering</span>
                     <span class="role-switcher-cursor"></span>
                 </div>
-
-                <!-- Professional description -->
                 <p class="hero-desc-premium">
                     Designing <strong>intelligent systems</strong>, building <strong>embedded solutions</strong>, and creating
                     <strong>innovative technologies</strong> that bridge hardware and software.
                 </p>
-
-                <!-- Specialization badges — recruiter-first -->
                 <div class="hero-spec-badges">
                     <span class="spec-badge"><span class="spec-dot cyan"></span> Computer Engineering</span>
                     <span class="spec-badge"><span class="spec-dot blue"></span> Embedded Systems</span>
@@ -1909,34 +2040,23 @@
                     <span class="spec-badge"><span class="spec-dot emerald"></span> Robotics</span>
                     <span class="spec-badge"><span class="spec-dot gold"></span> Software Development</span>
                 </div>
-
-                <!-- Premium CTA buttons with magnetic effect -->
                 <div class="hero-cta-premium">
                     <span class="magnetic-wrap" data-magnetic>
-                        <a href="#projects" class="btn-premium primary">
-                            <i class="fas fa-code"></i> View Projects
-                        </a>
+                        <a href="#projects" class="btn-premium primary"><i class="fas fa-code"></i> View Projects</a>
                     </span>
                     <span class="magnetic-wrap" data-magnetic>
-                        <a href="#" class="btn-premium secondary" id="resumeDownloadBtn" title="Download Resume">
-                            <i class="fas fa-file-arrow-down"></i> Download Resume
-                        </a>
+                        <a href="#" class="btn-premium secondary" id="resumeDownloadBtn" title="Download Resume"><i class="fas fa-file-arrow-down"></i> Download Resume</a>
                     </span>
                 </div>
             </div>
-
-            <!-- ── RIGHT: IMAGE REVEAL CANVAS ── -->
             <div class="hero-reveal-col" id="canvasContainer">
                 <canvas id="lightraysCanvas"></canvas>
                 <canvas id="webglCanvas"></canvas>
             </div>
         </div>
     </section>
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- ───── END ENHANCED HERO SECTION ───── -->
-    <!-- ═══════════════════════════════════════════════ -->
 
-    <!-- ==================== ABOUT SECTION ==================== -->
+    <!-- ═══════════════ ABOUT SECTION ═══════════════ -->
     <section id="about" class="section-light">
         <div class="section-container">
             <div class="section-header reveal">
@@ -1949,18 +2069,10 @@
                     <div class="journey-accent-line"></div>
                     <h3 class="journey-heading">My Journey</h3>
                     <span class="journey-subtitle">From Computer Engineering Student to Technology Builder</span>
-                    <p class="journey-text">
-                        I'm <strong>Lorence Ojales</strong>, a Computer Engineering graduate passionate about building intelligent systems that combine <strong>software, hardware, and data</strong>. My experience spans full-stack web development, IoT, embedded systems, artificial intelligence, and analytics.
-                    </p>
-                    <p class="journey-text" style="margin-top:12px;">
-                        I've developed projects including <strong>Eco Flow</strong>, an AI-powered greenhouse automation system, <strong>MazeBot</strong>, an autonomous wall-following robot, <strong>NYC Crash Analytics</strong>, a full-stack data visualization platform, and <strong>TugonLipa</strong>, an award-winning smart community solution that earned <strong>2nd Place</strong> at the Hack the Future Hackathon.
-                    </p>
-                    <p class="journey-text" style="margin-top:12px;">
-                        With experience in IT support, software development, and emerging technologies, I enjoy transforming complex problems into practical, user-focused solutions that create real-world impact.
-                    </p>
-                    <span class="exploring-tag">
-                        <i class="fas fa-rocket" style="margin-right:6px;"></i> Currently exploring: AI-powered applications, IoT systems, embedded development & full-stack software engineering
-                    </span>
+                    <p class="journey-text">I'm <strong>Lorence Ojales</strong>, a Computer Engineering graduate passionate about building intelligent systems that combine <strong>software, hardware, and data</strong>. My experience spans full-stack web development, IoT, embedded systems, artificial intelligence, and analytics.</p>
+                    <p class="journey-text" style="margin-top:12px;">I've developed projects including <strong>Eco Flow</strong>, an AI-powered greenhouse automation system, <strong>MazeBot</strong>, an autonomous wall-following robot, <strong>NYC Crash Analytics</strong>, a full-stack data visualization platform, and <strong>TugonLipa</strong>, an award-winning smart community solution that earned <strong>2nd Place</strong> at the Hack the Future Hackathon.</p>
+                    <p class="journey-text" style="margin-top:12px;">With experience in IT support, software development, and emerging technologies, I enjoy transforming complex problems into practical, user-focused solutions that create real-world impact.</p>
+                    <span class="exploring-tag"><i class="fas fa-rocket" style="margin-right:6px;"></i> Currently exploring: AI-powered applications, IoT systems, embedded development & full-stack software engineering</span>
                 </div>
                 <div class="about-sidebar card-light-premium">
                     <h3 style="font-weight:700; margin-bottom:14px; color:#fff;"><i class="fas fa-address-card" style="color:var(--accent-cyan);"></i> Details</h3>
@@ -1974,7 +2086,7 @@
         </div>
     </section>
 
-    <!-- ==================== EXPERIENCE SECTION ==================== -->
+    <!-- ═══════════════ EXPERIENCE SECTION ═══════════════ -->
     <section id="experience" class="section-dark-alt">
         <div class="section-container">
             <div class="section-header reveal">
@@ -1989,20 +2101,13 @@
                         <div class="timeline-date">June 18, 2025 – August 5, 2025</div>
                         <div class="timeline-title">IT Technical Support</div>
                         <div class="timeline-org">JTEKT Philippines Corporation · LIMA Technology Center, Malvar, Batangas</div>
-                        <ul class="timeline-details">
-                            <li>IT support, hardware/network troubleshooting</li>
-                            <li>Server monitoring, system updates, backups</li>
-                            <li>Technical documentation and end-user assistance</li>
-                        </ul>
+                        <ul class="timeline-details"><li>IT support, hardware/network troubleshooting</li><li>Server monitoring, system updates, backups</li><li>Technical documentation and end-user assistance</li></ul>
                     </div>
                     <div class="timeline-item-modern">
                         <div class="timeline-date">March 1, 2022 – March 10, 2022</div>
                         <div class="timeline-title">Work Immersion Student</div>
                         <div class="timeline-org">Torres Technology Center Corporation · Brgy. Makiling, Calamba City, Laguna</div>
-                        <ul class="timeline-details">
-                            <li>Hands-on exposure to technology operations</li>
-                            <li>Assisted team tasks and observed industry practices</li>
-                        </ul>
+                        <ul class="timeline-details"><li>Hands-on exposure to technology operations</li><li>Assisted team tasks and observed industry practices</li></ul>
                     </div>
                 </div>
             </div>
@@ -2017,7 +2122,7 @@
         </div>
     </section>
 
-    <!-- ==================== PROJECTS SECTION ==================== -->
+    <!-- ═══════════════ PROJECTS SECTION (HORIZONTAL CARDS) ═══════════════ -->
     <section id="projects" class="section-light-alt">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2025,71 +2130,75 @@
                 <h2 class="section-title">Featured work</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="card-grid-2 reveal">
+            <div class="project-cards-stack reveal">
                 <!-- Tugon Lipa -->
-                <div class="project-card-link" onclick="openModal('modal-tugon')">
-                    <div class="card-light-premium" style="text-align:center;">
-                        <span class="project-icon-large" style="color:var(--accent-gold);">🏙️🤖</span>
-                        <div class="project-meta">
-                            <h3>Tugon Lipa · Smart Community Platform</h3>
-                            <p>AI-powered citizen reporting & response system — 2nd Place, Hack the Future.</p>
-                        </div>
+                <div class="project-card-horizontal" onclick="openModal('modal-tugon')">
+                    <div class="card-bg-layer bg-tugon"></div>
+                    <div class="card-fade-overlay"></div>
+                    <div class="card-vignette"></div>
+                    <div class="card-icon-watermark">🏙️</div>
+                    <div class="card-content-right">
+                        <h3>Tugon Lipa · Smart Community Platform</h3>
+                        <p>AI-powered citizen reporting & response system — 2nd Place, Hack the Future.</p>
                         <div class="project-tech-tags">
                             <span class="project-tech-tag">AI</span><span class="project-tech-tag">Full-Stack</span><span class="project-tech-tag">Civic Tech</span>
                         </div>
-                        <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
+                        <span class="card-view-details-inline">View full case study <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </div>
 
                 <!-- Eco Flow -->
-                <div class="project-card-link" onclick="openModal('modal-ecoflow')">
-                    <div class="card-light-premium">
-                        <div class="project-embed-sm"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
-                        <div class="project-meta" style="margin-top:10px;">
-                            <h3>Eco Flow · Smart Greenhouse</h3>
-                            <p>AI‑powered IoT system with automated irrigation, analytics, and real‑time monitoring. Undergraduate thesis.</p>
-                        </div>
+                <div class="project-card-horizontal" onclick="openModal('modal-ecoflow')">
+                    <div class="card-bg-layer bg-ecoflow"></div>
+                    <div class="card-fade-overlay"></div>
+                    <div class="card-vignette"></div>
+                    <div class="card-icon-watermark">🌿</div>
+                    <div class="card-content-right">
+                        <h3>Eco Flow · Smart Greenhouse</h3>
+                        <p>AI‑powered IoT system with automated irrigation, analytics, and real‑time monitoring. Undergraduate thesis.</p>
                         <div class="project-tech-tags">
                             <span class="project-tech-tag">IoT</span><span class="project-tech-tag">AI/ML</span><span class="project-tech-tag">Raspberry Pi</span><span class="project-tech-tag">ESP32</span>
                         </div>
-                        <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
+                        <span class="card-view-details-inline">View full case study <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </div>
 
                 <!-- MazeBot -->
-                <div class="project-card-link" onclick="openModal('modal-mazebot')">
-                    <div class="card-light-premium">
-                        <div class="project-embed-sm"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
-                        <div class="project-meta" style="margin-top:10px;">
-                            <h3>MazeBot</h3>
-                            <p>Autonomous wall‑following robot using IR sensors and reactive control on an ESP32.</p>
-                        </div>
+                <div class="project-card-horizontal" onclick="openModal('modal-mazebot')">
+                    <div class="card-bg-layer bg-mazebot"></div>
+                    <div class="card-fade-overlay"></div>
+                    <div class="card-vignette"></div>
+                    <div class="card-icon-watermark">🤖</div>
+                    <div class="card-content-right">
+                        <h3>MazeBot</h3>
+                        <p>Autonomous wall‑following robot using IR sensors and reactive control on an ESP32.</p>
                         <div class="project-tech-tags">
                             <span class="project-tech-tag">ESP32</span><span class="project-tech-tag">Robotics</span><span class="project-tech-tag">Embedded C</span><span class="project-tech-tag">Sensors</span>
                         </div>
-                        <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
+                        <span class="card-view-details-inline">View full case study <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </div>
 
                 <!-- NYC Crash Analytics -->
-                <div class="project-card-link" onclick="openModal('modal-nyc')">
-                    <div class="card-light-premium" style="text-align:center;">
-                        <span class="project-icon-large" style="color:var(--accent-blue);">🚗💥</span>
-                        <div class="project-meta">
-                            <h3>NYC Crash Analytics</h3>
-                            <p>Interactive dashboard with Leaflet, heatmaps, Chart.js, and PHP/MySQL backend.</p>
-                        </div>
+                <div class="project-card-horizontal" onclick="openModal('modal-nyc')">
+                    <div class="card-bg-layer bg-nyc"></div>
+                    <div class="card-fade-overlay"></div>
+                    <div class="card-vignette"></div>
+                    <div class="card-icon-watermark">🚗</div>
+                    <div class="card-content-right">
+                        <h3>NYC Crash Analytics</h3>
+                        <p>Interactive dashboard with Leaflet, heatmaps, Chart.js, and PHP/MySQL backend.</p>
                         <div class="project-tech-tags">
                             <span class="project-tech-tag">PHP</span><span class="project-tech-tag">MySQL</span><span class="project-tech-tag">Leaflet</span><span class="project-tech-tag">Chart.js</span>
                         </div>
-                        <div class="card-view-details"><span>View full case study</span> <i class="fas fa-arrow-right"></i></div>
+                        <span class="card-view-details-inline">View full case study <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== ACHIEVEMENTS SECTION ==================== -->
+    <!-- ═══════════════ ACHIEVEMENTS SECTION ═══════════════ -->
     <section id="achievements" class="section-dark">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2099,27 +2208,22 @@
             </div>
             <div class="card-grid-3 reveal">
                 <div class="card-premium achievement-card">
-                    <span class="achievement-icon">🥈</span>
-                    <span class="medal-badge silver">2nd Place</span>
+                    <span class="achievement-icon">🥈</span><span class="medal-badge silver">2nd Place</span>
                     <h3>Hackathon Winner</h3>
                     <p class="event-name">Hack the Future: Smart Batangas Province Hackathon Challenge</p>
                     <p class="event-venue">University of Batangas, Batangas City</p>
                     <p class="event-date">November 21–22, 2025</p>
-                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link">
-                        <i class="fas fa-newspaper"></i> Read Article
-                    </a>
+                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link"><i class="fas fa-newspaper"></i> Read Article</a>
                 </div>
                 <div class="card-premium achievement-card">
-                    <span class="achievement-icon">🔌</span>
-                    <span class="medal-badge participant">Participant</span>
+                    <span class="achievement-icon">🔌</span><span class="medal-badge participant">Participant</span>
                     <h3>Breadboarding Competition</h3>
                     <p class="event-name">ICpEp.se Region 4A CPE Challenge 2025</p>
                     <p class="event-venue">Colegio de San Juan de Letran, Calamba, Laguna</p>
                     <p class="event-date">November 15, 2025</p>
                 </div>
                 <div class="card-premium achievement-card">
-                    <span class="achievement-icon">💻</span>
-                    <span class="medal-badge participant">Participant</span>
+                    <span class="achievement-icon">💻</span><span class="medal-badge participant">Participant</span>
                     <h3>C++ Programming Competition</h3>
                     <p class="event-name">ICpEp.se Region 4A CPE Challenge 2024</p>
                     <p class="event-venue">De La Salle Lipa, Lipa City, Batangas</p>
@@ -2129,7 +2233,7 @@
         </div>
     </section>
 
-    <!-- ==================== SKILLS SECTION ==================== -->
+    <!-- ═══════════════ SKILLS SECTION ═══════════════ -->
     <section id="skills" class="section-light">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2138,54 +2242,17 @@
                 <div class="section-line"></div>
             </div>
             <div class="skills-grid reveal">
-                <div class="skill-category-card">
-                    <h3><i class="fas fa-code"></i> Programming</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span>
-                        <span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span>
-                    </div>
-                </div>
-                <div class="skill-category-card">
-                    <h3><i class="fas fa-microchip"></i> Embedded Systems</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">ESP32</span><span class="skill-tag">Arduino</span><span class="skill-tag">Raspberry Pi</span>
-                        <span class="skill-tag">Sensor Integration</span>
-                    </div>
-                </div>
-                <div class="skill-category-card">
-                    <h3><i class="fas fa-globe"></i> Web Development</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">PHP</span><span class="skill-tag">MySQL</span><span class="skill-tag">Bootstrap</span>
-                    </div>
-                </div>
-                <div class="skill-category-card">
-                    <h3><i class="fas fa-cube"></i> 3D & PCB Design</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Fusion 360</span><span class="skill-tag">Eagle CAD</span>
-                        <span class="skill-tag">PCB Design</span><span class="skill-tag">Circuit Schematics</span>
-                    </div>
-                </div>
-                <div class="skill-category-card">
-                    <h3><i class="fas fa-tools"></i> IT & Infrastructure</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">IT Support</span><span class="skill-tag">Server Monitoring</span>
-                        <span class="skill-tag">Network Troubleshooting</span><span class="skill-tag">System Backups</span>
-                    </div>
-                </div>
-                <div class="skill-category-card">
-                    <h3><i class="fas fa-lightbulb"></i> Soft Skills</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Analytical Thinking</span><span class="skill-tag">Troubleshooting</span>
-                        <span class="skill-tag">Team Collaboration</span><span class="skill-tag">Clear Communication</span>
-                        <span class="skill-tag">Quick Adaptability</span>
-                    </div>
-                </div>
+                <div class="skill-category-card"><h3><i class="fas fa-code"></i> Programming</h3><div class="skill-tags"><span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span></div></div>
+                <div class="skill-category-card"><h3><i class="fas fa-microchip"></i> Embedded Systems</h3><div class="skill-tags"><span class="skill-tag">ESP32</span><span class="skill-tag">Arduino</span><span class="skill-tag">Raspberry Pi</span><span class="skill-tag">Sensor Integration</span></div></div>
+                <div class="skill-category-card"><h3><i class="fas fa-globe"></i> Web Development</h3><div class="skill-tags"><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span><span class="skill-tag">MySQL</span><span class="skill-tag">Bootstrap</span></div></div>
+                <div class="skill-category-card"><h3><i class="fas fa-cube"></i> 3D & PCB Design</h3><div class="skill-tags"><span class="skill-tag">Fusion 360</span><span class="skill-tag">Eagle CAD</span><span class="skill-tag">PCB Design</span><span class="skill-tag">Circuit Schematics</span></div></div>
+                <div class="skill-category-card"><h3><i class="fas fa-tools"></i> IT & Infrastructure</h3><div class="skill-tags"><span class="skill-tag">IT Support</span><span class="skill-tag">Server Monitoring</span><span class="skill-tag">Network Troubleshooting</span><span class="skill-tag">System Backups</span></div></div>
+                <div class="skill-category-card"><h3><i class="fas fa-lightbulb"></i> Soft Skills</h3><div class="skill-tags"><span class="skill-tag">Analytical Thinking</span><span class="skill-tag">Troubleshooting</span><span class="skill-tag">Team Collaboration</span><span class="skill-tag">Clear Communication</span><span class="skill-tag">Quick Adaptability</span></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== CONTACT SECTION ==================== -->
+    <!-- ═══════════════ CONTACT SECTION ═══════════════ -->
     <section id="contact" class="section-dark-alt">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2219,83 +2286,61 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <p>&copy; <span id="currentYear">2025</span> <span class="footer-name">Lorence B. Ojales</span> — Computer Engineer. Built with precision.</p>
     </footer>
 
-    <!-- ==================== PROJECT MODALS ==================== -->
+    <!-- ═══════════════ PROJECT MODALS ═══════════════ -->
     <!-- Tugon Lipa Modal -->
     <div class="modal-overlay" id="modal-tugon">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-tugon')"><i class="fas fa-times"></i></button>
             <h2>Tugon Lipa · AI‑Powered Smart Community Platform</h2>
             <p class="modal-tagline">2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge</p>
-            <div class="modal-highlight-box">
-                <span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span>
-                <p style="margin-top:8px;color:var(--text-secondary);">University of Batangas, Batangas City · November 21–22, 2025</p>
-            </div>
+            <div class="modal-highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:8px;color:var(--text-secondary);">University of Batangas, Batangas City · November 21–22, 2025</p></div>
             <div class="modal-body">
-                <h3>The Problem</h3>
-                <p>In Lipa City, citizens struggled with fragmented public service channels. Reporting issues meant navigating confusing phone trees, visiting barangay halls, or relying on social media posts that often went unanswered. LGUs lacked a centralized system to track and resolve citizen reports efficiently.</p>
-                <h3>The Solution</h3>
-                <p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent. Citizens submit reports with photos, receive real‑time case updates, and access official announcements — all from one unified interface.</p>
+                <h3>The Problem</h3><p>In Lipa City, citizens struggled with fragmented public service channels. Reporting issues meant navigating confusing phone trees, visiting barangay halls, or relying on social media posts that often went unanswered. LGUs lacked a centralized system to track and resolve citizen reports efficiently.</p>
+                <h3>The Solution</h3><p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent. Citizens submit reports with photos, receive real‑time case updates, and access official announcements — all from one unified interface.</p>
                 <h3>Tech Stack</h3>
-                <div class="modal-tech-stack">
-                    <span>AI‑powered ticketing</span><span>Multi‑department admin portals</span><span>Real‑time case tracking</span>
-                    <span>Automated report categorization</span><span>Citizen‑facing chatbot</span><span>Social feed integration</span>
-                </div>
+                <div class="modal-tech-stack"><span>AI‑powered ticketing</span><span>Multi‑department admin portals</span><span>Real‑time case tracking</span><span>Automated report categorization</span><span>Citizen‑facing chatbot</span><span>Social feed integration</span></div>
                 <p style="font-style:italic;color:var(--text-muted);">Recognized 2nd Place — a team effort demonstrating rapid prototyping, AI integration, and civic technology innovation.</p>
             </div>
         </div>
     </div>
 
-    <!-- Eco Flow Modal -->
+    <!-- Eco Flow Modal (BIGGER 3D EMBEDS) -->
     <div class="modal-overlay" id="modal-ecoflow">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-ecoflow')"><i class="fas fa-times"></i></button>
             <h2>Eco Flow: AI‑Powered Smart Greenhouse</h2>
             <p class="modal-tagline">Undergraduate Thesis · University of Batangas Lipa Campus (2025‑2026)</p>
-            <div class="modal-dual-embed">
+            <div class="modal-dual-embed modal-dual-3d">
                 <div class="modal-embed"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
                 <div class="modal-embed"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div>
             </div>
             <div class="modal-body">
-                <h3>The Problem</h3>
-                <p>At the University of Batangas Lipa Campus, the <strong>"Punla Para sa Kalikasan"</strong> greenhouse relied on manual irrigation — inconsistent watering, subjective judgment, and no real‑time data. Plants were overwatered or underwatered, labor demands were high, and water was inefficiently used.</p>
-                <h3>The Solution</h3>
-                <p>I co‑developed <strong>Eco Flow</strong>, a fully automated greenhouse system integrating IoT monitoring, data analytics, and AI‑based water scheduling. It uses capacitive soil moisture sensors and DHT22 sensors with a <strong>Raspberry Pi 5</strong> central hub and <strong>ESP32</strong> microcontrollers.</p>
-                <h3>The Results</h3>
-                <p>Eco Flow achieved <strong>94.74% water utilization efficiency</strong> (vs. 70.83% manual), reduced daily water consumption by 29%, and earned a <strong>95.4% performance rating</strong> under ISO 25010 standards.</p>
+                <h3>The Problem</h3><p>At the University of Batangas Lipa Campus, the <strong>"Punla Para sa Kalikasan"</strong> greenhouse relied on manual irrigation — inconsistent watering, subjective judgment, and no real‑time data. Plants were overwatered or underwatered, labor demands were high, and water was inefficiently used.</p>
+                <h3>The Solution</h3><p>I co‑developed <strong>Eco Flow</strong>, a fully automated greenhouse system integrating IoT monitoring, data analytics, and AI‑based water scheduling. It uses capacitive soil moisture sensors and DHT22 sensors with a <strong>Raspberry Pi 5</strong> central hub and <strong>ESP32</strong> microcontrollers.</p>
+                <h3>The Results</h3><p>Eco Flow achieved <strong>94.74% water utilization efficiency</strong> (vs. 70.83% manual), reduced daily water consumption by 29%, and earned a <strong>95.4% performance rating</strong> under ISO 25010 standards.</p>
                 <h3>Tech Stack</h3>
-                <div class="modal-tech-stack">
-                    <span>Raspberry Pi 5</span><span>ESP32</span><span>Python (Flask)</span><span>SQLite</span>
-                    <span>Scikit-learn</span><span>Arduino IDE</span><span>DHT22</span><span>Capacitive soil moisture</span>
-                    <span>Solid‑state relays</span><span>Fusion 360</span><span>Eagle CAD</span>
-                </div>
+                <div class="modal-tech-stack"><span>Raspberry Pi 5</span><span>ESP32</span><span>Python (Flask)</span><span>SQLite</span><span>Scikit-learn</span><span>Arduino IDE</span><span>DHT22</span><span>Capacitive soil moisture</span><span>Solid‑state relays</span><span>Fusion 360</span><span>Eagle CAD</span></div>
             </div>
         </div>
     </div>
 
-    <!-- MazeBot Modal -->
+    <!-- MazeBot Modal (BIGGER 3D EMBED) -->
     <div class="modal-overlay" id="modal-mazebot">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-mazebot')"><i class="fas fa-times"></i></button>
             <h2>MazeBot · Autonomous Wall‑Following Robot</h2>
             <p class="modal-tagline">Embedded Systems Exercise · Reactive Control &amp; Sensor Fusion</p>
-            <div class="modal-embed"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
+            <div class="modal-embed modal-embed-3d"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
             <div class="modal-body">
-                <h3>The Problem</h3>
-                <p>Maze navigation and autonomous obstacle avoidance are fundamental challenges in mobile robotics. A robust, low‑cost solution was needed to demonstrate real‑time decision‑making and sensor‑based navigation.</p>
-                <h3>The Solution</h3>
-                <p>I built <strong>MazeBot</strong>, an autonomous wall‑following robot using three TCRT5000 infrared sensors for wall proximity detection, an ESP32 microcontroller, and a DRV8833 motor driver controlling two GA12‑NC20 DC geared motors with differential steering.</p>
-                <h3>The Results</h3>
-                <p>MazeBot reliably follows walls, navigates 90° and 180° turns, and resolves T‑junctions. Built for under ₱1,500, it proves low‑cost components can achieve autonomous behaviour.</p>
+                <h3>The Problem</h3><p>Maze navigation and autonomous obstacle avoidance are fundamental challenges in mobile robotics. A robust, low‑cost solution was needed to demonstrate real‑time decision‑making and sensor‑based navigation.</p>
+                <h3>The Solution</h3><p>I built <strong>MazeBot</strong>, an autonomous wall‑following robot using three TCRT5000 infrared sensors for wall proximity detection, an ESP32 microcontroller, and a DRV8833 motor driver controlling two GA12‑NC20 DC geared motors with differential steering.</p>
+                <h3>The Results</h3><p>MazeBot reliably follows walls, navigates 90° and 180° turns, and resolves T‑junctions. Built for under ₱1,500, it proves low‑cost components can achieve autonomous behaviour.</p>
                 <h3>Tech Stack</h3>
-                <div class="modal-tech-stack">
-                    <span>ESP32</span><span>Arduino IDE</span><span>TCRT5000 IR (x3)</span><span>GA12‑NC20 motors</span>
-                    <span>DRV8833 driver</span><span>18650 Li‑ion</span><span>Fusion 360</span>
-                </div>
+                <div class="modal-tech-stack"><span>ESP32</span><span>Arduino IDE</span><span>TCRT5000 IR (x3)</span><span>GA12‑NC20 motors</span><span>DRV8833 driver</span><span>18650 Li‑ion</span><span>Fusion 360</span></div>
             </div>
         </div>
     </div>
@@ -2306,30 +2351,20 @@
             <button class="modal-close" onclick="closeModal('modal-nyc')"><i class="fas fa-times"></i></button>
             <h2>NYC Crash Analytics</h2>
             <p class="modal-tagline">Full‑stack interactive dashboard for motor‑vehicle collision data</p>
-            <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link">
-                <i class="fas fa-external-link-alt"></i> View Live Site
-            </a>
+            <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
             <div class="modal-body">
-                <h3>Overview</h3>
-                <p><strong>NYC Crash Analytics</strong> is a full‑stack web dashboard that transforms raw NYC Open Data into an interactive visual exploration tool. Built with PHP, MySQL, and vanilla JavaScript, it lets users filter hundreds of thousands of collision records by borough, date, vehicle type, and severity.</p>
-                <h3>Key Features</h3>
-                <p>A responsive dark‑theme interface presents a live <strong>Leaflet</strong> map with marker clustering, heatmaps, a time‑slider, and on‑map drawing tools. A paginated data table shows detailed records, while <strong>Chart.js</strong> visualizations reveal trends and borough breakdowns.</p>
+                <h3>Overview</h3><p><strong>NYC Crash Analytics</strong> is a full‑stack web dashboard that transforms raw NYC Open Data into an interactive visual exploration tool. Built with PHP, MySQL, and vanilla JavaScript, it lets users filter hundreds of thousands of collision records by borough, date, vehicle type, and severity.</p>
+                <h3>Key Features</h3><p>A responsive dark‑theme interface presents a live <strong>Leaflet</strong> map with marker clustering, heatmaps, a time‑slider, and on‑map drawing tools. A paginated data table shows detailed records, while <strong>Chart.js</strong> visualizations reveal trends and borough breakdowns.</p>
                 <h3>Tech Stack</h3>
-                <div class="modal-tech-stack">
-                    <span>PHP</span><span>MySQL</span><span>JavaScript</span><span>Leaflet</span>
-                    <span>Chart.js</span><span>Bootstrap</span><span>REST APIs</span>
-                    <span>CSV/JSON/PDF Export</span>
-                </div>
+                <div class="modal-tech-stack"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>Leaflet</span><span>Chart.js</span><span>Bootstrap</span><span>REST APIs</span><span>CSV/JSON/PDF Export</span></div>
             </div>
         </div>
     </div>
 
-    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
     </script>
 
     <script>
-        // ==================== CORE INTERACTIONS ====================
         document.addEventListener('DOMContentLoaded', () => {
             const headerInner = document.getElementById('headerInner');
             const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -2339,14 +2374,9 @@
             const yearSpan = document.getElementById('currentYear');
             const spotlight = document.getElementById('spotlight');
 
-            // ── Sticky header ──
             if (headerInner) {
-                window.addEventListener('scroll', () => {
-                    headerInner.classList.toggle('scrolled', window.scrollY > 20);
-                });
+                window.addEventListener('scroll', () => { headerInner.classList.toggle('scrolled', window.scrollY > 20); });
             }
-
-            // ── Mobile menu ──
             if (hamburgerBtn && mobileNav) {
                 hamburgerBtn.addEventListener('click', () => {
                     mobileNav.classList.toggle('open');
@@ -2354,140 +2384,79 @@
                     icon.className = mobileNav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
                 });
                 mobileNav.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileNav.classList.remove('open');
-                        hamburgerBtn.querySelector('i').className = 'fas fa-bars';
-                    });
+                    link.addEventListener('click', () => { mobileNav.classList.remove('open');
+                        hamburgerBtn.querySelector('i').className = 'fas fa-bars'; });
                 });
                 document.addEventListener('click', (e) => {
-                    if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) {
-                        mobileNav.classList.remove('open');
-                        hamburgerBtn.querySelector('i').className = 'fas fa-bars';
-                    }
+                    if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open');
+                        hamburgerBtn.querySelector('i').className = 'fas fa-bars'; }
                 });
             }
-
-            // ── Smooth scroll ──
             allNavLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     if (href && href.startsWith('#')) {
                         e.preventDefault();
                         const target = document.querySelector(href);
-                        if (target) {
-                            const headerHeight = 90;
-                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset -
-                                headerHeight;
-                            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                        }
+                        if (target) { const headerHeight = 90;
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                            window.scrollTo({ top: targetPosition, behavior: 'smooth' }); }
                     }
                 });
             });
-
-            // ── Scroll spy ──
             const sections = document.querySelectorAll('section[id]');
+
             function updateActiveNav() {
                 let currentId = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 140;
-                    if (window.scrollY >= sectionTop) {
-                        currentId = section.getAttribute('id');
-                    }
-                });
-                allNavLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + currentId) {
-                        link.classList.add('active');
-                    }
-                });
+                sections.forEach(section => { const sectionTop = section.offsetTop - 140; if (window.scrollY >= sectionTop) currentId = section.getAttribute('id'); });
+                allNavLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + currentId) link.classList.add('active'); });
             }
             window.addEventListener('scroll', updateActiveNav);
             updateActiveNav();
-
-            // ── Scroll reveal ──
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('revealed');
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('revealed'); }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
             revealEls.forEach(el => observer.observe(el));
-
-            // ── Footer year ──
             if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-
-            // ── Spotlight effect ──
             if (spotlight) {
                 let mouseX = -500,
-                    mouseY = -500;
-                let targetX = mouseX,
+                    mouseY = -500,
+                    targetX = mouseX,
                     targetY = mouseY;
-                document.addEventListener('mousemove', (e) => {
-                    targetX = e.clientX;
+                document.addEventListener('mousemove', (e) => { targetX = e.clientX;
                     targetY = e.clientY;
-                    spotlight.classList.add('active');
-                });
-                document.addEventListener('mouseleave', () => {
-                    spotlight.classList.remove('active');
-                });
-                function animateSpotlight() {
-                    mouseX += (targetX - mouseX) * 0.08;
+                    spotlight.classList.add('active'); });
+                document.addEventListener('mouseleave', () => { spotlight.classList.remove('active'); });
+
+                function animateSpotlight() { mouseX += (targetX - mouseX) * 0.08;
                     mouseY += (targetY - mouseY) * 0.08;
                     spotlight.style.left = mouseX + 'px';
                     spotlight.style.top = mouseY + 'px';
-                    requestAnimationFrame(animateSpotlight);
-                }
+                    requestAnimationFrame(animateSpotlight); }
                 animateSpotlight();
             }
-
-            // ── Magnetic buttons for hero CTA ──
             const magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
             magneticWraps.forEach(wrap => {
-                wrap.addEventListener('mousemove', (e) => {
-                    const rect = wrap.getBoundingClientRect();
+                wrap.addEventListener('mousemove', (e) => { const rect = wrap.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`;
-                });
-                wrap.addEventListener('mouseleave', () => {
-                    wrap.style.transform = 'translate(0px, 0px)';
-                });
+                    wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`; });
+                wrap.addEventListener('mouseleave', () => { wrap.style.transform = 'translate(0px, 0px)'; });
             });
-
-            // ── Animated role switcher (blur-to-clear transition) ──
             const roleSwitcherText = document.getElementById('roleSwitcherText');
             if (roleSwitcherText) {
-                const roles = [
-                    'Computer Engineer',
-                    'Embedded Systems Developer',
-                    'IoT & Robotics Enthusiast',
-                    'Full-Stack Developer',
-                ];
+                const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
                 let roleIndex = 0;
-                const displayDuration = 3200; // How long each role is fully visible
-                const transitionDuration = 400; // How long the blur/fade transition takes
+                const displayDuration = 3200,
+                    transitionDuration = 400;
 
                 function switchRole() {
-                    // Trigger transition out
                     roleSwitcherText.classList.add('transitioning');
-
-                    setTimeout(() => {
-                        // Change text while blurred/invisible
-                        roleIndex = (roleIndex + 1) % roles.length;
+                    setTimeout(() => { roleIndex = (roleIndex + 1) % roles.length;
                         roleSwitcherText.textContent = roles[roleIndex];
-
-                        // Remove transition class to fade back in
-                        roleSwitcherText.classList.remove('transitioning');
-                    }, transitionDuration);
-
-                    // Schedule next switch
+                        roleSwitcherText.classList.remove('transitioning'); }, transitionDuration);
                     setTimeout(switchRole, displayDuration + transitionDuration);
                 }
-
-                // Start the cycle after initial display
                 setTimeout(switchRole, displayDuration);
             }
-
-            // ── Resume download button ──
             const resumeBtn = document.getElementById('resumeDownloadBtn');
             if (resumeBtn) {
                 resumeBtn.addEventListener('click', function() {
@@ -2501,99 +2470,59 @@
             }
         });
 
-        // ==================== MODAL FUNCTIONS ====================
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
+        function openModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; } }
 
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        }
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
-                e.target.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const activeModals = document.querySelectorAll('.modal-overlay.active');
+        function closeModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.remove('active');
+                document.body.style.overflow = ''; } }
+        document.addEventListener('click', function(e) { if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) { e.target.classList.remove('active');
+                document.body.style.overflow = ''; } });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { const activeModals = document.querySelectorAll('.modal-overlay.active');
                 activeModals.forEach(m => m.classList.remove('active'));
-                document.body.style.overflow = '';
-            }
-        });
+                document.body.style.overflow = ''; } });
     </script>
 
-    <!-- ==================== LIGHT RAYS BACKGROUND ==================== -->
+    <!-- ═══════════════ LIGHT RAYS BACKGROUND ═══════════════ -->
     <script>
         (function() {
             const container = document.getElementById('canvasContainer');
             const canvas = document.getElementById('lightraysCanvas');
             if (!container || !canvas) return;
-            const config = { raysOrigin: 'top-center', raysColor: '#67e8f9', raysSpeed: 1, lightSpread: 1,
-                rayLength: 2, pulsating: false, fadeDistance: 1.0, saturation: 1.0, followMouse: true,
-                mouseInfluence: 0.1, noiseAmount: 0.0, distortion: 0.0 };
+            const config = { raysOrigin: 'top-center', raysColor: '#67e8f9', raysSpeed: 1, lightSpread: 1, rayLength: 2, pulsating: false, fadeDistance: 1.0, saturation: 1.0, followMouse: true, mouseInfluence: 0.1, noiseAmount: 0.0, distortion: 0.0 };
             const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             const scene = new THREE.Scene();
             const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
             camera.position.z = 1;
-            const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [
-                    parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255
-                ] : [1, 1, 1]; };
-            const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return {
-                        anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w, -
-                            outside * h
-                        ], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] };
-                    case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case
-                    'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [
-                            0.5 * w, (1 + outside) * h
-                        ], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h],
-                        dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
-            const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE
-                        .Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(
-                        ...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed },
-                lightSpread: { value: config.lightSpread }, rayLength: { value: config.rayLength },
-                pulsating: { value: config.pulsating ? 1.0 : 0.0 }, fadeDistance: { value: config.fadeDistance },
-                saturation: { value: config.saturation }, mousePos: { value: new THREE.Vector2(0.5, 0.5) },
-                mouseInfluence: { value: config.mouseInfluence }, noiseAmount: { value: config.noiseAmount },
-                distortion: { value: config.distortion } };
-            const vertexShader =
-                `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+            const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255] : [1, 1, 1]; };
+            const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return { anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] }; case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
+            const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE.Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config.lightSpread }, rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ? 1.0 : 0.0 }, fadeDistance: { value: config.fadeDistance }, saturation: { value: config.saturation }, mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence }, noiseAmount: { value: config.noiseAmount }, distortion: { value: config.distortion } };
+            const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
             const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
-            const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true,
-                depthWrite: false, depthTest: false });
+            const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, depthTest: false });
             const geometry = new THREE.PlaneGeometry(2, 2);
             const mesh = new THREE.Mesh(geometry, material);
             scene.add(mesh);
             const mouse = { x: 0.5, y: 0.5 },
                 smoothMouse = { x: 0.5, y: 0.5 };
-            window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e
-                    .clientX - rect.left) / rect.width;
+            window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect();
+                mouse.x = (e.clientX - rect.left) / rect.width;
                 mouse.y = (e.clientY - rect.top) / rect.height; });
 
             function resize() { const rect = container.getBoundingClientRect();
                 const w = rect.width,
                     h = rect.height;
-                renderer.setSize(w, h); const dpr = renderer.getPixelRatio();
-                uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config
-                    .raysOrigin, w * dpr, h * dpr);
+                renderer.setSize(w, h);
+                const dpr = renderer.getPixelRatio();
+                uniforms.iResolution.value.set(w * dpr, h * dpr);
+                const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr);
                 uniforms.rayPos.value.set(anchor[0], anchor[1]);
                 uniforms.rayDir.value.set(dir[0], dir[1]); }
             window.addEventListener('resize', resize);
             resize();
 
             function animate(time) { requestAnimationFrame(animate);
-                uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const
-                        smoothing = 0.92;
+                uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const smoothing = 0.92;
                     smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
                     smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
                     uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); }
@@ -2602,14 +2531,13 @@
         })();
     </script>
 
-    <!-- ==================== FLUID WATER REVEAL + IDLE SCAN + 3D PARALLAX ==================== -->
+    <!-- ═══════════════ FLUID WATER REVEAL + IDLE SCAN + 3D PARALLAX ═══════════════ -->
     <script>
         (function() {
             const container = document.getElementById('canvasContainer');
             const webglCanvas = document.getElementById('webglCanvas');
             if (!container || !webglCanvas) return;
-            const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true,
-                premultipliedAlpha: false, antialias: true });
+            const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false, antialias: true });
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             const scene = new THREE.Scene();
             const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
@@ -2622,14 +2550,14 @@
             let idleActive = false;
             const IDLE_DELAY = 2000;
             const SWEEP_PAUSE = 4000;
-            let scanVirtualX = 0.0;
-            let scanVirtualY = 0.0;
-            let scanDirX = 1;
-            let scanDirY = 1;
-            let scanPauseUntil = 0;
-            let scanComplete = true;
-            const SCAN_SPEED_X = 3.5;
-            const SCAN_SPEED_Y = 0.5;
+            let scanVirtualX = 0.0,
+                scanVirtualY = 0.0,
+                scanDirX = 1,
+                scanDirY = 1,
+                scanPauseUntil = 0,
+                scanComplete = true;
+            const SCAN_SPEED_X = 3.5,
+                SCAN_SPEED_Y = 0.5;
             const loader = new THREE.TextureLoader();
             let imagesLoaded = 0,
                 animationStarted = false;
@@ -2638,25 +2566,13 @@
                 simScene = new THREE.Scene();
                 simCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
                 simCamera.position.z = 1;
-                const format = THREE.RGBAFormat;
-                const type = THREE.FloatType;
-                fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE
-                        .LinearFilter, magFilter: THREE.LinearFilter });
-                fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE
-                        .LinearFilter, magFilter: THREE.LinearFilter });
+                const format = THREE.RGBAFormat,
+                    type = THREE.FloatType;
+                fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+                fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
                 const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
                 const simFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
-                const simMat = new THREE.ShaderMaterial({
-                    uniforms: {
-                        uPrevFrame: { value: fluidRT_A.texture },
-                        uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-                        uVelocity: { value: new THREE.Vector2(0, 0) },
-                        uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) },
-                        uMouseDown: { value: false }
-                    },
-                    vertexShader: simVert,
-                    fragmentShader: simFrag
-                });
+                const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture }, uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0, 0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) }, uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
                 simQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMat);
                 simScene.add(simQuad);
                 renderer.setRenderTarget(fluidRT_A);
@@ -2666,75 +2582,42 @@
                 renderer.setRenderTarget(null);
             }
 
-            function resizeFluid() {
-                const rect = container.getBoundingClientRect();
+            function resizeFluid() { const rect = container.getBoundingClientRect();
                 const aspect = rect.width / rect.height;
-                const h = 512;
-                const w = Math.floor(h * aspect);
+                const h = 512,
+                    w = Math.floor(h * aspect);
                 fluidRes.set(w, h);
                 fluidRT_A.setSize(w, h);
                 fluidRT_B.setSize(w, h);
-                simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h);
-            }
+                simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h); }
             initFluid();
             window.addEventListener('resize', resizeFluid);
-            const mainVert =
-                `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
+            const mainVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
             const mainFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
-            const mainUniforms = {
-                uBarong: { value: null },
-                uToga: { value: null },
-                uFluidMask: { value: fluidRT_A.texture },
-                uAspect: { value: 1.0 },
-                uBarongAspect: { value: 1.0 },
-                uTogaAspect: { value: 1.0 },
-                uCursor: { value: new THREE.Vector2(0.5, 0.5) },
-                uParallaxStrength: { value: 0.025 }
-            };
-            const mainMat = new THREE.ShaderMaterial({
-                uniforms: mainUniforms,
-                vertexShader: mainVert,
-                fragmentShader: mainFrag,
-                transparent: true,
-                depthWrite: false,
-                depthTest: false
-            });
+            const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A.texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 }, uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: 0.025 } };
+            const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert, fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
             const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
             scene.add(mainQuad);
 
-            function imageLoaded(tex, which) {
-                imagesLoaded++;
-                if (tex.image) {
-                    if (which === 'barong') {
-                        mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
-                        container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`;
-                    } else {
-                        mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height;
-                    }
-                }
-                if (imagesLoaded === 2 && !animationStarted) {
-                    animationStarted = true;
+            function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
+                        container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
                     resizeAll();
-                    animate();
-                }
-            }
+                    animate(); } }
             loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
                 imageLoaded(tex, 'barong'); });
             loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex;
                 imageLoaded(tex, 'toga'); });
 
-            function updateMouse(clientX, clientY) {
-                const rect = container.getBoundingClientRect();
-                const newX = (clientX - rect.left) / rect.width;
-                const newY = 1.0 - (clientY - rect.top) / rect.height;
+            function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect();
+                const newX = (clientX - rect.left) / rect.width,
+                    newY = 1.0 - (clientY - rect.top) / rect.height;
                 mouse.prevX = mouse.x;
                 mouse.prevY = mouse.y;
                 mouse.x = newX;
                 mouse.y = newY;
                 lastMoveTime = performance.now();
                 idleActive = false;
-                scanComplete = true;
-            }
+                scanComplete = true; }
             webglCanvas.addEventListener('mousemove', (e) => { updateMouse(e.clientX, e.clientY);
                 mouse.inside = true; });
             webglCanvas.addEventListener('mouseenter', () => { mouse.inside = true; });
@@ -2745,55 +2628,34 @@
                 mouse.inside = true; }, { passive: false });
             webglCanvas.addEventListener('touchend', () => { mouse.inside = false; });
 
-            function updateFluid(dt) {
-                const now = performance.now();
-                const simMat = simQuad.material;
-                if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) {
-                    idleActive = true;
-                    scanComplete = false;
-                    if (Math.random() < 0.5) { scanVirtualX = 0.0;
+            function updateFluid(dt) { const now = performance.now();
+                const simMat = simQuad.material; if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) { idleActive = true;
+                    scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
                         scanDirX = 1; } else { scanVirtualX = 1.0;
                         scanDirX = -1; }
                     scanVirtualY = 0.0;
                     scanDirY = 1;
-                    scanPauseUntil = 0;
-                }
-                if (idleActive) {
-                    if (scanComplete) {
-                        if (now > scanPauseUntil) {
-                            scanComplete = false;
-                            if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                    scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
                                 scanDirX = 1; } else { scanVirtualX = 1.0;
                                 scanDirX = -1; }
                             scanVirtualY = 0.0;
-                            scanDirY = 1;
-                        }
-                    } else {
-                        scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
-                        scanVirtualY += scanDirY * SCAN_SPEED_Y * dt;
-                        if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
+                            scanDirY = 1; } } else { scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
+                        scanVirtualY += scanDirY * SCAN_SPEED_Y * dt; if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
                             scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0;
-                            scanDirX = 1; }
-                        if (scanVirtualY >= 1.0) {
-                            scanVirtualY = 1.0;
+                            scanDirX = 1; } if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
                             scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0;
                             scanComplete = true;
-                            scanPauseUntil = now + SWEEP_PAUSE;
-                        }
-                    }
+                            scanPauseUntil = now + SWEEP_PAUSE; } }
                     simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
                     simMat.uniforms.uMouseDown.value = true;
-                    simMat.uniforms.uVelocity.value.set(0, 0);
-                } else {
-                    simMat.uniforms.uMouse.value.set(mouse.x, mouse.y);
+                    simMat.uniforms.uVelocity.value.set(0, 0); } else { simMat.uniforms.uMouse.value.set(mouse.x, mouse.y);
                     const sensitivity = 10.0;
                     const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity;
                     const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
                     simMat.uniforms.uVelocity.value.set(velX, velY);
                     const movingThreshold = 0.01;
                     const isMoving = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold);
-                    simMat.uniforms.uMouseDown.value = isMoving && mouse.inside;
-                }
+                    simMat.uniforms.uMouseDown.value = isMoving && mouse.inside; }
                 mainUniforms.uCursor.value.set(mouse.x, mouse.y);
                 simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
                 renderer.setRenderTarget(fluidRT_B);
@@ -2802,27 +2664,22 @@
                 const temp = fluidRT_A;
                 fluidRT_A = fluidRT_B;
                 fluidRT_B = temp;
-                mainUniforms.uFluidMask.value = fluidRT_A.texture;
-            }
+                mainUniforms.uFluidMask.value = fluidRT_A.texture; }
 
-            function resizeAll() {
-                const rect = container.getBoundingClientRect();
+            function resizeAll() { const rect = container.getBoundingClientRect();
                 renderer.setSize(rect.width, rect.height);
                 mainUniforms.uAspect.value = rect.width / rect.height;
                 resizeFluid();
-                mainUniforms.uFluidMask.value = fluidRT_A.texture;
-            }
+                mainUniforms.uFluidMask.value = fluidRT_A.texture; }
             let lastTime = 0;
 
-            function animate(time) {
-                if (!animationStarted) return;
+            function animate(time) { if (!animationStarted) return;
                 requestAnimationFrame(animate);
                 const dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
                 lastTime = time;
                 updateFluid(dt);
-                renderer.render(scene, camera);
-            }
+                renderer.render(scene, camera); }
         })();
     </script>
 </body>
-</html> 
+</html>
