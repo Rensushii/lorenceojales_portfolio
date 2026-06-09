@@ -2490,19 +2490,13 @@
             // ── Resume download button ──
             const resumeBtn = document.getElementById('resumeDownloadBtn');
             if (resumeBtn) {
-                resumeBtn.addEventListener('click', function(e) {
-                    // Placeholder: replace 'resume.pdf' with actual resume file path
-                    // For now, gently alert the user that the resume is coming soon
-                    e.preventDefault();
-                    const originalHTML = this.innerHTML;
-                    this.innerHTML = '<i class="fas fa-check"></i> Resume available soon';
-                    this.style.borderColor = 'rgba(16, 185, 129, 0.5)';
-                    this.style.color = '#10b981';
-                    setTimeout(() => {
-                        this.innerHTML = originalHTML;
-                        this.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                        this.style.color = '#e8ecf4';
-                    }, 2500);
+                resumeBtn.addEventListener('click', function() {
+                    const link = document.createElement('a');
+                    link.href = 'resume.pdf';
+                    link.download = 'Lorence_Ojales_Resume.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                 });
             }
         });
