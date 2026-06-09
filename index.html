@@ -77,6 +77,7 @@
             cursor: default;
         }
 
+        /* ───── AURORA BACKGROUND ───── */
         .aurora-bg {
             position: fixed;
             top: 0;
@@ -86,7 +87,8 @@
             pointer-events: none;
             z-index: 0;
             opacity: 0.5;
-            background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
                 radial-gradient(ellipse 60% 50% at 80% 30%, rgba(59, 130, 246, 0.07) 0%, transparent 55%),
                 radial-gradient(ellipse 70% 70% at 50% 70%, rgba(99, 102, 241, 0.06) 0%, transparent 55%),
                 radial-gradient(ellipse 50% 40% at 30% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
@@ -112,6 +114,7 @@
             }
         }
 
+        /* ───── GRID OVERLAY ───── */
         .grid-overlay {
             position: fixed;
             top: 0;
@@ -121,7 +124,8 @@
             pointer-events: none;
             z-index: 0;
             opacity: 0.03;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: gridShift 30s linear infinite;
@@ -135,6 +139,7 @@
             }
         }
 
+        /* ───── SPOTLIGHT ───── */
         .spotlight {
             position: fixed;
             pointer-events: none;
@@ -152,6 +157,7 @@
             opacity: 1;
         }
 
+        /* ───── HERO-SPECIFIC SPOTLIGHT ENHANCEMENT ───── */
         .hero-spotlight-fixed {
             position: absolute;
             pointer-events: none;
@@ -160,7 +166,8 @@
             left: -10%;
             width: 120%;
             height: 140%;
-            background: radial-gradient(ellipse 50% 40% at 30% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 55%),
+            background:
+                radial-gradient(ellipse 50% 40% at 30% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 55%),
                 radial-gradient(ellipse 40% 35% at 65% 30%, rgba(59, 130, 246, 0.07) 0%, transparent 50%),
                 radial-gradient(ellipse 35% 30% at 50% 55%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
             animation: heroSpotPulse 8s ease-in-out infinite;
@@ -175,6 +182,7 @@
             }
         }
 
+        /* ───── FLOATING GRADIENT ACCENTS ───── */
         .floating-accent {
             position: absolute;
             pointer-events: none;
@@ -246,6 +254,7 @@
             }
         }
 
+        /* ───── HEADER ───── */
         .site-header {
             position: fixed;
             top: 14px;
@@ -391,6 +400,7 @@
             color: #fff;
         }
 
+        /* ───── SECTIONS ───── */
         .section-dark {
             position: relative;
             z-index: 10;
@@ -430,6 +440,7 @@
             z-index: 5;
         }
 
+        /* ───── SECTION HEADERS ───── */
         .section-header {
             margin-bottom: 48px;
             text-align: center;
@@ -463,6 +474,7 @@
             margin: 16px auto 0;
         }
 
+        /* ───── CARDS ───── */
         .card-premium {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
@@ -536,6 +548,7 @@
             z-index: 1;
         }
 
+        /* ───── CARD GRIDS ───── */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -552,6 +565,10 @@
             gap: 20px;
         }
 
+        /* ═══════════════════════════════════════════ */
+        /* ───── ENHANCED HERO SECTION STYLES ───── */
+        /* ═══════════════════════════════════════════ */
+
         .hero-section-wrapper {
             position: relative;
             min-height: 100vh;
@@ -562,12 +579,14 @@
             isolation: isolate;
         }
 
+        /* ── Hero aurora backdrop ── */
         .hero-aurora-layer {
             position: absolute;
             inset: 0;
             pointer-events: none;
             z-index: 0;
-            background: radial-gradient(ellipse 70% 50% at 25% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
+            background:
+                radial-gradient(ellipse 70% 50% at 25% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
                 radial-gradient(ellipse 55% 45% at 60% 25%, rgba(59, 130, 246, 0.08) 0%, transparent 55%),
                 radial-gradient(ellipse 50% 55% at 45% 60%, rgba(99, 102, 241, 0.06) 0%, transparent 55%),
                 radial-gradient(ellipse 40% 35% at 70% 70%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
@@ -589,6 +608,7 @@
             }
         }
 
+        /* ── Hero spotlight overlay ── */
         .hero-spotlight-overlay {
             position: absolute;
             inset: 0;
@@ -608,6 +628,7 @@
             }
         }
 
+        /* ── Floating accent orbs ── */
         .hero-float-orb {
             position: absolute;
             pointer-events: none;
@@ -674,6 +695,7 @@
             }
         }
 
+        /* ── Hero flex layout ── */
         .hero-flex {
             display: flex;
             flex-wrap: wrap;
@@ -686,12 +708,14 @@
             z-index: 5;
         }
 
+        /* ── Hero text column ── */
         .hero-text-col {
             flex: 1 1 420px;
             position: relative;
             z-index: 2;
         }
 
+        /* ── Greeting badge ── */
         .hero-greeting-badge {
             display: inline-flex;
             align-items: center;
@@ -710,6 +734,7 @@
             animation: heroStaggerIn 0.7s 0.05s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
+        /* ── Premium name headline ── */
         .hero-name-premium {
             font-size: clamp(2.8rem, 7.5vw, 5.4rem);
             font-weight: 900;
@@ -752,6 +777,7 @@
             }
         }
 
+        /* ── Role switcher ── */
         .role-switcher-wrapper {
             display: flex;
             align-items: center;
@@ -797,6 +823,7 @@
             }
         }
 
+        /* ── Hero description ── */
         .hero-desc-premium {
             font-size: 1.05rem;
             color: var(--text-secondary);
@@ -812,6 +839,7 @@
             font-weight: 600;
         }
 
+        /* ── Specialization badges ── */
         .hero-spec-badges {
             display: flex;
             flex-wrap: wrap;
@@ -871,6 +899,7 @@
             box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
         }
 
+        /* ── CTA buttons premium ── */
         .hero-cta-premium {
             display: flex;
             gap: 14px;
@@ -927,12 +956,14 @@
         .btn-premium.secondary:active {
             transform: translateY(-1px) scale(0.97);
         }
+        /* Magnetic wrapper */
         .magnetic-wrap {
             display: inline-block;
             transition: transform 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform;
         }
 
+        /* ── Staggered entrance keyframes ── */
         @keyframes heroStaggerIn {
             to {
                 opacity: 1;
@@ -940,6 +971,7 @@
             }
         }
 
+        /* ── Hero reveal (canvas) column ── */
         .hero-reveal-col {
             flex-shrink: 0;
             aspect-ratio: 4 / 5;
@@ -976,6 +1008,7 @@
             background: transparent;
         }
 
+        /* ── Responsive hero ── */
         @media (max-width: 900px) {
             .hero-flex {
                 flex-direction: column;
@@ -1045,6 +1078,11 @@
             }
         }
 
+        /* ═══════════════════════════════════════════ */
+        /* ───── END ENHANCED HERO STYLES ───── */
+        /* ═══════════════════════════════════════════ */
+
+        /* ───── ABOUT ───── */
         .about-layout {
             display: flex;
             flex-wrap: wrap;
@@ -1134,6 +1172,7 @@
             font-size: 0.9rem;
         }
 
+        /* ───── TIMELINE ───── */
         .timeline-modern {
             position: relative;
             padding-left: 28px;
@@ -1211,6 +1250,7 @@
             font-weight: 700;
         }
 
+        /* ───── PROJECT CARDS ───── */
         .project-card-link {
             text-decoration: none;
             color: inherit;
@@ -1251,15 +1291,11 @@
             height: 200px;
             position: relative;
             margin-bottom: 6px;
-            cursor: grab;
         }
-        .project-embed-sm:active {
-            cursor: grabbing;
-        }
-        .project-embed-sm canvas {
-            display: block;
+        .project-embed-sm iframe {
             width: 100%;
             height: 100%;
+            border: none;
         }
         .project-meta h3 {
             font-size: 1.15rem;
@@ -1297,6 +1333,7 @@
             font-family: var(--font-mono);
         }
 
+        /* ───── ACHIEVEMENTS ───── */
         .achievement-card {
             text-align: center;
             padding: 30px 20px;
@@ -1366,6 +1403,7 @@
             color: #fff;
         }
 
+        /* ───── SKILLS ───── */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1423,6 +1461,7 @@
             box-shadow: 0 4px 12px rgba(6, 182, 212, 0.15);
         }
 
+        /* ───── CONTACT ───── */
         .contact-layout {
             display: flex;
             flex-wrap: wrap;
@@ -1515,6 +1554,7 @@
             color: var(--text-muted);
         }
 
+        /* ───── FOOTER ───── */
         .site-footer {
             text-align: center;
             padding: 36px 24px;
@@ -1531,6 +1571,7 @@
             font-weight: 600;
         }
 
+        /* ───── MODAL ───── */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1638,16 +1679,11 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
             height: 280px;
             margin: 14px 0;
-            position: relative;
-            cursor: grab;
         }
-        .modal-embed:active {
-            cursor: grabbing;
-        }
-        .modal-embed canvas {
-            display: block;
+        .modal-embed iframe {
             width: 100%;
             height: 100%;
+            border: none;
         }
         .modal-dual-embed {
             display: grid;
@@ -1689,6 +1725,7 @@
             box-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
         }
 
+        /* ───── REVEAL ANIMATIONS ───── */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -1707,6 +1744,7 @@
             transform: translateY(0);
         }
 
+        /* ───── RESPONSIVE ───── */
         @media (max-width: 850px) {
             .nav-list {
                 display: none;
@@ -1764,12 +1802,6 @@
             .hero-role {
                 font-size: 1rem;
             }
-            .project-embed-sm {
-                height: 180px;
-            }
-            .modal-embed {
-                height: 220px;
-            }
         }
         @media (max-width: 480px) {
             .header-inner {
@@ -1794,20 +1826,21 @@
             .project-embed-sm {
                 height: 150px;
             }
-            .hero-reveal-col {
+            .hero-reveal {
                 aspect-ratio: 3/4;
-            }
-            .modal-embed {
-                height: 180px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Aurora Background -->
     <div class="aurora-bg"></div>
+    <!-- Grid Overlay -->
     <div class="grid-overlay"></div>
+    <!-- Spotlight -->
     <div class="spotlight" id="spotlight"></div>
 
+    <!-- Fixed Header -->
     <header class="site-header">
         <div class="header-inner" id="headerInner">
             <a href="#home" class="logo-link"><span class="logo-dot"></span><span class="logo-text">Lorence Ojales</span></a>
@@ -1830,24 +1863,45 @@
         </div>
     </header>
 
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ───── ENHANCED HERO SECTION ───── -->
+    <!-- ═══════════════════════════════════════════════ -->
     <section id="home" class="hero-section-wrapper">
+        <!-- Aurora glow backdrop -->
         <div class="hero-aurora-layer"></div>
+        <!-- Spotlight overlay -->
         <div class="hero-spotlight-overlay"></div>
+        <!-- Floating gradient orbs (Vercel + Linear inspired) -->
         <div class="hero-float-orb orb-1"></div>
         <div class="hero-float-orb orb-2"></div>
         <div class="hero-float-orb orb-3"></div>
+
         <div class="hero-flex">
+            <!-- ── LEFT: TEXT CONTENT ── -->
             <div class="hero-text-col">
-                <span class="hero-greeting-badge"><span style="font-size:0.9rem;">👋</span> Hello, I'm</span>
-                <h1 class="hero-name-premium"><span class="gradient-text">Lorence B. Ojales</span></h1>
+                <!-- Greeting badge -->
+                <span class="hero-greeting-badge">
+                    <span style="font-size:0.9rem;">👋</span> Hello, I'm
+                </span>
+
+                <!-- Premium name headline with animated gradient -->
+                <h1 class="hero-name-premium">
+                    <span class="gradient-text">Lorence B. Ojales</span>
+                </h1>
+
+                <!-- Animated role switcher -->
                 <div class="role-switcher-wrapper">
-                    <span class="role-switcher-inner" id="roleSwitcherText">Computer Engineer</span>
+                    <span class="role-switcher-inner" id="roleSwitcherText">Computer Engineering</span>
                     <span class="role-switcher-cursor"></span>
                 </div>
+
+                <!-- Professional description -->
                 <p class="hero-desc-premium">
                     Designing <strong>intelligent systems</strong>, building <strong>embedded solutions</strong>, and creating
                     <strong>innovative technologies</strong> that bridge hardware and software.
                 </p>
+
+                <!-- Specialization badges — recruiter-first -->
                 <div class="hero-spec-badges">
                     <span class="spec-badge"><span class="spec-dot cyan"></span> Computer Engineering</span>
                     <span class="spec-badge"><span class="spec-dot blue"></span> Embedded Systems</span>
@@ -1855,22 +1909,34 @@
                     <span class="spec-badge"><span class="spec-dot emerald"></span> Robotics</span>
                     <span class="spec-badge"><span class="spec-dot gold"></span> Software Development</span>
                 </div>
+
+                <!-- Premium CTA buttons with magnetic effect -->
                 <div class="hero-cta-premium">
                     <span class="magnetic-wrap" data-magnetic>
-                        <a href="#projects" class="btn-premium primary"><i class="fas fa-code"></i> View Projects</a>
+                        <a href="#projects" class="btn-premium primary">
+                            <i class="fas fa-code"></i> View Projects
+                        </a>
                     </span>
                     <span class="magnetic-wrap" data-magnetic>
-                        <a href="#" class="btn-premium secondary" id="resumeDownloadBtn" title="Download Resume"><i class="fas fa-file-arrow-down"></i> Download Resume</a>
+                        <a href="#" class="btn-premium secondary" id="resumeDownloadBtn" title="Download Resume">
+                            <i class="fas fa-file-arrow-down"></i> Download Resume
+                        </a>
                     </span>
                 </div>
             </div>
+
+            <!-- ── RIGHT: IMAGE REVEAL CANVAS ── -->
             <div class="hero-reveal-col" id="canvasContainer">
                 <canvas id="lightraysCanvas"></canvas>
                 <canvas id="webglCanvas"></canvas>
             </div>
         </div>
     </section>
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ───── END ENHANCED HERO SECTION ───── -->
+    <!-- ═══════════════════════════════════════════════ -->
 
+    <!-- ==================== ABOUT SECTION ==================== -->
     <section id="about" class="section-light">
         <div class="section-container">
             <div class="section-header reveal">
@@ -1892,10 +1958,12 @@
                     <p class="journey-text" style="margin-top:12px;">
                         With experience in IT support, software development, and emerging technologies, I enjoy transforming complex problems into practical, user-focused solutions that create real-world impact.
                     </p>
-                    <span class="exploring-tag"><i class="fas fa-rocket" style="margin-right:6px;"></i> Currently exploring: AI-powered applications, IoT systems, embedded development & full-stack software engineering</span>
+                    <span class="exploring-tag">
+                        <i class="fas fa-rocket" style="margin-right:6px;"></i> Currently exploring: AI-powered applications, IoT systems, embedded development & full-stack software engineering
+                    </span>
                 </div>
                 <div class="about-sidebar card-light-premium">
-                    <h3 style="font-weight:700;margin-bottom:14px;color:#fff;"><i class="fas fa-address-card" style="color:var(--accent-cyan);"></i> Details</h3>
+                    <h3 style="font-weight:700; margin-bottom:14px; color:#fff;"><i class="fas fa-address-card" style="color:var(--accent-cyan);"></i> Details</h3>
                     <div class="info-row"><div class="info-icon"><i class="fas fa-user"></i></div><div><div class="info-label">Full Name</div><div class="info-value">Lorence B. Ojales</div></div></div>
                     <div class="info-row"><div class="info-icon"><i class="fas fa-location-dot"></i></div><div><div class="info-label">Address</div><div class="info-value">Brgy. San Isidro, Lipa City, Batangas</div></div></div>
                     <div class="info-row"><div class="info-icon"><i class="fas fa-phone"></i></div><div><div class="info-label">Contact No.</div><div class="info-value">09682313762</div></div></div>
@@ -1906,6 +1974,7 @@
         </div>
     </section>
 
+    <!-- ==================== EXPERIENCE SECTION ==================== -->
     <section id="experience" class="section-dark-alt">
         <div class="section-container">
             <div class="section-header reveal">
@@ -1914,7 +1983,7 @@
                 <div class="section-line"></div>
             </div>
             <div class="card-premium reveal" style="margin-bottom:28px;">
-                <h3 style="font-weight:700;margin-bottom:20px;color:#fff;"><i class="fas fa-briefcase" style="color:var(--accent-cyan);"></i> Work Experience</h3>
+                <h3 style="font-weight:700; margin-bottom:20px; color:#fff;"><i class="fas fa-briefcase" style="color:var(--accent-cyan);"></i> Work Experience</h3>
                 <div class="timeline-modern">
                     <div class="timeline-item-modern">
                         <div class="timeline-date">June 18, 2025 – August 5, 2025</div>
@@ -1938,7 +2007,7 @@
                 </div>
             </div>
             <div class="card-premium reveal">
-                <h3 style="font-weight:700;margin-bottom:14px;color:#fff;"><i class="fas fa-graduation-cap" style="color:var(--accent-cyan);"></i> Education</h3>
+                <h3 style="font-weight:700; margin-bottom:14px; color:#fff;"><i class="fas fa-graduation-cap" style="color:var(--accent-cyan);"></i> Education</h3>
                 <div style="padding:8px 0;">
                     <div class="timeline-title">BS Computer Engineering</div>
                     <div class="timeline-org">University of Batangas – Lipa Campus</div>
@@ -1948,6 +2017,7 @@
         </div>
     </section>
 
+    <!-- ==================== PROJECTS SECTION ==================== -->
     <section id="projects" class="section-light-alt">
         <div class="section-container">
             <div class="section-header reveal">
@@ -1956,6 +2026,7 @@
                 <div class="section-line"></div>
             </div>
             <div class="card-grid-2 reveal">
+                <!-- Tugon Lipa -->
                 <div class="project-card-link" onclick="openModal('modal-tugon')">
                     <div class="card-light-premium" style="text-align:center;">
                         <span class="project-icon-large" style="color:var(--accent-gold);">🏙️🤖</span>
@@ -1970,9 +2041,10 @@
                     </div>
                 </div>
 
+                <!-- Eco Flow -->
                 <div class="project-card-link" onclick="openModal('modal-ecoflow')">
                     <div class="card-light-premium">
-                        <div class="project-embed-sm" id="greenhouse-viewer"></div>
+                        <div class="project-embed-sm"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
                         <div class="project-meta" style="margin-top:10px;">
                             <h3>Eco Flow · Smart Greenhouse</h3>
                             <p>AI‑powered IoT system with automated irrigation, analytics, and real‑time monitoring. Undergraduate thesis.</p>
@@ -1984,9 +2056,10 @@
                     </div>
                 </div>
 
+                <!-- MazeBot -->
                 <div class="project-card-link" onclick="openModal('modal-mazebot')">
                     <div class="card-light-premium">
-                        <div class="project-embed-sm" id="mazebot-viewer"></div>
+                        <div class="project-embed-sm"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
                         <div class="project-meta" style="margin-top:10px;">
                             <h3>MazeBot</h3>
                             <p>Autonomous wall‑following robot using IR sensors and reactive control on an ESP32.</p>
@@ -1998,6 +2071,7 @@
                     </div>
                 </div>
 
+                <!-- NYC Crash Analytics -->
                 <div class="project-card-link" onclick="openModal('modal-nyc')">
                     <div class="card-light-premium" style="text-align:center;">
                         <span class="project-icon-large" style="color:var(--accent-blue);">🚗💥</span>
@@ -2015,6 +2089,7 @@
         </div>
     </section>
 
+    <!-- ==================== ACHIEVEMENTS SECTION ==================== -->
     <section id="achievements" class="section-dark">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2030,7 +2105,9 @@
                     <p class="event-name">Hack the Future: Smart Batangas Province Hackathon Challenge</p>
                     <p class="event-venue">University of Batangas, Batangas City</p>
                     <p class="event-date">November 21–22, 2025</p>
-                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link"><i class="fas fa-newspaper"></i> Read Article</a>
+                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link">
+                        <i class="fas fa-newspaper"></i> Read Article
+                    </a>
                 </div>
                 <div class="card-premium achievement-card">
                     <span class="achievement-icon">🔌</span>
@@ -2052,6 +2129,7 @@
         </div>
     </section>
 
+    <!-- ==================== SKILLS SECTION ==================== -->
     <section id="skills" class="section-light">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2062,32 +2140,52 @@
             <div class="skills-grid reveal">
                 <div class="skill-category-card">
                     <h3><i class="fas fa-code"></i> Programming</h3>
-                    <div class="skill-tags"><span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span></div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span>
+                    </div>
                 </div>
                 <div class="skill-category-card">
                     <h3><i class="fas fa-microchip"></i> Embedded Systems</h3>
-                    <div class="skill-tags"><span class="skill-tag">ESP32</span><span class="skill-tag">Arduino</span><span class="skill-tag">Raspberry Pi</span><span class="skill-tag">Sensor Integration</span></div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">ESP32</span><span class="skill-tag">Arduino</span><span class="skill-tag">Raspberry Pi</span>
+                        <span class="skill-tag">Sensor Integration</span>
+                    </div>
                 </div>
                 <div class="skill-category-card">
                     <h3><i class="fas fa-globe"></i> Web Development</h3>
-                    <div class="skill-tags"><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span><span class="skill-tag">MySQL</span><span class="skill-tag">Bootstrap</span></div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">PHP</span><span class="skill-tag">MySQL</span><span class="skill-tag">Bootstrap</span>
+                    </div>
                 </div>
                 <div class="skill-category-card">
                     <h3><i class="fas fa-cube"></i> 3D & PCB Design</h3>
-                    <div class="skill-tags"><span class="skill-tag">Fusion 360</span><span class="skill-tag">Eagle CAD</span><span class="skill-tag">PCB Design</span><span class="skill-tag">Circuit Schematics</span></div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Fusion 360</span><span class="skill-tag">Eagle CAD</span>
+                        <span class="skill-tag">PCB Design</span><span class="skill-tag">Circuit Schematics</span>
+                    </div>
                 </div>
                 <div class="skill-category-card">
                     <h3><i class="fas fa-tools"></i> IT & Infrastructure</h3>
-                    <div class="skill-tags"><span class="skill-tag">IT Support</span><span class="skill-tag">Server Monitoring</span><span class="skill-tag">Network Troubleshooting</span><span class="skill-tag">System Backups</span></div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">IT Support</span><span class="skill-tag">Server Monitoring</span>
+                        <span class="skill-tag">Network Troubleshooting</span><span class="skill-tag">System Backups</span>
+                    </div>
                 </div>
                 <div class="skill-category-card">
                     <h3><i class="fas fa-lightbulb"></i> Soft Skills</h3>
-                    <div class="skill-tags"><span class="skill-tag">Analytical Thinking</span><span class="skill-tag">Troubleshooting</span><span class="skill-tag">Team Collaboration</span><span class="skill-tag">Clear Communication</span><span class="skill-tag">Quick Adaptability</span></div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Analytical Thinking</span><span class="skill-tag">Troubleshooting</span>
+                        <span class="skill-tag">Team Collaboration</span><span class="skill-tag">Clear Communication</span>
+                        <span class="skill-tag">Quick Adaptability</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ==================== CONTACT SECTION ==================== -->
     <section id="contact" class="section-dark-alt">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2097,7 +2195,7 @@
             </div>
             <div class="contact-layout reveal">
                 <div class="contact-info-card card-premium">
-                    <h3 style="font-weight:700;margin-bottom:16px;color:#fff;"><i class="fas fa-address-book" style="color:var(--accent-cyan);"></i> Reach me</h3>
+                    <h3 style="font-weight:700; margin-bottom:16px; color:#fff;"><i class="fas fa-address-book" style="color:var(--accent-cyan);"></i> Reach me</h3>
                     <a href="mailto:lorence.ojales@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> lorence.ojales@gmail.com</a>
                     <a href="mailto:1620052@ub.edu.ph" class="contact-link"><i class="fas fa-building-columns"></i> 1620052@ub.edu.ph</a>
                     <a href="tel:09682313762" class="contact-link"><i class="fas fa-phone"></i> 09682313762</a>
@@ -2109,22 +2207,25 @@
                     </div>
                 </div>
                 <div class="contact-form-card card-premium">
-                    <h3 style="font-weight:700;margin-bottom:16px;color:#fff;"><i class="fas fa-paper-plane" style="color:var(--accent-cyan);"></i> Send a message</h3>
+                    <h3 style="font-weight:700; margin-bottom:16px; color:#fff;"><i class="fas fa-paper-plane" style="color:var(--accent-cyan);"></i> Send a message</h3>
                     <form action="#" method="POST">
                         <div class="form-group"><input type="text" class="form-input" placeholder="Your name" required></div>
                         <div class="form-group"><input type="email" class="form-input" placeholder="Your email" required></div>
                         <div class="form-group"><textarea class="form-input" rows="5" placeholder="Your message..." required></textarea></div>
-                        <button type="submit" class="btn-premium primary" style="width:100%;justify-content:center;"><i class="fas fa-paper-plane"></i> Send Message</button>
+                        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;"><i class="fas fa-paper-plane"></i> Send Message</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="site-footer">
         <p>&copy; <span id="currentYear">2025</span> <span class="footer-name">Lorence B. Ojales</span> — Computer Engineer. Built with precision.</p>
     </footer>
 
+    <!-- ==================== PROJECT MODALS ==================== -->
+    <!-- Tugon Lipa Modal -->
     <div class="modal-overlay" id="modal-tugon">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-tugon')"><i class="fas fa-times"></i></button>
@@ -2149,14 +2250,15 @@
         </div>
     </div>
 
+    <!-- Eco Flow Modal -->
     <div class="modal-overlay" id="modal-ecoflow">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-ecoflow')"><i class="fas fa-times"></i></button>
             <h2>Eco Flow: AI‑Powered Smart Greenhouse</h2>
             <p class="modal-tagline">Undergraduate Thesis · University of Batangas Lipa Campus (2025‑2026)</p>
             <div class="modal-dual-embed">
-                <div class="modal-embed" id="modal-greenhouse-viewer"></div>
-                <div class="modal-embed" id="modal-controlhub-viewer"></div>
+                <div class="modal-embed"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
+                <div class="modal-embed"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div>
             </div>
             <div class="modal-body">
                 <h3>The Problem</h3>
@@ -2175,12 +2277,13 @@
         </div>
     </div>
 
+    <!-- MazeBot Modal -->
     <div class="modal-overlay" id="modal-mazebot">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-mazebot')"><i class="fas fa-times"></i></button>
             <h2>MazeBot · Autonomous Wall‑Following Robot</h2>
             <p class="modal-tagline">Embedded Systems Exercise · Reactive Control &amp; Sensor Fusion</p>
-            <div class="modal-embed" id="modal-mazebot-viewer"></div>
+            <div class="modal-embed"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
             <div class="modal-body">
                 <h3>The Problem</h3>
                 <p>Maze navigation and autonomous obstacle avoidance are fundamental challenges in mobile robotics. A robust, low‑cost solution was needed to demonstrate real‑time decision‑making and sensor‑based navigation.</p>
@@ -2197,12 +2300,15 @@
         </div>
     </div>
 
+    <!-- NYC Crash Modal -->
     <div class="modal-overlay" id="modal-nyc">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-nyc')"><i class="fas fa-times"></i></button>
             <h2>NYC Crash Analytics</h2>
             <p class="modal-tagline">Full‑stack interactive dashboard for motor‑vehicle collision data</p>
-            <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
+            <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link">
+                <i class="fas fa-external-link-alt"></i> View Live Site
+            </a>
             <div class="modal-body">
                 <h3>Overview</h3>
                 <p><strong>NYC Crash Analytics</strong> is a full‑stack web dashboard that transforms raw NYC Open Data into an interactive visual exploration tool. Built with PHP, MySQL, and vanilla JavaScript, it lets users filter hundreds of thousands of collision records by borough, date, vehicle type, and severity.</p>
@@ -2218,15 +2324,13 @@
         </div>
     </div>
 
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js">
     </script>
 
     <script>
-        (function() {
+        // ==================== CORE INTERACTIONS ====================
+        document.addEventListener('DOMContentLoaded', () => {
             const headerInner = document.getElementById('headerInner');
             const hamburgerBtn = document.getElementById('hamburgerBtn');
             const mobileNav = document.getElementById('mobileNav');
@@ -2235,12 +2339,14 @@
             const yearSpan = document.getElementById('currentYear');
             const spotlight = document.getElementById('spotlight');
 
+            // ── Sticky header ──
             if (headerInner) {
                 window.addEventListener('scroll', () => {
                     headerInner.classList.toggle('scrolled', window.scrollY > 20);
                 });
             }
 
+            // ── Mobile menu ──
             if (hamburgerBtn && mobileNav) {
                 hamburgerBtn.addEventListener('click', () => {
                     mobileNav.classList.toggle('open');
@@ -2261,6 +2367,7 @@
                 });
             }
 
+            // ── Smooth scroll ──
             allNavLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
@@ -2277,8 +2384,8 @@
                 });
             });
 
+            // ── Scroll spy ──
             const sections = document.querySelectorAll('section[id]');
-
             function updateActiveNav() {
                 let currentId = '';
                 sections.forEach(section => {
@@ -2297,6 +2404,7 @@
             window.addEventListener('scroll', updateActiveNav);
             updateActiveNav();
 
+            // ── Scroll reveal ──
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('revealed');
@@ -2304,8 +2412,10 @@
             }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
             revealEls.forEach(el => observer.observe(el));
 
+            // ── Footer year ──
             if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
+            // ── Spotlight effect ──
             if (spotlight) {
                 let mouseX = -500,
                     mouseY = -500;
@@ -2319,7 +2429,6 @@
                 document.addEventListener('mouseleave', () => {
                     spotlight.classList.remove('active');
                 });
-
                 function animateSpotlight() {
                     mouseX += (targetX - mouseX) * 0.08;
                     mouseY += (targetY - mouseY) * 0.08;
@@ -2330,6 +2439,7 @@
                 animateSpotlight();
             }
 
+            // ── Magnetic buttons for hero CTA ──
             const magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
             magneticWraps.forEach(wrap => {
                 wrap.addEventListener('mousemove', (e) => {
@@ -2343,6 +2453,7 @@
                 });
             });
 
+            // ── Animated role switcher (blur-to-clear transition) ──
             const roleSwitcherText = document.getElementById('roleSwitcherText');
             if (roleSwitcherText) {
                 const roles = [
@@ -2352,21 +2463,31 @@
                     'Full-Stack Developer',
                 ];
                 let roleIndex = 0;
-                const displayDuration = 3200;
-                const transitionDuration = 400;
+                const displayDuration = 3200; // How long each role is fully visible
+                const transitionDuration = 400; // How long the blur/fade transition takes
 
                 function switchRole() {
+                    // Trigger transition out
                     roleSwitcherText.classList.add('transitioning');
+
                     setTimeout(() => {
+                        // Change text while blurred/invisible
                         roleIndex = (roleIndex + 1) % roles.length;
                         roleSwitcherText.textContent = roles[roleIndex];
+
+                        // Remove transition class to fade back in
                         roleSwitcherText.classList.remove('transitioning');
                     }, transitionDuration);
+
+                    // Schedule next switch
                     setTimeout(switchRole, displayDuration + transitionDuration);
                 }
+
+                // Start the cycle after initial display
                 setTimeout(switchRole, displayDuration);
             }
 
+            // ── Resume download button ──
             const resumeBtn = document.getElementById('resumeDownloadBtn');
             if (resumeBtn) {
                 resumeBtn.addEventListener('click', function() {
@@ -2378,16 +2499,14 @@
                     document.body.removeChild(link);
                 });
             }
-        })();
+        });
 
+        // ==================== MODAL FUNCTIONS ====================
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                setTimeout(() => {
-                    resizeAllViewers();
-                }, 350);
             }
         }
 
@@ -2413,6 +2532,7 @@
         });
     </script>
 
+    <!-- ==================== LIGHT RAYS BACKGROUND ==================== -->
     <script>
         (function() {
             const container = document.getElementById('canvasContainer');
@@ -2431,12 +2551,13 @@
                 ] : [1, 1, 1]; };
             const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return {
                         anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w, -
-                            outside * h], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h],
-                        dir: [1, 0] }; case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] };
-                case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [
-                            0.5 * w, (1 + outside) * h], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 +
-                            outside) * h], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h],
-                        dir: [0, 1] }; } };
+                            outside * h
+                        ], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] };
+                    case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case
+                    'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [
+                            0.5 * w, (1 + outside) * h
+                        ], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h],
+                        dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
             const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE
                         .Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(
                         ...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed },
@@ -2447,8 +2568,7 @@
                 distortion: { value: config.distortion } };
             const vertexShader =
                 `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-            const fragmentShader =
-                `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
+            const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
             const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true,
                 depthWrite: false, depthTest: false });
             const geometry = new THREE.PlaneGeometry(2, 2);
@@ -2456,8 +2576,8 @@
             scene.add(mesh);
             const mouse = { x: 0.5, y: 0.5 },
                 smoothMouse = { x: 0.5, y: 0.5 };
-            window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect();
-                mouse.x = (e.clientX - rect.left) / rect.width;
+            window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e
+                    .clientX - rect.left) / rect.width;
                 mouse.y = (e.clientY - rect.top) / rect.height; });
 
             function resize() { const rect = container.getBoundingClientRect();
@@ -2482,6 +2602,7 @@
         })();
     </script>
 
+    <!-- ==================== FLUID WATER REVEAL + IDLE SCAN + 3D PARALLAX ==================== -->
     <script>
         (function() {
             const container = document.getElementById('canvasContainer');
@@ -2523,10 +2644,8 @@
                         .LinearFilter, magFilter: THREE.LinearFilter });
                 fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE
                         .LinearFilter, magFilter: THREE.LinearFilter });
-                const simVert =
-                    `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-                const simFrag =
-                    `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
+                const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+                const simFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
                 const simMat = new THREE.ShaderMaterial({
                     uniforms: {
                         uPrevFrame: { value: fluidRT_A.texture },
@@ -2561,8 +2680,7 @@
             window.addEventListener('resize', resizeFluid);
             const mainVert =
                 `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
-            const mainFrag =
-                `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
+            const mainFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
             const mainUniforms = {
                 uBarong: { value: null },
                 uToga: { value: null },
@@ -2706,227 +2824,5 @@
             }
         })();
     </script>
-
-    <script>
-        (function() {
-            const viewers = [];
-            let sharedEnvMap = null;
-
-            function generateEnvironmentMap(renderer) {
-                const envScene = new THREE.Scene();
-                const gradientSphere = new THREE.Mesh(
-                    new THREE.SphereGeometry(20, 32, 32),
-                    new THREE.ShaderMaterial({
-                        side: THREE.BackSide,
-                        vertexShader: 'varying vec3 vWorldPos; void main() { vec4 worldPos = modelMatrix * vec4(position, 1.0); vWorldPos = worldPos.xyz; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-                        fragmentShader: 'varying vec3 vWorldPos; void main() { float h = normalize(vWorldPos).y; vec3 topColor = vec3(0.35, 0.65, 0.95); vec3 bottomColor = vec3(0.04, 0.04, 0.12); vec3 midColor = vec3(0.18, 0.28, 0.48); float t = smoothstep(-0.2, 0.6, h); vec3 col = mix(bottomColor, midColor, t); col = mix(col, topColor, smoothstep(0.5, 1.0, h)); gl_FragColor = vec4(col, 1.0); }'
-                    })
-                );
-                envScene.add(gradientSphere);
-                const pmremGenerator = new THREE.PMREMGenerator(renderer);
-                pmremGenerator.compileEquirectangularShader();
-                const envMap = pmremGenerator.fromScene(envScene, 0.04).texture;
-                envScene.remove(gradientSphere);
-                gradientSphere.geometry.dispose();
-                gradientSphere.material.dispose();
-                pmremGenerator.dispose();
-                return envMap;
-            }
-
-            function createModelViewer(containerId, modelPath) {
-                const container = document.getElementById(containerId);
-                if (!container) return null;
-
-                const scene = new THREE.Scene();
-                scene.background = null;
-
-                const width = container.clientWidth || 400;
-                const height = container.clientHeight || 280;
-                const camera = new THREE.PerspectiveCamera(40, width / Math.max(height, 1), 0.1, 100);
-                camera.position.set(4, 2.5, 6);
-                camera.lookAt(0, 0, 0);
-
-                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                renderer.setSize(width, height);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                renderer.shadowMap.enabled = true;
-                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-                renderer.outputEncoding = THREE.sRGBEncoding;
-                renderer.toneMapping = THREE.ACESFilmicToneMapping;
-                renderer.toneMappingExposure = 1.2;
-                container.appendChild(renderer.domElement);
-
-                if (!sharedEnvMap) {
-                    sharedEnvMap = generateEnvironmentMap(renderer);
-                }
-                scene.environment = sharedEnvMap;
-                scene.background = new THREE.Color(0x020510);
-
-                const ambientLight = new THREE.AmbientLight(0x8899bb, 0.7);
-                scene.add(ambientLight);
-
-                const keyLight = new THREE.DirectionalLight(0xffeedd, 1.4);
-                keyLight.position.set(8, 10, 6);
-                keyLight.castShadow = true;
-                keyLight.shadow.mapSize.width = 1024;
-                keyLight.shadow.mapSize.height = 1024;
-                keyLight.shadow.camera.near = 0.5;
-                keyLight.shadow.camera.far = 50;
-                keyLight.shadow.camera.left = -8;
-                keyLight.shadow.camera.right = 8;
-                keyLight.shadow.camera.top = 8;
-                keyLight.shadow.camera.bottom = -8;
-                keyLight.shadow.bias = -0.0005;
-                keyLight.shadow.normalBias = 0.02;
-                scene.add(keyLight);
-
-                const fillLight = new THREE.DirectionalLight(0xaaccff, 0.6);
-                fillLight.position.set(-4, 2, -3);
-                fillLight.castShadow = true;
-                fillLight.shadow.mapSize.width = 512;
-                fillLight.shadow.mapSize.height = 512;
-                fillLight.shadow.camera.near = 0.5;
-                fillLight.shadow.camera.far = 30;
-                fillLight.shadow.camera.left = -6;
-                fillLight.shadow.camera.right = 6;
-                fillLight.shadow.camera.top = 6;
-                fillLight.shadow.camera.bottom = -6;
-                fillLight.shadow.bias = -0.0004;
-                scene.add(fillLight);
-
-                const rimLight = new THREE.DirectionalLight(0xffffff, 0.5);
-                rimLight.position.set(0, 1, -5);
-                scene.add(rimLight);
-
-                const bottomLight = new THREE.DirectionalLight(0x334466, 0.35);
-                bottomLight.position.set(0, -3, 2);
-                scene.add(bottomLight);
-
-                const groundGeom = new THREE.CircleGeometry(4, 48);
-                const groundMat = new THREE.MeshStandardMaterial({
-                    color: 0x111122,
-                    roughness: 0.85,
-                    metalness: 0.1
-                });
-                const ground = new THREE.Mesh(groundGeom, groundMat);
-                ground.rotation.x = -Math.PI / 2;
-                ground.position.y = -2.5;
-                ground.receiveShadow = true;
-                ground.castShadow = false;
-                scene.add(ground);
-
-                const controls = new THREE.OrbitControls(camera, renderer.domElement);
-                controls.enableDamping = true;
-                controls.dampingFactor = 0.08;
-                controls.autoRotate = true;
-                controls.autoRotateSpeed = 0.6;
-                controls.minDistance = 2.5;
-                controls.maxDistance = 14;
-                controls.maxPolarAngle = Math.PI * 0.75;
-                controls.target.set(0, 0.2, 0);
-                controls.update();
-
-                const loader = new THREE.GLTFLoader();
-                loader.load(
-                    modelPath,
-                    (gltf) => {
-                        const model = gltf.scene;
-                        const box = new THREE.Box3().setFromObject(model);
-                        const center = box.getCenter(new THREE.Vector3());
-                        const size = box.getSize(new THREE.Vector3());
-                        const maxDim = Math.max(size.x, size.y, size.z);
-                        const scale = 4.5 / Math.max(maxDim, 0.1);
-                        model.scale.setScalar(scale);
-                        model.position.sub(center.multiplyScalar(scale));
-                        model.position.y += 0.1;
-
-                        model.traverse((child) => {
-                            if (child.isMesh) {
-                                child.castShadow = true;
-                                child.receiveShadow = true;
-                                if (child.material) {
-                                    if (Array.isArray(child.material)) {
-                                        child.material.forEach(mat => {
-                                            mat.roughness = Math.min(mat.roughness || 0.5,
-                                                0.7);
-                                            mat.metalness = Math.max(mat.metalness || 0.1,
-                                                0.15);
-                                            mat.needsUpdate = true;
-                                        });
-                                    } else {
-                                        child.material.roughness = Math.min(child.material
-                                            .roughness || 0.5, 0.7);
-                                        child.material.metalness = Math.max(child.material
-                                            .metalness || 0.1, 0.15);
-                                        child.material.needsUpdate = true;
-                                    }
-                                }
-                            }
-                        });
-
-                        scene.add(model);
-
-                        const animate = () => {
-                            if (!container.isConnected) return;
-                            requestAnimationFrame(animate);
-                            controls.update();
-                            renderer.render(scene, camera);
-                        };
-                        animate();
-                    },
-                    (progress) => {
-                        if (progress.total > 0) {
-                            const pct = Math.round((progress.loaded / progress.total) * 100);
-                        }
-                    },
-                    (error) => {
-                        console.warn('Model ' + modelPath + ' failed to load:', error);
-                        container.innerHTML =
-                            '<p style="color:#aaa;text-align:center;padding-top:40px;font-size:0.85rem;">3D model loading…<br><small>Place <code>' +
-                            modelPath + '</code> in the project folder</small></p>';
-                    }
-                );
-
-                function resize() {
-                    if (!container.isConnected) return;
-                    const w = container.clientWidth;
-                    const h = container.clientHeight;
-                    if (w > 0 && h > 0) {
-                        renderer.setSize(w, h);
-                        camera.aspect = w / h;
-                        camera.updateProjectionMatrix();
-                    }
-                }
-
-                const viewerObj = { resize, renderer, scene, camera, controls, container };
-                viewers.push(viewerObj);
-                return viewerObj;
-            }
-
-            window.resizeAllViewers = function() {
-                viewers.forEach(v => {
-                    if (v && v.resize) v.resize();
-                });
-            };
-
-            window.addEventListener('resize', () => {
-                window.resizeAllViewers();
-            });
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initViewers);
-            } else {
-                initViewers();
-            }
-
-            function initViewers() {
-                createModelViewer('greenhouse-viewer', 'greenhouse.glb');
-                createModelViewer('mazebot-viewer', 'mazebot.glb');
-                createModelViewer('modal-greenhouse-viewer', 'greenhouse.glb');
-                createModelViewer('modal-controlhub-viewer', 'control_hub.glb');
-                createModelViewer('modal-mazebot-viewer', 'mazebot.glb');
-            }
-        })();
-    </script>
 </body>
-</html>
+</html> 
