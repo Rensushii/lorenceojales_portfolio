@@ -580,7 +580,6 @@
             box-shadow: var(--shadow-card-hover);
             transform: translateY(-5px);
         }
-        /* Background layer */
         .project-card-horizontal .card-bg-layer {
             position: absolute;
             inset: 0;
@@ -593,7 +592,6 @@
             transform: scale(1.06);
             filter: brightness(1.15);
         }
-        /* Fade overlay — fades from transparent (left, 60% image area) to deep dark (right, 40% content area) */
         .project-card-horizontal .card-fade-overlay {
             position: absolute;
             inset: 0;
@@ -608,7 +606,6 @@
                     rgba(3, 7, 17, 0.95) 80%,
                     rgba(3, 7, 17, 1) 100%);
         }
-        /* Subtle top-to-bottom vignette */
         .project-card-horizontal .card-vignette {
             position: absolute;
             inset: 0;
@@ -616,7 +613,6 @@
             pointer-events: none;
             background: radial-gradient(ellipse at 35% 50%, transparent 45%, rgba(3, 7, 17, 0.4) 100%);
         }
-        /* Content wrapper — now 40% width on the right, leaving 60% for the image */
         .project-card-horizontal .card-content-right {
             position: relative;
             z-index: 2;
@@ -681,8 +677,6 @@
             color: #67e8f9;
         }
 
-        /* ── Per-project background themes ── */
-        /* Tugon Lipa — Smart Community Platform */
         .bg-tugon {
             background-image:
                 linear-gradient(155deg, rgba(3, 7, 17, 0.35) 0%, rgba(3, 7, 17, 0.22) 35%, rgba(3, 7, 17, 0.3) 100%),
@@ -691,7 +685,6 @@
             background-position: center, center;
             background-color: #1a1008;
         }
-        /* Eco Flow — Smart Greenhouse */
         .bg-ecoflow {
             background-image:
                 linear-gradient(155deg, rgba(3, 7, 17, 0.35) 0%, rgba(3, 7, 17, 0.22) 35%, rgba(3, 7, 17, 0.3) 100%),
@@ -700,7 +693,6 @@
             background-position: center, center;
             background-color: #081a10;
         }
-        /* MazeBot — Wall-Following Robot */
         .bg-mazebot {
             background-image:
                 linear-gradient(155deg, rgba(3, 7, 17, 0.35) 0%, rgba(3, 7, 17, 0.22) 35%, rgba(3, 7, 17, 0.3) 100%),
@@ -709,7 +701,6 @@
             background-position: center, center;
             background-color: #0a0a1a;
         }
-        /* NYC Crash Analytics — Data Dashboard */
         .bg-nyc {
             background-image:
                 linear-gradient(155deg, rgba(3, 7, 17, 0.35) 0%, rgba(3, 7, 17, 0.22) 35%, rgba(3, 7, 17, 0.3) 100%),
@@ -719,7 +710,6 @@
             background-color: #080a18;
         }
 
-        /* ── Responsive for horizontal cards ── */
         @media (max-width: 800px) {
             .project-card-horizontal {
                 flex-direction: column;
@@ -836,6 +826,146 @@
             border-color: var(--accent-cyan);
             transform: scale(1.03);
             box-shadow: 0 8px 20px rgba(6, 182, 212, 0.15);
+        }
+
+        /* ═══════════════════════════════════════════════ */
+        /* ───── IMAGE LIGHTBOX / POPUP ───── */
+        /* ═══════════════════════════════════════════════ */
+        .image-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 30px;
+            cursor: zoom-out;
+        }
+        .image-lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .image-lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 16px;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(6, 182, 212, 0.1);
+            cursor: default;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.85);
+        }
+        .image-lightbox.active img {
+            transform: scale(1);
+        }
+        .image-lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 28px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            z-index: 10;
+        }
+        .image-lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+        }
+        .image-lightbox-counter {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            letter-spacing: 0.03em;
+        }
+        .image-lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            z-index: 10;
+        }
+        .image-lightbox-nav:hover {
+            background: rgba(6, 182, 212, 0.15);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 18px rgba(6, 182, 212, 0.2);
+        }
+        .image-lightbox-nav.prev {
+            left: 20px;
+        }
+        .image-lightbox-nav.next {
+            right: 20px;
+        }
+        @media (max-width: 600px) {
+            .image-lightbox {
+                padding: 16px;
+            }
+            .image-lightbox img {
+                max-width: 95vw;
+                max-height: 78vh;
+                border-radius: 12px;
+            }
+            .image-lightbox-close {
+                top: 14px;
+                right: 14px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .image-lightbox-nav {
+                width: 38px;
+                height: 38px;
+                font-size: 0.9rem;
+            }
+            .image-lightbox-nav.prev {
+                left: 8px;
+            }
+            .image-lightbox-nav.next {
+                right: 8px;
+            }
+            .image-lightbox-counter {
+                bottom: 16px;
+                font-size: 0.75rem;
+                padding: 6px 14px;
+            }
         }
 
         /* ═══════════════════════════════════════════════ */
@@ -1995,6 +2125,15 @@
     <div class="grid-overlay"></div>
     <div class="spotlight" id="spotlight"></div>
 
+    <!-- ═══════════════ IMAGE LIGHTBOX ═══════════════ -->
+    <div class="image-lightbox" id="imageLightbox">
+        <button class="image-lightbox-close" id="lightboxClose" aria-label="Close lightbox"><i class="fas fa-times"></i></button>
+        <button class="image-lightbox-nav prev" id="lightboxPrev" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+        <button class="image-lightbox-nav next" id="lightboxNext" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+        <img src="" alt="Gallery image" id="lightboxImage">
+        <span class="image-lightbox-counter" id="lightboxCounter"></span>
+    </div>
+
     <header class="site-header">
         <div class="header-inner" id="headerInner">
             <a href="#home" class="logo-link"><span class="logo-dot"></span><span class="logo-text">Lorence Ojales</span></a>
@@ -2125,7 +2264,7 @@
         </div>
     </section>
 
-    <!-- ═══════════════ PROJECTS SECTION (HORIZONTAL CARDS — NO ICON WATERMARKS) ═══════════════ -->
+    <!-- ═══════════════ PROJECTS SECTION (HORIZONTAL CARDS) ═══════════════ -->
     <section id="projects" class="section-light-alt">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2298,14 +2437,14 @@
             <p class="modal-tagline">2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge</p>
             <div class="modal-highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:8px;color:var(--text-secondary);">University of Batangas, Batangas City · November 21–22, 2025</p></div>
             <div class="modal-body">
-                <!-- 6-photo gallery -->
-                <div class="project-gallery">
-                    <img src="tugon1.jpg" alt="Tugon Lipa screenshot 1" loading="lazy">
-                    <img src="tugon2.jpg" alt="Tugon Lipa screenshot 2" loading="lazy">
-                    <img src="tugon3.jpg" alt="Tugon Lipa screenshot 3" loading="lazy">
-                    <img src="tugon4.jpg" alt="Tugon Lipa screenshot 4" loading="lazy">
-                    <img src="tugon5.jpg" alt="Tugon Lipa screenshot 5" loading="lazy">
-                    <img src="tugon6.jpg" alt="Tugon Lipa screenshot 6" loading="lazy">
+                <!-- 6-photo gallery — images are clickable for lightbox -->
+                <div class="project-gallery" id="tugonGallery">
+                    <img src="tugon1.jpg" alt="Tugon Lipa screenshot 1" loading="lazy" data-gallery="tugon" data-index="0">
+                    <img src="tugon2.jpg" alt="Tugon Lipa screenshot 2" loading="lazy" data-gallery="tugon" data-index="1">
+                    <img src="tugon3.jpg" alt="Tugon Lipa screenshot 3" loading="lazy" data-gallery="tugon" data-index="2">
+                    <img src="tugon4.jpg" alt="Tugon Lipa screenshot 4" loading="lazy" data-gallery="tugon" data-index="3">
+                    <img src="tugon5.jpg" alt="Tugon Lipa screenshot 5" loading="lazy" data-gallery="tugon" data-index="4">
+                    <img src="tugon6.jpg" alt="Tugon Lipa screenshot 6" loading="lazy" data-gallery="tugon" data-index="5">
                 </div>
                 <h3>The Problem</h3><p>In Lipa City, citizens struggled with fragmented public service channels. Reporting issues meant navigating confusing phone trees, visiting barangay halls, or relying on social media posts that often went unanswered. LGUs lacked a centralized system to track and resolve citizen reports efficiently.</p>
                 <h3>The Solution</h3><p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent. Citizens submit reports with photos, receive real‑time case updates, and access official announcements — all from one unified interface.</p>
@@ -2316,7 +2455,7 @@
         </div>
     </div>
 
-    <!-- Eco Flow Modal (BIGGER 3D EMBEDS) -->
+    <!-- Eco Flow Modal -->
     <div class="modal-overlay" id="modal-ecoflow">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-ecoflow')"><i class="fas fa-times"></i></button>
@@ -2336,7 +2475,7 @@
         </div>
     </div>
 
-    <!-- MazeBot Modal (BIGGER 3D EMBED) -->
+    <!-- MazeBot Modal -->
     <div class="modal-overlay" id="modal-mazebot">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-mazebot')"><i class="fas fa-times"></i></button>
@@ -2476,6 +2615,77 @@
                     document.body.removeChild(link);
                 });
             }
+
+            // ═══════════════ LIGHTBOX LOGIC ═══════════════
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxCounter = document.getElementById('lightboxCounter');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+
+            let currentGalleryImages = [];
+            let currentImageIndex = 0;
+
+            function openLightbox(imgElement) {
+                const galleryId = imgElement.getAttribute('data-gallery');
+                if (galleryId) {
+                    currentGalleryImages = Array.from(document.querySelectorAll(`img[data-gallery="${galleryId}"]`));
+                } else {
+                    currentGalleryImages = [imgElement];
+                }
+                currentImageIndex = currentGalleryImages.indexOf(imgElement);
+                if (currentImageIndex < 0) currentImageIndex = 0;
+                updateLightboxImage();
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function updateLightboxImage() {
+                if (currentGalleryImages.length === 0) return;
+                const img = currentGalleryImages[currentImageIndex];
+                lightboxImage.src = img.src;
+                lightboxImage.alt = img.alt;
+                lightboxCounter.textContent = `${currentImageIndex + 1} / ${currentGalleryImages.length}`;
+                lightboxPrev.style.display = currentGalleryImages.length > 1 ? 'flex' : 'none';
+                lightboxNext.style.display = currentGalleryImages.length > 1 ? 'flex' : 'none';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                currentGalleryImages = [];
+                currentImageIndex = 0;
+            }
+
+            function navigateLightbox(direction) {
+                if (currentGalleryImages.length <= 1) return;
+                currentImageIndex = (currentImageIndex + direction + currentGalleryImages.length) % currentGalleryImages.length;
+                updateLightboxImage();
+            }
+
+            // Attach click handlers to ALL gallery images across all modals
+            document.querySelectorAll('.project-gallery img').forEach(img => {
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    openLightbox(this);
+                });
+            });
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+            lightboxNext.addEventListener('click', () => navigateLightbox(1));
+
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            });
         });
 
         function openModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.add('active');
@@ -2485,9 +2695,15 @@
                 document.body.style.overflow = ''; } }
         document.addEventListener('click', function(e) { if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) { e.target.classList.remove('active');
                 document.body.style.overflow = ''; } });
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { const activeModals = document.querySelectorAll('.modal-overlay.active');
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('imageLightbox');
+                if (lightbox && lightbox.classList.contains('active')) return;
+                const activeModals = document.querySelectorAll('.modal-overlay.active');
                 activeModals.forEach(m => m.classList.remove('active'));
-                document.body.style.overflow = ''; } });
+                document.body.style.overflow = '';
+            }
+        });
     </script>
 
     <!-- ═══════════════ LIGHT RAYS BACKGROUND ═══════════════ -->
