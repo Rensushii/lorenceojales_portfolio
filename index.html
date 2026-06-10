@@ -593,7 +593,7 @@
             transform: scale(1.06);
             filter: brightness(1.15);
         }
-        /* Fade overlay — fades from transparent (left) to deep dark (right) */
+        /* Fade overlay — fades from transparent (left, 60% image area) to deep dark (right, 40% content area) */
         .project-card-horizontal .card-fade-overlay {
             position: absolute;
             inset: 0;
@@ -601,10 +601,11 @@
             pointer-events: none;
             background: linear-gradient(110deg,
                     transparent 0%,
-                    rgba(3, 7, 17, 0.15) 28%,
-                    rgba(3, 7, 17, 0.5) 48%,
-                    rgba(3, 7, 17, 0.82) 64%,
-                    rgba(3, 7, 17, 0.96) 78%,
+                    transparent 38%,
+                    rgba(3, 7, 17, 0.12) 50%,
+                    rgba(3, 7, 17, 0.45) 60%,
+                    rgba(3, 7, 17, 0.78) 70%,
+                    rgba(3, 7, 17, 0.95) 80%,
                     rgba(3, 7, 17, 1) 100%);
         }
         /* Subtle top-to-bottom vignette */
@@ -613,9 +614,9 @@
             inset: 0;
             z-index: 1;
             pointer-events: none;
-            background: radial-gradient(ellipse at 30% 50%, transparent 40%, rgba(3, 7, 17, 0.45) 100%);
+            background: radial-gradient(ellipse at 35% 50%, transparent 45%, rgba(3, 7, 17, 0.4) 100%);
         }
-        /* Content wrapper */
+        /* Content wrapper — now 40% width on the right, leaving 60% for the image */
         .project-card-horizontal .card-content-right {
             position: relative;
             z-index: 2;
@@ -624,8 +625,8 @@
             justify-content: center;
             padding: 32px 36px;
             margin-left: auto;
-            width: 52%;
-            min-width: 340px;
+            width: 40%;
+            min-width: 280px;
             text-align: left;
         }
         .project-card-horizontal .card-content-right h3 {
@@ -679,25 +680,6 @@
             gap: 11px;
             color: #67e8f9;
         }
-        /* Left-side icon watermark */
-        .project-card-horizontal .card-icon-watermark {
-            position: absolute;
-            z-index: 0;
-            left: 8%;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 7rem;
-            opacity: 0.12;
-            pointer-events: none;
-            filter: blur(1px);
-            transition: all var(--transition-smooth);
-            color: #fff;
-        }
-        .project-card-horizontal:hover .card-icon-watermark {
-            opacity: 0.22;
-            filter: blur(0px);
-            transform: translateY(-50%) scale(1.08);
-        }
 
         /* ── Per-project background themes ── */
         /* Tugon Lipa — Smart Community Platform */
@@ -707,7 +689,6 @@
                 url('tugon-bg.jpg');
             background-size: auto, cover;
             background-position: center, center;
-            /* Fallback if image is missing: warm amber gradient */
             background-color: #1a1008;
         }
         /* Eco Flow — Smart Greenhouse */
@@ -747,10 +728,11 @@
             .project-card-horizontal .card-fade-overlay {
                 background: linear-gradient(180deg,
                         transparent 0%,
-                        rgba(3, 7, 17, 0.1) 20%,
-                        rgba(3, 7, 17, 0.55) 48%,
-                        rgba(3, 7, 17, 0.85) 65%,
-                        rgba(3, 7, 17, 0.97) 78%,
+                        transparent 32%,
+                        rgba(3, 7, 17, 0.08) 44%,
+                        rgba(3, 7, 17, 0.5) 56%,
+                        rgba(3, 7, 17, 0.82) 68%,
+                        rgba(3, 7, 17, 0.96) 80%,
                         rgba(3, 7, 17, 1) 100%);
             }
             .project-card-horizontal .card-content-right {
@@ -760,15 +742,6 @@
                 margin-left: 0;
                 margin-top: auto;
                 justify-content: flex-end;
-            }
-            .project-card-horizontal .card-icon-watermark {
-                left: 50%;
-                top: 25%;
-                transform: translate(-50%, -50%);
-                font-size: 5rem;
-            }
-            .project-card-horizontal:hover .card-icon-watermark {
-                transform: translate(-50%, -50%) scale(1.08);
             }
             .project-card-horizontal .card-content-right h3 {
                 font-size: 1.15rem;
@@ -784,10 +757,6 @@
             }
             .project-card-horizontal .card-content-right {
                 padding: 18px 16px;
-            }
-            .project-card-horizontal .card-icon-watermark {
-                font-size: 3.5rem;
-                top: 20%;
             }
             .project-card-horizontal .card-content-right h3 {
                 font-size: 1.05rem;
@@ -2131,7 +2100,7 @@
         </div>
     </section>
 
-    <!-- ═══════════════ PROJECTS SECTION (HORIZONTAL CARDS) ═══════════════ -->
+    <!-- ═══════════════ PROJECTS SECTION (HORIZONTAL CARDS — NO ICON WATERMARKS) ═══════════════ -->
     <section id="projects" class="section-light-alt">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2145,7 +2114,6 @@
                     <div class="card-bg-layer bg-tugon"></div>
                     <div class="card-fade-overlay"></div>
                     <div class="card-vignette"></div>
-                    <div class="card-icon-watermark">🏙️</div>
                     <div class="card-content-right">
                         <h3>Tugon Lipa · Smart Community Platform</h3>
                         <p>AI-powered citizen reporting & response system — 2nd Place, Hack the Future.</p>
@@ -2161,7 +2129,6 @@
                     <div class="card-bg-layer bg-ecoflow"></div>
                     <div class="card-fade-overlay"></div>
                     <div class="card-vignette"></div>
-                    <div class="card-icon-watermark">🌿</div>
                     <div class="card-content-right">
                         <h3>Eco Flow · Smart Greenhouse</h3>
                         <p>AI‑powered IoT system with automated irrigation, analytics, and real‑time monitoring. Undergraduate thesis.</p>
@@ -2177,7 +2144,6 @@
                     <div class="card-bg-layer bg-mazebot"></div>
                     <div class="card-fade-overlay"></div>
                     <div class="card-vignette"></div>
-                    <div class="card-icon-watermark">🤖</div>
                     <div class="card-content-right">
                         <h3>MazeBot</h3>
                         <p>Autonomous wall‑following robot using IR sensors and reactive control on an ESP32.</p>
@@ -2193,7 +2159,6 @@
                     <div class="card-bg-layer bg-nyc"></div>
                     <div class="card-fade-overlay"></div>
                     <div class="card-vignette"></div>
-                    <div class="card-icon-watermark">🚗</div>
                     <div class="card-content-right">
                         <h3>NYC Crash Analytics</h3>
                         <p>Interactive dashboard with Leaflet, heatmaps, Chart.js, and PHP/MySQL backend.</p>
