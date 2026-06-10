@@ -771,7 +771,7 @@
         }
 
         /* ═══════════════════════════════════════════════ */
-        /* ───── ENLARGED MODAL 3D EMBEDS ───── */
+        /* ───── MODAL STYLES ───── */
         /* ═══════════════════════════════════════════════ */
         .modal-embed.modal-embed-3d {
             height: 500px;
@@ -814,6 +814,28 @@
             .modal-dual-embed.modal-dual-3d .modal-embed {
                 height: 280px;
             }
+        }
+
+        /* Gallery inside modals */
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin: 22px 0 12px;
+        }
+        .project-gallery img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+        .project-gallery img:hover {
+            border-color: var(--accent-cyan);
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.15);
         }
 
         /* ═══════════════════════════════════════════════ */
@@ -1962,6 +1984,9 @@
             .hero-reveal {
                 aspect-ratio: 3/4;
             }
+            .project-gallery img {
+                height: 120px;
+            }
         }
     </style>
 </head>
@@ -2265,7 +2290,7 @@
     </footer>
 
     <!-- ═══════════════ PROJECT MODALS ═══════════════ -->
-    <!-- Tugon Lipa Modal -->
+    <!-- Tugon Lipa Modal with 6 photos gallery -->
     <div class="modal-overlay" id="modal-tugon">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-tugon')"><i class="fas fa-times"></i></button>
@@ -2273,6 +2298,15 @@
             <p class="modal-tagline">2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge</p>
             <div class="modal-highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:8px;color:var(--text-secondary);">University of Batangas, Batangas City · November 21–22, 2025</p></div>
             <div class="modal-body">
+                <!-- 6-photo gallery -->
+                <div class="project-gallery">
+                    <img src="tugon1.jpg" alt="Tugon Lipa screenshot 1" loading="lazy">
+                    <img src="tugon2.jpg" alt="Tugon Lipa screenshot 2" loading="lazy">
+                    <img src="tugon3.jpg" alt="Tugon Lipa screenshot 3" loading="lazy">
+                    <img src="tugon4.jpg" alt="Tugon Lipa screenshot 4" loading="lazy">
+                    <img src="tugon5.jpg" alt="Tugon Lipa screenshot 5" loading="lazy">
+                    <img src="tugon6.jpg" alt="Tugon Lipa screenshot 6" loading="lazy">
+                </div>
                 <h3>The Problem</h3><p>In Lipa City, citizens struggled with fragmented public service channels. Reporting issues meant navigating confusing phone trees, visiting barangay halls, or relying on social media posts that often went unanswered. LGUs lacked a centralized system to track and resolve citizen reports efficiently.</p>
                 <h3>The Solution</h3><p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent. Citizens submit reports with photos, receive real‑time case updates, and access official announcements — all from one unified interface.</p>
                 <h3>Tech Stack</h3>
@@ -2656,4 +2690,4 @@
         })();
     </script>
 </body>
-</html> 
+</html>
