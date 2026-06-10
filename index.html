@@ -13,6 +13,7 @@
             --bg-surface: #060b18;
             --bg-card: rgba(10, 16, 30, 0.7);
             --bg-card-hover: rgba(14, 22, 40, 0.85);
+            --card-bg: #030711;
             --border-subtle: rgba(255, 255, 255, 0.05);
             --border-medium: rgba(255, 255, 255, 0.1);
             --border-accent: rgba(6, 182, 212, 0.35);
@@ -1963,6 +1964,138 @@
                 aspect-ratio: 3/4;
             }
         }
+
+        /* ═══════════════════════════════════════════════ */
+        /* ───── BORDER GLOW SYSTEM ───── */
+        /* ═══════════════════════════════════════════════ */
+        .glow-card {
+            --edge-proximity: 0;
+            --cursor-angle: 45deg;
+            --edge-sensitivity: 30;
+            --color-sensitivity: 50;
+            --glow-padding: 40px;
+            --cone-spread: 25;
+            --fill-opacity: 0.5;
+            position: relative;
+            isolation: isolate;
+            overflow: visible !important;
+            border-radius: inherit;
+            background: var(--bg-card, rgba(10, 16, 30, 0.7));
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-card);
+            transition: box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        /* Content wrapper — keeps content contained with proper border-radius */
+        .border-glow-inner {
+            position: relative;
+            z-index: 2;
+            border-radius: inherit;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Outer glow layer (the soft box‑shadow halo) */
+        .glow-card>.edge-light {
+            position: absolute;
+            inset: calc(var(--glow-padding) * -1);
+            pointer-events: none;
+            z-index: 0;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.2s;
+            mask-image: conic-gradient(from var(--cursor-angle) at center,
+                    black 2.5%, transparent 10%, transparent 90%, black 97.5%);
+            mix-blend-mode: plus-lighter;
+        }
+
+        .glow-card>.edge-light::before {
+            content: "";
+            position: absolute;
+            inset: var(--glow-padding);
+            border-radius: inherit;
+            box-shadow:
+                inset 0 0 0 1px hsl(190deg 90% 80% / 100%),
+                inset 0 0 1px 0 hsl(190deg 90% 80% / 60%),
+                inset 0 0 3px 0 hsl(190deg 90% 80% / 50%),
+                inset 0 0 6px 0 hsl(190deg 90% 80% / 40%),
+                inset 0 0 15px 0 hsl(190deg 90% 80% / 30%),
+                inset 0 0 25px 2px hsl(190deg 90% 80% / 20%),
+                inset 0 0 50px 2px hsl(190deg 90% 80% / 10%),
+                0 0 1px 0 hsl(190deg 90% 80% / 60%),
+                0 0 3px 0 hsl(190deg 90% 80% / 50%),
+                0 0 6px 0 hsl(190deg 90% 80% / 40%),
+                0 0 15px 0 hsl(190deg 90% 80% / 30%),
+                0 0 25px 2px hsl(190deg 90% 80% / 20%),
+                0 0 50px 2px hsl(190deg 90% 80% / 10%);
+        }
+
+        /* Coloured mesh‑gradient border (appears near edges) */
+        .glow-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1px solid transparent;
+            background:
+                linear-gradient(var(--card-bg, #030711) 0 100%) padding-box,
+                linear-gradient(rgb(255 255 255 / 0%) 0% 100%) border-box,
+                var(--gradient-one, radial-gradient(at 80% 55%, #06b6d4 0px, transparent 50%)) border-box,
+                var(--gradient-two, radial-gradient(at 69% 34%, #3b82f6 0px, transparent 50%)) border-box,
+                var(--gradient-three, radial-gradient(at 8% 6%, #6366f1 0px, transparent 50%)) border-box,
+                var(--gradient-four, radial-gradient(at 41% 38%, #67e8f9 0px, transparent 50%)) border-box,
+                var(--gradient-five, radial-gradient(at 86% 85%, #3b82f6 0px, transparent 50%)) border-box,
+                var(--gradient-six, radial-gradient(at 82% 18%, #06b6d4 0px, transparent 50%)) border-box,
+                var(--gradient-seven, radial-gradient(at 51% 4%, #6366f1 0px, transparent 50%)) border-box,
+                var(--gradient-base, linear-gradient(#06b6d4 0 100%)) border-box;
+            opacity: 0;
+            z-index: 1;
+            mask-image: conic-gradient(from var(--cursor-angle) at center,
+                    black calc(var(--cone-spread) * 1%),
+                    transparent calc((var(--cone-spread) + 15) * 1%),
+                    transparent calc((100 - var(--cone-spread) - 15) * 1%),
+                    black calc((100 - var(--cone-spread)) * 1%));
+            transition: opacity 0.25s;
+            pointer-events: none;
+        }
+
+        /* Coloured fill layer (soft gradient near the edges) */
+        .glow-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background:
+                var(--gradient-one, radial-gradient(at 80% 55%, #06b6d4 0px, transparent 50%)),
+                var(--gradient-two, radial-gradient(at 69% 34%, #3b82f6 0px, transparent 50%)),
+                var(--gradient-three, radial-gradient(at 8% 6%, #6366f1 0px, transparent 50%)),
+                var(--gradient-four, radial-gradient(at 41% 38%, #67e8f9 0px, transparent 50%)),
+                var(--gradient-five, radial-gradient(at 86% 85%, #3b82f6 0px, transparent 50%)),
+                var(--gradient-six, radial-gradient(at 82% 18%, #06b6d4 0px, transparent 50%)),
+                var(--gradient-seven, radial-gradient(at 51% 4%, #6366f1 0px, transparent 50%)),
+                var(--gradient-base, linear-gradient(#06b6d4 0 100%));
+            opacity: 0;
+            z-index: 0;
+            mix-blend-mode: soft-light;
+            mask-image: linear-gradient(to bottom, black, black),
+                radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%),
+                radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%),
+                radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%),
+                radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%),
+                radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%),
+                conic-gradient(from var(--cursor-angle) at center, transparent 5%, black 15%, black 85%, transparent 95%);
+            mask-composite: subtract, add, add, add, add, add;
+            transition: opacity 0.25s;
+            pointer-events: none;
+        }
+
+        /* Show the glow layers only when the cursor is near the edge */
+        .glow-card.hovering::before,
+        .glow-card.hovering::after,
+        .glow-card.hovering>.edge-light {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -2100,7 +2233,7 @@
         </div>
     </section>
 
-    <!-- ═══════════════ PROJECTS SECTION (HORIZONTAL CARDS — NO ICON WATERMARKS) ═══════════════ -->
+    <!-- ═══════════════ PROJECTS SECTION (HORIZONTAL CARDS) ═══════════════ -->
     <section id="projects" class="section-light-alt">
         <div class="section-container">
             <div class="section-header reveal">
@@ -2653,6 +2786,111 @@
                 lastTime = time;
                 updateFluid(dt);
                 renderer.render(scene, camera); }
+        })();
+    </script>
+
+    <!-- ═══════════════ BORDER GLOW SYSTEM JS ═══════════════ -->
+    <script>
+        (function() {
+            // --- Configuration ---
+            const cardSelectors = '.card-premium, .card-light-premium';
+            const glowRadius = 40; // size of the outer glow halo
+            const edgeThreshold = 30; // how close (px) to the edge before the glow appears
+
+            // Helper: wrap existing content in a .border-glow-inner, add .edge-light span, and add .glow-card class
+            function applyGlowToCard(card) {
+                if (card.classList.contains('glow-card')) return; // already processed
+
+                // 1. Add the glow‑card class
+                card.classList.add('glow-card');
+
+                // 2. Wrap inner content in a .border-glow-inner div
+                const children = Array.from(card.childNodes);
+                const inner = document.createElement('div');
+                inner.className = 'border-glow-inner';
+                // Move all original children inside the inner wrapper
+                children.forEach(child => inner.appendChild(child));
+                card.appendChild(inner);
+
+                // 3. Add the .edge-light span (for the outer glow)
+                const edgeLight = document.createElement('span');
+                edgeLight.className = 'edge-light';
+                card.appendChild(edgeLight);
+
+                // 4. Add mousemove listener to calculate edge proximity and cursor angle
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const cx = rect.width / 2;
+                    const cy = rect.height / 2;
+                    const dx = x - cx;
+                    const dy = y - cy;
+
+                    // Edge proximity (0 = center, 1 = exactly at the edge)
+                    let kx = Infinity,
+                        ky = Infinity;
+                    if (dx !== 0) kx = cx / Math.abs(dx);
+                    if (dy !== 0) ky = cy / Math.abs(dy);
+                    const edgeProximity = Math.min(1 / Math.min(kx, ky), 1);
+
+                    // Cursor angle (0° = top, 90° = right, etc.)
+                    const angleRad = Math.atan2(dy, dx);
+                    let angleDeg = angleRad * (180 / Math.PI) + 90;
+                    if (angleDeg < 0) angleDeg += 360;
+
+                    card.style.setProperty('--edge-proximity', edgeProximity.toFixed(3));
+                    card.style.setProperty('--cursor-angle', angleDeg.toFixed(3) + 'deg');
+
+                    // Add hovering class only when near the edge (within threshold px)
+                    const distanceToEdge = Math.max(
+                        rect.width / 2 - Math.abs(dx),
+                        rect.height / 2 - Math.abs(dy)
+                    );
+                    if (distanceToEdge < edgeThreshold) {
+                        card.classList.add('hovering');
+                    } else {
+                        card.classList.remove('hovering');
+                    }
+                });
+
+                // Reset on mouse leave
+                card.addEventListener('mouseleave', () => {
+                    card.classList.remove('hovering');
+                    card.style.setProperty('--edge-proximity', '0');
+                    card.style.setProperty('--cursor-angle', '45deg');
+                });
+
+                // Set custom property for glow padding (used by CSS)
+                card.style.setProperty('--glow-padding', glowRadius + 'px');
+            }
+
+            // Observe the DOM for dynamically added cards (optional)
+            function initAllCards() {
+                document.querySelectorAll(cardSelectors).forEach(applyGlowToCard);
+            }
+
+            // Run on load
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initAllCards);
+            } else {
+                initAllCards();
+            }
+
+            // If you ever add cards dynamically (e.g. via modals), run initAllCards() again
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    mutation.addedNodes.forEach(node => {
+                        if (node.nodeType === 1 && node.matches?.(cardSelectors)) {
+                            applyGlowToCard(node);
+                        }
+                        if (node.nodeType === 1 && node.querySelectorAll) {
+                            node.querySelectorAll(cardSelectors).forEach(applyGlowToCard);
+                        }
+                    });
+                });
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
         })();
     </script>
 </body>
