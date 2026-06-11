@@ -7,16 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- ═══════════ OGL import map for Circular Gallery ═══════════ -->
-    <script type="importmap">
-        {
-            "imports": {
-                "ogl": "https://cdn.jsdelivr.net/npm/ogl@1.0.0/dist/ogl.esm.js"
-            }
-        }
-    </script>
-
     <style>
         :root {
             --bg-deep: #030711;
@@ -771,70 +761,6 @@
         }
 
         /* ═══════════════════════════════════════════════ */
-        /* ───── CIRCULAR GALLERY STYLES ───── */
-        /* ═══════════════════════════════════════════════ */
-        .circular-gallery-wrap {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            margin: 16px 0 22px;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            background: #020510;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            cursor: grab;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-            touch-action: pan-y;
-        }
-        .circular-gallery-wrap:active {
-            cursor: grabbing;
-        }
-        .circular-gallery-wrap canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-        .circular-gallery-wrap .gallery-click-hint {
-            position: absolute;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 5;
-            pointer-events: none;
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 40px;
-            padding: 7px 16px;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            font-family: var(--font-mono);
-            letter-spacing: 0.04em;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            white-space: nowrap;
-        }
-        .circular-gallery-wrap:hover .gallery-click-hint {
-            opacity: 1;
-        }
-        .circular-gallery-wrap .gallery-click-hint i {
-            margin-right: 5px;
-            color: var(--accent-cyan);
-        }
-        @media (max-width: 700px) {
-            .circular-gallery-wrap {
-                height: 360px;
-            }
-        }
-        @media (max-width: 480px) {
-            .circular-gallery-wrap {
-                height: 280px;
-                border-radius: var(--radius-md);
-            }
-        }
-
-        /* ═══════════════════════════════════════════════ */
         /* ───── MODAL STYLES ───── */
         /* ═══════════════════════════════════════════════ */
         .modal-embed.modal-embed-3d {
@@ -880,6 +806,7 @@
             }
         }
 
+        /* Gallery inside modals */
         .project-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -2502,7 +2429,7 @@
     </footer>
 
     <!-- ═══════════════ PROJECT MODALS ═══════════════ -->
-    <!-- Tugon Lipa Modal with Circular Gallery -->
+    <!-- Tugon Lipa Modal with 8 photos gallery -->
     <div class="modal-overlay" id="modal-tugon">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-tugon')"><i class="fas fa-times"></i></button>
@@ -2510,9 +2437,16 @@
             <p class="modal-tagline">2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge</p>
             <div class="modal-highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:8px;color:var(--text-secondary);">University of Batangas, Batangas City · November 21–22, 2025</p></div>
             <div class="modal-body">
-                <!-- Circular Gallery replaces grid -->
-                <div class="circular-gallery-wrap" id="circularGalleryTugon" data-gallery="tugon">
-                    <span class="gallery-click-hint"><i class="fas fa-hand-pointer"></i> Click to view full image</span>
+                <!-- 8-photo gallery — images are clickable for lightbox -->
+                <div class="project-gallery" id="tugonGallery">
+                    <img src="tugon1.jpg" alt="Tugon Lipa screenshot 1" loading="lazy" data-gallery="tugon" data-index="0">
+                    <img src="tugon2.jpg" alt="Tugon Lipa screenshot 2" loading="lazy" data-gallery="tugon" data-index="1">
+                    <img src="tugon3.jpg" alt="Tugon Lipa screenshot 3" loading="lazy" data-gallery="tugon" data-index="2">
+                    <img src="tugon4.jpg" alt="Tugon Lipa screenshot 4" loading="lazy" data-gallery="tugon" data-index="3">
+                    <img src="tugon5.jpg" alt="Tugon Lipa screenshot 5" loading="lazy" data-gallery="tugon" data-index="4">
+                    <img src="tugon6.jpg" alt="Tugon Lipa screenshot 6" loading="lazy" data-gallery="tugon" data-index="5">
+                    <img src="tugon7.jpg" alt="Tugon Lipa screenshot 7" loading="lazy" data-gallery="tugon" data-index="6">
+                    <img src="tugon8.jpg" alt="Tugon Lipa screenshot 8" loading="lazy" data-gallery="tugon" data-index="7">
                 </div>
                 <h3>The Problem</h3><p>In Lipa City, citizens struggled with fragmented public service channels. Reporting issues meant navigating confusing phone trees, visiting barangay halls, or relying on social media posts that often went unanswered. LGUs lacked a centralized system to track and resolve citizen reports efficiently.</p>
                 <h3>The Solution</h3><p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent. Citizens submit reports with photos, receive real‑time case updates, and access official announcements — all from one unified interface.</p>
@@ -2560,7 +2494,7 @@
         </div>
     </div>
 
-    <!-- NYC Crash Modal with Circular Gallery -->
+    <!-- NYC Crash Modal - now with 9 image gallery -->
     <div class="modal-overlay" id="modal-nyc">
         <div class="modal-dialog">
             <button class="modal-close" onclick="closeModal('modal-nyc')"><i class="fas fa-times"></i></button>
@@ -2568,9 +2502,17 @@
             <p class="modal-tagline">Full‑stack interactive dashboard for motor‑vehicle collision data</p>
             <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
 
-            <!-- Circular Gallery replaces grid -->
-            <div class="circular-gallery-wrap" id="circularGalleryNYC" data-gallery="nyc">
-                <span class="gallery-click-hint"><i class="fas fa-hand-pointer"></i> Click to view full image</span>
+            <!-- 9-photo gallery added here -->
+            <div class="project-gallery" id="nycGallery">
+                <img src="nyc1.jpg" alt="NYC Crash Analytics screenshot 1" loading="lazy" data-gallery="nyc" data-index="0">
+                <img src="nyc2.jpg" alt="NYC Crash Analytics screenshot 2" loading="lazy" data-gallery="nyc" data-index="1">
+                <img src="nyc3.jpg" alt="NYC Crash Analytics screenshot 3" loading="lazy" data-gallery="nyc" data-index="2">
+                <img src="nyc4.jpg" alt="NYC Crash Analytics screenshot 4" loading="lazy" data-gallery="nyc" data-index="3">
+                <img src="nyc5.jpg" alt="NYC Crash Analytics screenshot 5" loading="lazy" data-gallery="nyc" data-index="4">
+                <img src="nyc6.jpg" alt="NYC Crash Analytics screenshot 6" loading="lazy" data-gallery="nyc" data-index="5">
+                <img src="nyc7.jpg" alt="NYC Crash Analytics screenshot 7" loading="lazy" data-gallery="nyc" data-index="6">
+                <img src="nyc8.jpg" alt="NYC Crash Analytics screenshot 8" loading="lazy" data-gallery="nyc" data-index="7">
+                <img src="nyc9.jpg" alt="NYC Crash Analytics screenshot 9" loading="lazy" data-gallery="nyc" data-index="8">
             </div>
 
             <div class="modal-body">
@@ -2715,22 +2657,6 @@
                 document.body.style.overflow = 'hidden';
             }
 
-            // Programmatic lightbox opener (used by circular galleries)
-            window.openLightboxWithArray = function(imageSrcArray, startIndex, galleryId) {
-                currentGalleryImages = imageSrcArray.map((src, i) => {
-                    const img = document.createElement('img');
-                    img.src = src;
-                    img.alt = galleryId + ' screenshot ' + (i + 1);
-                    img.setAttribute('data-gallery', galleryId);
-                    img.setAttribute('data-index', i);
-                    return img;
-                });
-                currentImageIndex = Math.max(0, Math.min(startIndex, currentGalleryImages.length - 1));
-                updateLightboxImage();
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            };
-
             function updateLightboxImage() {
                 if (currentGalleryImages.length === 0) return;
                 const img = currentGalleryImages[currentImageIndex];
@@ -2754,7 +2680,7 @@
                 updateLightboxImage();
             }
 
-            // Attach click handlers to grid gallery images (fallback, if any remain)
+            // Attach click handlers to ALL gallery images across all modals
             document.querySelectorAll('.project-gallery img').forEach(img => {
                 img.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -2779,23 +2705,18 @@
         });
 
         function openModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; }
-            window.dispatchEvent(new CustomEvent('modalOpened', { detail: { modalId } })); }
+                document.body.style.overflow = 'hidden'; } }
 
         function closeModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.remove('active');
-                document.body.style.overflow = ''; }
-            window.dispatchEvent(new CustomEvent('modalClosed', { detail: { modalId } })); }
-        document.addEventListener('click', function(e) { if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) { const modalId = e.target.id;
-                e.target.classList.remove('active');
-                document.body.style.overflow = '';
-                window.dispatchEvent(new CustomEvent('modalClosed', { detail: { modalId } })); } });
+                document.body.style.overflow = ''; } }
+        document.addEventListener('click', function(e) { if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) { e.target.classList.remove('active');
+                document.body.style.overflow = ''; } });
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const lightbox = document.getElementById('imageLightbox');
                 if (lightbox && lightbox.classList.contains('active')) return;
                 const activeModals = document.querySelectorAll('.modal-overlay.active');
-                activeModals.forEach(m => { m.classList.remove('active');
-                    window.dispatchEvent(new CustomEvent('modalClosed', { detail: { modalId: m.id } })); });
+                activeModals.forEach(m => m.classList.remove('active'));
                 document.body.style.overflow = '';
             }
         });
@@ -2999,651 +2920,6 @@
                 updateFluid(dt);
                 renderer.render(scene, camera); }
         })();
-    </script>
-
-    <!-- ═══════════════ CIRCULAR GALLERY MODULE (UPDATED — LAZY INIT) ═══════════════ -->
-    <script type="module">
-        import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from 'ogl';
-
-        // ─── Helper utilities ───────────────────────────
-        function debounce(func, wait) {
-            let timeout;
-            return function(...args) {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(this, args), wait);
-            };
-        }
-
-        function lerp(p1, p2, t) { return p1 + (p2 - p1) * t; }
-
-        const DEFAULT_FONT = 'bold 30px Figtree';
-        const DEFAULT_FONT_URL = 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap';
-
-        function deriveFontFamilyFromUrl(url) {
-            const fileName = (url.split('/').pop() || 'custom-font').split('?')[0];
-            const base = fileName.replace(/\.(woff2?|ttf|otf|eot)$/i, '');
-            return base.replace(/[^a-zA-Z0-9-_ ]/g, '').trim() || 'CircularGalleryFont';
-        }
-
-        async function loadFontFromStylesheet(url) {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`Failed to fetch font stylesheet (${response.status})`);
-            const cssText = await response.text();
-            const faceBlocks = cssText.match(/@font-face\s*{[^}]*}/g) || [];
-            let family = null;
-            const fontFaces = [];
-            for (const block of faceBlocks) {
-                const familyMatch = block.match(/font-family:\s*['"]?([^;'"]+)['"]?/);
-                const urlMatch = block.match(/url\(\s*['"]?([^'")]+)['"]?\s*\)/);
-                if (!familyMatch || !urlMatch) continue;
-                family = familyMatch[1].trim();
-                const descriptors = {};
-                const weightMatch = block.match(/font-weight:\s*([^;]+);/);
-                const styleMatch = block.match(/font-style:\s*([^;]+);/);
-                const rangeMatch = block.match(/unicode-range:\s*([^;]+);/);
-                if (weightMatch) descriptors.weight = weightMatch[1].trim();
-                if (styleMatch) descriptors.style = styleMatch[1].trim();
-                if (rangeMatch) descriptors.unicodeRange = rangeMatch[1].trim();
-                fontFaces.push(new FontFace(family, `url(${urlMatch[1]})`, descriptors));
-            }
-            if (!family) throw new Error('No @font-face rule found in the stylesheet');
-            await Promise.allSettled(
-                fontFaces.map(async face => { await face.load();
-                    document.fonts.add(face); })
-            );
-            return family;
-        }
-
-        async function loadFontFromFile(url) {
-            const family = deriveFontFamilyFromUrl(url);
-            const fontFace = new FontFace(family, `url(${url})`);
-            await fontFace.load();
-            document.fonts.add(fontFace);
-            return family;
-        }
-
-        async function loadCustomFont(fontUrl) {
-            const isStylesheet = fontUrl.includes('fonts.googleapis.com') || /\.css(\?.*)?$/i.test(fontUrl);
-            return isStylesheet ? loadFontFromStylesheet(fontUrl) : loadFontFromFile(fontUrl);
-        }
-
-        async function resolveFont(font, fontUrl) {
-            const effectiveUrl = fontUrl || (font === DEFAULT_FONT ? DEFAULT_FONT_URL : null);
-            if (!effectiveUrl) {
-                if (document.fonts && document.fonts.load) {
-                    try { await document.fonts.load(font);
-                        await document.fonts.ready; } catch {}
-                }
-                return font;
-            }
-            try {
-                const family = await loadCustomFont(effectiveUrl);
-                const sizeMatch = font.match(/^\s*(.*?\d+px)/);
-                const prefix = sizeMatch ? sizeMatch[1].trim() : 'bold 30px';
-                const resolved = `${prefix} "${family}"`;
-                if (document.fonts && document.fonts.load) {
-                    try { await document.fonts.load(resolved); } catch {}
-                }
-                return resolved;
-            } catch (error) {
-                console.error('CircularGallery: unable to load font from', fontUrl, error);
-                return font;
-            }
-        }
-
-        function getFontSize(font) {
-            const match = font.match(/(\d+)px/);
-            return match ? parseInt(match[1], 10) : 30;
-        }
-
-        function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'black') {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            context.font = font;
-            const metrics = context.measureText(text);
-            const textWidth = Math.ceil(metrics.width);
-            const textHeight = Math.ceil(getFontSize(font) * 1.2);
-            canvas.width = textWidth + 20;
-            canvas.height = textHeight + 20;
-            context.font = font;
-            context.fillStyle = color;
-            context.textBaseline = 'middle';
-            context.textAlign = 'center';
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            context.fillText(text, canvas.width / 2, canvas.height / 2);
-            const texture = new Texture(gl, { generateMipmaps: false });
-            texture.image = canvas;
-            return { texture, width: canvas.width, height: canvas.height };
-        }
-
-        // ─── Title class ────────────────────────────────
-        class Title {
-            constructor({ gl, plane, renderer, text, textColor = '#545050', font = '30px sans-serif' }) {
-                this.gl = gl;
-                this.plane = plane;
-                this.renderer = renderer;
-                this.text = text;
-                this.textColor = textColor;
-                this.font = font;
-                this.createMesh();
-            }
-            createMesh() {
-                const { texture, width, height } = createTextTexture(this.gl, this.text, this.font, this.textColor);
-                const geometry = new Plane(this.gl);
-                const program = new Program(this.gl, {
-                    vertex: `
-                        attribute vec3 position;
-                        attribute vec2 uv;
-                        uniform mat4 modelViewMatrix;
-                        uniform mat4 projectionMatrix;
-                        varying vec2 vUv;
-                        void main() {
-                            vUv = uv;
-                            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                        }
-                    `,
-                    fragment: `
-                        precision highp float;
-                        uniform sampler2D tMap;
-                        varying vec2 vUv;
-                        void main() {
-                            vec4 color = texture2D(tMap, vUv);
-                            if (color.a < 0.1) discard;
-                            gl_FragColor = color;
-                        }
-                    `,
-                    uniforms: { tMap: { value: texture } },
-                    transparent: true
-                });
-                this.mesh = new Mesh(this.gl, { geometry, program });
-                const aspect = width / height;
-                const textHeight = this.plane.scale.y * 0.15;
-                const textWidth = textHeight * aspect;
-                this.mesh.scale.set(textWidth, textHeight, 1);
-                this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.05;
-                this.mesh.setParent(this.plane);
-            }
-        }
-
-        // ─── Media class ────────────────────────────────
-        class Media {
-            constructor({ geometry, gl, image, index, length, renderer, scene, screen, text, viewport, bend, textColor,
-                borderRadius, font, onClick, galleryId, originalIndex }) {
-                this.extra = 0;
-                this.geometry = geometry;
-                this.gl = gl;
-                this.image = image;
-                this.index = index;
-                this.length = length;
-                this.renderer = renderer;
-                this.scene = scene;
-                this.screen = screen;
-                this.text = text;
-                this.viewport = viewport;
-                this.bend = bend;
-                this.textColor = textColor;
-                this.borderRadius = borderRadius;
-                this.font = font;
-                this.onClick = onClick;
-                this.galleryId = galleryId;
-                this.originalIndex = originalIndex;
-                this.createShader();
-                this.createMesh();
-                this.createTitle();
-                this.onResize();
-            }
-            createShader() {
-                const texture = new Texture(this.gl, { generateMipmaps: true });
-                this.program = new Program(this.gl, {
-                    depthTest: false,
-                    depthWrite: false,
-                    vertex: `
-                        precision highp float;
-                        attribute vec3 position;
-                        attribute vec2 uv;
-                        uniform mat4 modelViewMatrix;
-                        uniform mat4 projectionMatrix;
-                        uniform float uTime;
-                        uniform float uSpeed;
-                        varying vec2 vUv;
-                        void main() {
-                            vUv = uv;
-                            vec3 p = position;
-                            p.z = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * (0.1 + uSpeed * 0.5);
-                            gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-                        }
-                    `,
-                    fragment: `
-                        precision highp float;
-                        uniform vec2 uImageSizes;
-                        uniform vec2 uPlaneSizes;
-                        uniform sampler2D tMap;
-                        uniform float uBorderRadius;
-                        varying vec2 vUv;
-                        float roundedBoxSDF(vec2 p, vec2 b, float r) {
-                            vec2 d = abs(p) - b;
-                            return length(max(d, vec2(0.0))) + min(max(d.x, d.y), 0.0) - r;
-                        }
-                        void main() {
-                            vec2 ratio = vec2(
-                                min((uPlaneSizes.x / uPlaneSizes.y) / (uImageSizes.x / uImageSizes.y), 1.0),
-                                min((uPlaneSizes.y / uPlaneSizes.x) / (uImageSizes.y / uImageSizes.x), 1.0)
-                            );
-                            vec2 uv = vec2(
-                                vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
-                                vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
-                            );
-                            vec4 color = texture2D(tMap, uv);
-                            float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
-                            float edgeSmooth = 0.002;
-                            float alpha = 1.0 - smoothstep(-edgeSmooth, edgeSmooth, d);
-                            gl_FragColor = vec4(color.rgb, alpha);
-                        }
-                    `,
-                    uniforms: {
-                        tMap: { value: texture },
-                        uPlaneSizes: { value: [0, 0] },
-                        uImageSizes: { value: [0, 0] },
-                        uSpeed: { value: 0 },
-                        uTime: { value: 100 * Math.random() },
-                        uBorderRadius: { value: this.borderRadius }
-                    },
-                    transparent: true
-                });
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                img.src = this.image;
-                img.onload = () => {
-                    texture.image = img;
-                    this.program.uniforms.uImageSizes.value = [img.naturalWidth, img.naturalHeight];
-                };
-            }
-            createMesh() {
-                this.plane = new Mesh(this.gl, { geometry: this.geometry, program: this.program });
-                this.plane.setParent(this.scene);
-            }
-            createTitle() {
-                this.title = new Title({
-                    gl: this.gl,
-                    plane: this.plane,
-                    renderer: this.renderer,
-                    text: this.text,
-                    textColor: this.textColor,
-                    font: this.font
-                });
-            }
-            update(scroll, direction) {
-                this.plane.position.x = this.x - scroll.current - this.extra;
-                const x = this.plane.position.x;
-                const H = this.viewport.width / 2;
-                if (this.bend === 0) {
-                    this.plane.position.y = 0;
-                    this.plane.rotation.z = 0;
-                } else {
-                    const B_abs = Math.abs(this.bend);
-                    const R = (H * H + B_abs * B_abs) / (2 * B_abs);
-                    const effectiveX = Math.min(Math.abs(x), H);
-                    const arc = R - Math.sqrt(R * R - effectiveX * effectiveX);
-                    if (this.bend > 0) {
-                        this.plane.position.y = -arc;
-                        this.plane.rotation.z = -Math.sign(x) * Math.asin(effectiveX / R);
-                    } else {
-                        this.plane.position.y = arc;
-                        this.plane.rotation.z = Math.sign(x) * Math.asin(effectiveX / R);
-                    }
-                }
-                this.speed = scroll.current - scroll.last;
-                this.program.uniforms.uTime.value += 0.04;
-                this.program.uniforms.uSpeed.value = this.speed;
-                const planeOffset = this.plane.scale.x / 2;
-                const viewportOffset = this.viewport.width / 2;
-                this.isBefore = this.plane.position.x + planeOffset < -viewportOffset;
-                this.isAfter = this.plane.position.x - planeOffset > viewportOffset;
-                if (direction === 'right' && this.isBefore) {
-                    this.extra -= this.widthTotal;
-                    this.isBefore = this.isAfter = false;
-                }
-                if (direction === 'left' && this.isAfter) {
-                    this.extra += this.widthTotal;
-                    this.isBefore = this.isAfter = false;
-                }
-            }
-            onResize({ screen, viewport } = {}) {
-                if (screen) this.screen = screen;
-                if (viewport) this.viewport = viewport;
-                this.scale = this.screen.height / 1500;
-                this.plane.scale.y = (this.viewport.height * (900 * this.scale)) / this.screen.height;
-                this.plane.scale.x = (this.viewport.width * (700 * this.scale)) / this.screen.width;
-                this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
-                this.padding = 2;
-                this.width = this.plane.scale.x + this.padding;
-                this.widthTotal = this.width * this.length;
-                this.x = this.width * this.index;
-            }
-            getCenterDistance() {
-                return Math.abs(this.plane.position.x);
-            }
-        }
-
-        // ─── App class ──────────────────────────────────
-        class CircularGalleryApp {
-            constructor(container, options = {}) {
-                const {
-                    items,
-                    bend = 1,
-                    textColor = '#ffffff',
-                    borderRadius = 0.05,
-                    font = 'bold 30px Figtree',
-                    fontUrl,
-                    scrollSpeed = 2,
-                    scrollEase = 0.05,
-                    onItemClick = null,
-                    galleryId = 'gallery'
-                } = options;
-
-                this.container = container;
-                this.scrollSpeed = scrollSpeed;
-                this.scrollEase = scrollEase;
-                this.scroll = { current: 0, target: 0, last: 0, position: 0 };
-                this.isDown = false;
-                this.start = 0;
-                this.onItemClick = onItemClick;
-                this.galleryId = galleryId;
-                this._boundOnResize = this.onResize.bind(this);
-                this._boundOnWheel = this.onWheel.bind(this);
-                this._boundOnTouchDown = this.onTouchDown.bind(this);
-                this._boundOnTouchMove = this.onTouchMove.bind(this);
-                this._boundOnTouchUp = this.onTouchUp.bind(this);
-                this._boundOnClick = this.onClick.bind(this);
-
-                this.createRenderer();
-                this.createCamera();
-                this.createScene();
-                this.onResize();
-                this.createGeometry();
-
-                resolveFont(font, fontUrl).then(resolvedFont => {
-                    this.createMedias(items, bend, textColor, borderRadius, resolvedFont);
-                    this.update();
-                });
-
-                this.addEventListeners();
-            }
-
-            createRenderer() {
-                this.renderer = new Renderer({
-                    alpha: true,
-                    antialias: true,
-                    dpr: Math.min(window.devicePixelRatio || 1, 2)
-                });
-                this.gl = this.renderer.gl;
-                this.gl.clearColor(0, 0, 0, 0);
-                this.container.appendChild(this.gl.canvas);
-            }
-
-            createCamera() {
-                this.camera = new Camera(this.gl);
-                this.camera.fov = 45;
-                this.camera.position.z = 20;
-            }
-
-            createScene() {
-                this.scene = new Transform();
-            }
-
-            createGeometry() {
-                this.planeGeometry = new Plane(this.gl, { heightSegments: 50, widthSegments: 100 });
-            }
-
-            createMedias(items, bend, textColor, borderRadius, font) {
-                const galleryItems = items && items.length ? items : [];
-                if (galleryItems.length === 0) return;
-                this.mediasImages = galleryItems.concat(galleryItems);
-                this.originalLength = galleryItems.length;
-                this.medias = this.mediasImages.map((data, index) => {
-                    return new Media({
-                        geometry: this.planeGeometry,
-                        gl: this.gl,
-                        image: data.image,
-                        index,
-                        length: this.mediasImages.length,
-                        renderer: this.renderer,
-                        scene: this.scene,
-                        screen: this.screen,
-                        text: data.text,
-                        viewport: this.viewport,
-                        bend,
-                        textColor,
-                        borderRadius,
-                        font,
-                        onClick: this.onItemClick,
-                        galleryId: this.galleryId,
-                        originalIndex: index % this.originalLength
-                    });
-                });
-            }
-
-            getCenteredOriginalIndex() {
-                if (!this.medias || this.medias.length === 0) return 0;
-                let closest = this.medias[0];
-                let minDist = Infinity;
-                for (const media of this.medias) {
-                    const dist = media.getCenterDistance();
-                    if (dist < minDist) {
-                        minDist = dist;
-                        closest = media;
-                    }
-                }
-                return closest.originalIndex;
-            }
-
-            onClick(e) {
-                if (!this.onItemClick || !this.medias) return;
-                const idx = this.getCenteredOriginalIndex();
-                this.onItemClick(idx, this.galleryId);
-            }
-
-            onTouchDown(e) {
-                this.isDown = true;
-                this.scroll.position = this.scroll.current;
-                this.start = e.touches ? e.touches[0].clientX : e.clientX;
-            }
-
-            onTouchMove(e) {
-                if (!this.isDown) return;
-                const x = e.touches ? e.touches[0].clientX : e.clientX;
-                const distance = (this.start - x) * (this.scrollSpeed * 0.025);
-                this.scroll.target = this.scroll.position + distance;
-            }
-
-            onTouchUp() {
-                this.isDown = false;
-                this.onCheck();
-            }
-
-            onWheel(e) {
-                const delta = e.deltaY || e.wheelDelta || e.detail;
-                this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
-                this.onCheckDebounce();
-            }
-
-            onCheck() {
-                if (!this.medias || !this.medias[0]) return;
-                const width = this.medias[0].width;
-                const itemIndex = Math.round(Math.abs(this.scroll.target) / width);
-                const item = width * itemIndex;
-                this.scroll.target = this.scroll.target < 0 ? -item : item;
-            }
-            onCheckDebounce = debounce(() => this.onCheck(), 200);
-
-            onResize() {
-                this.screen = {
-                    width: this.container.clientWidth,
-                    height: this.container.clientHeight
-                };
-                if (this.screen.width === 0 || this.screen.height === 0) return;
-                this.renderer.setSize(this.screen.width, this.screen.height);
-                this.camera.perspective({ aspect: this.screen.width / this.screen.height });
-                const fov = (this.camera.fov * Math.PI) / 180;
-                const height = 2 * Math.tan(fov / 2) * this.camera.position.z;
-                const width = height * this.camera.aspect;
-                this.viewport = { width, height };
-                if (this.medias) {
-                    this.medias.forEach(media => media.onResize({ screen: this.screen, viewport: this.viewport }));
-                }
-            }
-
-            update() {
-                this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scrollEase);
-                const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
-                if (this.medias) {
-                    this.medias.forEach(media => media.update(this.scroll, direction));
-                }
-                this.renderer.render({ scene: this.scene, camera: this.camera });
-                this.scroll.last = this.scroll.current;
-                this.raf = window.requestAnimationFrame(() => this.update());
-            }
-
-            addEventListeners() {
-                window.addEventListener('resize', this._boundOnResize);
-                this.container.addEventListener('wheel', this._boundOnWheel, { passive: false });
-                this.container.addEventListener('mousewheel', this._boundOnWheel, { passive: false });
-                this.container.addEventListener('mousedown', this._boundOnTouchDown);
-                window.addEventListener('mousemove', this._boundOnTouchMove);
-                window.addEventListener('mouseup', this._boundOnTouchUp);
-                this.container.addEventListener('touchstart', this._boundOnTouchDown, { passive: false });
-                window.addEventListener('touchmove', this._boundOnTouchMove, { passive: false });
-                window.addEventListener('touchend', this._boundOnTouchUp);
-                this.container.addEventListener('click', this._boundOnClick);
-            }
-
-            destroy() {
-                if (this.raf) window.cancelAnimationFrame(this.raf);
-                window.removeEventListener('resize', this._boundOnResize);
-                this.container.removeEventListener('wheel', this._boundOnWheel);
-                this.container.removeEventListener('mousewheel', this._boundOnWheel);
-                this.container.removeEventListener('mousedown', this._boundOnTouchDown);
-                window.removeEventListener('mousemove', this._boundOnTouchMove);
-                window.removeEventListener('mouseup', this._boundOnTouchUp);
-                this.container.removeEventListener('touchstart', this._boundOnTouchDown);
-                window.removeEventListener('touchmove', this._boundOnTouchMove);
-                window.removeEventListener('touchend', this._boundOnTouchUp);
-                this.container.removeEventListener('click', this._boundOnClick);
-                if (this.gl && this.gl.canvas && this.gl.canvas.parentNode) {
-                    this.gl.canvas.parentNode.removeChild(this.gl.canvas);
-                }
-            }
-        }
-
-        // ─── Gallery data definitions ──────────────────
-        const tugonImages = [
-            { image: 'tugon1.jpg', text: 'Tugon Lipa - Home' },
-            { image: 'tugon2.jpg', text: 'Tugon Lipa - Report' },
-            { image: 'tugon3.jpg', text: 'Tugon Lipa - Feed' },
-            { image: 'tugon4.jpg', text: 'Tugon Lipa - AI Chat' },
-            { image: 'tugon5.jpg', text: 'Tugon Lipa - Admin' },
-            { image: 'tugon6.jpg', text: 'Tugon Lipa - Tracking' },
-            { image: 'tugon7.jpg', text: 'Tugon Lipa - Analytics' },
-            { image: 'tugon8.jpg', text: 'Tugon Lipa - Settings' }
-        ];
-
-        const nycImages = [
-            { image: 'nyc1.jpg', text: 'NYC Crash - Map' },
-            { image: 'nyc2.jpg', text: 'NYC Crash - Heatmap' },
-            { image: 'nyc3.jpg', text: 'NYC Crash - Charts' },
-            { image: 'nyc4.jpg', text: 'NYC Crash - Table' },
-            { image: 'nyc5.jpg', text: 'NYC Crash - Filters' },
-            { image: 'nyc6.jpg', text: 'NYC Crash - Boroughs' },
-            { image: 'nyc7.jpg', text: 'NYC Crash - Trends' },
-            { image: 'nyc8.jpg', text: 'NYC Crash - Export' },
-            { image: 'nyc9.jpg', text: 'NYC Crash - Details' }
-        ];
-
-        // Store lightbox-ready image arrays globally
-        window._circularGalleryLightboxData = {
-            tugon: tugonImages.map(item => item.image),
-            nyc: nycImages.map(item => item.image)
-        };
-
-        // ─── Gallery management ────────────────────────
-        const galleries = {};
-
-        function initGallery(galleryId, items) {
-            const container = document.getElementById(
-                galleryId === 'tugon' ? 'circularGalleryTugon' : 'circularGalleryNYC'
-            );
-            if (!container) return null;
-
-            // Destroy previous instance if exists (to allow re-initialization)
-            if (galleries[galleryId]) {
-                galleries[galleryId].destroy();
-                delete galleries[galleryId];
-                // Also remove any leftover canvas
-                const oldCanvas = container.querySelector('canvas');
-                if (oldCanvas) oldCanvas.remove();
-                container.dataset.initialized = 'false';
-            }
-
-            const app = new CircularGalleryApp(container, {
-                items,
-                bend: 1,
-                textColor: '#ffffff',
-                borderRadius: 0.05,
-                scrollSpeed: 2,
-                scrollEase: 0.05,
-                galleryId,
-                onItemClick: (index, gId) => {
-                    const imgArray = window._circularGalleryLightboxData[gId];
-                    if (imgArray && window.openLightboxWithArray) {
-                        window.openLightboxWithArray(imgArray, index, gId);
-                    }
-                }
-            });
-
-            galleries[galleryId] = app;
-            container.dataset.initialized = 'true';
-            return app;
-        }
-
-        // ══════ FIX: Initialize ONLY when modal opens ══════
-        window.addEventListener('modalOpened', (e) => {
-            const { modalId } = e.detail;
-            const galleryId = modalId === 'modal-tugon' ? 'tugon' : modalId === 'modal-nyc' ? 'nyc' : null;
-            if (!galleryId) return;
-
-            const items = galleryId === 'tugon' ? tugonImages : nycImages;
-            const app = initGallery(galleryId, items);
-
-            if (app) {
-                // Force resize after the modal animation completes
-                // We use requestAnimationFrame + small delay to ensure correct dimensions
-                const forceResize = () => {
-                    if (app.onResize) app.onResize();
-                };
-                // Trigger several times to catch the layout transition
-                setTimeout(forceResize, 50);
-                setTimeout(forceResize, 200);
-                setTimeout(forceResize, 400);
-            }
-        });
-
-        // Optional: clean up when modal closes (to save resources)
-        window.addEventListener('modalClosed', (e) => {
-            const { modalId } = e.detail;
-            const galleryId = modalId === 'modal-tugon' ? 'tugon' : modalId === 'modal-nyc' ? 'nyc' : null;
-            if (galleryId && galleries[galleryId]) {
-                galleries[galleryId].destroy();
-                delete galleries[galleryId];
-                const container = document.getElementById(
-                    galleryId === 'tugon' ? 'circularGalleryTugon' : 'circularGalleryNYC'
-                );
-                if (container) {
-                    container.dataset.initialized = 'false';
-                    const canvas = container.querySelector('canvas');
-                    if (canvas) canvas.remove();
-                }
-            }
-        });
     </script>
 </body>
 </html>
