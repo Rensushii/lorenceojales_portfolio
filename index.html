@@ -1891,6 +1891,60 @@
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(6, 182, 212, 0.2);
             color: #e8ecf4;
         }
+        .modal-dialog.modal-resume {
+            max-width: 1000px;
+            width: 95vw;
+            height: 92vh;
+            max-height: 92vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-dialog.modal-resume .modal-close {
+            top: 10px;
+            right: 14px;
+        }
+        .modal-resume-iframe {
+            flex: 1;
+            width: 100%;
+            border: none;
+            border-radius: var(--radius-md);
+            background: #fff;
+        }
+        .modal-resume-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .modal-resume-toolbar h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        .modal-resume-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #6366f1 100%);
+            color: #fff;
+            padding: 9px 18px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.82rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+        .modal-resume-download-btn:hover {
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35);
+            transform: translateY(-2px);
+        }
         .modal-close {
             position: absolute;
             top: 14px;
@@ -1979,6 +2033,19 @@
         @media (max-width: 600px) {
             .modal-dual-embed {
                 grid-template-columns: 1fr;
+            }
+            .modal-dialog.modal-resume {
+                width: 98vw;
+                height: 95vh;
+                max-height: 95vh;
+                padding: 12px;
+            }
+            .modal-resume-toolbar h2 {
+                font-size: 1.1rem;
+            }
+            .modal-resume-download-btn {
+                font-size: 0.75rem;
+                padding: 7px 14px;
             }
         }
         .modal-highlight-box {
@@ -2134,6 +2201,20 @@
         <span class="image-lightbox-counter" id="lightboxCounter"></span>
     </div>
 
+    <!-- ═══════════════ RESUME POPUP MODAL ═══════════════ -->
+    <div class="modal-overlay" id="modal-resume">
+        <div class="modal-dialog modal-resume">
+            <button class="modal-close" onclick="closeModal('modal-resume')" aria-label="Close resume"><i class="fas fa-times"></i></button>
+            <div class="modal-resume-toolbar">
+                <h2><i class="fas fa-file-pdf" style="color:var(--accent-cyan); margin-right:8px;"></i>Lorence Ojales — Resume</h2>
+                <a href="resume.pdf" download="Lorence_Ojales_Resume.pdf" class="modal-resume-download-btn" title="Download Resume">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+            <iframe class="modal-resume-iframe" src="resume.pdf#toolbar=1&navpanes=1&scrollbar=1" title="Lorence Ojales Resume" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <header class="site-header">
         <div class="header-inner" id="headerInner">
             <a href="#home" class="logo-link"><span class="logo-dot"></span><span class="logo-text">Lorence Ojales</span></a>
@@ -2187,7 +2268,7 @@
                         <a href="#projects" class="btn-premium primary"><i class="fas fa-code"></i> View Projects</a>
                     </span>
                     <span class="magnetic-wrap" data-magnetic>
-                        <a href="#" class="btn-premium secondary" id="resumeDownloadBtn" title="Download Resume"><i class="fas fa-file-arrow-down"></i> Download Resume</a>
+                        <a href="#" class="btn-premium secondary" id="resumeViewBtn" title="View Resume"><i class="fas fa-file-lines"></i> View Resume</a>
                     </span>
                 </div>
             </div>
@@ -2437,7 +2518,6 @@
             <p class="modal-tagline">2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge</p>
             <div class="modal-highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:8px;color:var(--text-secondary);">University of Batangas, Batangas City · November 21–22, 2025</p></div>
             <div class="modal-body">
-                <!-- 8-photo gallery — images are clickable for lightbox -->
                 <div class="project-gallery" id="tugonGallery">
                     <img src="tugon1.jpg" alt="Tugon Lipa screenshot 1" loading="lazy" data-gallery="tugon" data-index="0">
                     <img src="tugon2.jpg" alt="Tugon Lipa screenshot 2" loading="lazy" data-gallery="tugon" data-index="1">
@@ -2501,8 +2581,6 @@
             <h2>NYC Crash Analytics</h2>
             <p class="modal-tagline">Full‑stack interactive dashboard for motor‑vehicle collision data</p>
             <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
-
-            <!-- 9-photo gallery added here -->
             <div class="project-gallery" id="nycGallery">
                 <img src="nyc1.jpg" alt="NYC Crash Analytics screenshot 1" loading="lazy" data-gallery="nyc" data-index="0">
                 <img src="nyc2.jpg" alt="NYC Crash Analytics screenshot 2" loading="lazy" data-gallery="nyc" data-index="1">
@@ -2514,7 +2592,6 @@
                 <img src="nyc8.jpg" alt="NYC Crash Analytics screenshot 8" loading="lazy" data-gallery="nyc" data-index="7">
                 <img src="nyc9.jpg" alt="NYC Crash Analytics screenshot 9" loading="lazy" data-gallery="nyc" data-index="8">
             </div>
-
             <div class="modal-body">
                 <h3>Overview</h3><p><strong>NYC Crash Analytics</strong> is a full‑stack web dashboard that transforms raw NYC Open Data into an interactive visual exploration tool. Built with PHP, MySQL, and vanilla JavaScript, it lets users filter hundreds of thousands of collision records by borough, date, vehicle type, and severity.</p>
                 <h3>Key Features</h3><p>A responsive dark‑theme interface presents a live <strong>Leaflet</strong> map with marker clustering, heatmaps, a time‑slider, and on‑map drawing tools. A paginated data table shows detailed records, while <strong>Chart.js</strong> visualizations reveal trends and borough breakdowns.</p>
@@ -2620,15 +2697,13 @@
                 }
                 setTimeout(switchRole, displayDuration);
             }
-            const resumeBtn = document.getElementById('resumeDownloadBtn');
-            if (resumeBtn) {
-                resumeBtn.addEventListener('click', function() {
-                    const link = document.createElement('a');
-                    link.href = 'resume.pdf';
-                    link.download = 'Lorence_Ojales_Resume.pdf';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+
+            // ───── RESUME VIEW BUTTON (opens popup modal) ─────
+            const resumeViewBtn = document.getElementById('resumeViewBtn');
+            if (resumeViewBtn) {
+                resumeViewBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openModal('modal-resume');
                 });
             }
 
@@ -2680,7 +2755,6 @@
                 updateLightboxImage();
             }
 
-            // Attach click handlers to ALL gallery images across all modals
             document.querySelectorAll('.project-gallery img').forEach(img => {
                 img.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -2704,20 +2778,45 @@
             });
         });
 
-        function openModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; } }
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                // If resume modal, also handle keydown for Escape
+            }
+        }
 
-        function closeModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.remove('active');
-                document.body.style.overflow = ''; } }
-        document.addEventListener('click', function(e) { if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) { e.target.classList.remove('active');
-                document.body.style.overflow = ''; } });
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                // Only restore body scroll if no other modals are open
+                const anyActiveModals = document.querySelectorAll('.modal-overlay.active');
+                if (anyActiveModals.length === 0) {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
+                const modalId = e.target.getAttribute('id');
+                closeModal(modalId);
+            }
+        });
+
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const lightbox = document.getElementById('imageLightbox');
                 if (lightbox && lightbox.classList.contains('active')) return;
                 const activeModals = document.querySelectorAll('.modal-overlay.active');
-                activeModals.forEach(m => m.classList.remove('active'));
-                document.body.style.overflow = '';
+                activeModals.forEach(m => {
+                    m.classList.remove('active');
+                });
+                if (activeModals.length > 0) {
+                    document.body.style.overflow = '';
+                }
             }
         });
     </script>
