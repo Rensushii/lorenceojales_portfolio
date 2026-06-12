@@ -44,7 +44,6 @@
             --spotlight-size: 600px;
             --safe-bottom: env(safe-area-inset-bottom, 0px);
             --safe-top: env(safe-area-inset-top, 0px);
-            --backdrop-blur-amount: 16px;
         }
 
         * {
@@ -488,8 +487,8 @@
 
         .card-premium {
             background: var(--bg-card);
-            backdrop-filter: blur(var(--backdrop-blur-amount));
-            -webkit-backdrop-filter: blur(var(--backdrop-blur-amount));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-lg);
             padding: 24px;
@@ -1308,20 +1307,6 @@
             background: transparent;
         }
 
-        /* Static fallback shown on mobile when fluid sim is disabled */
-        .hero-static-fallback {
-            display: none;
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            background-size: cover;
-            background-position: center;
-            pointer-events: none;
-        }
-        .hero-static-fallback.active {
-            display: block;
-        }
-
         .about-layout {
             display: flex;
             flex-wrap: wrap;
@@ -1980,11 +1965,7 @@
             transform: translateY(0);
         }
 
-        /* ── Mobile performance optimizations ── */
         @media (max-width: 900px) {
-            :root {
-                --backdrop-blur-amount: 6px;
-            }
             .nav-list {
                 display: none;
             }
@@ -2035,12 +2016,6 @@
             .card-premium,
             .card-light-premium {
                 padding: 20px;
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-            }
-            .card-premium {
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
             }
             .about-layout {
                 flex-direction: column;
@@ -2074,36 +2049,11 @@
                 height: 240px;
             }
             .hero-float-orb {
-                opacity: 0.15;
-                filter: blur(50px);
-            }
-            .floating-accent {
-                filter: blur(50px);
                 opacity: 0.2;
-            }
-            .header-inner {
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-            }
-            .skill-category-card {
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-            }
-            .hero-spotlight-fixed {
-                opacity: 0.4;
-            }
-            .hero-spotlight-overlay {
-                opacity: 0.5;
-            }
-            .aurora-bg {
-                opacity: 0.3;
             }
         }
 
         @media (max-width: 700px) {
-            :root {
-                --backdrop-blur-amount: 3px;
-            }
             .project-card-horizontal {
                 flex-direction: column;
                 min-height: 300px;
@@ -2167,8 +2117,6 @@
             .header-inner {
                 padding: 8px 14px;
                 border-radius: 50px;
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
             }
             .logo-link {
                 font-size: 1rem;
@@ -2248,17 +2196,6 @@
                 max-height: 75vh;
                 border-radius: 10px;
             }
-            .card-premium,
-            .card-light-premium {
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-            }
-            .hero-float-orb {
-                display: none;
-            }
-            .floating-accent {
-                display: none;
-            }
         }
 
         @media (max-width: 480px) {
@@ -2308,6 +2245,9 @@
             }
             .hero-flex {
                 gap: 16px;
+            }
+            .hero-float-orb {
+                display: none;
             }
             .section-dark,
             .section-light,
@@ -2413,8 +2353,6 @@
             .header-inner {
                 padding: 7px 12px;
                 border-radius: 40px;
-                backdrop-filter: blur(6px);
-                -webkit-backdrop-filter: blur(6px);
             }
             .logo-link {
                 font-size: 0.9rem;
@@ -2550,12 +2488,6 @@
             }
             .modal-highlight-box .award-text {
                 font-size: 0.76rem;
-            }
-            .grid-overlay {
-                opacity: 0.015;
-            }
-            .aurora-bg {
-                opacity: 0.2;
             }
         }
 
@@ -2696,12 +2628,12 @@
         <div class="modal-dialog modal-resume">
             <button class="modal-close" onclick="closeModal('modal-resume')" aria-label="Close resume"><i class="fas fa-times"></i></button>
             <div class="modal-resume-toolbar">
-                <h2><i class="fas fa-file-pdf" style="color:var(--accent-cyan);margin-right:6px;"></i>Lorence Ojales — Resume</h2>
+                <h2><i class="fas fa-file-pdf" style="color:var(--accent-cyan); margin-right:6px;"></i>Lorence Ojales — Resume</h2>
                 <a href="resume.pdf" download="Lorence_Ojales_Resume.pdf" class="modal-resume-download-btn" title="Download Resume">
                     <i class="fas fa-download"></i> Download PDF
                 </a>
             </div>
-            <iframe class="modal-resume-iframe" src="resume.pdf#toolbar=1&navpanes=1&scrollbar=1" title="Lorence Ojales Resume" allowfullscreen loading="lazy"></iframe>
+            <iframe class="modal-resume-iframe" src="resume.pdf#toolbar=1&navpanes=1&scrollbar=1" title="Lorence Ojales Resume" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -2764,7 +2696,6 @@
             <div class="hero-reveal-col" id="canvasContainer">
                 <canvas id="lightraysCanvas"></canvas>
                 <canvas id="webglCanvas"></canvas>
-                <div class="hero-static-fallback" id="heroStaticFallback"></div>
             </div>
         </div>
     </section>
@@ -2787,7 +2718,7 @@
                     <span class="exploring-tag"><i class="fas fa-rocket" style="margin-right:5px;"></i> Exploring: AI-powered apps, IoT systems, embedded dev & full-stack engineering</span>
                 </div>
                 <div class="about-sidebar card-light-premium">
-                    <h3 style="font-weight:700;margin-bottom:10px;color:#fff;font-size:0.95rem;"><i class="fas fa-address-card" style="color:var(--accent-cyan);margin-right:6px;"></i> Details</h3>
+                    <h3 style="font-weight:700; margin-bottom:10px; color:#fff; font-size:0.95rem;"><i class="fas fa-address-card" style="color:var(--accent-cyan); margin-right:6px;"></i> Details</h3>
                     <div class="info-row"><div class="info-icon"><i class="fas fa-user"></i></div><div><div class="info-label">Full Name</div><div class="info-value">Lorence B. Ojales</div></div></div>
                     <div class="info-row"><div class="info-icon"><i class="fas fa-location-dot"></i></div><div><div class="info-label">Address</div><div class="info-value">Brgy. San Isidro, Lipa City, Batangas</div></div></div>
                     <div class="info-row"><div class="info-icon"><i class="fas fa-phone"></i></div><div><div class="info-label">Contact No.</div><div class="info-value">09682313762</div></div></div>
@@ -2806,7 +2737,7 @@
                 <div class="section-line"></div>
             </div>
             <div class="card-premium reveal" style="margin-bottom:20px;">
-                <h3 style="font-weight:700;margin-bottom:16px;color:#fff;font-size:1rem;"><i class="fas fa-briefcase" style="color:var(--accent-cyan);margin-right:6px;"></i> Work Experience</h3>
+                <h3 style="font-weight:700; margin-bottom:16px; color:#fff; font-size:1rem;"><i class="fas fa-briefcase" style="color:var(--accent-cyan); margin-right:6px;"></i> Work Experience</h3>
                 <div class="timeline-modern">
                     <div class="timeline-item-modern">
                         <div class="timeline-date">June 18, 2025 – August 5, 2025</div>
@@ -2823,7 +2754,7 @@
                 </div>
             </div>
             <div class="card-premium reveal">
-                <h3 style="font-weight:700;margin-bottom:10px;color:#fff;font-size:1rem;"><i class="fas fa-graduation-cap" style="color:var(--accent-cyan);margin-right:6px;"></i> Education</h3>
+                <h3 style="font-weight:700; margin-bottom:10px; color:#fff; font-size:1rem;"><i class="fas fa-graduation-cap" style="color:var(--accent-cyan); margin-right:6px;"></i> Education</h3>
                 <div style="padding:6px 0;">
                     <div class="timeline-title">BS Computer Engineering (Cum Laude)</div>
                     <div class="timeline-org">University of Batangas – Lipa Campus</div>
@@ -2958,7 +2889,7 @@
             </div>
             <div class="contact-layout reveal">
                 <div class="contact-info-card card-premium">
-                    <h3 style="font-weight:700;margin-bottom:12px;color:#fff;font-size:0.95rem;"><i class="fas fa-address-book" style="color:var(--accent-cyan);margin-right:6px;"></i> Reach me</h3>
+                    <h3 style="font-weight:700; margin-bottom:12px; color:#fff; font-size:0.95rem;"><i class="fas fa-address-book" style="color:var(--accent-cyan); margin-right:6px;"></i> Reach me</h3>
                     <a href="mailto:lorence.ojales@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> lorence.ojales@gmail.com</a>
                     <a href="mailto:1620052@ub.edu.ph" class="contact-link"><i class="fas fa-building-columns"></i> 1620052@ub.edu.ph</a>
                     <a href="tel:09682313762" class="contact-link"><i class="fas fa-phone"></i> 09682313762</a>
@@ -2970,12 +2901,20 @@
                     </div>
                 </div>
                 <div class="contact-form-card card-premium">
-                    <h3 style="font-weight:700;margin-bottom:12px;color:#fff;font-size:0.95rem;"><i class="fas fa-paper-plane" style="color:var(--accent-cyan);margin-right:6px;"></i> Send a message</h3>
+                    <h3 style="font-weight:700; margin-bottom:12px; color:#fff; font-size:0.95rem;"><i class="fas fa-paper-plane" style="color:var(--accent-cyan); margin-right:6px;"></i> Send a message</h3>
                     <form id="contactForm">
-                        <div class="form-group"><input type="text" name="name" class="form-input" placeholder="Your name" required></div>
-                        <div class="form-group"><input type="email" name="email" class="form-input" placeholder="Your email" required></div>
-                        <div class="form-group"><textarea name="message" class="form-input" rows="4" placeholder="Your message..." required></textarea></div>
-                        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;"><i class="fas fa-paper-plane"></i> Send Message</button>
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-input" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-input" placeholder="Your email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" class="form-input" rows="4" placeholder="Your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
                     </form>
                 </div>
             </div>
@@ -2986,43 +2925,117 @@
         <p>&copy; <span id="currentYear">2025</span> <span class="footer-name">Lorence B. Ojales</span> — Computer Engineer. Built with precision.</p>
     </footer>
 
-    <!-- Project modals -->
     <div class="modal-overlay" id="modal-tugon">
-        <div class="modal-dialog"><button class="modal-close" onclick="closeModal('modal-tugon')"><i class="fas fa-times"></i></button><h2>Tugon Lipa · AI‑Powered Smart Community Platform</h2><p class="modal-tagline">2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge</p><div class="modal-highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:6px;color:var(--text-secondary);font-size:0.78rem;">University of Batangas, Batangas City · November 21–22, 2025</p></div><div class="modal-body"><div class="project-gallery" id="tugonGallery"><img src="tugon1.jpg" alt="Tugon Lipa 1" loading="lazy" data-gallery="tugon" data-index="0"><img src="tugon2.jpg" alt="Tugon Lipa 2" loading="lazy" data-gallery="tugon" data-index="1"><img src="tugon3.jpg" alt="Tugon Lipa 3" loading="lazy" data-gallery="tugon" data-index="2"><img src="tugon4.jpg" alt="Tugon Lipa 4" loading="lazy" data-gallery="tugon" data-index="3"><img src="tugon5.jpg" alt="Tugon Lipa 5" loading="lazy" data-gallery="tugon" data-index="4"><img src="tugon6.jpg" alt="Tugon Lipa 6" loading="lazy" data-gallery="tugon" data-index="5"><img src="tugon7.jpg" alt="Tugon Lipa 7" loading="lazy" data-gallery="tugon" data-index="6"><img src="tugon8.jpg" alt="Tugon Lipa 8" loading="lazy" data-gallery="tugon" data-index="7"></div><h3>The Problem</h3><p>In Lipa City, citizens struggled with fragmented public service channels. Reporting issues meant navigating confusing phone trees, visiting barangay halls, or relying on social media posts that often went unanswered.</p><h3>The Solution</h3><p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent.</p><h3>Tech Stack</h3><div class="modal-tech-stack"><span>AI‑powered ticketing</span><span>Multi‑department admin portals</span><span>Real‑time case tracking</span><span>Automated report categorization</span><span>Citizen‑facing chatbot</span><span>Social feed integration</span></div></div></div>
-    </div>
-    <div class="modal-overlay" id="modal-ecoflow">
-        <div class="modal-dialog"><button class="modal-close" onclick="closeModal('modal-ecoflow')"><i class="fas fa-times"></i></button><h2>Eco Flow: AI‑Powered Smart Greenhouse</h2><p class="modal-tagline">Undergraduate Thesis · University of Batangas Lipa Campus (2025‑2026)</p><a href="https://ecoflowgreenhouse.vercel.app" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a><div class="modal-dual-embed modal-dual-3d"><div class="modal-embed"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div><div class="modal-embed"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div></div><div class="project-gallery" id="ecoflowGallery"><img src="ecoflow1.jpg" alt="Eco Flow 1" loading="lazy" data-gallery="ecoflow" data-index="0"><img src="ecoflow2.jpg" alt="Eco Flow 2" loading="lazy" data-gallery="ecoflow" data-index="1"><img src="ecoflow3.jpg" alt="Eco Flow 3" loading="lazy" data-gallery="ecoflow" data-index="2"><img src="ecoflow4.jpg" alt="Eco Flow 4" loading="lazy" data-gallery="ecoflow" data-index="3"><img src="ecoflow5.jpg" alt="Eco Flow 5" loading="lazy" data-gallery="ecoflow" data-index="4"><img src="ecoflow6.jpg" alt="Eco Flow 6" loading="lazy" data-gallery="ecoflow" data-index="5"><img src="ecoflow7.jpg" alt="Eco Flow 7" loading="lazy" data-gallery="ecoflow" data-index="6"><img src="ecoflow8.jpg" alt="Eco Flow 8" loading="lazy" data-gallery="ecoflow" data-index="7"><img src="ecoflow9.jpg" alt="Eco Flow 9" loading="lazy" data-gallery="ecoflow" data-index="8"><img src="ecoflow10.jpg" alt="Eco Flow 10" loading="lazy" data-gallery="ecoflow" data-index="9"></div><div class="modal-body"><h3>The Problem</h3><p>At the University of Batangas Lipa Campus, the <strong>"Punla Para sa Kalikasan"</strong> greenhouse relied on manual irrigation — inconsistent watering and no real‑time data.</p><h3>The Solution</h3><p>I co‑developed <strong>Eco Flow</strong>, a fully automated greenhouse system integrating IoT monitoring, data analytics, and AI‑based water scheduling using <strong>Raspberry Pi 5</strong> and <strong>ESP32</strong>.</p><h3>The Results</h3><p>Eco Flow achieved <strong>94.74% water utilization efficiency</strong> (vs. 70.83% manual), reduced daily water consumption by 29%, and earned a <strong>95.4% performance rating</strong> under ISO 25010 standards.</p><h3>Tech Stack</h3><div class="modal-tech-stack"><span>Raspberry Pi 5</span><span>ESP32</span><span>Python (Flask)</span><span>SQLite</span><span>Scikit-learn</span><span>Arduino IDE</span><span>DHT22</span><span>Capacitive soil moisture</span><span>Solid‑state relays</span><span>Fusion 360</span><span>Eagle CAD</span></div></div></div>
-    </div>
-    <div class="modal-overlay" id="modal-mazebot">
-        <div class="modal-dialog"><button class="modal-close" onclick="closeModal('modal-mazebot')"><i class="fas fa-times"></i></button><h2>MazeBot · Autonomous Wall‑Following Robot</h2><p class="modal-tagline">Embedded Systems Exercise · Reactive Control &amp; Sensor Fusion</p><div class="modal-embed modal-embed-3d"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div><div class="modal-body"><h3>The Problem</h3><p>Maze navigation and autonomous obstacle avoidance are fundamental challenges in mobile robotics requiring real‑time decision‑making.</p><h3>The Solution</h3><p>I built <strong>MazeBot</strong> using three VL53L0X TOF sensors, an ESP32, and a DRV8833 motor driver with differential steering.</p><h3>The Results</h3><p>MazeBot reliably follows walls, navigates 90° and 180° turns, and resolves T‑junctions — built for under ₱2,000.</p><h3>Tech Stack</h3><div class="modal-tech-stack"><span>ESP32</span><span>Arduino IDE</span><span>VL53L0X TOF (x3)</span><span>GA12‑NC20 motors</span><span>DRV8833 driver</span><span>18650 Li‑ion</span><span>Fusion 360</span></div></div></div>
-    </div>
-    <div class="modal-overlay" id="modal-nyc">
-        <div class="modal-dialog"><button class="modal-close" onclick="closeModal('modal-nyc')"><i class="fas fa-times"></i></button><h2>NYC Crash Analytics</h2><p class="modal-tagline">Full‑stack interactive dashboard for motor‑vehicle collision data</p><a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a><div class="project-gallery" id="nycGallery"><img src="nyc1.jpg" alt="NYC 1" loading="lazy" data-gallery="nyc" data-index="0"><img src="nyc2.jpg" alt="NYC 2" loading="lazy" data-gallery="nyc" data-index="1"><img src="nyc3.jpg" alt="NYC 3" loading="lazy" data-gallery="nyc" data-index="2"><img src="nyc4.jpg" alt="NYC 4" loading="lazy" data-gallery="nyc" data-index="3"><img src="nyc5.jpg" alt="NYC 5" loading="lazy" data-gallery="nyc" data-index="4"><img src="nyc6.jpg" alt="NYC 6" loading="lazy" data-gallery="nyc" data-index="5"><img src="nyc7.jpg" alt="NYC 7" loading="lazy" data-gallery="nyc" data-index="6"><img src="nyc8.jpg" alt="NYC 8" loading="lazy" data-gallery="nyc" data-index="7"><img src="nyc9.jpg" alt="NYC 9" loading="lazy" data-gallery="nyc" data-index="8"></div><div class="modal-body"><h3>Overview</h3><p><strong>NYC Crash Analytics</strong> transforms raw NYC Open Data into an interactive visual exploration tool with PHP, MySQL, and vanilla JavaScript.</p><h3>Key Features</h3><p>Responsive dark‑theme interface with <strong>Leaflet</strong> maps, marker clustering, heatmaps, time‑slider, and <strong>Chart.js</strong> visualizations.</p><h3>Tech Stack</h3><div class="modal-tech-stack"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>Leaflet</span><span>Chart.js</span><span>Bootstrap</span><span>REST APIs</span><span>CSV/JSON/PDF Export</span></div></div></div>
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('modal-tugon')"><i class="fas fa-times"></i></button>
+            <h2>Tugon Lipa · AI‑Powered Smart Community Platform</h2>
+            <p class="modal-tagline">2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge</p>
+            <div class="modal-highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:6px;color:var(--text-secondary); font-size:0.78rem;">University of Batangas, Batangas City · November 21–22, 2025</p></div>
+            <div class="modal-body">
+                <div class="project-gallery" id="tugonGallery">
+                    <img src="tugon1.jpg" alt="Tugon Lipa screenshot 1" loading="lazy" data-gallery="tugon" data-index="0">
+                    <img src="tugon2.jpg" alt="Tugon Lipa screenshot 2" loading="lazy" data-gallery="tugon" data-index="1">
+                    <img src="tugon3.jpg" alt="Tugon Lipa screenshot 3" loading="lazy" data-gallery="tugon" data-index="2">
+                    <img src="tugon4.jpg" alt="Tugon Lipa screenshot 4" loading="lazy" data-gallery="tugon" data-index="3">
+                    <img src="tugon5.jpg" alt="Tugon Lipa screenshot 5" loading="lazy" data-gallery="tugon" data-index="4">
+                    <img src="tugon6.jpg" alt="Tugon Lipa screenshot 6" loading="lazy" data-gallery="tugon" data-index="5">
+                    <img src="tugon7.jpg" alt="Tugon Lipa screenshot 7" loading="lazy" data-gallery="tugon" data-index="6">
+                    <img src="tugon8.jpg" alt="Tugon Lipa screenshot 8" loading="lazy" data-gallery="tugon" data-index="7">
+                </div>
+                <h3>The Problem</h3><p>In Lipa City, citizens struggled with fragmented public service channels. Reporting issues meant navigating confusing phone trees, visiting barangay halls, or relying on social media posts that often went unanswered. LGUs lacked a centralized system to track and resolve citizen reports efficiently.</p>
+                <h3>The Solution</h3><p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent. Citizens submit reports with photos, receive real‑time case updates, and access official announcements — all from one unified interface.</p>
+                <h3>Tech Stack</h3>
+                <div class="modal-tech-stack"><span>AI‑powered ticketing</span><span>Multi‑department admin portals</span><span>Real‑time case tracking</span><span>Automated report categorization</span><span>Citizen‑facing chatbot</span><span>Social feed integration</span></div>
+                <p style="font-style:italic;color:var(--text-muted);">Recognized 2nd Place — a team effort demonstrating rapid prototyping, AI integration, and civic technology innovation.</p>
+            </div>
+        </div>
     </div>
 
+    <div class="modal-overlay" id="modal-ecoflow">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('modal-ecoflow')"><i class="fas fa-times"></i></button>
+            <h2>Eco Flow: AI‑Powered Smart Greenhouse</h2>
+            <p class="modal-tagline">Undergraduate Thesis · University of Batangas Lipa Campus (2025‑2026)</p>
+            <a href="https://ecoflowgreenhouse.vercel.app" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
+            <div class="modal-dual-embed modal-dual-3d">
+                <div class="modal-embed"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
+                <div class="modal-embed"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div>
+            </div>
+            <div class="project-gallery" id="ecoflowGallery">
+                <img src="ecoflow1.jpg" alt="Eco Flow screenshot 1" loading="lazy" data-gallery="ecoflow" data-index="0">
+                <img src="ecoflow2.jpg" alt="Eco Flow screenshot 2" loading="lazy" data-gallery="ecoflow" data-index="1">
+                <img src="ecoflow3.jpg" alt="Eco Flow screenshot 3" loading="lazy" data-gallery="ecoflow" data-index="2">
+                <img src="ecoflow4.jpg" alt="Eco Flow screenshot 4" loading="lazy" data-gallery="ecoflow" data-index="3">
+                <img src="ecoflow5.jpg" alt="Eco Flow screenshot 5" loading="lazy" data-gallery="ecoflow" data-index="4">
+                <img src="ecoflow6.jpg" alt="Eco Flow screenshot 6" loading="lazy" data-gallery="ecoflow" data-index="5">
+                <img src="ecoflow7.jpg" alt="Eco Flow screenshot 7" loading="lazy" data-gallery="ecoflow" data-index="6">
+                <img src="ecoflow8.jpg" alt="Eco Flow screenshot 8" loading="lazy" data-gallery="ecoflow" data-index="7">
+                <img src="ecoflow9.jpg" alt="Eco Flow screenshot 9" loading="lazy" data-gallery="ecoflow" data-index="8">
+                <img src="ecoflow10.jpg" alt="Eco Flow screenshot 10" loading="lazy" data-gallery="ecoflow" data-index="9">
+            </div>
+            <div class="modal-body">
+                <h3>The Problem</h3><p>At the University of Batangas Lipa Campus, the <strong>"Punla Para sa Kalikasan"</strong> greenhouse relied on manual irrigation — inconsistent watering, subjective judgment, and no real‑time data.</p>
+                <h3>The Solution</h3><p>I co‑developed <strong>Eco Flow</strong>, a fully automated greenhouse system integrating IoT monitoring, data analytics, and AI‑based water scheduling using <strong>Raspberry Pi 5</strong> and <strong>ESP32</strong>.</p>
+                <h3>The Results</h3><p>Eco Flow achieved <strong>94.74% water utilization efficiency</strong> (vs. 70.83% manual), reduced daily water consumption by 29%, and earned a <strong>95.4% performance rating</strong> under ISO 25010 standards.</p>
+                <h3>Tech Stack</h3>
+                <div class="modal-tech-stack"><span>Raspberry Pi 5</span><span>ESP32</span><span>Python (Flask)</span><span>SQLite</span><span>Scikit-learn</span><span>Arduino IDE</span><span>DHT22</span><span>Capacitive soil moisture</span><span>Solid‑state relays</span><span>Fusion 360</span><span>Eagle CAD</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-mazebot">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('modal-mazebot')"><i class="fas fa-times"></i></button>
+            <h2>MazeBot · Autonomous Wall‑Following Robot</h2>
+            <p class="modal-tagline">Embedded Systems Exercise · Reactive Control &amp; Sensor Fusion</p>
+            <div class="modal-embed modal-embed-3d"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
+            <div class="modal-body">
+                <h3>The Problem</h3><p>Maze navigation and autonomous obstacle avoidance are fundamental challenges in mobile robotics requiring real‑time decision‑making.</p>
+                <h3>The Solution</h3><p>I built <strong>MazeBot</strong> using three VL53L0X TOF sensors, an ESP32, and a DRV8833 motor driver with differential steering.</p>
+                <h3>The Results</h3><p>MazeBot reliably follows walls, navigates 90° and 180° turns, and resolves T‑junctions — built for under ₱2,000.</p>
+                <h3>Tech Stack</h3>
+                <div class="modal-tech-stack"><span>ESP32</span><span>Arduino IDE</span><span>VL53L0X TOF (x3)</span><span>GA12‑NC20 motors</span><span>DRV8833 driver</span><span>18650 Li‑ion</span><span>Fusion 360</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-nyc">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('modal-nyc')"><i class="fas fa-times"></i></button>
+            <h2>NYC Crash Analytics</h2>
+            <p class="modal-tagline">Full‑stack interactive dashboard for motor‑vehicle collision data</p>
+            <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
+            <div class="project-gallery" id="nycGallery">
+                <img src="nyc1.jpg" alt="NYC Crash Analytics screenshot 1" loading="lazy" data-gallery="nyc" data-index="0">
+                <img src="nyc2.jpg" alt="NYC Crash Analytics screenshot 2" loading="lazy" data-gallery="nyc" data-index="1">
+                <img src="nyc3.jpg" alt="NYC Crash Analytics screenshot 3" loading="lazy" data-gallery="nyc" data-index="2">
+                <img src="nyc4.jpg" alt="NYC Crash Analytics screenshot 4" loading="lazy" data-gallery="nyc" data-index="3">
+                <img src="nyc5.jpg" alt="NYC Crash Analytics screenshot 5" loading="lazy" data-gallery="nyc" data-index="4">
+                <img src="nyc6.jpg" alt="NYC Crash Analytics screenshot 6" loading="lazy" data-gallery="nyc" data-index="5">
+                <img src="nyc7.jpg" alt="NYC Crash Analytics screenshot 7" loading="lazy" data-gallery="nyc" data-index="6">
+                <img src="nyc8.jpg" alt="NYC Crash Analytics screenshot 8" loading="lazy" data-gallery="nyc" data-index="7">
+                <img src="nyc9.jpg" alt="NYC Crash Analytics screenshot 9" loading="lazy" data-gallery="nyc" data-index="8">
+            </div>
+            <div class="modal-body">
+                <h3>Overview</h3><p><strong>NYC Crash Analytics</strong> transforms raw NYC Open Data into an interactive visual exploration tool with PHP, MySQL, and vanilla JavaScript.</p>
+                <h3>Key Features</h3><p>Responsive dark‑theme interface with <strong>Leaflet</strong> maps, marker clustering, heatmaps, time‑slider, and <strong>Chart.js</strong> visualizations.</p>
+                <h3>Tech Stack</h3>
+                <div class="modal-tech-stack"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>Leaflet</span><span>Chart.js</span><span>Bootstrap</span><span>REST APIs</span><span>CSV/JSON/PDF Export</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+    </script>
 
     <script>
-        (function() {
-            // ── Device detection & performance tier ──
-            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-            const screenWidth = Math.min(window.innerWidth, screen.width || window.innerWidth);
-            const isMobile = isTouchDevice && screenWidth <= 900;
-            const isSmallMobile = isTouchDevice && screenWidth <= 480;
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize EmailJS
+            emailjs.init("jJ0ZadOUacvrkPfPT"); // TODO: Replace with your real public key
 
-            // Performance tier: 0 = desktop (full), 1 = tablet (reduced), 2 = phone (minimal)
-            let perfTier = 0;
-            if (isSmallMobile) perfTier = 2;
-            else if (isMobile) perfTier = 1;
-
-            // Expose globally for canvas scripts
-            window.__perfTier = perfTier;
-            window.__isMobile = isMobile;
-            window.__prefersReducedMotion = prefersReducedMotion;
-
-            // ── Core DOM references ──
             const headerInner = document.getElementById('headerInner');
             const hamburgerBtn = document.getElementById('hamburgerBtn');
             const mobileNav = document.getElementById('mobileNav');
@@ -3030,15 +3043,11 @@
             const revealEls = document.querySelectorAll('.reveal');
             const yearSpan = document.getElementById('currentYear');
             const spotlight = document.getElementById('spotlight');
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-            // ── Header scroll effect ──
             if (headerInner) {
-                window.addEventListener('scroll', () => {
-                    headerInner.classList.toggle('scrolled', window.scrollY > 20);
-                }, { passive: true });
+                window.addEventListener('scroll', () => { headerInner.classList.toggle('scrolled', window.scrollY > 20); });
             }
-
-            // ── Mobile nav ──
             if (hamburgerBtn && mobileNav) {
                 hamburgerBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -3047,125 +3056,81 @@
                     icon.className = mobileNav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
                 });
                 mobileNav.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileNav.classList.remove('open');
-                        hamburgerBtn.querySelector('i').className = 'fas fa-bars';
-                    });
+                    link.addEventListener('click', () => { mobileNav.classList.remove('open');
+                        hamburgerBtn.querySelector('i').className = 'fas fa-bars'; });
                 });
                 document.addEventListener('click', (e) => {
-                    if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) {
-                        mobileNav.classList.remove('open');
-                        hamburgerBtn.querySelector('i').className = 'fas fa-bars';
-                    }
+                    if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open');
+                        hamburgerBtn.querySelector('i').className = 'fas fa-bars'; }
                 });
             }
-
-            // ── Smooth scroll for nav links ──
             allNavLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     if (href && href.startsWith('#')) {
                         e.preventDefault();
                         const target = document.querySelector(href);
-                        if (target) {
-                            const headerHeight = 80;
-                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset -
-                                headerHeight;
-                            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                        }
+                        if (target) { const headerHeight = 80;
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                            window.scrollTo({ top: targetPosition, behavior: 'smooth' }); }
                     }
                 });
             });
-
-            // ── Active nav state ──
             const sections = document.querySelectorAll('section[id]');
 
             function updateActiveNav() {
                 let currentId = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 140;
-                    if (window.scrollY >= sectionTop) currentId = section.getAttribute('id');
-                });
-                allNavLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + currentId) link.classList.add('active');
-                });
+                sections.forEach(section => { const sectionTop = section.offsetTop - 140; if (window.scrollY >= sectionTop) currentId = section.getAttribute('id'); });
+                allNavLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + currentId) link.classList.add('active'); });
             }
             window.addEventListener('scroll', updateActiveNav, { passive: true });
             updateActiveNav();
-
-            // ── Reveal on scroll ──
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('revealed');
-                });
-            }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+            const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('revealed'); }); }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
             revealEls.forEach(el => observer.observe(el));
-
-            // ── Footer year ──
             if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-
-            // ── Spotlight (desktop only) ──
-            if (spotlight && !isTouchDevice && perfTier === 0) {
+            if (spotlight && !isTouchDevice) {
                 let mouseX = -500,
                     mouseY = -500,
                     targetX = mouseX,
                     targetY = mouseY;
-                document.addEventListener('mousemove', (e) => {
-                    targetX = e.clientX;
+                document.addEventListener('mousemove', (e) => { targetX = e.clientX;
                     targetY = e.clientY;
-                    spotlight.classList.add('active');
-                });
+                    spotlight.classList.add('active'); });
                 document.addEventListener('mouseleave', () => { spotlight.classList.remove('active'); });
 
-                function animateSpotlight() {
-                    mouseX += (targetX - mouseX) * 0.08;
+                function animateSpotlight() { mouseX += (targetX - mouseX) * 0.08;
                     mouseY += (targetY - mouseY) * 0.08;
                     spotlight.style.left = mouseX + 'px';
                     spotlight.style.top = mouseY + 'px';
-                    requestAnimationFrame(animateSpotlight);
-                }
-                requestAnimationFrame(animateSpotlight);
+                    requestAnimationFrame(animateSpotlight); }
+                animateSpotlight();
             }
-
-            // ── Magnetic buttons (desktop only) ──
             const magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
-            if (!isTouchDevice && perfTier === 0) {
+            if (!isTouchDevice) {
                 magneticWraps.forEach(wrap => {
-                    wrap.addEventListener('mousemove', (e) => {
-                        const rect = wrap.getBoundingClientRect();
+                    wrap.addEventListener('mousemove', (e) => { const rect = wrap.getBoundingClientRect();
                         const x = e.clientX - rect.left - rect.width / 2;
                         const y = e.clientY - rect.top - rect.height / 2;
-                        wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`;
-                    });
-                    wrap.addEventListener('mouseleave', () => { wrap.style.transform =
-                        'translate(0px, 0px)'; });
+                        wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`; });
+                    wrap.addEventListener('mouseleave', () => { wrap.style.transform = 'translate(0px, 0px)'; });
                 });
             }
-
-            // ── Role switcher ──
             const roleSwitcherText = document.getElementById('roleSwitcherText');
-            if (roleSwitcherText && !prefersReducedMotion) {
-                const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast',
-                    'Full-Stack Developer'
-                ];
+            if (roleSwitcherText) {
+                const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
                 let roleIndex = 0;
                 const displayDuration = 3200,
                     transitionDuration = 400;
 
                 function switchRole() {
                     roleSwitcherText.classList.add('transitioning');
-                    setTimeout(() => {
-                        roleIndex = (roleIndex + 1) % roles.length;
+                    setTimeout(() => { roleIndex = (roleIndex + 1) % roles.length;
                         roleSwitcherText.textContent = roles[roleIndex];
-                        roleSwitcherText.classList.remove('transitioning');
-                    }, transitionDuration);
+                        roleSwitcherText.classList.remove('transitioning'); }, transitionDuration);
                     setTimeout(switchRole, displayDuration + transitionDuration);
                 }
                 setTimeout(switchRole, displayDuration);
             }
-
-            // ── Resume modal ──
             const resumeViewBtn = document.getElementById('resumeViewBtn');
             if (resumeViewBtn) {
                 resumeViewBtn.addEventListener('click', function(e) {
@@ -3174,7 +3139,6 @@
                 });
             }
 
-            // ── Lightbox ──
             const lightbox = document.getElementById('imageLightbox');
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxCounter = document.getElementById('lightboxCounter');
@@ -3187,8 +3151,7 @@
             function openLightbox(imgElement) {
                 const galleryId = imgElement.getAttribute('data-gallery');
                 if (galleryId) {
-                    currentGalleryImages = Array.from(document.querySelectorAll(
-                        `img[data-gallery="${galleryId}"]`));
+                    currentGalleryImages = Array.from(document.querySelectorAll(`img[data-gallery="${galleryId}"]`));
                 } else {
                     currentGalleryImages = [imgElement];
                 }
@@ -3218,11 +3181,9 @@
 
             function navigateLightbox(direction) {
                 if (currentGalleryImages.length <= 1) return;
-                currentImageIndex = (currentImageIndex + direction + currentGalleryImages.length) %
-                    currentGalleryImages.length;
+                currentImageIndex = (currentImageIndex + direction + currentGalleryImages.length) % currentGalleryImages.length;
                 updateLightboxImage();
             }
-
             document.querySelectorAll('.project-gallery img').forEach(img => {
                 img.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -3244,24 +3205,26 @@
             lightbox.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
             lightbox.addEventListener('touchend', (e) => {
                 const diff = e.changedTouches[0].clientX - touchStartX;
-                if (Math.abs(diff) > 50) navigateLightbox(diff < 0 ? 1 : -1);
+                if (Math.abs(diff) > 50) {
+                    navigateLightbox(diff < 0 ? 1 : -1);
+                }
             });
 
-            // ── EmailJS ──
-            emailjs.init("jJ0ZadOUacvrkPfPT");
+            // EmailJS contact form handler
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
                     e.preventDefault();
+
                     const submitBtn = contactForm.querySelector('button[type="submit"]');
                     const originalHTML = submitBtn.innerHTML;
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                     submitBtn.disabled = true;
+
                     emailjs.sendForm('service_76iix6u', 'template_zdd5ea4', this)
                         .then(() => {
                             submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-                            submitBtn.style.background =
-                            'linear-gradient(135deg, #10b981, #059669)';
+                            submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                             contactForm.reset();
                             setTimeout(() => {
                                 submitBtn.innerHTML = originalHTML;
@@ -3271,10 +3234,8 @@
                         })
                         .catch((error) => {
                             console.error('EmailJS error:', error);
-                            submitBtn.innerHTML =
-                                '<i class="fas fa-exclamation-circle"></i> Failed';
-                            submitBtn.style.background =
-                                'linear-gradient(135deg, #f43f5e, #e11d48)';
+                            submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed';
+                            submitBtn.style.background = 'linear-gradient(135deg, #f43f5e, #e11d48)';
                             setTimeout(() => {
                                 submitBtn.innerHTML = originalHTML;
                                 submitBtn.style.background = '';
@@ -3283,52 +3244,51 @@
                         });
                 });
             }
+        });
 
-            // ── Modal helpers (global) ──
-            window.openModal = function(modalId) {
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    modal.scrollTop = 0;
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                modal.scrollTop = 0;
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                const anyActiveModals = document.querySelectorAll('.modal-overlay.active');
+                if (anyActiveModals.length === 0) {
+                    document.body.style.overflow = '';
                 }
-            };
-            window.closeModal = function(modalId) {
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.classList.remove('active');
-                    const anyActiveModals = document.querySelectorAll('.modal-overlay.active');
-                    if (anyActiveModals.length === 0) document.body.style.overflow = '';
-                }
-            };
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
-                    window.closeModal(e.target.getAttribute('id'));
-                }
-            });
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    const lb = document.getElementById('imageLightbox');
-                    if (lb && lb.classList.contains('active')) return;
-                    const activeModals = document.querySelectorAll('.modal-overlay.active');
-                    activeModals.forEach(m => m.classList.remove('active'));
-                    if (activeModals.length > 0) document.body.style.overflow = '';
-                }
-            });
-        })();
+            }
+        }
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
+                closeModal(e.target.getAttribute('id'));
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('imageLightbox');
+                if (lightbox && lightbox.classList.contains('active')) return;
+                const activeModals = document.querySelectorAll('.modal-overlay.active');
+                activeModals.forEach(m => m.classList.remove('active'));
+                if (activeModals.length > 0) document.body.style.overflow = '';
+            }
+        });
     </script>
 
-    <!-- ── Lightrays Canvas (disabled on mobile for perf) ── -->
     <script>
         (function() {
-            const perfTier = window.__perfTier || 0;
-            if (perfTier >= 1) return; // Skip on mobile/tablet
             const container = document.getElementById('canvasContainer');
             const canvas = document.getElementById('lightraysCanvas');
             if (!container || !canvas) return;
             const config = { raysOrigin: 'top-center', raysColor: '#67e8f9', raysSpeed: 1, lightSpread: 1, rayLength: 2, pulsating: false, fadeDistance: 1.0, saturation: 1.0, followMouse: true, mouseInfluence: 0.1, noiseAmount: 0.0, distortion: 0.0 };
             const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             const scene = new THREE.Scene();
             const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
             camera.position.z = 1;
@@ -3336,7 +3296,14 @@
             const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return { anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] }; case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
             const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE.Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config.lightSpread }, rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ? 1.0 : 0.0 }, fadeDistance: { value: config.fadeDistance }, saturation: { value: config.saturation }, mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence }, noiseAmount: { value: config.noiseAmount }, distortion: { value: config.distortion } };
             const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-            const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
+            const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1);
+                color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y);
+                color.x *= 0.1 + brightness * 0.8;
+                color.y *= 0.3 + brightness * 0.6;
+                color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+                    color.rgb = mix(vec3(gray), color.rgb, saturation); }
+                color.rgb *= raysColor;
+                gl_FragColor = color; }`;
             const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, depthTest: false });
             const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
             scene.add(mesh);
@@ -3370,50 +3337,19 @@
         })();
     </script>
 
-    <!-- ── Fluid simulation WebGL (resolution scaled by device) ── -->
     <script>
         (function() {
-            const perfTier = window.__perfTier || 0;
-            const isMobile = window.__isMobile || false;
-            const prefersReducedMotion = window.__prefersReducedMotion || false;
             const container = document.getElementById('canvasContainer');
             const webglCanvas = document.getElementById('webglCanvas');
-            const staticFallback = document.getElementById('heroStaticFallback');
             if (!container || !webglCanvas) return;
-
-            // On small phones, skip fluid sim entirely and show a static blended fallback
-            if (perfTier >= 2 || prefersReducedMotion) {
-                webglCanvas.style.display = 'none';
-                if (staticFallback) {
-                    staticFallback.classList.add('active');
-                    staticFallback.style.backgroundImage =
-                        'url(toga.png), url(barong.png)';
-                    staticFallback.style.backgroundBlendMode = 'normal';
-                    staticFallback.style.backgroundSize = 'cover, cover';
-                    staticFallback.style.backgroundPosition = 'center, center';
-                    staticFallback.style.opacity = '1';
-                }
-                // Also hide lightrays canvas on tier-2
-                const lrCanvas = document.getElementById('lightraysCanvas');
-                if (lrCanvas) lrCanvas.style.display = 'none';
-                return;
-            }
-
-            const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false,
-                antialias: false });
-            // Lower pixel ratio on mobile
-            const maxDPR = isMobile ? 1.5 : 2;
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDPR));
+            const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false, antialias: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             const scene = new THREE.Scene();
             const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
             camera.position.z = 1;
-
             let fluidRT_A, fluidRT_B;
             let simScene, simCamera, simQuad;
-            // Reduce fluid resolution on mobile
-            const baseRes = isMobile ? 256 : 512;
-            let fluidRes = new THREE.Vector2(baseRes, baseRes);
-
+            let fluidRes = new THREE.Vector2(512, 512);
             const mouse = { x: 0.5, y: 0.5, prevX: 0.5, prevY: 0.5, inside: false };
             let lastMoveTime = performance.now();
             let idleActive = false;
@@ -3437,18 +3373,11 @@
                 simCamera.position.z = 1;
                 const format = THREE.RGBAFormat,
                     type = THREE.FloatType;
-                fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type,
-                    minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-                fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type,
-                    minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-                const simVert =
-                    `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-                const simFrag =
-                    `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
-                const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture },
-                        uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0,
-                            0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) },
-                        uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
+                fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+                fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+                const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+                const simFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
+                const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture }, uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0, 0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) }, uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
                 simQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMat);
                 simScene.add(simQuad);
                 renderer.setRenderTarget(fluidRT_A);
@@ -3460,32 +3389,23 @@
 
             function resizeFluid() { const rect = container.getBoundingClientRect();
                 const aspect = rect.width / rect.height;
-                const h = baseRes,
+                const h = 512,
                     w = Math.floor(h * aspect);
-                fluidRes.set(Math.max(w, 64), Math.max(h, 64));
-                fluidRT_A.setSize(fluidRes.x, fluidRes.y);
-                fluidRT_B.setSize(fluidRes.x, fluidRes.y);
-                simQuad.material.uniforms.uTexelSize.value.set(1 / fluidRes.x, 1 / fluidRes.y); }
+                fluidRes.set(w, h);
+                fluidRT_A.setSize(w, h);
+                fluidRT_B.setSize(w, h);
+                simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h); }
             initFluid();
             window.addEventListener('resize', resizeFluid);
-
-            const mainVert =
-                `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
-            const mainFrag =
-                `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
-            const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A
-                    .texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 },
-                uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: 0.025 } };
-            const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert,
-                fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
+            const mainVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
+            const mainFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
+            const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A.texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 }, uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: 0.025 } };
+            const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert, fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
             const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
             scene.add(mainQuad);
 
-            function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms
-                            .uBarongAspect.value = tex.image.width / tex.image.height;
-                        container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms
-                            .uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !
-                    animationStarted) { animationStarted = true;
+            function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
+                        container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
                     resizeAll();
                     animate(); } }
             loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
@@ -3520,8 +3440,7 @@
                         scanDirX = -1; }
                     scanVirtualY = 0.0;
                     scanDirY = 1;
-                    scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete =
-                            false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                    scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
                                 scanDirX = 1; } else { scanVirtualX = 1.0;
                                 scanDirX = -1; }
                             scanVirtualY = 0.0;
@@ -3540,8 +3459,7 @@
                     const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
                     simMat.uniforms.uVelocity.value.set(velX, velY);
                     const movingThreshold = 0.01;
-                    simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) >
-                        movingThreshold) && mouse.inside; }
+                    simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold) && mouse.inside; }
                 mainUniforms.uCursor.value.set(mouse.x, mouse.y);
                 simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
                 renderer.setRenderTarget(fluidRT_B);
@@ -3558,15 +3476,9 @@
                 resizeFluid();
                 mainUniforms.uFluidMask.value = fluidRT_A.texture; }
             let lastTime = 0;
-            // Frame throttling for mobile: target ~30fps instead of 60fps
-            const frameInterval = isMobile ? 33 : 16; // ms between frames
-            let lastFrameTime = 0;
 
             function animate(time) { if (!animationStarted) return;
                 requestAnimationFrame(animate);
-                const elapsed = time - lastFrameTime;
-                if (elapsed < frameInterval) return;
-                lastFrameTime = time - (elapsed % frameInterval);
                 const dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
                 lastTime = time;
                 updateFluid(dt);
