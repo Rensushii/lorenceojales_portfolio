@@ -111,7 +111,6 @@
             justify-content: center;
             gap: 0;
         }
-        /* Subtle radial glow behind the loader */
         .loader-content::before {
             content: '';
             position: absolute;
@@ -2705,7 +2704,6 @@
             .reveal.revealed {
                 opacity: 1;
             }
-            /* Also respect reduced motion for the loader */
             .loader-spin-circle {
                 animation: none !important;
                 stroke-dashoffset: 0;
@@ -2749,12 +2747,9 @@
     <!-- ========== LOADING SCREEN ========== -->
     <div id="loading-screen" style="display:none;">
         <div class="loader-content">
-            <!-- SVG Spinner Ring -->
             <div class="loader-ring">
                 <svg width="70" height="70" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Faint track -->
                     <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(6,182,212,0.1)" stroke-width="2.5"/>
-                    <!-- Spinning glowing arc -->
                     <circle cx="50" cy="50" r="42" fill="none" stroke="url(#loaderGrad)" stroke-width="2.5"
                     stroke-dasharray="75 180" stroke-linecap="round" class="loader-spin-circle"/>
                     <defs>
@@ -2766,20 +2761,20 @@
                     </defs>
                 </svg>
             </div>
-            <!-- Name -->
             <div class="loader-name">Lorence Ojales</div>
-            <!-- Subtitle -->
             <div class="loader-subtitle">Preparing system…</div>
-            <!-- Shimmer bar -->
             <div class="loader-bar-track">
                 <div class="loader-bar-fill"></div>
             </div>
         </div>
     </div>
-    <!-- Inline script: show loader immediately & define global hide function -->
+    <!-- Inline script: show loader immediately & enforce 2‑second minimum -->
     <script>
         (function() {
             var loader = document.getElementById('loading-screen');
+            var loaderStartTime = Date.now();
+            var MIN_LOADER_DURATION = 2000; // 2 seconds minimum
+
             if (loader) {
                 loader.style.display = 'flex';
                 document.body.classList.add('loading');
@@ -2787,33 +2782,38 @@
 
             // Global flag to prevent double-firing
             window._loaderHidden = false;
+            window._loaderReady = false;
 
-            // Global function to hide the loading screen gracefully
+            // Global function to hide the loading screen gracefully (respects minimum 2s)
             window.hideLoadingScreen = function() {
-                if (window._loaderHidden) return;
-                window._loaderHidden = true;
-                var el = document.getElementById('loading-screen');
-                if (!el) return;
-                // Trigger CSS fade-out
-                el.classList.add('loader-fade-out');
-                document.body.classList.remove('loading');
-                // After transition, fully remove from layout
+                window._loaderReady = true;
+                var elapsed = Date.now() - loaderStartTime;
+                var remaining = Math.max(0, MIN_LOADER_DURATION - elapsed);
+
+                // Wait until the minimum duration has passed, then hide
                 setTimeout(function() {
-                    if (el) el.style.display = 'none';
-                }, 500); // matches the CSS transition duration
+                    if (window._loaderHidden) return;
+                    window._loaderHidden = true;
+                    var el = document.getElementById('loading-screen');
+                    if (!el) return;
+                    // Trigger CSS fade-out
+                    el.classList.add('loader-fade-out');
+                    document.body.classList.remove('loading');
+                    // After transition, fully remove from layout
+                    setTimeout(function() {
+                        if (el) el.style.display = 'none';
+                    }, 500); // matches the CSS transition duration
+                }, remaining);
             };
 
-            // --- FALLBACK: window.load + 5-second absolute maximum ---
+            // --- FALLBACK: 8-second absolute maximum ---
             var fallbackTimer = setTimeout(function() {
                 window.hideLoadingScreen && window.hideLoadingScreen();
-            }, 5000);
+            }, 8000);
 
             window.addEventListener('load', function() {
                 clearTimeout(fallbackTimer);
-                // Small extra delay so the user sees the loader at least briefly
-                setTimeout(function() {
-                    window.hideLoadingScreen && window.hideLoadingScreen();
-                }, 200);
+                window.hideLoadingScreen && window.hideLoadingScreen();
             });
         })();
     </script>
@@ -3241,8 +3241,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize EmailJS
-            emailjs.init("jJ0ZadOUacvrkPfPT"); // TODO: Replace with your real public key
+            emailjs.init("jJ0ZadOUacvrkPfPT");
 
             const headerInner = document.getElementById('headerInner');
             const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -3418,7 +3417,6 @@
                 }
             });
 
-            // EmailJS contact form handler
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
@@ -3616,7 +3614,6 @@
                         container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
                     resizeAll();
                     animate();
-                    // ========== LOADING SCREEN: Both WebGL textures are ready, hide the loader ==========
                     if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
             loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
                 imageLoaded(tex, 'barong'); });
