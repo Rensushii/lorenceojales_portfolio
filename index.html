@@ -2902,11 +2902,19 @@
                 </div>
                 <div class="contact-form-card card-premium">
                     <h3 style="font-weight:700; margin-bottom:12px; color:#fff; font-size:0.95rem;"><i class="fas fa-paper-plane" style="color:var(--accent-cyan); margin-right:6px;"></i> Send a message</h3>
-                    <form action="#" method="POST">
-                        <div class="form-group"><input type="text" class="form-input" placeholder="Your name" required></div>
-                        <div class="form-group"><input type="email" class="form-input" placeholder="Your email" required></div>
-                        <div class="form-group"><textarea class="form-input" rows="4" placeholder="Your message..." required></textarea></div>
-                        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-input" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-input" placeholder="Your email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" class="form-input" rows="4" placeholder="Your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
                     </form>
                 </div>
             </div>
@@ -3017,11 +3025,17 @@
         </div>
     </div>
 
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
     </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize EmailJS
+            emailjs.init("jJ0ZadOUacvrkPfPT"); // TODO: Replace with your real public key
+
             const headerInner = document.getElementById('headerInner');
             const hamburgerBtn = document.getElementById('hamburgerBtn');
             const mobileNav = document.getElementById('mobileNav');
@@ -3195,6 +3209,41 @@
                     navigateLightbox(diff < 0 ? 1 : -1);
                 }
             });
+
+            // EmailJS contact form handler
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalHTML = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+
+                    emailjs.sendForm('service_4zw1brd', 'template_zdd5ea4', this)
+                        .then(() => {
+                            submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+                            submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                            contactForm.reset();
+                            setTimeout(() => {
+                                submitBtn.innerHTML = originalHTML;
+                                submitBtn.style.background = '';
+                                submitBtn.disabled = false;
+                            }, 3000);
+                        })
+                        .catch((error) => {
+                            console.error('EmailJS error:', error);
+                            submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed';
+                            submitBtn.style.background = 'linear-gradient(135deg, #f43f5e, #e11d48)';
+                            setTimeout(() => {
+                                submitBtn.innerHTML = originalHTML;
+                                submitBtn.style.background = '';
+                                submitBtn.disabled = false;
+                            }, 3000);
+                        });
+                });
+            }
         });
 
         function openModal(modalId) {
