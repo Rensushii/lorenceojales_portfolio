@@ -82,6 +82,124 @@
             padding-bottom: var(--safe-bottom);
         }
 
+        /* ========== LOADING SCREEN CSS ========== */
+        body.loading {
+            overflow: hidden;
+        }
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(3, 7, 17, 0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+        }
+        #loading-screen.loader-fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+        /* Subtle radial glow behind the loader */
+        .loader-content::before {
+            content: '';
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.07) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .loader-ring {
+            width: 70px;
+            height: 70px;
+            position: relative;
+            margin-bottom: 4px;
+        }
+        .loader-ring svg {
+            width: 100%;
+            height: 100%;
+        }
+        .loader-spin-circle {
+            animation: loaderSpin 1.5s linear infinite;
+            transform-origin: 50px 50px;
+        }
+        @keyframes loaderSpin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .loader-name {
+            font-family: var(--font-sans);
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: #e8ecf4;
+            letter-spacing: -0.03em;
+            margin-top: 12px;
+            animation: loaderPulse 2s ease-in-out infinite;
+        }
+        @keyframes loaderPulse {
+            0%,
+            100% {
+                opacity: 0.65;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        .loader-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+        .loader-bar-track {
+            width: 180px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 2px;
+            margin-top: 18px;
+            overflow: hidden;
+            position: relative;
+        }
+        .loader-bar-fill {
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, var(--accent-cyan) 30%, var(--accent-blue) 70%, transparent 100%);
+            border-radius: 2px;
+            animation: loaderBarShimmer 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5), 0 0 20px rgba(6, 182, 212, 0.2);
+        }
+        @keyframes loaderBarShimmer {
+            0% {
+                transform: translateX(-50px);
+            }
+            100% {
+                transform: translateX(180px);
+            }
+        }
+        /* ========== END LOADING SCREEN CSS ========== */
+
         .aurora-bg {
             position: fixed;
             top: 0;
@@ -2587,6 +2705,21 @@
             .reveal.revealed {
                 opacity: 1;
             }
+            /* Also respect reduced motion for the loader */
+            .loader-spin-circle {
+                animation: none !important;
+                stroke-dashoffset: 0;
+                stroke-dasharray: 251.33;
+                opacity: 0.6;
+            }
+            .loader-bar-fill {
+                animation: none !important;
+                transform: translateX(65px);
+            }
+            .loader-name {
+                animation: none !important;
+                opacity: 1;
+            }
         }
 
         @media (hover: none) and (pointer: coarse) {
@@ -2612,6 +2745,80 @@
     </style>
 </head>
 <body>
+
+    <!-- ========== LOADING SCREEN ========== -->
+    <div id="loading-screen" style="display:none;">
+        <div class="loader-content">
+            <!-- SVG Spinner Ring -->
+            <div class="loader-ring">
+                <svg width="70" height="70" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Faint track -->
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(6,182,212,0.1)" stroke-width="2.5"/>
+                    <!-- Spinning glowing arc -->
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="url(#loaderGrad)" stroke-width="2.5"
+                    stroke-dasharray="75 180" stroke-linecap="round" class="loader-spin-circle"/>
+                    <defs>
+                        <linearGradient id="loaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#06b6d4"/>
+                            <stop offset="50%" stop-color="#3b82f6"/>
+                            <stop offset="100%" stop-color="#6366f1"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <!-- Name -->
+            <div class="loader-name">Lorence</div>
+            <!-- Subtitle -->
+            <div class="loader-subtitle">Preparing experience…</div>
+            <!-- Shimmer bar -->
+            <div class="loader-bar-track">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Inline script: show loader immediately & define global hide function -->
+    <script>
+        (function() {
+            var loader = document.getElementById('loading-screen');
+            if (loader) {
+                loader.style.display = 'flex';
+                document.body.classList.add('loading');
+            }
+
+            // Global flag to prevent double-firing
+            window._loaderHidden = false;
+
+            // Global function to hide the loading screen gracefully
+            window.hideLoadingScreen = function() {
+                if (window._loaderHidden) return;
+                window._loaderHidden = true;
+                var el = document.getElementById('loading-screen');
+                if (!el) return;
+                // Trigger CSS fade-out
+                el.classList.add('loader-fade-out');
+                document.body.classList.remove('loading');
+                // After transition, fully remove from layout
+                setTimeout(function() {
+                    if (el) el.style.display = 'none';
+                }, 500); // matches the CSS transition duration
+            };
+
+            // --- FALLBACK: window.load + 5-second absolute maximum ---
+            var fallbackTimer = setTimeout(function() {
+                window.hideLoadingScreen && window.hideLoadingScreen();
+            }, 5000);
+
+            window.addEventListener('load', function() {
+                clearTimeout(fallbackTimer);
+                // Small extra delay so the user sees the loader at least briefly
+                setTimeout(function() {
+                    window.hideLoadingScreen && window.hideLoadingScreen();
+                }, 200);
+            });
+        })();
+    </script>
+    <!-- ========== END LOADING SCREEN ========== -->
+
     <div class="aurora-bg"></div>
     <div class="grid-overlay"></div>
     <div class="spotlight" id="spotlight"></div>
@@ -3026,7 +3233,8 @@
     </div>
 
     <!-- EmailJS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
     </script>
@@ -3407,7 +3615,9 @@
             function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
                         container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
                     resizeAll();
-                    animate(); } }
+                    animate();
+                    // ========== LOADING SCREEN: Both WebGL textures are ready, hide the loader ==========
+                    if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
             loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
                 imageLoaded(tex, 'barong'); });
             loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex;
