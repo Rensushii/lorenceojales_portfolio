@@ -2877,7 +2877,7 @@
                 <span class="hero-greeting-badge"><span style="font-size:0.85rem;">👋</span> Hello, I'm</span>
                 <h1 class="hero-name-premium"><span class="gradient-text">Lorence B. Ojales</span></h1>
                 <div class="role-switcher-wrapper">
-                    <span class="role-switcher-inner" id="roleSwitcherText">Computer Engineer</span>
+                    <span class="role-switcher-inner" id="roleSwitcherText"></span>
                     <span class="role-switcher-cursor"></span>
                 </div>
                 <p class="hero-desc-premium">
@@ -3322,22 +3322,50 @@
                     wrap.addEventListener('mouseleave', () => { wrap.style.transform = 'translate(0px, 0px)'; });
                 });
             }
+
+            // ---------- Typewriter effect for roles ----------
             const roleSwitcherText = document.getElementById('roleSwitcherText');
             if (roleSwitcherText) {
                 const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
                 let roleIndex = 0;
-                const displayDuration = 3200,
-                    transitionDuration = 400;
+                let currentText = '';
+                let isTyping = true;
+                const typingSpeed = 80;   // ms per character
+                const deletingSpeed = 40;
+                const pauseBeforeDelete = 2000; // wait after full text
+                const pauseBeforeNext = 500;   // after deletion before typing next
 
-                function switchRole() {
-                    roleSwitcherText.classList.add('transitioning');
-                    setTimeout(() => { roleIndex = (roleIndex + 1) % roles.length;
-                        roleSwitcherText.textContent = roles[roleIndex];
-                        roleSwitcherText.classList.remove('transitioning'); }, transitionDuration);
-                    setTimeout(switchRole, displayDuration + transitionDuration);
+                function typeChar() {
+                    const full = roles[roleIndex];
+                    if (currentText.length < full.length) {
+                        currentText += full.charAt(currentText.length);
+                        roleSwitcherText.textContent = currentText;
+                        setTimeout(typeChar, typingSpeed);
+                    } else {
+                        // Typing finished, wait then start deleting
+                        isTyping = false;
+                        setTimeout(deleteChar, pauseBeforeDelete);
+                    }
                 }
-                setTimeout(switchRole, displayDuration);
+
+                function deleteChar() {
+                    if (currentText.length > 0) {
+                        currentText = currentText.slice(0, -1);
+                        roleSwitcherText.textContent = currentText;
+                        setTimeout(deleteChar, deletingSpeed);
+                    } else {
+                        // Deletion done, move to next role
+                        roleIndex = (roleIndex + 1) % roles.length;
+                        isTyping = true;
+                        setTimeout(typeChar, pauseBeforeNext);
+                    }
+                }
+
+                // Kick off the cycle
+                typeChar();
             }
+            // ---------- End typewriter effect ----------
+
             const resumeViewBtn = document.getElementById('resumeViewBtn');
             if (resumeViewBtn) {
                 resumeViewBtn.addEventListener('click', function(e) {
