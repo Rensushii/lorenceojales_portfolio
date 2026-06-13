@@ -3701,6 +3701,40 @@
 
     <!-- ========== CORE SCRIPTS ========== -->
     <script>
+        // ========== GLOBAL SCROLL LOCK UTILITY ==========
+        function updateBodyScrollLock() {
+            const anyModalActive = document.querySelector('.modal-overlay.active') !== null;
+            const lightboxActive = document.getElementById('imageLightbox')?.classList.contains('active');
+            if (anyModalActive || lightboxActive) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ========== MODAL CONTROLS (with scroll lock) ==========
+        window.openModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                updateBodyScrollLock();
+                modal.scrollTop = 0;
+            }
+        }
+
+        window.closeModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                updateBodyScrollLock();
+            }
+        }
+
+        // Modified lightbox open/close with scroll lock integration
+        const originalOpenLightbox = window.openLightbox;
+        const originalCloseLightbox = window.closeLightbox;
+
+        // Declare later, but we'll override after lightbox functions definition
         document.addEventListener('DOMContentLoaded', () => {
             emailjs.init("jJ0ZadOUacvrkPfPT");
 
@@ -3845,7 +3879,7 @@
                 if (currentImageIndex < 0) currentImageIndex = 0;
                 updateLightboxImage();
                 lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                updateBodyScrollLock();
             }
 
             function updateLightboxImage() {
@@ -3858,10 +3892,12 @@
                 lightboxNext.style.display = currentGalleryImages.length > 1 ? 'flex' : 'none';
             }
 
-            function closeLightbox() { lightbox.classList.remove('active');
-                document.body.style.overflow = '';
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                updateBodyScrollLock();
                 currentGalleryImages = [];
-                currentImageIndex = 0; }
+                currentImageIndex = 0;
+            }
 
             function navigateLightbox(direction) {
                 if (currentGalleryImages.length <= 1) return;
@@ -3920,28 +3956,22 @@
                         });
                 });
             }
-        });
 
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) { modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                modal.scrollTop = 0; }
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) { modal.classList.remove('active'); if (document.querySelectorAll('.modal-overlay.active').length ===
-                    0) document.body.style.overflow = ''; }
-        }
-        document.addEventListener('click', function(e) { if (e.target.classList.contains('modal-overlay') && e.target.classList
-                .contains('active')) closeModal(e.target.getAttribute('id')); });
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                if (document.getElementById('imageLightbox')?.classList.contains('active')) return;
-                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
-                if (document.querySelectorAll('.modal-overlay.active').length === 0) document.body.style.overflow = '';
-            }
+            // Override global functions to ensure scroll lock after modal close from overlay/ESC
+            // Also enhance ESC for modals (existing listener but we'll ensure scroll lock)
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (lightbox.classList.contains('active')) return;
+                    const activeModal = document.querySelector('.modal-overlay.active');
+                    if (activeModal) closeModal(activeModal.id);
+                }
+            });
+            // Overlay click close modals (updated)
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeModal(overlay.id);
+                });
+            });
         });
     </script>
 
@@ -3964,7 +3994,6 @@
                 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
                 staggerContainers.forEach(el => staggerObserver.observe(el));
             } else if (prefersReducedMotion && staggerContainers.length > 0) {
-                // Immediately reveal for reduced motion
                 staggerContainers.forEach(el => el.classList.add('revealed'));
             }
 
