@@ -3699,42 +3699,70 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <!-- ========== CORE SCRIPTS ========== -->
+    <!-- ========== SCROLL LOCK UTILITIES (GLOBAL) ========== -->
     <script>
-        // ========== GLOBAL SCROLL LOCK UTILITY ==========
-        function updateBodyScrollLock() {
-            const anyModalActive = document.querySelector('.modal-overlay.active') !== null;
-            const lightboxActive = document.getElementById('imageLightbox')?.classList.contains('active');
-            if (anyModalActive || lightboxActive) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
+        (function() {
+            // Scroll lock counter and state
+            window._scrollLockCounter = 0;
+            let _originalBodyOverflow = null;
+            let _touchMoveHandler = null;
+
+            function preventTouchMove(e) {
+                // Only prevent if scroll lock is active AND the target is not inside a modal dialog (which should be scrollable)
+                if (window._scrollLockCounter > 0) {
+                    // Allow scrolling inside .modal-dialog elements (modals have overflow-y: auto)
+                    if (e.target.closest && e.target.closest('.modal-dialog')) {
+                        return; // do not prevent inside modal content
+                    }
+                    // Also allow iframe content inside modals to scroll (the iframe handles its own)
+                    if (e.target.closest && e.target.closest('.modal-resume-iframe')) {
+                        return;
+                    }
+                    e.preventDefault();
+                }
             }
-        }
 
-        // ========== MODAL CONTROLS (with scroll lock) ==========
-        window.openModal = function(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('active');
-                updateBodyScrollLock();
-                modal.scrollTop = 0;
-            }
-        }
+            window._updateScrollLock = function() {
+                if (window._scrollLockCounter > 0) {
+                    // Lock scroll
+                    if (!_originalBodyOverflow) {
+                        _originalBodyOverflow = document.body.style.overflow;
+                        document.body.style.overflow = 'hidden';
+                        // Also prevent touchmove on body for touch devices (only if lock is active)
+                        if (!_touchMoveHandler) {
+                            _touchMoveHandler = preventTouchMove;
+                            document.body.addEventListener('touchmove', _touchMoveHandler, { passive: false });
+                        }
+                    }
+                } else {
+                    // Restore scroll
+                    if (_originalBodyOverflow !== null) {
+                        document.body.style.overflow = _originalBodyOverflow;
+                        _originalBodyOverflow = null;
+                    }
+                    if (_touchMoveHandler) {
+                        document.body.removeEventListener('touchmove', _touchMoveHandler);
+                        _touchMoveHandler = null;
+                    }
+                }
+            };
 
-        window.closeModal = function(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('active');
-                updateBodyScrollLock();
-            }
-        }
+            window.incrementScrollLock = function() {
+                window._scrollLockCounter++;
+                window._updateScrollLock();
+            };
 
-        // Modified lightbox open/close with scroll lock integration
-        const originalOpenLightbox = window.openLightbox;
-        const originalCloseLightbox = window.closeLightbox;
+            window.decrementScrollLock = function() {
+                if (window._scrollLockCounter > 0) {
+                    window._scrollLockCounter--;
+                }
+                window._updateScrollLock();
+            };
+        })();
+    </script>
 
-        // Declare later, but we'll override after lightbox functions definition
+    <!-- ========== CORE SCRIPTS (with scroll lock integration) ========== -->
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             emailjs.init("jJ0ZadOUacvrkPfPT");
 
@@ -3861,7 +3889,7 @@
                     openModal('modal-resume'); });
             }
 
-            // Lightbox
+            // Lightbox (with scroll lock integration)
             const lightbox = document.getElementById('imageLightbox');
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxCounter = document.getElementById('lightboxCounter');
@@ -3879,7 +3907,9 @@
                 if (currentImageIndex < 0) currentImageIndex = 0;
                 updateLightboxImage();
                 lightbox.classList.add('active');
-                updateBodyScrollLock();
+                // Lock scroll when lightbox opens
+                window.incrementScrollLock();
+                document.body.style.overflow = 'hidden'; // extra guard, but our lock handles
             }
 
             function updateLightboxImage() {
@@ -3892,11 +3922,12 @@
                 lightboxNext.style.display = currentGalleryImages.length > 1 ? 'flex' : 'none';
             }
 
-            function closeLightbox() {
+            function closeLightbox() { 
                 lightbox.classList.remove('active');
-                updateBodyScrollLock();
+                // Unlock scroll when lightbox closes
+                window.decrementScrollLock();
                 currentGalleryImages = [];
-                currentImageIndex = 0;
+                currentImageIndex = 0; 
             }
 
             function navigateLightbox(direction) {
@@ -3956,22 +3987,43 @@
                         });
                 });
             }
+        });
 
-            // Override global functions to ensure scroll lock after modal close from overlay/ESC
-            // Also enhance ESC for modals (existing listener but we'll ensure scroll lock)
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    if (lightbox.classList.contains('active')) return;
-                    const activeModal = document.querySelector('.modal-overlay.active');
-                    if (activeModal) closeModal(activeModal.id);
+        // Global modal functions with scroll lock
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) { 
+                modal.classList.add('active'); 
+                window.incrementScrollLock();
+                document.body.style.overflow = 'hidden'; // extra lock
+                modal.scrollTop = 0; 
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) { 
+                modal.classList.remove('active'); 
+                window.decrementScrollLock();
+                if (document.querySelectorAll('.modal-overlay.active').length === 0) {
+                    document.body.style.overflow = '';
                 }
-            });
-            // Overlay click close modals (updated)
-            document.querySelectorAll('.modal-overlay').forEach(overlay => {
-                overlay.addEventListener('click', function(e) {
-                    if (e.target === overlay) closeModal(overlay.id);
-                });
-            });
+            }
+        }
+        document.addEventListener('click', function(e) { 
+            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
+                closeModal(e.target.getAttribute('id')); 
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Do not interfere with lightbox escape (handled separately)
+                if (document.getElementById('imageLightbox')?.classList.contains('active')) return;
+                const activeModals = document.querySelectorAll('.modal-overlay.active');
+                if (activeModals.length) {
+                    activeModals.forEach(modal => closeModal(modal.getAttribute('id')));
+                }
+            }
         });
     </script>
 
@@ -4024,7 +4076,6 @@
                     });
                 });
 
-                // Parallax on project card backgrounds
                 const projectCards = document.querySelectorAll('.project-card-horizontal[data-project-card]');
                 projectCards.forEach(card => {
                     const bgLayer = card.querySelector('.card-bg-layer');
@@ -4083,7 +4134,6 @@
                         }, 2600);
                     };
                     card.addEventListener('mouseenter', triggerShine);
-                    // Idle shine every 6 seconds
                     let idleShineInterval;
                     card.addEventListener('mouseenter', () => {
                         clearInterval(idleShineInterval);
@@ -4091,9 +4141,7 @@
                     card.addEventListener('mouseleave', () => {
                         idleShineInterval = setInterval(triggerShine, 6000);
                     });
-                    // Start idle shine
                     idleShineInterval = setInterval(triggerShine, 6000);
-                    // Store interval for cleanup
                     card._shineInterval = idleShineInterval;
                 });
             }
@@ -4171,17 +4219,14 @@
                 });
             }
 
-            // ========== INITIAL LOAD: REVEAL VISIBLE STAGGER CONTAINERS ==========
-            if (!prefersReducedMotion) {
-                setTimeout(() => {
-                    document.querySelectorAll('.stagger-container[data-stagger]').forEach(el => {
-                        const rect = el.getBoundingClientRect();
-                        if (rect.top < window.innerHeight && rect.bottom > 0) {
-                            el.classList.add('revealed');
-                        }
-                    });
-                }, 300);
-            }
+            setTimeout(() => {
+                document.querySelectorAll('.stagger-container[data-stagger]').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        el.classList.add('revealed');
+                    }
+                });
+            }, 300);
 
             console.log('✨ Enhanced interactions initialized successfully.');
         })();
