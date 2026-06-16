@@ -3860,20 +3860,20 @@
 
         // Certifications data
         const certificationsData = [
-            { title: "Training and Education in Medical Imaging for AI in PACS: Equipping the Next Generation", date: "March 8, 2025", categories: ["webinar","icpep"], imgId: 101 },
-            { title: "Hybrid AVG-drone using YOLOv8 and Arduino-Raspberry Pi for defect detection and structural health monitoring in built infrastructure", date: "March 22, 2025", categories: ["webinar","icpep"], imgId: 102 },
-            { title: "AI and prompt Engineering in Educational Settings", date: "April 5, 2025", categories: ["webinar","icpep"], imgId: 103 },
-            { title: "Cyber 101 for Institute of Computer Engineers of the Philippines, Inc.", date: "April 24, 2025", categories: ["webinar","icpep"], imgId: 104 },
-            { title: "CCNAv7: Introduction to Networks", date: "January 21, 2025", categories: ["training"], imgId: 105 },
-            { title: "Ethical Hacker", date: "February 25, 2026", categories: ["training"], imgId: 106 },
-            { title: "Introduction to Modern AI", date: "March 9, 2026", categories: ["training"], imgId: 107 },
-            { title: "Digital Safety and Security Awareness", date: "March 23, 2026", categories: ["training"], imgId: 108 },
-            { title: "Network Support and Security", date: "March 23, 2026", categories: ["training"], imgId: 109 },
-            { title: "IEEE Open Silicon TinyTapeout Philippine IC Design Bootcamp", date: "April 29, 2026", categories: ["seminar"], imgId: 110 },
-            { title: "Batangas AI and Cybersecurity Congress 2025", date: "November 7, 2025", categories: ["seminar"], imgId: 111 },
-            { title: "Practical Application of Cybersecurity Framework", date: "December 6, 2025", categories: ["webinar","icpep"], imgId: 112 },
-            { title: "Tugon Lipa – 2nd place in the Hack the Future: Smart Batangas Province Hackathon", date: "November 22, 2025", categories: ["hackathon"], imgId: 113 },
-            { title: "Tech Nexus 2024: Empowering Campus Innovators", date: "December 7, 2024", categories: ["seminar"], imgId: 114 }
+            { title: "Training and Education in Medical Imaging for AI in PACS: Equipping the Next Generation", date: "March 8, 2025", categories: ["webinar","icpep"], imgUrl: "images/certifications/medical-imaging-ai.jpg" },
+            { title: "Hybrid AVG-drone using YOLOv8 and Arduino-Raspberry Pi for defect detection and structural health monitoring in built infrastructure", date: "March 22, 2025", categories: ["webinar","icpep"], imgUrl: "images/certifications/hybrid-drone.jpg" },
+            { title: "AI and prompt Engineering in Educational Settings", date: "April 5, 2025", categories: ["webinar","icpep"], imgUrl: "images/certifications/ai-prompt-engineering.jpg" },
+            { title: "Cyber 101 for Institute of Computer Engineers of the Philippines, Inc.", date: "April 24, 2025", categories: ["webinar","icpep"], imgUrl: "images/certifications/cyber-101.jpg" },
+            { title: "CCNAv7: Introduction to Networks", date: "January 21, 2025", categories: ["training"], imgUrl: "images/certifications/ccna-intro-networks.jpg" },
+            { title: "Ethical Hacker", date: "February 25, 2026", categories: ["training"], imgUrl: "images/certifications/ethical-hacker.jpg" },
+            { title: "Introduction to Modern AI", date: "March 9, 2026", categories: ["training"], imgUrl: "images/certifications/intro-modern-ai.jpg" },
+            { title: "Digital Safety and Security Awareness", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/digital-safety.jpg" },
+            { title: "Network Support and Security", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/network-support-security.jpg" },
+            { title: "IEEE Open Silicon TinyTapeout Philippine IC Design Bootcamp", date: "April 29, 2026", categories: ["seminar"], imgUrl: "images/certifications/ieee-tinytapeout.jpg" },
+            { title: "Batangas AI and Cybersecurity Congress 2025", date: "November 7, 2025", categories: ["seminar"], imgUrl: "images/certifications/batangas-ai-cybersecurity.jpg" },
+            { title: "Practical Application of Cybersecurity Framework", date: "December 6, 2025", categories: ["webinar","icpep"], imgUrl: "images/certifications/cybersecurity-framework.jpg" },
+            { title: "Tugon Lipa – 2nd place in the Hack the Future: Smart Batangas Province Hackathon", date: "November 22, 2025", categories: ["hackathon"], imgUrl: "images/certifications/tugon-lipa-hackathon.jpg" },
+            { title: "Tech Nexus 2024: Empowering Campus Innovators", date: "December 7, 2024", categories: ["seminar"], imgUrl: "images/certifications/tech-nexus-2024.jpg" }
         ];
 
         // Helper: get placeholder image (using picsum with fixed seed per imgId)
@@ -3940,7 +3940,7 @@
             filtered.forEach((cert, idx) => {
                 const card = document.createElement('div');
                 card.className = 'cert-card';
-                const imgUrl = getCertImageUrl(cert.imgId);
+                const imgUrl = cert.imgUrl;
                 const img = document.createElement('img');
                 img.src = imgUrl;
                 img.alt = cert.title;
