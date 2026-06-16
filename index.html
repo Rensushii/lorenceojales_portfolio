@@ -2012,6 +2012,106 @@
             z-index: 2;
         }
 
+        /* ========== CERTIFICATIONS SECTION STYLES ========== */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+            backdrop-filter: blur(4px);
+        }
+        .filter-btn.active {
+            background: var(--accent-cyan);
+            color: #030711;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+        }
+        .filter-btn:hover {
+            background: rgba(6, 182, 212, 0.15);
+            color: white;
+            border-color: var(--accent-cyan);
+        }
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .cert-card {
+            background: rgba(10, 16, 30, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .cert-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
+        }
+        .cert-img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.4s ease, filter 0.3s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .cert-img:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+        .cert-info {
+            padding: 18px 16px 20px;
+        }
+        .cert-title {
+            font-weight: 800;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #e8ecf4;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+        .cert-date {
+            font-size: 0.7rem;
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cert-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .cert-tag {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            border-radius: 40px;
+            padding: 3px 10px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #a5f3fc;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
         /* ========== ENHANCED: Contact section ========== */
         .contact-layout {
             display: flex;
@@ -3290,6 +3390,7 @@
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#achievements">Achievements</a></li>
                     <li><a href="#skills">Skills</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
@@ -3297,7 +3398,7 @@
         </div>
         <div class="mobile-nav" id="mobileNav">
             <a href="#home">Home</a><a href="#about">About</a><a href="#experience">Experience</a>
-            <a href="#projects">Projects</a><a href="#achievements">Achievements</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+            <a href="#projects">Projects</a><a href="#achievements">Achievements</a><a href="#skills">Skills</a><a href="#certifications">Certifications</a><a href="#contact">Contact</a>
         </div>
     </header>
 
@@ -3543,8 +3644,30 @@
         </div>
     </section>
 
+    <!-- ========== CERTIFICATIONS SECTION ========== -->
+    <section id="certifications" class="section-dark-alt">
+        <div class="section-orb orb-indigo" style="top:10%;left:-5%;"></div>
+        <div class="section-orb orb-cyan" style="top:40%;right:-8%;"></div>
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Credentials</span>
+                <h2 class="section-title">Certifications & Trainings</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="filter-bar" id="certFilterBar">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="webinar">Online Webinar</button>
+                <button class="filter-btn" data-filter="icpep">ICpEP</button>
+                <button class="filter-btn" data-filter="training">Course/Training</button>
+                <button class="filter-btn" data-filter="seminar">Seminar</button>
+                <button class="filter-btn" data-filter="hackathon">Hackathon</button>
+            </div>
+            <div class="certs-grid" id="certsGrid"></div>
+        </div>
+    </section>
+
     <!-- ========== CONTACT SECTION ========== -->
-    <section id="contact" class="section-dark-alt">
+    <section id="contact" class="section-light">
         <div class="section-orb orb-indigo" style="top:20%;left:-10%;"></div>
         <div class="section-orb orb-cyan" style="top:60%;right:-8%;"></div>
         <div class="section-container">
@@ -3564,7 +3687,6 @@
                         <a href="https://www.facebook.com/lorence.ojales" target="_blank" class="social-btn" title="Facebook" data-ripple><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/lrenceo_/" target="_blank" class="social-btn" title="Instagram" data-ripple><i class="fab fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/lorenceojales/" target="_blank" class="social-btn" title="LinkedIn" data-ripple><i class="fab fa-linkedin-in"></i></a>
-                        <!-- GitHub added next to LinkedIn -->
                         <a href="https://github.com/Rensushii" target="_blank" class="social-btn" title="GitHub" data-ripple><i class="fab fa-github"></i></a>
                     </div>
                 </div>
@@ -3736,8 +3858,133 @@
             }
         }
 
+        // Certifications data
+        const certificationsData = [
+            { title: "Training and Education in Medical Imaging for AI in PACS: Equipping the Next Generation", date: "March 8, 2025", categories: ["webinar","icpep"], imgId: 101 },
+            { title: "Hybrid AVG-drone using YOLOv8 and Arduino-Raspberry Pi for defect detection and structural health monitoring in built infrastructure", date: "March 22, 2025", categories: ["webinar","icpep"], imgId: 102 },
+            { title: "AI and prompt Engineering in Educational Settings", date: "April 5, 2025", categories: ["webinar","icpep"], imgId: 103 },
+            { title: "Cyber 101 for Institute of Computer Engineers of the Philippines, Inc.", date: "April 24, 2025", categories: ["webinar","icpep"], imgId: 104 },
+            { title: "CCNAv7: Introduction to Networks", date: "January 21, 2025", categories: ["training"], imgId: 105 },
+            { title: "Ethical Hacker", date: "February 25, 2026", categories: ["training"], imgId: 106 },
+            { title: "Introduction to Modern AI", date: "March 9, 2026", categories: ["training"], imgId: 107 },
+            { title: "Digital Safety and Security Awareness", date: "March 23, 2026", categories: ["training"], imgId: 108 },
+            { title: "Network Support and Security", date: "March 23, 2026", categories: ["training"], imgId: 109 },
+            { title: "IEEE Open Silicon TinyTapeout Philippine IC Design Bootcamp", date: "April 29, 2026", categories: ["seminar"], imgId: 110 },
+            { title: "Batangas AI and Cybersecurity Congress 2025", date: "November 7, 2025", categories: ["seminar"], imgId: 111 },
+            { title: "Practical Application of Cybersecurity Framework", date: "December 6, 2025", categories: ["webinar","icpep"], imgId: 112 },
+            { title: "Tugon Lipa – 2nd place in the Hack the Future: Smart Batangas Province Hackathon", date: "November 22, 2025", categories: ["hackathon"], imgId: 113 },
+            { title: "Tech Nexus 2024: Empowering Campus Innovators", date: "December 7, 2024", categories: ["seminar"], imgId: 114 }
+        ];
+
+        // Helper: get placeholder image (using picsum with fixed seed per imgId)
+        function getCertImageUrl(imgId) {
+            return `https://picsum.photos/id/${imgId % 200}/400/300`;
+        }
+
+        let currentLightboxImages = [];
+        let currentLightboxIndex = 0;
+        const lightboxEl = document.getElementById('imageLightbox');
+        const lightboxImg = document.getElementById('lightboxImage');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+
+        function openCertLightbox(imgElement, allImages, index) {
+            currentLightboxImages = allImages;
+            currentLightboxIndex = index;
+            updateLightboxImage();
+            lightboxEl.classList.add('active');
+            lockBodyScroll();
+        }
+
+        function updateLightboxImage() {
+            if (currentLightboxImages.length === 0) return;
+            lightboxImg.src = currentLightboxImages[currentLightboxIndex];
+            lightboxCounter.textContent = `${currentLightboxIndex+1} / ${currentLightboxImages.length}`;
+            lightboxPrev.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
+            lightboxNext.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
+        }
+
+        function closeLightbox() {
+            lightboxEl.classList.remove('active');
+            unlockBodyScroll();
+            currentLightboxImages = [];
+        }
+
+        function navigateLightbox(delta) {
+            if (currentLightboxImages.length === 0) return;
+            currentLightboxIndex = (currentLightboxIndex + delta + currentLightboxImages.length) % currentLightboxImages.length;
+            updateLightboxImage();
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+        lightboxNext.addEventListener('click', () => navigateLightbox(1));
+        lightboxEl.addEventListener('click', (e) => { if (e.target === lightboxEl) closeLightbox(); });
+        document.addEventListener('keydown', (e) => {
+            if (!lightboxEl.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        function renderCertifications(filter = 'all') {
+            const container = document.getElementById('certsGrid');
+            if (!container) return;
+            let filtered = certificationsData;
+            if (filter !== 'all') {
+                filtered = certificationsData.filter(cert => cert.categories.includes(filter));
+            }
+            container.innerHTML = '';
+            filtered.forEach((cert, idx) => {
+                const card = document.createElement('div');
+                card.className = 'cert-card';
+                const imgUrl = getCertImageUrl(cert.imgId);
+                const img = document.createElement('img');
+                img.src = imgUrl;
+                img.alt = cert.title;
+                img.loading = 'lazy';
+                img.className = 'cert-img';
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const allVisibleImages = Array.from(document.querySelectorAll('.cert-img')).map(i => i.src);
+                    const currentIdx = allVisibleImages.indexOf(img.src);
+                    if (currentIdx !== -1) openCertLightbox(img, allVisibleImages, currentIdx);
+                    else openCertLightbox(img, [img.src], 0);
+                });
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'cert-info';
+                const categoryLabels = {
+                    webinar: 'Online Webinar', icpep: 'ICpEP', training: 'Course/Training',
+                    seminar: 'Seminar', hackathon: 'Hackathon'
+                };
+                const tagsHtml = cert.categories.map(cat => `<span class="cert-tag">${categoryLabels[cat] || cat}</span>`).join('');
+                infoDiv.innerHTML = `
+                    <div class="cert-title">${cert.title}</div>
+                    <div class="cert-date"><i class="far fa-calendar-alt"></i> ${cert.date}</div>
+                    <div class="cert-tags">${tagsHtml}</div>
+                `;
+                card.appendChild(img);
+                card.appendChild(infoDiv);
+                container.appendChild(card);
+            });
+        }
+
+        // Filter buttons
+        document.querySelectorAll('#certFilterBar .filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#certFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filterVal = this.getAttribute('data-filter');
+                renderCertifications(filterVal);
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             emailjs.init("jJ0ZadOUacvrkPfPT");
+
+            renderCertifications('all');
 
             const headerInner = document.getElementById('headerInner');
             const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -3824,67 +4071,6 @@
                 resumeViewBtn.addEventListener('click', function(e) { e.preventDefault(); openModal('modal-resume'); });
             }
 
-            // Lightbox variables and functions (with scroll lock)
-            const lightbox = document.getElementById('imageLightbox');
-            const lightboxImage = document.getElementById('lightboxImage');
-            const lightboxCounter = document.getElementById('lightboxCounter');
-            const lightboxClose = document.getElementById('lightboxClose');
-            const lightboxPrev = document.getElementById('lightboxPrev');
-            const lightboxNext = document.getElementById('lightboxNext');
-            let currentGalleryImages = [];
-            let currentImageIndex = 0;
-
-            function openLightbox(imgElement) {
-                const galleryId = imgElement.getAttribute('data-gallery');
-                currentGalleryImages = galleryId ? Array.from(document.querySelectorAll(`img[data-gallery="${galleryId}"]`)) : [imgElement];
-                currentImageIndex = currentGalleryImages.indexOf(imgElement);
-                if (currentImageIndex < 0) currentImageIndex = 0;
-                updateLightboxImage();
-                lightbox.classList.add('active');
-                lockBodyScroll();
-            }
-
-            function updateLightboxImage() {
-                if (currentGalleryImages.length === 0) return;
-                const img = currentGalleryImages[currentImageIndex];
-                lightboxImage.src = img.src;
-                lightboxImage.alt = img.alt;
-                lightboxCounter.textContent = `${currentImageIndex + 1} / ${currentGalleryImages.length}`;
-                lightboxPrev.style.display = currentGalleryImages.length > 1 ? 'flex' : 'none';
-                lightboxNext.style.display = currentGalleryImages.length > 1 ? 'flex' : 'none';
-            }
-
-            function closeLightbox() {
-                lightbox.classList.remove('active');
-                unlockBodyScroll();
-                currentGalleryImages = [];
-                currentImageIndex = 0;
-            }
-
-            function navigateLightbox(direction) {
-                if (currentGalleryImages.length <= 1) return;
-                currentImageIndex = (currentImageIndex + direction + currentGalleryImages.length) % currentGalleryImages.length;
-                updateLightboxImage();
-            }
-
-            // Attach gallery click events
-            document.querySelectorAll('.project-gallery img').forEach(img => {
-                img.addEventListener('click', function(e) { e.stopPropagation(); openLightbox(this); });
-            });
-            lightboxClose.addEventListener('click', closeLightbox);
-            lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
-            lightboxNext.addEventListener('click', () => navigateLightbox(1));
-            lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
-            document.addEventListener('keydown', function(e) {
-                if (!lightbox.classList.contains('active')) return;
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowLeft') navigateLightbox(-1);
-                if (e.key === 'ArrowRight') navigateLightbox(1);
-            });
-            let touchStartX = 0;
-            lightbox.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-            lightbox.addEventListener('touchend', (e) => { const diff = e.changedTouches[0].clientX - touchStartX; if (Math.abs(diff) > 50) navigateLightbox(diff < 0 ? 1 : -1); });
-
             // Contact form handling
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
@@ -3918,7 +4104,6 @@
                 if (lightbox && lightbox.classList.contains('active')) return;
                 const activeModals = document.querySelectorAll('.modal-overlay.active');
                 if (activeModals.length) {
-                    // Close each modal using closeModal, which properly decrements scroll lock counter
                     activeModals.forEach(modal => {
                         const modalId = modal.getAttribute('id');
                         if (modalId) closeModal(modalId);
@@ -3935,7 +4120,7 @@
         });
     </script>
 
-    <!-- ========== ENHANCED INTERACTIONS SCRIPT ========== -->
+    <!-- ========== ENHANCED INTERACTIONS SCRIPT (tilt, shine, timeline, etc.) ========== -->
     <script>
         (function() {
             const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
