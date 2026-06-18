@@ -3876,11 +3876,6 @@
             { title: "Tech Nexus 2024: Empowering Campus Innovators", date: "December 7, 2024", categories: ["seminar"], imgUrl: "images/certifications/tech-nexus-2024.jpg" }
         ];
 
-        // Helper: get placeholder image (using picsum with fixed seed per imgId)
-        function getCertImageUrl(imgId) {
-            return `https://picsum.photos/id/${imgId % 200}/400/300`;
-        }
-
         let currentLightboxImages = [];
         let currentLightboxIndex = 0;
         const lightboxEl = document.getElementById('imageLightbox');
@@ -3890,9 +3885,10 @@
         const lightboxPrev = document.getElementById('lightboxPrev');
         const lightboxNext = document.getElementById('lightboxNext');
 
-        function openCertLightbox(imgElement, allImages, index) {
-            currentLightboxImages = allImages;
-            currentLightboxIndex = index;
+        function openLightbox(imagesArray, startIndex) {
+            if (!imagesArray || imagesArray.length === 0) return;
+            currentLightboxImages = imagesArray;
+            currentLightboxIndex = Math.min(startIndex, imagesArray.length - 1);
             updateLightboxImage();
             lightboxEl.classList.add('active');
             lockBodyScroll();
@@ -3901,7 +3897,7 @@
         function updateLightboxImage() {
             if (currentLightboxImages.length === 0) return;
             lightboxImg.src = currentLightboxImages[currentLightboxIndex];
-            lightboxCounter.textContent = `${currentLightboxIndex+1} / ${currentLightboxImages.length}`;
+            lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxImages.length}`;
             lightboxPrev.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
             lightboxNext.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
         }
@@ -3929,6 +3925,32 @@
             if (e.key === 'ArrowRight') navigateLightbox(1);
         });
 
+        // --- Delegated click handler for ALL gallery images (certifications + project galleries) ---
+        document.addEventListener('click', function(e) {
+            const img = e.target.closest('.cert-img, .project-gallery img');
+            if (!img) return;
+
+            // Certification images: use .cert-img
+            if (img.classList.contains('cert-img')) {
+                const allVisibleImages = Array.from(document.querySelectorAll('.cert-img')).map(i => i.src);
+                const idx = allVisibleImages.indexOf(img.src);
+                if (idx !== -1) {
+                    openLightbox(allVisibleImages, idx);
+                }
+                return;
+            }
+
+            // Project gallery images: find all in the same .project-gallery container
+            const container = img.closest('.project-gallery');
+            if (!container) return;
+            const allImages = Array.from(container.querySelectorAll('img'));
+            const allUrls = allImages.map(i => i.src);
+            const idx = allUrls.indexOf(img.src);
+            if (idx !== -1) {
+                openLightbox(allUrls, idx);
+            }
+        });
+
         function renderCertifications(filter = 'all') {
             const container = document.getElementById('certsGrid');
             if (!container) return;
@@ -3937,22 +3959,14 @@
                 filtered = certificationsData.filter(cert => cert.categories.includes(filter));
             }
             container.innerHTML = '';
-            filtered.forEach((cert, idx) => {
+            filtered.forEach((cert) => {
                 const card = document.createElement('div');
                 card.className = 'cert-card';
-                const imgUrl = cert.imgUrl;
                 const img = document.createElement('img');
-                img.src = imgUrl;
+                img.src = cert.imgUrl;
                 img.alt = cert.title;
                 img.loading = 'lazy';
                 img.className = 'cert-img';
-                img.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const allVisibleImages = Array.from(document.querySelectorAll('.cert-img')).map(i => i.src);
-                    const currentIdx = allVisibleImages.indexOf(img.src);
-                    if (currentIdx !== -1) openCertLightbox(img, allVisibleImages, currentIdx);
-                    else openCertLightbox(img, [img.src], 0);
-                });
                 const infoDiv = document.createElement('div');
                 infoDiv.className = 'cert-info';
                 const categoryLabels = {
@@ -4041,10 +4055,20 @@
             revealEls.forEach(el => observer.observe(el));
             if (yearSpan) yearSpan.textContent = new Date().getFullYear();
             if (spotlight && !isTouchDevice) {
-                let mouseX = -500, mouseY = -500, targetX = mouseX, targetY = mouseY;
-                document.addEventListener('mousemove', (e) => { targetX = e.clientX; targetY = e.clientY; spotlight.classList.add('active'); });
+                let mouseX = -500,
+                    mouseY = -500,
+                    targetX = mouseX,
+                    targetY = mouseY;
+                document.addEventListener('mousemove', (e) => { targetX = e.clientX;
+                    targetY = e.clientY;
+                    spotlight.classList.add('active'); });
                 document.addEventListener('mouseleave', () => { spotlight.classList.remove('active'); });
-                function animateSpotlight() { mouseX += (targetX - mouseX) * 0.08; mouseY += (targetY - mouseY) * 0.08; spotlight.style.left = mouseX + 'px'; spotlight.style.top = mouseY + 'px'; requestAnimationFrame(animateSpotlight); }
+
+                function animateSpotlight() { mouseX += (targetX - mouseX) * 0.08;
+                    mouseY += (targetY - mouseY) * 0.08;
+                    spotlight.style.left = mouseX + 'px';
+                    spotlight.style.top = mouseY + 'px';
+                    requestAnimationFrame(animateSpotlight); }
                 animateSpotlight();
             }
             const magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
@@ -4059,9 +4083,15 @@
             const roleSwitcherText = document.getElementById('roleSwitcherText');
             if (roleSwitcherText) {
                 const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
-                let roleIndex = 0, currentText = '';
-                const typingSpeed = 80, deletingSpeed = 40, pauseBeforeDelete = 2000, pauseBeforeNext = 500;
+                let roleIndex = 0,
+                    currentText = '';
+                const typingSpeed = 80,
+                    deletingSpeed = 40,
+                    pauseBeforeDelete = 2000,
+                    pauseBeforeNext = 500;
+
                 function typeChar() { const full = roles[roleIndex]; if (currentText.length < full.length) { currentText += full.charAt(currentText.length); roleSwitcherText.textContent = currentText; setTimeout(typeChar, typingSpeed); } else { setTimeout(deleteChar, pauseBeforeDelete); } }
+
                 function deleteChar() { if (currentText.length > 0) { currentText = currentText.slice(0, -1); roleSwitcherText.textContent = currentText; setTimeout(deleteChar, deletingSpeed); } else { roleIndex = (roleIndex + 1) % roles.length; setTimeout(typeChar, pauseBeforeNext); } }
                 typeChar();
             }
@@ -4085,19 +4115,23 @@
                             submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
                             submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                             contactForm.reset();
-                            setTimeout(() => { submitBtn.innerHTML = originalHTML; submitBtn.style.background = ''; submitBtn.disabled = false; }, 3000);
+                            setTimeout(() => { submitBtn.innerHTML = originalHTML;
+                                submitBtn.style.background = '';
+                                submitBtn.disabled = false; }, 3000);
                         })
                         .catch((error) => {
                             console.error('EmailJS error:', error);
                             submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed';
                             submitBtn.style.background = 'linear-gradient(135deg, #f43f5e, #e11d48)';
-                            setTimeout(() => { submitBtn.innerHTML = originalHTML; submitBtn.style.background = ''; submitBtn.disabled = false; }, 3000);
+                            setTimeout(() => { submitBtn.innerHTML = originalHTML;
+                                submitBtn.style.background = '';
+                                submitBtn.disabled = false; }, 3000);
                         });
                 });
             }
         });
 
-        // Escape key handler for modals (uses closeModal for proper scroll unlocking)
+        // Escape key handler for modals
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const lightbox = document.getElementById('imageLightbox');
@@ -4309,13 +4343,21 @@
             const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, depthTest: false });
             const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
             scene.add(mesh);
-            const mouse = { x: 0.5, y: 0.5 }, smoothMouse = { x: 0.5, y: 0.5 };
-            window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e.clientX - rect.left) / rect.width; mouse.y = (e.clientY - rect.top) / rect.height; });
-            window.addEventListener('touchmove', (e) => { const rect = container.getBoundingClientRect(); if (e.touches.length > 0) { mouse.x = (e.touches[0].clientX - rect.left) / rect.width; mouse.y = (e.touches[0].clientY - rect.top) / rect.height; } }, { passive: true });
-            function resize() { const rect = container.getBoundingClientRect(); const w = rect.width, h = rect.height; renderer.setSize(w, h); const dpr = renderer.getPixelRatio(); uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr); uniforms.rayPos.value.set(anchor[0], anchor[1]); uniforms.rayDir.value.set(dir[0], dir[1]); }
+            const mouse = { x: 0.5, y: 0.5 },
+                smoothMouse = { x: 0.5, y: 0.5 };
+            window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e.clientX - rect.left) / rect.width;
+                mouse.y = (e.clientY - rect.top) / rect.height; });
+            window.addEventListener('touchmove', (e) => { const rect = container.getBoundingClientRect(); if (e.touches.length > 0) { mouse.x = (e.touches[0].clientX - rect.left) / rect.width;
+                    mouse.y = (e.touches[0].clientY - rect.top) / rect.height; } }, { passive: true });
+
+            function resize() { const rect = container.getBoundingClientRect(); const w = rect.width,
+                    h = rect.height; renderer.setSize(w, h); const dpr = renderer.getPixelRatio(); uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr); uniforms.rayPos.value.set(anchor[0], anchor[1]); uniforms.rayDir.value.set(dir[0], dir[1]); }
             window.addEventListener('resize', resize);
             resize();
-            function animate(time) { requestAnimationFrame(animate); uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const smoothing = 0.92; smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing); smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing); uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); } renderer.render(scene, camera); }
+
+            function animate(time) { requestAnimationFrame(animate); uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const smoothing = 0.92; smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
+                    smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
+                    uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); } renderer.render(scene, camera); }
             requestAnimationFrame(animate);
         })();
     </script>
@@ -4339,16 +4381,24 @@
             let idleActive = false;
             const IDLE_DELAY = 2000;
             const SWEEP_PAUSE = 4000;
-            let scanVirtualX = 0.0, scanVirtualY = 0.0, scanDirX = 1, scanDirY = 1, scanPauseUntil = 0, scanComplete = true;
-            const SCAN_SPEED_X = 3.5, SCAN_SPEED_Y = 0.5;
+            let scanVirtualX = 0.0,
+                scanVirtualY = 0.0,
+                scanDirX = 1,
+                scanDirY = 1,
+                scanPauseUntil = 0,
+                scanComplete = true;
+            const SCAN_SPEED_X = 3.5,
+                SCAN_SPEED_Y = 0.5;
             const loader = new THREE.TextureLoader();
-            let imagesLoaded = 0, animationStarted = false;
+            let imagesLoaded = 0,
+                animationStarted = false;
 
             function initFluid() {
                 simScene = new THREE.Scene();
                 simCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
                 simCamera.position.z = 1;
-                const format = THREE.RGBAFormat, type = THREE.FloatType;
+                const format = THREE.RGBAFormat,
+                    type = THREE.FloatType;
                 fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
                 fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
                 const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
@@ -4373,22 +4423,77 @@
             const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
             scene.add(mainQuad);
 
-            function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height; container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true; resizeAll(); animate(); if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
-            loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex; imageLoaded(tex, 'barong'); });
-            loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex; imageLoaded(tex, 'toga'); });
+            function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
+                        container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
+                    resizeAll();
+                    animate();
+                    if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
+            loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
+                imageLoaded(tex, 'barong'); });
+            loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex;
+                imageLoaded(tex, 'toga'); });
 
-            function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect(); const newX = (clientX - rect.left) / rect.width, newY = 1.0 - (clientY - rect.top) / rect.height; mouse.prevX = mouse.x; mouse.prevY = mouse.y; mouse.x = newX; mouse.y = newY; lastMoveTime = performance.now(); idleActive = false; scanComplete = true; }
-            webglCanvas.addEventListener('mousemove', (e) => { updateMouse(e.clientX, e.clientY); mouse.inside = true; });
+            function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect(); const newX = (clientX - rect.left) / rect.width,
+                    newY = 1.0 - (clientY - rect.top) / rect.height;
+                mouse.prevX = mouse.x;
+                mouse.prevY = mouse.y;
+                mouse.x = newX;
+                mouse.y = newY;
+                lastMoveTime = performance.now();
+                idleActive = false;
+                scanComplete = true; }
+            webglCanvas.addEventListener('mousemove', (e) => { updateMouse(e.clientX, e.clientY);
+                mouse.inside = true; });
             webglCanvas.addEventListener('mouseenter', () => { mouse.inside = true; });
             webglCanvas.addEventListener('mouseleave', () => { mouse.inside = false; });
-            webglCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches[0]; updateMouse(t.clientX, t.clientY); mouse.inside = true; }, { passive: false });
+            webglCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches[0];
+                updateMouse(t.clientX, t.clientY);
+                mouse.inside = true; }, { passive: false });
             webglCanvas.addEventListener('touchend', () => { mouse.inside = false; });
 
-            function updateFluid(dt) { const now = performance.now(); const simMat = simQuad.material; if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) { idleActive = true; scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0; scanDirX = 1; } else { scanVirtualX = 1.0; scanDirX = -1; } scanVirtualY = 0.0; scanDirY = 1; scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0; scanDirX = 1; } else { scanVirtualX = 1.0; scanDirX = -1; } scanVirtualY = 0.0; scanDirY = 1; } } else { scanVirtualX += scanDirX * SCAN_SPEED_X * dt; scanVirtualY += scanDirY * SCAN_SPEED_Y * dt; if (scanVirtualX >= 1.0) { scanVirtualX = 1.0; scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0; scanDirX = 1; } if (scanVirtualY >= 1.0) { scanVirtualY = 1.0; scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0; scanComplete = true; scanPauseUntil = now + SWEEP_PAUSE; } } simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY); simMat.uniforms.uMouseDown.value = true; simMat.uniforms.uVelocity.value.set(0, 0); } else { simMat.uniforms.uMouse.value.set(mouse.x, mouse.y); const sensitivity = 10.0; const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity; const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity; simMat.uniforms.uVelocity.value.set(velX, velY); const movingThreshold = 0.01; simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold) && mouse.inside; } mainUniforms.uCursor.value.set(mouse.x, mouse.y); simMat.uniforms.uPrevFrame.value = fluidRT_A.texture; renderer.setRenderTarget(fluidRT_B); renderer.render(simScene, simCamera); renderer.setRenderTarget(null); const temp = fluidRT_A; fluidRT_A = fluidRT_B; fluidRT_B = temp; mainUniforms.uFluidMask.value = fluidRT_A.texture; }
+            function updateFluid(dt) { const now = performance.now(); const simMat = simQuad.material; if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) { idleActive = true;
+                    scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                        scanDirX = 1; } else { scanVirtualX = 1.0;
+                        scanDirX = -1; }
+                    scanVirtualY = 0.0;
+                    scanDirY = 1;
+                    scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                                scanDirX = 1; } else { scanVirtualX = 1.0;
+                                scanDirX = -1; }
+                            scanVirtualY = 0.0;
+                            scanDirY = 1; } } else { scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
+                        scanVirtualY += scanDirY * SCAN_SPEED_Y * dt; if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
+                            scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0;
+                            scanDirX = 1; } if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
+                            scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0;
+                            scanComplete = true;
+                            scanPauseUntil = now + SWEEP_PAUSE; } }
+                    simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
+                    simMat.uniforms.uMouseDown.value = true;
+                    simMat.uniforms.uVelocity.value.set(0, 0); } else { simMat.uniforms.uMouse.value.set(mouse.x, mouse.y); const sensitivity = 10.0; const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity; const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
+                    simMat.uniforms.uVelocity.value.set(velX, velY); const movingThreshold = 0.01;
+                    simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold) && mouse.inside; }
+                mainUniforms.uCursor.value.set(mouse.x, mouse.y);
+                simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
+                renderer.setRenderTarget(fluidRT_B);
+                renderer.render(simScene, simCamera);
+                renderer.setRenderTarget(null);
+                const temp = fluidRT_A;
+                fluidRT_A = fluidRT_B;
+                fluidRT_B = temp;
+                mainUniforms.uFluidMask.value = fluidRT_A.texture; }
 
-            function resizeAll() { const rect = container.getBoundingClientRect(); renderer.setSize(rect.width, rect.height); mainUniforms.uAspect.value = rect.width / rect.height; resizeFluid(); mainUniforms.uFluidMask.value = fluidRT_A.texture; }
+            function resizeAll() { const rect = container.getBoundingClientRect(); renderer.setSize(rect.width, rect.height);
+                mainUniforms.uAspect.value = rect.width / rect.height;
+                resizeFluid();
+                mainUniforms.uFluidMask.value = fluidRT_A.texture; }
             let lastTime = 0;
-            function animate(time) { if (!animationStarted) return; requestAnimationFrame(animate); const dt = lastTime ? (time - lastTime) * 0.001 : 0.016; lastTime = time; updateFluid(dt); renderer.render(scene, camera); }
+
+            function animate(time) { if (!animationStarted) return;
+                requestAnimationFrame(animate); const dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
+                lastTime = time;
+                updateFluid(dt);
+                renderer.render(scene, camera); }
         })();
     </script>
 </body>
