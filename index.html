@@ -1811,31 +1811,16 @@
             font-weight: 700;
         }
 
-        /* ========== ENHANCED: Achievement cards with background photos and fade ========== */
+        /* ========== ACHIEVEMENT CARDS - MODIFIED ========== */
         .achievement-card {
             text-align: center;
+            padding: 0 0 26px 0;
             position: relative;
             overflow: hidden;
-            min-height: 420px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            background: var(--bg-deep);
-            padding: 0;
+            align-items: center;
             border-radius: var(--radius-lg);
-            transform-style: preserve-3d;
-            perspective: 800px;
-            will-change: transform;
-            transition: all var(--transition-smooth), box-shadow 0.4s ease, border-color 0.4s ease;
-            border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-card);
-            cursor: default;
-        }
-        .achievement-card:hover {
-            border-color: var(--border-accent);
-            box-shadow: var(--shadow-card-hover);
-            transform: translateY(-3px);
-            background: var(--bg-card-hover);
         }
         .achievement-card .achievement-shine {
             position: absolute;
@@ -1844,7 +1829,7 @@
             width: 200%;
             height: 200%;
             pointer-events: none;
-            z-index: 3;
+            z-index: 0;
             background: linear-gradient(115deg,
                     transparent 30%,
                     rgba(245, 158, 11, 0.04) 38%,
@@ -1858,70 +1843,87 @@
             opacity: 1;
             animation: cardShineSweep 3s ease-in-out forwards;
         }
-
-        /* Background image layer */
-        .achievement-bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .achievement-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-            display: block;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
-            background: var(--bg-deep);
-        }
-        .achievement-card:hover .achievement-bg img {
-            transform: scale(1.04);
-            filter: brightness(1.08);
-        }
-
-        /* Fade overlay — starts at 1/4 from bottom (75% from top) */
-        .achievement-fade-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40%;
-            z-index: 1;
-            pointer-events: none;
-            background: linear-gradient(to bottom,
-                    transparent 0%,
-                    transparent 28%,
-                    rgba(3, 7, 17, 0.15) 38%,
-                    rgba(3, 7, 17, 0.40) 50%,
-                    rgba(3, 7, 17, 0.68) 62%,
-                    rgba(3, 7, 17, 0.88) 76%,
-                    rgba(3, 7, 17, 0.97) 88%,
-                    rgba(3, 7, 17, 1) 100%);
-        }
-
-        /* Content on top of fade */
-        .achievement-content {
+        /* Photo wrapper at top of card — full width, natural aspect ratio */
+        .achievement-photo-wrapper {
             position: relative;
-            z-index: 2;
-            padding: 20px 24px 24px;
-            text-align: center;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 2px;
-            pointer-events: auto;
+            z-index: 1;
+            width: 100%;
+            margin: 0 0 14px 0;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            flex-shrink: 0;
         }
-        .achievement-content .medal-badge {
+        .achievement-photo-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform var(--transition-smooth);
+        }
+        .achievement-photo-wrapper:hover img {
+            transform: scale(1.03);
+        }
+        .achievement-photo-label {
+            position: absolute;
+            bottom: 8px;
+            right: 10px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.55);
+            padding: 3px 10px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .achievement-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0 0 2px 0;
+            color: #fff;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+            padding: 0 16px;
+        }
+        .achievement-card .event-name {
+            font-size: 0.78rem;
+            color: var(--accent-cyan);
+            font-weight: 500;
+            margin-bottom: 2px;
+            position: relative;
+            z-index: 1;
+            padding: 0 16px;
+        }
+        .achievement-card .event-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+            position: relative;
+            z-index: 1;
+            padding: 0 16px;
+        }
+        .achievement-card .event-venue {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+            padding: 0 16px;
+        }
+        .medal-badge {
             display: inline-block;
             font-weight: 700;
             font-size: 0.7rem;
-            padding: 4px 10px;
+            padding: 4px 14px;
             border-radius: 20px;
             letter-spacing: 0.05em;
-            margin-bottom: 4px;
+            margin: 0 0 6px 0;
             position: relative;
             z-index: 1;
             transition: all var(--transition-smooth);
@@ -1954,39 +1956,7 @@
                 box-shadow: 0 0 18px rgba(99, 102, 241, 0.55), 0 0 28px rgba(129, 140, 248, 0.2);
             }
         }
-
-        .achievement-content h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-            color: #fff;
-            letter-spacing: -0.02em;
-            position: relative;
-            z-index: 1;
-        }
-        .achievement-content .event-name {
-            font-size: 0.78rem;
-            color: var(--accent-cyan);
-            font-weight: 500;
-            margin-bottom: 2px;
-            position: relative;
-            z-index: 1;
-        }
-        .achievement-content .event-venue {
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-            position: relative;
-            z-index: 1;
-        }
-        .achievement-content .event-date {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .achievement-content .award-link {
+        .award-link {
             display: inline-flex;
             align-items: center;
             gap: 5px;
@@ -2003,17 +1973,17 @@
             position: relative;
             z-index: 1;
         }
-        .achievement-content .award-link:hover {
+        .award-link:hover {
             background: rgba(245, 158, 11, 0.08);
             border-color: var(--accent-gold);
             color: #fbbf24;
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
             gap: 9px;
         }
-        .achievement-content .award-link i {
+        .award-link i {
             transition: transform 0.3s ease;
         }
-        .achievement-content .award-link:hover i {
+        .award-link:hover i {
             transform: translateX(3px);
         }
 
@@ -2577,6 +2547,7 @@
             pointer-events: none;
         }
 
+        /* ========== ENHANCED: Glow border animation for about card ========== */
         .glow-border-animated {
             position: relative;
         }
@@ -2726,15 +2697,12 @@
             .section-orb {
                 opacity: 0.12;
             }
+            /* Achievement photo wrapper responsive */
+            .achievement-photo-wrapper {
+                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            }
             .achievement-card {
-                min-height: 360px;
-            }
-            .achievement-content {
-                min-height: 160px;
-                padding: 16px 18px 20px;
-            }
-            .achievement-fade-overlay {
-                height: 44%;
+                padding: 0 0 22px 0;
             }
         }
 
@@ -2889,31 +2857,14 @@
                 width: 150px !important;
                 height: 150px !important;
             }
+            .achievement-photo-wrapper {
+                border-radius: var(--radius-md) var(--radius-md) 0 0;
+            }
             .achievement-card {
-                min-height: 330px;
+                padding: 0 0 18px 0;
             }
-            .achievement-content {
-                min-height: 150px;
-                padding: 14px 14px 18px;
-            }
-            .achievement-fade-overlay {
-                height: 48%;
-            }
-            .achievement-content h3 {
-                font-size: 0.9rem;
-            }
-            .achievement-content .event-name {
-                font-size: 0.72rem;
-            }
-            .achievement-content .event-venue {
-                font-size: 0.68rem;
-            }
-            .achievement-content .event-date {
-                font-size: 0.66rem;
-            }
-            .achievement-content .award-link {
-                font-size: 0.72rem;
-                padding: 5px 12px;
+            .achievement-card h3 {
+                font-size: 0.92rem;
             }
         }
 
@@ -3115,6 +3066,18 @@
                 font-size: 0.68rem;
                 padding: 4px 9px;
             }
+            .achievement-card {
+                padding: 0 0 14px 0;
+            }
+            .achievement-photo-wrapper {
+                margin: 0 0 10px 0;
+            }
+            .achievement-card h3 {
+                font-size: 0.85rem;
+            }
+            .achievement-card .event-name {
+                font-size: 0.72rem;
+            }
             .timeline-modern {
                 padding-left: 20px;
             }
@@ -3189,42 +3152,21 @@
                 font-size: 0.65rem;
                 padding: 4px 8px;
             }
+            .award-link {
+                font-size: 0.7rem;
+                padding: 5px 10px;
+            }
             .modal-highlight-box .award-text {
                 font-size: 0.76rem;
             }
             .section-orb {
                 display: none;
             }
-            .achievement-card {
-                min-height: 300px;
-            }
-            .achievement-content {
-                min-height: 140px;
-                padding: 12px 12px 16px;
-            }
-            .achievement-fade-overlay {
-                height: 52%;
-            }
-            .achievement-content h3 {
-                font-size: 0.85rem;
-            }
-            .achievement-content .event-name {
-                font-size: 0.68rem;
-            }
-            .achievement-content .event-venue {
-                font-size: 0.64rem;
-            }
-            .achievement-content .event-date {
-                font-size: 0.62rem;
-            }
-            .achievement-content .award-link {
-                font-size: 0.68rem;
-                padding: 4px 10px;
-                margin-top: 6px;
-            }
-            .medal-badge {
-                font-size: 0.62rem;
-                padding: 3px 8px;
+            .achievement-photo-label {
+                font-size: 0.55rem;
+                padding: 2px 8px;
+                bottom: 5px;
+                right: 6px;
             }
         }
 
@@ -3278,15 +3220,11 @@
             .project-gallery img {
                 height: 65px;
             }
-            .achievement-card {
-                min-height: 270px;
+            .achievement-card h3 {
+                font-size: 0.78rem;
             }
-            .achievement-content {
-                min-height: 130px;
-                padding: 10px 10px 14px;
-            }
-            .achievement-fade-overlay {
-                height: 56%;
+            .achievement-card .event-name {
+                font-size: 0.68rem;
             }
         }
 
@@ -3308,9 +3246,6 @@
             }
             .hero-name-premium {
                 font-size: 1.6rem;
-            }
-            .achievement-card {
-                min-height: 340px;
             }
         }
 
@@ -3385,14 +3320,9 @@
             .card-premium,
             .card-light-premium,
             .project-card-horizontal,
-            .skill-category-card,
-            .achievement-card {
+            .skill-category-card {
                 transform-style: flat;
                 perspective: none;
-            }
-            .achievement-card:hover .achievement-bg img {
-                transform: none;
-                filter: none;
             }
         }
 
@@ -3400,8 +3330,7 @@
             .card-premium:hover,
             .card-light-premium:hover,
             .project-card-horizontal:hover,
-            .skill-category-card:hover,
-            .achievement-card:hover {
+            .skill-category-card:hover {
                 transform: none;
             }
             .project-card-horizontal:active {
@@ -3426,9 +3355,8 @@
                 animation: none !important;
                 opacity: 0 !important;
             }
-            .achievement-card:hover .achievement-bg img {
+            .achievement-photo-wrapper:hover img {
                 transform: none;
-                filter: none;
             }
         }
     </style>
@@ -3726,7 +3654,7 @@
         </div>
     </section>
 
-    <!-- ========== ACHIEVEMENTS SECTION (UPDATED) ========== -->
+    <!-- ========== ACHIEVEMENTS SECTION — MODIFIED ========== -->
     <section id="achievements" class="section-dark">
         <div class="section-orb orb-indigo" style="top:30%;left:-10%;"></div>
         <div class="section-orb orb-cyan" style="top:60%;right:-8%;"></div>
@@ -3737,54 +3665,50 @@
                 <div class="section-line"></div>
             </div>
             <div class="card-grid-3 stagger-container reveal" data-stagger>
-                <!-- Hackathon -->
-                <div class="achievement-card stagger-item" data-achievement-card>
+
+                <!-- Hackathon — Photo at top, no emoji -->
+                <div class="card-premium achievement-card stagger-item" data-achievement-card>
                     <div class="achievement-shine"></div>
-                    <div class="achievement-bg">
+                    <div class="achievement-photo-wrapper">
                         <img src="images/achievements/hackathon.jpg" alt="Hack the Future competition" loading="lazy">
-                        <div class="achievement-fade-overlay"></div>
+                        <span class="achievement-photo-label">Hackathon</span>
                     </div>
-                    <div class="achievement-content">
-                        <span class="medal-badge silver">2nd Place</span>
-                        <h3>Hackathon Winner</h3>
-                        <p class="event-name">Hack the Future: Smart Batangas Province Hackathon Challenge</p>
-                        <p class="event-venue">University of Batangas, Batangas City</p>
-                        <p class="event-date">November 21–22, 2025</p>
-                        <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link"><i class="fas fa-newspaper"></i> Read Article</a>
-                    </div>
+                    <span class="medal-badge silver">2nd Place</span>
+                    <h3>Hackathon Winner</h3>
+                    <p class="event-name">Hack the Future: Smart Batangas Province Hackathon Challenge</p>
+                    <p class="event-venue">University of Batangas, Batangas City</p>
+                    <p class="event-date">November 21–22, 2025</p>
+                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link"><i class="fas fa-newspaper"></i> Read Article</a>
                 </div>
 
-                <!-- Breadboarding -->
-                <div class="achievement-card stagger-item" data-achievement-card>
+                <!-- Breadboarding — Photo at top, no emoji -->
+                <div class="card-premium achievement-card stagger-item" data-achievement-card>
                     <div class="achievement-shine"></div>
-                    <div class="achievement-bg">
+                    <div class="achievement-photo-wrapper">
                         <img src="images/achievements/breadboarding.jpg" alt="Breadboarding competition" loading="lazy">
-                        <div class="achievement-fade-overlay"></div>
+                        <span class="achievement-photo-label">Breadboarding</span>
                     </div>
-                    <div class="achievement-content">
-                        <span class="medal-badge participant">Participant</span>
-                        <h3>Breadboarding Competition</h3>
-                        <p class="event-name">ICpEp.se Region 4A CPE Challenge 2025</p>
-                        <p class="event-venue">Colegio de San Juan de Letran, Calamba, Laguna</p>
-                        <p class="event-date">November 15, 2025</p>
-                    </div>
+                    <span class="medal-badge participant">Participant</span>
+                    <h3>Breadboarding Competition</h3>
+                    <p class="event-name">ICpEp.se Region 4A CPE Challenge 2025</p>
+                    <p class="event-venue">Colegio de San Juan de Letran, Calamba, Laguna</p>
+                    <p class="event-date">November 15, 2025</p>
                 </div>
 
-                <!-- Programming -->
-                <div class="achievement-card stagger-item" data-achievement-card>
+                <!-- Programming — Photo at top, no emoji -->
+                <div class="card-premium achievement-card stagger-item" data-achievement-card>
                     <div class="achievement-shine"></div>
-                    <div class="achievement-bg">
+                    <div class="achievement-photo-wrapper">
                         <img src="images/achievements/programming.jpg" alt="C++ Programming competition" loading="lazy">
-                        <div class="achievement-fade-overlay"></div>
+                        <span class="achievement-photo-label">Programming</span>
                     </div>
-                    <div class="achievement-content">
-                        <span class="medal-badge participant">Participant</span>
-                        <h3>C++ Programming Competition</h3>
-                        <p class="event-name">ICpEp.se Region 4A CPE Challenge 2024</p>
-                        <p class="event-venue">De La Salle Lipa, Lipa City, Batangas</p>
-                        <p class="event-date">December 3, 2024</p>
-                    </div>
+                    <span class="medal-badge participant">Participant</span>
+                    <h3>C++ Programming Competition</h3>
+                    <p class="event-name">ICpEp.se Region 4A CPE Challenge 2024</p>
+                    <p class="event-venue">De La Salle Lipa, Lipa City, Batangas</p>
+                    <p class="event-date">December 3, 2024</p>
                 </div>
+
             </div>
         </div>
     </section>
