@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Lorence B. Ojales · Computer Engineer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
+        /* ===== RESET & ROOT ===== */
         :root {
             --bg-deep: #030711;
             --bg-surface: #060b18;
@@ -82,7 +83,7 @@
             padding-bottom: var(--safe-bottom);
         }
 
-        /* ========== LOADING SCREEN CSS ========== */
+        /* ===== LOADING SCREEN ===== */
         body.loading {
             overflow: hidden;
         }
@@ -197,8 +198,8 @@
                 transform: translateX(180px);
             }
         }
-        /* ========== END LOADING SCREEN CSS ========== */
 
+        /* ===== BG LAYERS ===== */
         .aurora-bg {
             position: fixed;
             top: 0;
@@ -208,7 +209,8 @@
             pointer-events: none;
             z-index: 0;
             opacity: 0.5;
-            background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
                 radial-gradient(ellipse 60% 50% at 80% 30%, rgba(59, 130, 246, 0.07) 0%, transparent 55%),
                 radial-gradient(ellipse 70% 70% at 50% 70%, rgba(99, 102, 241, 0.06) 0%, transparent 55%),
                 radial-gradient(ellipse 50% 40% at 30% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
@@ -233,7 +235,6 @@
                 transform: scale(1.06) translate(0.5%, -0.5%);
             }
         }
-
         .grid-overlay {
             position: fixed;
             top: 0;
@@ -243,7 +244,8 @@
             pointer-events: none;
             z-index: 0;
             opacity: 0.03;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: gridShift 30s linear infinite;
@@ -280,100 +282,7 @@
             opacity: 1;
         }
 
-        .hero-spotlight-fixed {
-            position: absolute;
-            pointer-events: none;
-            z-index: 0;
-            top: -20%;
-            left: -10%;
-            width: 120%;
-            height: 140%;
-            background: radial-gradient(ellipse 50% 40% at 30% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 55%),
-                radial-gradient(ellipse 40% 35% at 65% 30%, rgba(59, 130, 246, 0.07) 0%, transparent 50%),
-                radial-gradient(ellipse 35% 30% at 50% 55%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
-            animation: heroSpotPulse 8s ease-in-out infinite;
-        }
-        @keyframes heroSpotPulse {
-            0%,
-            100% {
-                opacity: 0.7;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .floating-accent {
-            position: absolute;
-            pointer-events: none;
-            z-index: 0;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.35;
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
-        }
-        .floating-accent-1 {
-            width: 280px;
-            height: 280px;
-            background: rgba(6, 182, 212, 0.25);
-            top: -5%;
-            left: 10%;
-            animation-name: floatAccent1;
-            animation-duration: 12s;
-        }
-        .floating-accent-2 {
-            width: 200px;
-            height: 200px;
-            background: rgba(59, 130, 246, 0.2);
-            top: 40%;
-            left: 55%;
-            animation-name: floatAccent2;
-            animation-duration: 15s;
-        }
-        .floating-accent-3 {
-            width: 160px;
-            height: 160px;
-            background: rgba(99, 102, 241, 0.18);
-            top: 10%;
-            left: 70%;
-            animation-name: floatAccent3;
-            animation-duration: 10s;
-        }
-        @keyframes floatAccent1 {
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(40px, -25px) scale(1.2);
-            }
-            66% {
-                transform: translate(-20px, 20px) scale(0.85);
-            }
-        }
-        @keyframes floatAccent2 {
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(-35px, 15px) scale(1.15);
-            }
-            66% {
-                transform: translate(25px, -20px) scale(0.9);
-            }
-        }
-        @keyframes floatAccent3 {
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-            50% {
-                transform: translate(30px, 30px) scale(1.3);
-            }
-        }
-
+        /* ===== HEADER ===== */
         .site-header {
             position: fixed;
             top: max(10px, var(--safe-top));
@@ -530,7 +439,7 @@
             color: #fff;
         }
 
-        /* ========== ENHANCED: Section background orbs ========== */
+        /* ===== SECTION BASE ===== */
         .section-dark,
         .section-light,
         .section-dark-alt,
@@ -563,7 +472,6 @@
             border-top: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
         }
-        /* Floating orbs behind sections */
         .section-orb {
             position: absolute;
             pointer-events: none;
@@ -635,7 +543,6 @@
             position: relative;
             z-index: 5;
         }
-
         .section-header {
             margin-bottom: 36px;
             text-align: center;
@@ -669,7 +576,7 @@
             margin: 14px auto 0;
         }
 
-        /* ========== ENHANCED: Card base with 3D tilt support ========== */
+        /* ===== CARDS ===== */
         .card-premium {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
@@ -709,7 +616,6 @@
             position: relative;
             z-index: 1;
         }
-        /* Shine sweep on hover */
         .card-premium::after {
             content: '';
             position: absolute;
@@ -821,167 +727,7 @@
             gap: 18px;
         }
 
-        /* ========== ACHIEVEMENT CARDS WITH BACKGROUND PHOTO ========== */
-        .achievement-card-bg {
-            min-height: 380px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 24px 24px 22px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            background-size: cover;
-            background-position: center;
-            transition: all var(--transition-smooth), box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
-            box-shadow: var(--shadow-card);
-            cursor: default;
-            transform-style: preserve-3d;
-            perspective: 800px;
-            will-change: transform;
-        }
-        .achievement-card-bg:hover {
-            border-color: var(--border-accent);
-            box-shadow: var(--shadow-card-hover);
-            transform: translateY(-3px);
-        }
-        .achievement-card-bg .ach-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            border-radius: inherit;
-            background: linear-gradient(to bottom,
-                    transparent 18%,
-                    rgba(3, 7, 17, 0.30) 42%,
-                    rgba(3, 7, 17, 0.65) 62%,
-                    rgba(3, 7, 17, 0.88) 80%,
-                    rgba(3, 7, 17, 0.97) 100%);
-            transition: opacity 0.5s ease;
-        }
-        .achievement-card-bg .ach-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .achievement-card-bg .ach-shine {
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            pointer-events: none;
-            z-index: 0;
-            background: linear-gradient(115deg,
-                    transparent 30%,
-                    rgba(6, 182, 212, 0.04) 38%,
-                    rgba(6, 182, 212, 0.07) 40%,
-                    rgba(99, 102, 241, 0.04) 42%,
-                    transparent 48%);
-            opacity: 0;
-            animation: none;
-            border-radius: inherit;
-        }
-        .achievement-card-bg .ach-shine.shine-active {
-            opacity: 1;
-            animation: cardShineSweep 2.8s ease-in-out forwards;
-        }
-        .achievement-card-bg .ach-medal {
-            display: inline-block;
-            font-weight: 700;
-            font-size: 0.7rem;
-            padding: 4px 12px;
-            border-radius: 20px;
-            letter-spacing: 0.05em;
-            margin-bottom: 6px;
-            width: fit-content;
-            transition: all var(--transition-smooth);
-        }
-        .achievement-card-bg .ach-medal.silver {
-            background: linear-gradient(135deg, #a0a0a0, #d0d0d0);
-            color: #1a1a1a;
-            animation: medalGlowSilver 2.5s ease-in-out infinite;
-        }
-        .achievement-card-bg .ach-medal.participant {
-            background: linear-gradient(135deg, #6366f1, #818cf8);
-            color: #fff;
-            animation: medalGlowParticipant 2.5s ease-in-out infinite;
-        }
-        .achievement-card-bg .ach-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.02em;
-            margin: 0 0 2px 0;
-            line-height: 1.2;
-        }
-        .achievement-card-bg .ach-event-name {
-            font-size: 0.8rem;
-            color: var(--accent-cyan);
-            font-weight: 500;
-            margin: 0 0 2px 0;
-        }
-        .achievement-card-bg .ach-venue {
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-            margin: 0 0 2px 0;
-        }
-        .achievement-card-bg .ach-date {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin: 0 0 6px 0;
-        }
-        .achievement-card-bg .ach-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 8px;
-            color: var(--accent-gold);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.78rem;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            padding: 6px 14px;
-            border-radius: 40px;
-            transition: var(--transition-fast);
-            -webkit-tap-highlight-color: transparent;
-            width: fit-content;
-        }
-        .achievement-card-bg .ach-link:hover {
-            background: rgba(245, 158, 11, 0.08);
-            border-color: var(--accent-gold);
-            color: #fbbf24;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
-            gap: 9px;
-        }
-        .achievement-card-bg .ach-link i {
-            transition: transform 0.3s ease;
-        }
-        .achievement-card-bg .ach-link:hover i {
-            transform: translateX(3px);
-        }
-        @keyframes medalGlowSilver {
-            0%,
-            100% {
-                box-shadow: 0 0 8px rgba(192, 192, 192, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 18px rgba(192, 192, 192, 0.55), 0 0 28px rgba(192, 192, 192, 0.2);
-            }
-        }
-        @keyframes medalGlowParticipant {
-            0%,
-            100% {
-                box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 18px rgba(99, 102, 241, 0.55), 0 0 28px rgba(129, 140, 248, 0.2);
-            }
-        }
-
-        /* ========== ENHANCED: Staggered reveal animations ========== */
+        /* ===== STAGGER ===== */
         .stagger-container .stagger-item {
             opacity: 0;
             transform: translateY(30px);
@@ -1016,6 +762,7 @@
             transition-delay: 0.7s;
         }
 
+        /* ===== PROJECTS ===== */
         .project-cards-stack {
             display: flex;
             flex-direction: column;
@@ -1080,7 +827,6 @@
             pointer-events: none;
             background: radial-gradient(ellipse at 35% 50%, transparent 45%, rgba(3, 7, 17, 0.4) 100%);
         }
-        /* Shine sweep on project cards */
         .project-card-horizontal .card-shine-sweep {
             position: absolute;
             inset: 0;
@@ -1198,6 +944,7 @@
             background-color: #080a18;
         }
 
+        /* ===== MODALS ===== */
         .modal-embed.modal-embed-3d {
             height: 400px;
             border-radius: var(--radius-md);
@@ -1229,7 +976,6 @@
             height: 100%;
             border: none;
         }
-
         .project-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -1358,6 +1104,7 @@
             right: 8px;
         }
 
+        /* ===== HERO ===== */
         .hero-section-wrapper {
             position: relative;
             min-height: 100vh;
@@ -1372,7 +1119,8 @@
             inset: 0;
             pointer-events: none;
             z-index: 0;
-            background: radial-gradient(ellipse 70% 50% at 25% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
+            background:
+                radial-gradient(ellipse 70% 50% at 25% 35%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
                 radial-gradient(ellipse 55% 45% at 60% 25%, rgba(59, 130, 246, 0.08) 0%, transparent 55%),
                 radial-gradient(ellipse 50% 55% at 45% 60%, rgba(99, 102, 241, 0.06) 0%, transparent 55%),
                 radial-gradient(ellipse 40% 35% at 70% 70%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
@@ -1398,7 +1146,8 @@
             inset: 0;
             pointer-events: none;
             z-index: 0;
-            background: radial-gradient(ellipse 55% 45% at 35% 40%, rgba(6, 182, 212, 0.09) 0%, transparent 60%),
+            background:
+                radial-gradient(ellipse 55% 45% at 35% 40%, rgba(6, 182, 212, 0.09) 0%, transparent 60%),
                 radial-gradient(ellipse 40% 35% at 60% 35%, rgba(59, 130, 246, 0.06) 0%, transparent 55%);
             animation: heroSpotBreath 7s ease-in-out infinite;
         }
@@ -1771,6 +1520,7 @@
             background: transparent;
         }
 
+        /* ===== ABOUT ===== */
         .about-layout {
             display: flex;
             flex-wrap: wrap;
@@ -1861,7 +1611,7 @@
             word-break: break-all;
         }
 
-        /* ========== ENHANCED: Timeline with animated line ========== */
+        /* ===== TIMELINE ===== */
         .timeline-modern {
             position: relative;
             padding-left: 24px;
@@ -1971,7 +1721,224 @@
             font-weight: 700;
         }
 
-        /* ========== ENHANCED: Skills grid ========== */
+        /* ===== ACHIEVEMENTS — NEW STYLES ===== */
+        .achievement-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 340px;
+            border-radius: var(--radius-lg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: var(--bg-deep);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0;
+            border: 1px solid var(--border-subtle);
+            transition: all var(--transition-smooth), box-shadow 0.4s ease, border-color 0.4s ease;
+            box-shadow: var(--shadow-card);
+            cursor: default;
+            transform-style: preserve-3d;
+            perspective: 800px;
+            will-change: transform;
+        }
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity var(--transition-smooth);
+        }
+        .achievement-card:hover::before {
+            opacity: 1;
+        }
+        .achievement-card:hover {
+            border-color: var(--border-accent);
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-3px);
+        }
+        /* Fade overlay at bottom 25% of the card */
+        .achievement-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 25%;
+            /* exactly 1/4 of the card height */
+            pointer-events: none;
+            z-index: 1;
+            background: linear-gradient(to bottom, rgba(3, 7, 17, 0) 0%, rgba(3, 7, 17, 0.92) 100%);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            transition: opacity var(--transition-smooth);
+        }
+        /* Additional smooth blend */
+        .achievement-card .achievement-fade-blend {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            pointer-events: none;
+            z-index: 1;
+            background: linear-gradient(to bottom, rgba(3, 7, 17, 0) 0%, rgba(3, 7, 17, 0.4) 50%, rgba(3, 7, 17, 0.85) 100%);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            opacity: 0.6;
+            transition: opacity var(--transition-smooth);
+        }
+        .achievement-card:hover .achievement-fade-blend {
+            opacity: 0.8;
+        }
+        /* Shine sweep for achievement cards */
+        .achievement-card .achievement-shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 0;
+            background: linear-gradient(115deg,
+                    transparent 30%,
+                    rgba(6, 182, 212, 0.03) 38%,
+                    rgba(6, 182, 212, 0.06) 40%,
+                    rgba(99, 102, 241, 0.04) 42%,
+                    transparent 48%);
+            opacity: 0;
+            animation: none;
+        }
+        .achievement-card .achievement-shine.shine-active {
+            opacity: 1;
+            animation: cardShineSweep 3s ease-in-out forwards;
+        }
+
+        /* Content wrapper — sits on top of the fade */
+        .achievement-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 22px 22px 22px;
+            width: 100%;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            background: transparent;
+            /* no extra bg — relies on the fade overlay */;
+        }
+
+        .achievement-card .medal-badge {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 2;
+            transition: all var(--transition-smooth);
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+        }
+        .achievement-card .medal-badge.silver {
+            background: linear-gradient(135deg, #a0a0a0, #d0d0d0);
+            color: #1a1a1a;
+            animation: medalGlowSilver 2.5s ease-in-out infinite;
+        }
+        .achievement-card .medal-badge.participant {
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            color: #fff;
+            animation: medalGlowParticipant 2.5s ease-in-out infinite;
+        }
+        @keyframes medalGlowSilver {
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(192, 192, 192, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 18px rgba(192, 192, 192, 0.55), 0 0 28px rgba(192, 192, 192, 0.2);
+            }
+        }
+        @keyframes medalGlowParticipant {
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 18px rgba(99, 102, 241, 0.55), 0 0 28px rgba(129, 140, 248, 0.2);
+            }
+        }
+
+        .achievement-content h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 2px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+        }
+        .achievement-content .event-name {
+            font-size: 0.78rem;
+            color: var(--accent-cyan);
+            font-weight: 500;
+            margin-bottom: 2px;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+        .achievement-content .event-venue {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1px;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+        .achievement-content .event-date {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 8px;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .achievement-content .award-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.78rem;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: var(--transition-fast);
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+            margin-top: 2px;
+        }
+        .achievement-content .award-link:hover {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: var(--accent-gold);
+            color: #fbbf24;
+            box-shadow: 0 0 24px rgba(245, 158, 11, 0.2);
+            gap: 9px;
+        }
+        .achievement-content .award-link i {
+            transition: transform 0.3s ease;
+        }
+        .achievement-content .award-link:hover i {
+            transform: translateX(3px);
+        }
+
+        /* ===== SKILLS ===== */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -2036,7 +2003,7 @@
             z-index: 2;
         }
 
-        /* ========== CERTIFICATIONS SECTION STYLES ========== */
+        /* ===== CERTIFICATIONS ===== */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -2136,7 +2103,7 @@
             letter-spacing: 0.02em;
         }
 
-        /* ========== ENHANCED: Contact section ========== */
+        /* ===== CONTACT ===== */
         .contact-layout {
             display: flex;
             flex-wrap: wrap;
@@ -2290,6 +2257,7 @@
             font-weight: 600;
         }
 
+        /* ===== MODAL OVERLAY ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -2531,7 +2499,7 @@
             pointer-events: none;
         }
 
-        /* ========== ENHANCED: Glow border animation for about card ========== */
+        /* ===== GLOW BORDER ===== */
         .glow-border-animated {
             position: relative;
         }
@@ -2591,7 +2559,7 @@
             transform: translateY(0);
         }
 
-        /* ========== RESPONSIVE ========== */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .nav-list {
                 display: none;
@@ -2681,9 +2649,12 @@
             .section-orb {
                 opacity: 0.12;
             }
-            .achievement-card-bg {
-                min-height: 320px;
-                padding: 20px 20px 18px;
+            /* achievement cards in 2 cols on tablet */
+            .card-grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .achievement-card {
+                min-height: 300px;
             }
         }
 
@@ -2838,15 +2809,35 @@
                 width: 150px !important;
                 height: 150px !important;
             }
-            .achievement-card-bg {
-                min-height: 280px;
-                padding: 16px 16px 14px;
+            /* achievement cards full width on mobile */
+            .card-grid-3 {
+                grid-template-columns: 1fr;
             }
-            .achievement-card-bg .ach-title {
+            .achievement-card {
+                min-height: 280px;
+            }
+            .achievement-content {
+                padding: 16px 18px 18px 18px;
+            }
+            .achievement-content h3 {
                 font-size: 0.95rem;
             }
-            .achievement-card-bg .ach-event-name {
+            .achievement-content .event-name {
                 font-size: 0.72rem;
+            }
+            .achievement-content .event-venue {
+                font-size: 0.68rem;
+            }
+            .achievement-content .event-date {
+                font-size: 0.65rem;
+            }
+            .achievement-content .award-link {
+                font-size: 0.7rem;
+                padding: 5px 12px;
+            }
+            .achievement-card .medal-badge {
+                font-size: 0.65rem;
+                padding: 3px 10px;
             }
         }
 
@@ -3122,35 +3113,41 @@
                 font-size: 0.65rem;
                 padding: 4px 8px;
             }
+            .award-link {
+                font-size: 0.7rem;
+                padding: 5px 10px;
+            }
             .modal-highlight-box .award-text {
                 font-size: 0.76rem;
             }
             .section-orb {
                 display: none;
             }
-            .achievement-card-bg {
-                min-height: 250px;
-                padding: 14px 14px 12px;
+            .achievement-card {
+                min-height: 240px;
             }
-            .achievement-card-bg .ach-title {
-                font-size: 0.9rem;
+            .achievement-content {
+                padding: 14px 14px 16px 14px;
             }
-            .achievement-card-bg .ach-event-name {
+            .achievement-content h3 {
+                font-size: 0.88rem;
+            }
+            .achievement-content .event-name {
                 font-size: 0.68rem;
             }
-            .achievement-card-bg .ach-venue {
+            .achievement-content .event-venue {
+                font-size: 0.64rem;
+            }
+            .achievement-content .event-date {
+                font-size: 0.6rem;
+            }
+            .achievement-content .award-link {
                 font-size: 0.65rem;
-            }
-            .achievement-card-bg .ach-date {
-                font-size: 0.62rem;
-            }
-            .achievement-card-bg .ach-link {
-                font-size: 0.7rem;
                 padding: 4px 10px;
             }
-            .achievement-card-bg .ach-medal {
-                font-size: 0.62rem;
-                padding: 3px 10px;
+            .achievement-card .medal-badge {
+                font-size: 0.6rem;
+                padding: 3px 8px;
             }
         }
 
@@ -3204,15 +3201,31 @@
             .project-gallery img {
                 height: 65px;
             }
-            .achievement-card-bg {
-                min-height: 220px;
-                padding: 12px 12px 10px;
+            .achievement-card {
+                min-height: 210px;
             }
-            .achievement-card-bg .ach-title {
-                font-size: 0.8rem;
+            .achievement-content {
+                padding: 12px 12px 14px 12px;
             }
-            .achievement-card-bg .ach-event-name {
-                font-size: 0.62rem;
+            .achievement-content h3 {
+                font-size: 0.82rem;
+            }
+            .achievement-content .event-name {
+                font-size: 0.64rem;
+            }
+            .achievement-content .event-venue {
+                font-size: 0.6rem;
+            }
+            .achievement-content .event-date {
+                font-size: 0.56rem;
+            }
+            .achievement-content .award-link {
+                font-size: 0.6rem;
+                padding: 3px 8px;
+            }
+            .achievement-card .medal-badge {
+                font-size: 0.55rem;
+                padding: 2px 7px;
             }
         }
 
@@ -3286,7 +3299,7 @@
             .card-premium::after,
             .card-light-premium::after,
             .project-card-horizontal .card-shine-sweep,
-            .achievement-card-bg .ach-shine {
+            .achievement-card .achievement-shine {
                 animation: none !important;
                 opacity: 0 !important;
             }
@@ -3302,20 +3315,23 @@
             .glow-border-animated::before {
                 animation: none !important;
             }
-            .achievement-card-bg .ach-medal.silver,
-            .achievement-card-bg .ach-medal.participant {
+            .medal-badge {
                 animation: none !important;
             }
             .card-premium,
             .card-light-premium,
             .project-card-horizontal,
-            .skill-category-card,
-            .achievement-card-bg {
+            .skill-category-card {
                 transform-style: flat;
                 perspective: none;
             }
-            .achievement-card-bg:hover {
-                transform: none;
+            .achievement-card {
+                transform-style: flat;
+                perspective: none;
+            }
+            .achievement-card::after,
+            .achievement-card .achievement-fade-blend {
+                transition: none;
             }
         }
 
@@ -3323,8 +3339,7 @@
             .card-premium:hover,
             .card-light-premium:hover,
             .project-card-horizontal:hover,
-            .skill-category-card:hover,
-            .achievement-card-bg:hover {
+            .skill-category-card:hover {
                 transform: none;
             }
             .project-card-horizontal:active {
@@ -3345,20 +3360,19 @@
             .card-premium::after,
             .card-light-premium::after,
             .project-card-horizontal .card-shine-sweep,
-            .achievement-card-bg .ach-shine {
+            .achievement-card .achievement-shine {
                 animation: none !important;
                 opacity: 0 !important;
             }
-            .achievement-card-bg .ach-link:hover {
-                gap: 5px;
-                background: rgba(245, 158, 11, 0.08);
+            .achievement-card:hover {
+                transform: none;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ========== LOADING SCREEN ========== -->
+    <!-- ===== LOADING SCREEN ===== -->
     <div id="loading-screen" style="display:none;">
         <div class="loader-content">
             <div class="loader-ring">
@@ -3418,7 +3432,6 @@
             });
         })();
     </script>
-    <!-- ========== END LOADING SCREEN ========== -->
 
     <div class="aurora-bg"></div>
     <div class="grid-overlay"></div>
@@ -3468,6 +3481,7 @@
         </div>
     </header>
 
+    <!-- ===== HERO ===== -->
     <section id="home" class="hero-section-wrapper">
         <div class="hero-aurora-layer"></div>
         <div class="hero-spotlight-overlay"></div>
@@ -3508,7 +3522,7 @@
         </div>
     </section>
 
-    <!-- ========== ABOUT SECTION ========== -->
+    <!-- ===== ABOUT ===== -->
     <section id="about" class="section-light">
         <div class="section-orb orb-cyan" style="top:5%;left:-8%;"></div>
         <div class="section-orb orb-blue" style="top:55%;right:-10%;"></div>
@@ -3540,7 +3554,7 @@
         </div>
     </section>
 
-    <!-- ========== EXPERIENCE SECTION ========== -->
+    <!-- ===== EXPERIENCE ===== -->
     <section id="experience" class="section-dark-alt">
         <div class="section-orb orb-indigo" style="top:10%;right:-6%;"></div>
         <div class="section-orb orb-cyan" style="top:60%;left:-10%;"></div>
@@ -3578,7 +3592,7 @@
         </div>
     </section>
 
-    <!-- ========== PROJECTS SECTION ========== -->
+    <!-- ===== PROJECTS ===== -->
     <section id="projects" class="section-light-alt">
         <div class="section-orb orb-blue" style="top:20%;left:-8%;"></div>
         <div class="section-orb orb-cyan" style="top:50%;right:-10%;"></div>
@@ -3649,7 +3663,7 @@
         </div>
     </section>
 
-    <!-- ========== ACHIEVEMENTS SECTION ========== -->
+    <!-- ===== ACHIEVEMENTS — UPDATED ===== -->
     <section id="achievements" class="section-dark">
         <div class="section-orb orb-indigo" style="top:30%;left:-10%;"></div>
         <div class="section-orb orb-cyan" style="top:60%;right:-8%;"></div>
@@ -3661,46 +3675,46 @@
             </div>
             <div class="card-grid-3 stagger-container reveal" data-stagger>
 
-                <!-- Hackathon -->
-                <div class="achievement-card-bg stagger-item" data-achievement-card
+                <!-- Hackathon — background photo with fade -->
+                <div class="achievement-card stagger-item" data-achievement-card
                 style="background-image: url('images/achievements/hackathon.jpg');">
-                <div class="ach-overlay"></div>
-                <div class="ach-shine"></div>
-                <div class="ach-content">
-                    <span class="ach-medal silver">2nd Place</span>
-                    <h3 class="ach-title">Hackathon Winner</h3>
-                    <p class="ach-event-name">Hack the Future: Smart Batangas Province Hackathon Challenge</p>
-                    <p class="ach-venue">University of Batangas, Batangas City</p>
-                    <p class="ach-date">November 21–22, 2025</p>
-                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="ach-link"><i class="fas fa-newspaper"></i> Read Article</a>
+                <div class="achievement-shine"></div>
+                <div class="achievement-fade-blend"></div>
+                <div class="achievement-content">
+                    <span class="medal-badge silver">2nd Place</span>
+                    <h3>Hackathon Winner</h3>
+                    <p class="event-name">Hack the Future: Smart Batangas Province Hackathon Challenge</p>
+                    <p class="event-venue">University of Batangas, Batangas City</p>
+                    <p class="event-date">November 21–22, 2025</p>
+                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link"><i class="fas fa-newspaper"></i> Read Article</a>
                 </div>
             </div>
 
-            <!-- Breadboarding -->
-            <div class="achievement-card-bg stagger-item" data-achievement-card
+            <!-- Breadboarding — background photo with fade -->
+            <div class="achievement-card stagger-item" data-achievement-card
             style="background-image: url('images/achievements/breadboarding.jpg');">
-            <div class="ach-overlay"></div>
-            <div class="ach-shine"></div>
-            <div class="ach-content">
-                <span class="ach-medal participant">Participant</span>
-                <h3 class="ach-title">Breadboarding Competition</h3>
-                <p class="ach-event-name">ICpEp.se Region 4A CPE Challenge 2025</p>
-                <p class="ach-venue">Colegio de San Juan de Letran, Calamba, Laguna</p>
-                <p class="ach-date">November 15, 2025</p>
+            <div class="achievement-shine"></div>
+            <div class="achievement-fade-blend"></div>
+            <div class="achievement-content">
+                <span class="medal-badge participant">Participant</span>
+                <h3>Breadboarding Competition</h3>
+                <p class="event-name">ICpEp.se Region 4A CPE Challenge 2025</p>
+                <p class="event-venue">Colegio de San Juan de Letran, Calamba, Laguna</p>
+                <p class="event-date">November 15, 2025</p>
             </div>
         </div>
 
-        <!-- Programming -->
-        <div class="achievement-card-bg stagger-item" data-achievement-card
+        <!-- Programming — background photo with fade -->
+        <div class="achievement-card stagger-item" data-achievement-card
         style="background-image: url('images/achievements/programming.jpg');">
-        <div class="ach-overlay"></div>
-        <div class="ach-shine"></div>
-        <div class="ach-content">
-            <span class="ach-medal participant">Participant</span>
-            <h3 class="ach-title">C++ Programming Competition</h3>
-            <p class="ach-event-name">ICpEp.se Region 4A CPE Challenge 2024</p>
-            <p class="ach-venue">De La Salle Lipa, Lipa City, Batangas</p>
-            <p class="ach-date">December 3, 2024</p>
+        <div class="achievement-shine"></div>
+        <div class="achievement-fade-blend"></div>
+        <div class="achievement-content">
+            <span class="medal-badge participant">Participant</span>
+            <h3>C++ Programming Competition</h3>
+            <p class="event-name">ICpEp.se Region 4A CPE Challenge 2024</p>
+            <p class="event-venue">De La Salle Lipa, Lipa City, Batangas</p>
+            <p class="event-date">December 3, 2024</p>
         </div>
     </div>
 
@@ -3708,7 +3722,7 @@
 </div>
 </section>
 
-<!-- ========== SKILLS SECTION ========== -->
+<!-- ===== SKILLS ===== -->
 <section id="skills" class="section-light">
     <div class="section-orb orb-blue" style="top:15%;right:-10%;"></div>
     <div class="section-orb orb-cyan" style="top:70%;left:-8%;"></div>
@@ -3729,7 +3743,7 @@
     </div>
 </section>
 
-<!-- ========== CERTIFICATIONS SECTION ========== -->
+<!-- ===== CERTIFICATIONS ===== -->
 <section id="certifications" class="section-dark-alt">
     <div class="section-orb orb-indigo" style="top:10%;left:-5%;"></div>
     <div class="section-orb orb-cyan" style="top:40%;right:-8%;"></div>
@@ -3751,7 +3765,7 @@
     </div>
 </section>
 
-<!-- ========== CONTACT SECTION ========== -->
+<!-- ===== CONTACT ===== -->
 <section id="contact" class="section-light">
     <div class="section-orb orb-indigo" style="top:20%;left:-10%;"></div>
     <div class="section-orb orb-cyan" style="top:60%;right:-8%;"></div>
@@ -3800,7 +3814,7 @@
     <p>&copy; <span id="currentYear">2025</span> <span class="footer-name">Lorence B. Ojales</span> — Computer Engineer. Built with precision.</p>
 </footer>
 
-<!-- ========== MODALS ========== -->
+<!-- ===== MODALS ===== -->
 <div class="modal-overlay" id="modal-tugon">
     <div class="modal-dialog">
         <button class="modal-close" onclick="closeModal('modal-tugon')"><i class="fas fa-times"></i></button>
@@ -3901,13 +3915,11 @@
     </div>
 </div>
 
-<!-- EmailJS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-<!-- ========== CORE SCRIPTS ========== -->
+<!-- ===== CORE SCRIPTS ===== -->
 <script>
-    // Scroll lock helpers – maintains counter for modals/lightbox
     let activeScrollLocks = 0;
 
     function lockBodyScroll() {
@@ -3925,7 +3937,6 @@
         }
     }
 
-    // Modal open/close with scroll lock
     function openModal(modalId) {
         const modal = document.getElementById(modalId);
         if (modal && !modal.classList.contains('active')) {
@@ -3943,7 +3954,6 @@
         }
     }
 
-    // Certifications data
     const certificationsData = [
         { title: "IEEE Open Silicon TinyTapeout Philippine IC Design Bootcamp", date: "April 29, 2026", categories: ["seminar"], imgUrl: "images/certifications/ieee-tinytapeout.jpg" },
         { title: "Network Support and Security", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/network-support-security.jpg" },
@@ -4010,30 +4020,21 @@
         if (e.key === 'ArrowRight') navigateLightbox(1);
     });
 
-    // --- Delegated click handler for ALL gallery images (certifications + project galleries) ---
     document.addEventListener('click', function(e) {
         const img = e.target.closest('.cert-img, .project-gallery img');
         if (!img) return;
-
-        // Certification images: use .cert-img
         if (img.classList.contains('cert-img')) {
             const allVisibleImages = Array.from(document.querySelectorAll('.cert-img')).map(i => i.src);
             const idx = allVisibleImages.indexOf(img.src);
-            if (idx !== -1) {
-                openLightbox(allVisibleImages, idx);
-            }
+            if (idx !== -1) openLightbox(allVisibleImages, idx);
             return;
         }
-
-        // Project gallery images: find all in the same .project-gallery container
         const container = img.closest('.project-gallery');
         if (!container) return;
         const allImages = Array.from(container.querySelectorAll('img'));
         const allUrls = allImages.map(i => i.src);
         const idx = allUrls.indexOf(img.src);
-        if (idx !== -1) {
-            openLightbox(allUrls, idx);
-        }
+        if (idx !== -1) openLightbox(allUrls, idx);
     });
 
     function renderCertifications(filter = 'all') {
@@ -4070,19 +4071,16 @@
         });
     }
 
-    // Filter buttons
     document.querySelectorAll('#certFilterBar .filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             document.querySelectorAll('#certFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-            const filterVal = this.getAttribute('data-filter');
-            renderCertifications(filterVal);
+            renderCertifications(this.getAttribute('data-filter'));
         });
     });
 
     document.addEventListener('DOMContentLoaded', () => {
         emailjs.init("jJ0ZadOUacvrkPfPT");
-
         renderCertifications('all');
 
         const headerInner = document.getElementById('headerInner');
@@ -4131,7 +4129,8 @@
             let currentId = '';
             sections.forEach(section => { const sectionTop = section.offsetTop - 140; if (window.scrollY >= sectionTop)
                     currentId = section.getAttribute('id'); });
-            allNavLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + currentId) link.classList.add('active'); });
+            allNavLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + currentId)
+                    link.classList.add('active'); });
         }
         window.addEventListener('scroll', updateActiveNav, { passive: true });
         updateActiveNav();
@@ -4159,12 +4158,12 @@
         const magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
         if (!isTouchDevice) {
             magneticWraps.forEach(wrap => {
-                wrap.addEventListener('mousemove', (e) => { const rect = wrap.getBoundingClientRect(); const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2; wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`; });
+                wrap.addEventListener('mousemove', (e) => { const rect = wrap.getBoundingClientRect(); const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2; wrap.style.transform =
+                        `translate(${x * 0.18}px, ${y * 0.18}px)`; });
                 wrap.addEventListener('mouseleave', () => { wrap.style.transform = 'translate(0px, 0px)'; });
             });
         }
 
-        // Typewriter effect
         const roleSwitcherText = document.getElementById('roleSwitcherText');
         if (roleSwitcherText) {
             const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
@@ -4175,18 +4174,24 @@
                 pauseBeforeDelete = 2000,
                 pauseBeforeNext = 500;
 
-            function typeChar() { const full = roles[roleIndex]; if (currentText.length < full.length) { currentText += full.charAt(currentText.length); roleSwitcherText.textContent = currentText; setTimeout(typeChar, typingSpeed); } else { setTimeout(deleteChar, pauseBeforeDelete); } }
+            function typeChar() { const full = roles[roleIndex]; if (currentText.length < full.length) { currentText += full
+                        .charAt(currentText.length);
+                    roleSwitcherText.textContent = currentText;
+                    setTimeout(typeChar, typingSpeed); } else { setTimeout(deleteChar, pauseBeforeDelete); } }
 
-            function deleteChar() { if (currentText.length > 0) { currentText = currentText.slice(0, -1); roleSwitcherText.textContent = currentText; setTimeout(deleteChar, deletingSpeed); } else { roleIndex = (roleIndex + 1) % roles.length; setTimeout(typeChar, pauseBeforeNext); } }
+            function deleteChar() { if (currentText.length > 0) { currentText = currentText.slice(0, -1);
+                    roleSwitcherText.textContent = currentText;
+                    setTimeout(deleteChar, deletingSpeed); } else { roleIndex = (roleIndex + 1) % roles.length;
+                    setTimeout(typeChar, pauseBeforeNext); } }
             typeChar();
         }
 
         const resumeViewBtn = document.getElementById('resumeViewBtn');
         if (resumeViewBtn) {
-            resumeViewBtn.addEventListener('click', function(e) { e.preventDefault(); openModal('modal-resume'); });
+            resumeViewBtn.addEventListener('click', function(e) { e.preventDefault();
+                openModal('modal-resume'); });
         }
 
-        // Contact form handling
         const contactForm = document.getElementById('contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
@@ -4216,7 +4221,6 @@
         }
     });
 
-    // Escape key handler for modals
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             const lightbox = document.getElementById('imageLightbox');
@@ -4231,7 +4235,6 @@
         }
     });
 
-    // Close modal when clicking on overlay background
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
             closeModal(e.target.getAttribute('id'));
@@ -4239,13 +4242,12 @@
     });
 </script>
 
-<!-- ========== ENHANCED INTERACTIONS SCRIPT (tilt, shine, timeline, etc.) ========== -->
+<!-- ===== ENHANCED INTERACTIONS ===== -->
 <script>
     (function() {
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // STAGGERED REVEAL
         const staggerContainers = document.querySelectorAll('.stagger-container[data-stagger]');
         if (!prefersReducedMotion && staggerContainers.length > 0) {
             const staggerObserver = new IntersectionObserver((entries) => {
@@ -4261,7 +4263,6 @@
             staggerContainers.forEach(el => el.classList.add('revealed'));
         }
 
-        // 3D TILT (mouse only, not touch)
         if (!isTouchDevice && !prefersReducedMotion) {
             const tiltCards = document.querySelectorAll('[data-tilt-card], .card-premium:not(.achievement-card), .card-light-premium, .project-card-horizontal');
             tiltCards.forEach(card => {
@@ -4273,12 +4274,14 @@
                     const centerY = rect.height / 2;
                     const rotateX = ((y - centerY) / centerY) * -6;
                     const rotateY = ((x - centerX) / centerX) * 6;
-                    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+                    card.style.transform =
+                        `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
                     card.style.transition = 'transform 0.1s ease-out, box-shadow 0.4s ease, border-color 0.4s ease';
                 });
                 card.addEventListener('mouseleave', function() {
                     card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-                    card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease';
+                    card.style.transition =
+                        'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease';
                 });
             });
 
@@ -4297,30 +4300,38 @@
                 });
                 card.addEventListener('mouseleave', function() {
                     bgLayer.style.transform = 'scale(1) translate(0px, 0px)';
-                    bgLayer.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    bgLayer.style.transition =
+                        'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 });
             });
         }
 
-        // SHINE SWEEP
         if (!prefersReducedMotion) {
-            const shineTargets = document.querySelectorAll('.card-premium, .card-light-premium, .project-card-horizontal, .achievement-card-bg');
+            const shineTargets = document.querySelectorAll('.card-premium, .card-light-premium, .project-card-horizontal, .achievement-card');
             shineTargets.forEach(card => {
                 let shineTimeout;
                 const triggerShine = () => {
                     clearTimeout(shineTimeout);
-                    if (card.classList.contains('achievement-card-bg')) {
-                        const innerShine = card.querySelector('.ach-shine');
-                        if (innerShine) { innerShine.classList.remove('shine-active'); void innerShine.offsetWidth; innerShine.classList.add('shine-active'); }
+                    if (card.classList.contains('achievement-card')) {
+                        const innerShine = card.querySelector('.achievement-shine');
+                        if (innerShine) { innerShine.classList.remove('shine-active');
+                            void innerShine.offsetWidth;
+                            innerShine.classList.add('shine-active'); }
                     } else if (card.classList.contains('project-card-horizontal')) {
                         const sweep = card.querySelector('.card-shine-sweep');
-                        if (sweep) { sweep.classList.remove('shine-active'); void sweep.offsetWidth; sweep.classList.add('shine-active'); }
+                        if (sweep) { sweep.classList.remove('shine-active');
+                            void sweep.offsetWidth;
+                            sweep.classList.add('shine-active'); }
                     } else {
-                        card.classList.remove('shine-active'); void card.offsetWidth; card.classList.add('shine-active');
+                        card.classList.remove('shine-active');
+                        void card.offsetWidth;
+                        card.classList.add('shine-active');
                     }
                     shineTimeout = setTimeout(() => {
-                        if (card.querySelector('.card-shine-sweep')) card.querySelector('.card-shine-sweep').classList.remove('shine-active');
-                        if (card.querySelector('.ach-shine')) card.querySelector('.ach-shine').classList.remove('shine-active');
+                        if (card.querySelector('.card-shine-sweep')) card.querySelector('.card-shine-sweep')
+                            .classList.remove('shine-active');
+                        if (card.querySelector('.achievement-shine')) card.querySelector('.achievement-shine')
+                            .classList.remove('shine-active');
                         card.classList.remove('shine-active');
                     }, 2600);
                 };
@@ -4333,7 +4344,6 @@
             });
         }
 
-        // TIMELINE ANIMATION
         const timelines = document.querySelectorAll('[data-timeline-animate]');
         if (!prefersReducedMotion && timelines.length > 0) {
             const timelineObserver = new IntersectionObserver((entries) => {
@@ -4349,7 +4359,6 @@
             timelines.forEach(tl => tl.classList.add('timeline-animated'));
         }
 
-        // GLOW BORDER
         const glowBorders = document.querySelectorAll('[data-glow-border]');
         if (!prefersReducedMotion && glowBorders.length > 0) {
             const glowObserver = new IntersectionObserver((entries) => {
@@ -4365,7 +4374,6 @@
             glowBorders.forEach(el => el.classList.add('glow-visible'));
         }
 
-        // RIPPLE EFFECT
         const rippleTargets = document.querySelectorAll('[data-ripple], .btn-primary[data-ripple]');
         rippleTargets.forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -4382,16 +4390,19 @@
             });
         });
 
-        // ACHIEVEMENT CARD SHINE
         const achievementCards = document.querySelectorAll('[data-achievement-card]');
         if (!prefersReducedMotion && achievementCards.length > 0) {
             achievementCards.forEach(card => {
-                const shineEl = card.querySelector('.ach-shine');
+                const shineEl = card.querySelector('.achievement-shine');
                 if (!shineEl) return;
                 let shineInterval;
-                const triggerAchievementShine = () => { shineEl.classList.remove('shine-active'); void shineEl.offsetWidth; shineEl.classList.add('shine-active'); };
-                card.addEventListener('mouseenter', () => { clearInterval(shineInterval); triggerAchievementShine(); });
-                card.addEventListener('mouseleave', () => { shineInterval = setInterval(triggerAchievementShine, 5000); });
+                const triggerAchievementShine = () => { shineEl.classList.remove('shine-active');
+                    void shineEl.offsetWidth;
+                    shineEl.classList.add('shine-active'); };
+                card.addEventListener('mouseenter', () => { clearInterval(shineInterval);
+                    triggerAchievementShine(); });
+                card.addEventListener('mouseleave', () => { shineInterval = setInterval(triggerAchievementShine,
+                        5000); });
                 shineInterval = setInterval(triggerAchievementShine, 5000);
                 card._achShineInterval = shineInterval;
             });
@@ -4406,7 +4417,7 @@
     })();
 </script>
 
-<!-- ========== THREE.JS LIGHTRAYS CANVAS ========== -->
+<!-- ===== THREE.JS LIGHTRAYS ===== -->
 <script>
     (function() {
         const container = document.getElementById('canvasContainer');
@@ -4420,40 +4431,73 @@
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
         camera.position.z = 1;
-        const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255] : [1, 1, 1]; };
-        const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return { anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] }; case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
-        const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE.Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config.lightSpread }, rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ? 1.0 : 0.0 }, fadeDistance: { value: config.fadeDistance }, saturation: { value: config.saturation }, mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence }, noiseAmount: { value: config.noiseAmount }, distortion: { value: config.distortion } };
-        const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-        const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.514)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
-        const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, depthTest: false });
+        const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [parseInt(m[1],
+                16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255
+            ] : [1, 1, 1]; };
+        const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return { anchor: [
+                        0, -outside * h
+                    ], dir: [0, 1] }; case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] }; case 'left':
+                    return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] }; case 'right': return { anchor: [(1 + outside) *
+                            w, 0.5 * h
+                        ], dir: [-1, 0] }; case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] };
+                case 'bottom-center': return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] }; case 'bottom-right':
+                    return { anchor: [w, (1 + outside) * h], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside *
+                            h
+                        ], dir: [0, 1] }; } };
+        const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE
+                    .Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(...hexToRgb(
+                    config.raysColor)) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config
+                    .lightSpread }, rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ?
+                    1.0 : 0.0 }, fadeDistance: { value: config.fadeDistance }, saturation: { value: config
+                    .saturation }, mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config
+                    .mouseInfluence }, noiseAmount: { value: config.noiseAmount }, distortion: { value: config
+                    .distortion } };
+        const vertexShader =
+            `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+        const fragmentShader =
+            `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.514)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
+        const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true,
+            depthWrite: false, depthTest: false });
         const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
         scene.add(mesh);
         const mouse = { x: 0.5, y: 0.5 },
             smoothMouse = { x: 0.5, y: 0.5 };
-        window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e.clientX - rect.left) / rect.width;
+        window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect();
+            mouse.x = (e.clientX - rect.left) / rect.width;
             mouse.y = (e.clientY - rect.top) / rect.height; });
-        window.addEventListener('touchmove', (e) => { const rect = container.getBoundingClientRect(); if (e.touches.length > 0) { mouse.x = (e.touches[0].clientX - rect.left) / rect.width;
+        window.addEventListener('touchmove', (e) => { const rect = container.getBoundingClientRect(); if (e.touches
+                .length > 0) { mouse.x = (e.touches[0].clientX - rect.left) / rect.width;
                 mouse.y = (e.touches[0].clientY - rect.top) / rect.height; } }, { passive: true });
 
         function resize() { const rect = container.getBoundingClientRect(); const w = rect.width,
-                h = rect.height; renderer.setSize(w, h); const dpr = renderer.getPixelRatio(); uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr); uniforms.rayPos.value.set(anchor[0], anchor[1]); uniforms.rayDir.value.set(dir[0], dir[1]); }
+                h = rect.height;
+            renderer.setSize(w, h); const dpr = renderer.getPixelRatio();
+            uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config
+                .raysOrigin, w * dpr, h * dpr);
+            uniforms.rayPos.value.set(anchor[0], anchor[1]);
+            uniforms.rayDir.value.set(dir[0], dir[1]); }
         window.addEventListener('resize', resize);
         resize();
 
-        function animate(time) { requestAnimationFrame(animate); uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const smoothing = 0.92; smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
+        function animate(time) { requestAnimationFrame(animate);
+            uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const smoothing =
+                    0.92;
+                smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
                 smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
-                uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); } renderer.render(scene, camera); }
+                uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); }
+            renderer.render(scene, camera); }
         requestAnimationFrame(animate);
     })();
 </script>
 
-<!-- ========== THREE.JS WEBGL FLUID CANVAS ========== -->
+<!-- ===== THREE.JS WEBGL FLUID ===== -->
 <script>
     (function() {
         const container = document.getElementById('canvasContainer');
         const webglCanvas = document.getElementById('webglCanvas');
         if (!container || !webglCanvas) return;
-        const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false, antialias: true });
+        const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false,
+            antialias: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
@@ -4484,11 +4528,19 @@
             simCamera.position.z = 1;
             const format = THREE.RGBAFormat,
                 type = THREE.FloatType;
-            fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-            fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-            const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-            const simFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
-            const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture }, uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0, 0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) }, uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
+            fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE
+                    .LinearFilter, magFilter: THREE.LinearFilter });
+            fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE
+                    .LinearFilter, magFilter: THREE.LinearFilter });
+            const simVert =
+                `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+            const simFrag =
+                `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
+            const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture },
+                    uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0,
+                            0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes
+                            .y) }, uMouseDown: { value: false } }, vertexShader: simVert,
+                fragmentShader: simFrag });
             simQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMat);
             simScene.add(simQuad);
             renderer.setRenderTarget(fluidRT_A);
@@ -4498,18 +4550,31 @@
             renderer.setRenderTarget(null);
         }
 
-        function resizeFluid() { const rect = container.getBoundingClientRect(); const aspect = rect.width / rect.height; const h = 512; const w = Math.floor(h * aspect); fluidRes.set(w, h); fluidRT_A.setSize(w, h); fluidRT_B.setSize(w, h); simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h); }
+        function resizeFluid() { const rect = container.getBoundingClientRect(); const aspect = rect.width / rect
+                .height; const h = 512; const w = Math.floor(h * aspect);
+            fluidRes.set(w, h);
+            fluidRT_A.setSize(w, h);
+            fluidRT_B.setSize(w, h);
+            simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h); }
         initFluid();
         window.addEventListener('resize', resizeFluid);
-        const mainVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
-        const mainFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
-        const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A.texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 }, uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: 0.025 } };
-        const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert, fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
+        const mainVert =
+            `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
+        const mainFrag =
+            `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
+        const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A
+                .texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 },
+            uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: 0.025 } };
+        const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert,
+            fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
         const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
         scene.add(mainQuad);
 
-        function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
-                    container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
+        function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms
+                        .uBarongAspect.value = tex.image.width / tex.image.height;
+                    container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms
+                        .uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !
+                animationStarted) { animationStarted = true;
                 resizeAll();
                 animate();
                 if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
@@ -4518,7 +4583,8 @@
         loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex;
             imageLoaded(tex, 'toga'); });
 
-        function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect(); const newX = (clientX - rect.left) / rect.width,
+        function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect(); const newX = (clientX -
+                rect.left) / rect.width,
                 newY = 1.0 - (clientY - rect.top) / rect.height;
             mouse.prevX = mouse.x;
             mouse.prevY = mouse.y;
@@ -4536,15 +4602,17 @@
             mouse.inside = true; }, { passive: false });
         webglCanvas.addEventListener('touchend', () => { mouse.inside = false; });
 
-        function updateFluid(dt) { const now = performance.now(); const simMat = simQuad.material; if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) { idleActive = true;
+        function updateFluid(dt) { const now = performance.now(); const simMat = simQuad.material; if (!idleActive && (
+                    now - lastMoveTime) > IDLE_DELAY) { idleActive = true;
                 scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
                     scanDirX = 1; } else { scanVirtualX = 1.0;
                     scanDirX = -1; }
                 scanVirtualY = 0.0;
                 scanDirY = 1;
-                scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
-                            scanDirX = 1; } else { scanVirtualX = 1.0;
-                            scanDirX = -1; }
+                scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete =
+                            false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                                scanDirX = 1; } else { scanVirtualX = 1.0;
+                                scanDirX = -1; }
                         scanVirtualY = 0.0;
                         scanDirY = 1; } } else { scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
                     scanVirtualY += scanDirY * SCAN_SPEED_Y * dt; if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
@@ -4555,9 +4623,13 @@
                         scanPauseUntil = now + SWEEP_PAUSE; } }
                 simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
                 simMat.uniforms.uMouseDown.value = true;
-                simMat.uniforms.uVelocity.value.set(0, 0); } else { simMat.uniforms.uMouse.value.set(mouse.x, mouse.y); const sensitivity = 10.0; const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity; const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
+                simMat.uniforms.uVelocity.value.set(0, 0); } else {
+                simMat.uniforms.uMouse.value.set(mouse.x, mouse.y); const sensitivity = 10.0; const velX = ((mouse.x -
+                        mouse.prevX) / Math.max(0.016, dt)) * sensitivity; const velY = ((mouse.y - mouse
+                        .prevY) / Math.max(0.016, dt)) * sensitivity;
                 simMat.uniforms.uVelocity.value.set(velX, velY); const movingThreshold = 0.01;
-                simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold) && mouse.inside; }
+                simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) >
+                    movingThreshold) && mouse.inside; }
             mainUniforms.uCursor.value.set(mouse.x, mouse.y);
             simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
             renderer.setRenderTarget(fluidRT_B);
@@ -4568,7 +4640,8 @@
             fluidRT_B = temp;
             mainUniforms.uFluidMask.value = fluidRT_A.texture; }
 
-        function resizeAll() { const rect = container.getBoundingClientRect(); renderer.setSize(rect.width, rect.height);
+        function resizeAll() { const rect = container.getBoundingClientRect();
+            renderer.setSize(rect.width, rect.height);
             mainUniforms.uAspect.value = rect.width / rect.height;
             resizeFluid();
             mainUniforms.uFluidMask.value = fluidRT_A.texture; }
