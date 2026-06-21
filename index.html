@@ -821,166 +821,6 @@
             gap: 18px;
         }
 
-        /* ========== ACHIEVEMENT CARDS WITH BACKGROUND PHOTO ========== */
-        .achievement-card-bg {
-            min-height: 380px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 24px 24px 22px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            background-size: cover;
-            background-position: center;
-            transition: all var(--transition-smooth), box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
-            box-shadow: var(--shadow-card);
-            cursor: default;
-            transform-style: preserve-3d;
-            perspective: 800px;
-            will-change: transform;
-        }
-        .achievement-card-bg:hover {
-            border-color: var(--border-accent);
-            box-shadow: var(--shadow-card-hover);
-            transform: translateY(-3px);
-        }
-        .achievement-card-bg .ach-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            border-radius: inherit;
-            background: linear-gradient(to bottom,
-                    transparent 18%,
-                    rgba(3, 7, 17, 0.30) 42%,
-                    rgba(3, 7, 17, 0.65) 62%,
-                    rgba(3, 7, 17, 0.88) 80%,
-                    rgba(3, 7, 17, 0.97) 100%);
-            transition: opacity 0.5s ease;
-        }
-        .achievement-card-bg .ach-content {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .achievement-card-bg .ach-shine {
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            pointer-events: none;
-            z-index: 0;
-            background: linear-gradient(115deg,
-                    transparent 30%,
-                    rgba(6, 182, 212, 0.04) 38%,
-                    rgba(6, 182, 212, 0.07) 40%,
-                    rgba(99, 102, 241, 0.04) 42%,
-                    transparent 48%);
-            opacity: 0;
-            animation: none;
-            border-radius: inherit;
-        }
-        .achievement-card-bg .ach-shine.shine-active {
-            opacity: 1;
-            animation: cardShineSweep 2.8s ease-in-out forwards;
-        }
-        .achievement-card-bg .ach-medal {
-            display: inline-block;
-            font-weight: 700;
-            font-size: 0.7rem;
-            padding: 4px 12px;
-            border-radius: 20px;
-            letter-spacing: 0.05em;
-            margin-bottom: 6px;
-            width: fit-content;
-            transition: all var(--transition-smooth);
-        }
-        .achievement-card-bg .ach-medal.silver {
-            background: linear-gradient(135deg, #a0a0a0, #d0d0d0);
-            color: #1a1a1a;
-            animation: medalGlowSilver 2.5s ease-in-out infinite;
-        }
-        .achievement-card-bg .ach-medal.participant {
-            background: linear-gradient(135deg, #6366f1, #818cf8);
-            color: #fff;
-            animation: medalGlowParticipant 2.5s ease-in-out infinite;
-        }
-        .achievement-card-bg .ach-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.02em;
-            margin: 0 0 2px 0;
-            line-height: 1.2;
-        }
-        .achievement-card-bg .ach-event-name {
-            font-size: 0.8rem;
-            color: var(--accent-cyan);
-            font-weight: 500;
-            margin: 0 0 2px 0;
-        }
-        .achievement-card-bg .ach-venue {
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-            margin: 0 0 2px 0;
-        }
-        .achievement-card-bg .ach-date {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin: 0 0 6px 0;
-        }
-        .achievement-card-bg .ach-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 8px;
-            color: var(--accent-gold);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.78rem;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            padding: 6px 14px;
-            border-radius: 40px;
-            transition: var(--transition-fast);
-            -webkit-tap-highlight-color: transparent;
-            width: fit-content;
-        }
-        .achievement-card-bg .ach-link:hover {
-            background: rgba(245, 158, 11, 0.08);
-            border-color: var(--accent-gold);
-            color: #fbbf24;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
-            gap: 9px;
-        }
-        .achievement-card-bg .ach-link i {
-            transition: transform 0.3s ease;
-        }
-        .achievement-card-bg .ach-link:hover i {
-            transform: translateX(3px);
-        }
-        @keyframes medalGlowSilver {
-            0%,
-            100% {
-                box-shadow: 0 0 8px rgba(192, 192, 192, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 18px rgba(192, 192, 192, 0.55), 0 0 28px rgba(192, 192, 192, 0.2);
-            }
-        }
-        @keyframes medalGlowParticipant {
-            0%,
-            100% {
-                box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 18px rgba(99, 102, 241, 0.55), 0 0 28px rgba(129, 140, 248, 0.2);
-            }
-        }
-
         /* ========== ENHANCED: Staggered reveal animations ========== */
         .stagger-container .stagger-item {
             opacity: 0;
@@ -1971,7 +1811,213 @@
             font-weight: 700;
         }
 
-        /* ========== ENHANCED: Skills grid ========== */
+        /* ========== ENHANCED: Achievement cards with background photos and fade ========== */
+        .achievement-card {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: var(--bg-deep);
+            padding: 0;
+            border-radius: var(--radius-lg);
+            transform-style: preserve-3d;
+            perspective: 800px;
+            will-change: transform;
+            transition: all var(--transition-smooth), box-shadow 0.4s ease, border-color 0.4s ease;
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-card);
+            cursor: default;
+        }
+        .achievement-card:hover {
+            border-color: var(--border-accent);
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-3px);
+            background: var(--bg-card-hover);
+        }
+        .achievement-card .achievement-shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 3;
+            background: linear-gradient(115deg,
+                    transparent 30%,
+                    rgba(245, 158, 11, 0.04) 38%,
+                    rgba(245, 158, 11, 0.07) 40%,
+                    rgba(255, 255, 255, 0.03) 42%,
+                    transparent 48%);
+            opacity: 0;
+            animation: none;
+        }
+        .achievement-card .achievement-shine.shine-active {
+            opacity: 1;
+            animation: cardShineSweep 3s ease-in-out forwards;
+        }
+
+        /* Background image layer */
+        .achievement-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .achievement-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+            background: var(--bg-deep);
+        }
+        .achievement-card:hover .achievement-bg img {
+            transform: scale(1.04);
+            filter: brightness(1.08);
+        }
+
+        /* Fade overlay — starts at 1/4 from bottom (75% from top) */
+        .achievement-fade-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            z-index: 1;
+            pointer-events: none;
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    transparent 28%,
+                    rgba(3, 7, 17, 0.15) 38%,
+                    rgba(3, 7, 17, 0.40) 50%,
+                    rgba(3, 7, 17, 0.68) 62%,
+                    rgba(3, 7, 17, 0.88) 76%,
+                    rgba(3, 7, 17, 0.97) 88%,
+                    rgba(3, 7, 17, 1) 100%);
+        }
+
+        /* Content on top of fade */
+        .achievement-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 24px 24px;
+            text-align: center;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 2px;
+            pointer-events: auto;
+        }
+        .achievement-content .medal-badge {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+            transition: all var(--transition-smooth);
+        }
+        .medal-badge.silver {
+            background: linear-gradient(135deg, #a0a0a0, #d0d0d0);
+            color: #1a1a1a;
+            animation: medalGlowSilver 2.5s ease-in-out infinite;
+        }
+        .medal-badge.participant {
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            color: #fff;
+            animation: medalGlowParticipant 2.5s ease-in-out infinite;
+        }
+        @keyframes medalGlowSilver {
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(192, 192, 192, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 18px rgba(192, 192, 192, 0.55), 0 0 28px rgba(192, 192, 192, 0.2);
+            }
+        }
+        @keyframes medalGlowParticipant {
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 18px rgba(99, 102, 241, 0.55), 0 0 28px rgba(129, 140, 248, 0.2);
+            }
+        }
+
+        .achievement-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: #fff;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+        .achievement-content .event-name {
+            font-size: 0.78rem;
+            color: var(--accent-cyan);
+            font-weight: 500;
+            margin-bottom: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .achievement-content .event-venue {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+        .achievement-content .event-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .achievement-content .award-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.78rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 7px 14px;
+            border-radius: 40px;
+            transition: var(--transition-fast);
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        .achievement-content .award-link:hover {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: var(--accent-gold);
+            color: #fbbf24;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+            gap: 9px;
+        }
+        .achievement-content .award-link i {
+            transition: transform 0.3s ease;
+        }
+        .achievement-content .award-link:hover i {
+            transform: translateX(3px);
+        }
+
+        /* ========== SKILLS ========== */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -2036,7 +2082,7 @@
             z-index: 2;
         }
 
-        /* ========== CERTIFICATIONS SECTION STYLES ========== */
+        /* ========== CERTIFICATIONS ========== */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -2136,7 +2182,7 @@
             letter-spacing: 0.02em;
         }
 
-        /* ========== ENHANCED: Contact section ========== */
+        /* ========== CONTACT ========== */
         .contact-layout {
             display: flex;
             flex-wrap: wrap;
@@ -2531,7 +2577,6 @@
             pointer-events: none;
         }
 
-        /* ========== ENHANCED: Glow border animation for about card ========== */
         .glow-border-animated {
             position: relative;
         }
@@ -2681,9 +2726,15 @@
             .section-orb {
                 opacity: 0.12;
             }
-            .achievement-card-bg {
-                min-height: 320px;
-                padding: 20px 20px 18px;
+            .achievement-card {
+                min-height: 360px;
+            }
+            .achievement-content {
+                min-height: 160px;
+                padding: 16px 18px 20px;
+            }
+            .achievement-fade-overlay {
+                height: 44%;
             }
         }
 
@@ -2838,15 +2889,31 @@
                 width: 150px !important;
                 height: 150px !important;
             }
-            .achievement-card-bg {
-                min-height: 280px;
-                padding: 16px 16px 14px;
+            .achievement-card {
+                min-height: 330px;
             }
-            .achievement-card-bg .ach-title {
-                font-size: 0.95rem;
+            .achievement-content {
+                min-height: 150px;
+                padding: 14px 14px 18px;
             }
-            .achievement-card-bg .ach-event-name {
+            .achievement-fade-overlay {
+                height: 48%;
+            }
+            .achievement-content h3 {
+                font-size: 0.9rem;
+            }
+            .achievement-content .event-name {
                 font-size: 0.72rem;
+            }
+            .achievement-content .event-venue {
+                font-size: 0.68rem;
+            }
+            .achievement-content .event-date {
+                font-size: 0.66rem;
+            }
+            .achievement-content .award-link {
+                font-size: 0.72rem;
+                padding: 5px 12px;
             }
         }
 
@@ -3128,29 +3195,36 @@
             .section-orb {
                 display: none;
             }
-            .achievement-card-bg {
-                min-height: 250px;
-                padding: 14px 14px 12px;
+            .achievement-card {
+                min-height: 300px;
             }
-            .achievement-card-bg .ach-title {
-                font-size: 0.9rem;
+            .achievement-content {
+                min-height: 140px;
+                padding: 12px 12px 16px;
             }
-            .achievement-card-bg .ach-event-name {
+            .achievement-fade-overlay {
+                height: 52%;
+            }
+            .achievement-content h3 {
+                font-size: 0.85rem;
+            }
+            .achievement-content .event-name {
                 font-size: 0.68rem;
             }
-            .achievement-card-bg .ach-venue {
-                font-size: 0.65rem;
+            .achievement-content .event-venue {
+                font-size: 0.64rem;
             }
-            .achievement-card-bg .ach-date {
+            .achievement-content .event-date {
                 font-size: 0.62rem;
             }
-            .achievement-card-bg .ach-link {
-                font-size: 0.7rem;
+            .achievement-content .award-link {
+                font-size: 0.68rem;
                 padding: 4px 10px;
+                margin-top: 6px;
             }
-            .achievement-card-bg .ach-medal {
+            .medal-badge {
                 font-size: 0.62rem;
-                padding: 3px 10px;
+                padding: 3px 8px;
             }
         }
 
@@ -3204,15 +3278,15 @@
             .project-gallery img {
                 height: 65px;
             }
-            .achievement-card-bg {
-                min-height: 220px;
-                padding: 12px 12px 10px;
+            .achievement-card {
+                min-height: 270px;
             }
-            .achievement-card-bg .ach-title {
-                font-size: 0.8rem;
+            .achievement-content {
+                min-height: 130px;
+                padding: 10px 10px 14px;
             }
-            .achievement-card-bg .ach-event-name {
-                font-size: 0.62rem;
+            .achievement-fade-overlay {
+                height: 56%;
             }
         }
 
@@ -3234,6 +3308,9 @@
             }
             .hero-name-premium {
                 font-size: 1.6rem;
+            }
+            .achievement-card {
+                min-height: 340px;
             }
         }
 
@@ -3286,7 +3363,7 @@
             .card-premium::after,
             .card-light-premium::after,
             .project-card-horizontal .card-shine-sweep,
-            .achievement-card-bg .ach-shine {
+            .achievement-card .achievement-shine {
                 animation: none !important;
                 opacity: 0 !important;
             }
@@ -3302,20 +3379,20 @@
             .glow-border-animated::before {
                 animation: none !important;
             }
-            .achievement-card-bg .ach-medal.silver,
-            .achievement-card-bg .ach-medal.participant {
+            .medal-badge {
                 animation: none !important;
             }
             .card-premium,
             .card-light-premium,
             .project-card-horizontal,
             .skill-category-card,
-            .achievement-card-bg {
+            .achievement-card {
                 transform-style: flat;
                 perspective: none;
             }
-            .achievement-card-bg:hover {
+            .achievement-card:hover .achievement-bg img {
                 transform: none;
+                filter: none;
             }
         }
 
@@ -3324,7 +3401,7 @@
             .card-light-premium:hover,
             .project-card-horizontal:hover,
             .skill-category-card:hover,
-            .achievement-card-bg:hover {
+            .achievement-card:hover {
                 transform: none;
             }
             .project-card-horizontal:active {
@@ -3345,13 +3422,13 @@
             .card-premium::after,
             .card-light-premium::after,
             .project-card-horizontal .card-shine-sweep,
-            .achievement-card-bg .ach-shine {
+            .achievement-card .achievement-shine {
                 animation: none !important;
                 opacity: 0 !important;
             }
-            .achievement-card-bg .ach-link:hover {
-                gap: 5px;
-                background: rgba(245, 158, 11, 0.08);
+            .achievement-card:hover .achievement-bg img {
+                transform: none;
+                filter: none;
             }
         }
     </style>
@@ -3649,7 +3726,7 @@
         </div>
     </section>
 
-    <!-- ========== ACHIEVEMENTS SECTION ========== -->
+    <!-- ========== ACHIEVEMENTS SECTION (UPDATED) ========== -->
     <section id="achievements" class="section-dark">
         <div class="section-orb orb-indigo" style="top:30%;left:-10%;"></div>
         <div class="section-orb orb-cyan" style="top:60%;right:-8%;"></div>
@@ -3660,926 +3737,930 @@
                 <div class="section-line"></div>
             </div>
             <div class="card-grid-3 stagger-container reveal" data-stagger>
-
                 <!-- Hackathon -->
-                <div class="achievement-card-bg stagger-item" data-achievement-card
-                style="background-image: url('images/achievements/hackathon.jpg');">
-                <div class="ach-overlay"></div>
-                <div class="ach-shine"></div>
-                <div class="ach-content">
-                    <span class="ach-medal silver">2nd Place</span>
-                    <h3 class="ach-title">Hackathon Winner</h3>
-                    <p class="ach-event-name">Hack the Future: Smart Batangas Province Hackathon Challenge</p>
-                    <p class="ach-venue">University of Batangas, Batangas City</p>
-                    <p class="ach-date">November 21–22, 2025</p>
-                    <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="ach-link"><i class="fas fa-newspaper"></i> Read Article</a>
+                <div class="achievement-card stagger-item" data-achievement-card>
+                    <div class="achievement-shine"></div>
+                    <div class="achievement-bg">
+                        <img src="images/achievements/hackathon.jpg" alt="Hack the Future competition" loading="lazy">
+                        <div class="achievement-fade-overlay"></div>
+                    </div>
+                    <div class="achievement-content">
+                        <span class="medal-badge silver">2nd Place</span>
+                        <h3>Hackathon Winner</h3>
+                        <p class="event-name">Hack the Future: Smart Batangas Province Hackathon Challenge</p>
+                        <p class="event-venue">University of Batangas, Batangas City</p>
+                        <p class="event-date">November 21–22, 2025</p>
+                        <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link"><i class="fas fa-newspaper"></i> Read Article</a>
+                    </div>
+                </div>
+
+                <!-- Breadboarding -->
+                <div class="achievement-card stagger-item" data-achievement-card>
+                    <div class="achievement-shine"></div>
+                    <div class="achievement-bg">
+                        <img src="images/achievements/breadboarding.jpg" alt="Breadboarding competition" loading="lazy">
+                        <div class="achievement-fade-overlay"></div>
+                    </div>
+                    <div class="achievement-content">
+                        <span class="medal-badge participant">Participant</span>
+                        <h3>Breadboarding Competition</h3>
+                        <p class="event-name">ICpEp.se Region 4A CPE Challenge 2025</p>
+                        <p class="event-venue">Colegio de San Juan de Letran, Calamba, Laguna</p>
+                        <p class="event-date">November 15, 2025</p>
+                    </div>
+                </div>
+
+                <!-- Programming -->
+                <div class="achievement-card stagger-item" data-achievement-card>
+                    <div class="achievement-shine"></div>
+                    <div class="achievement-bg">
+                        <img src="images/achievements/programming.jpg" alt="C++ Programming competition" loading="lazy">
+                        <div class="achievement-fade-overlay"></div>
+                    </div>
+                    <div class="achievement-content">
+                        <span class="medal-badge participant">Participant</span>
+                        <h3>C++ Programming Competition</h3>
+                        <p class="event-name">ICpEp.se Region 4A CPE Challenge 2024</p>
+                        <p class="event-venue">De La Salle Lipa, Lipa City, Batangas</p>
+                        <p class="event-date">December 3, 2024</p>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Breadboarding -->
-            <div class="achievement-card-bg stagger-item" data-achievement-card
-            style="background-image: url('images/achievements/breadboarding.jpg');">
-            <div class="ach-overlay"></div>
-            <div class="ach-shine"></div>
-            <div class="ach-content">
-                <span class="ach-medal participant">Participant</span>
-                <h3 class="ach-title">Breadboarding Competition</h3>
-                <p class="ach-event-name">ICpEp.se Region 4A CPE Challenge 2025</p>
-                <p class="ach-venue">Colegio de San Juan de Letran, Calamba, Laguna</p>
-                <p class="ach-date">November 15, 2025</p>
+    <!-- ========== SKILLS SECTION ========== -->
+    <section id="skills" class="section-light">
+        <div class="section-orb orb-blue" style="top:15%;right:-10%;"></div>
+        <div class="section-orb orb-cyan" style="top:70%;left:-8%;"></div>
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Skills</span>
+                <h2 class="section-title">Technical expertise</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skills-grid stagger-container reveal" data-stagger>
+                <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-code"></i> Programming</h3><div class="skill-tags"><span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span></div></div>
+                <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-microchip"></i> Embedded Systems</h3><div class="skill-tags"><span class="skill-tag">ESP32</span><span class="skill-tag">Arduino</span><span class="skill-tag">Raspberry Pi</span><span class="skill-tag">Sensor Integration</span></div></div>
+                <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-globe"></i> Web Development</h3><div class="skill-tags"><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span><span class="skill-tag">MySQL</span><span class="skill-tag">Bootstrap</span></div></div>
+                <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-cube"></i> 3D & PCB Design</h3><div class="skill-tags"><span class="skill-tag">Fusion 360</span><span class="skill-tag">Eagle CAD</span><span class="skill-tag">PCB Design</span><span class="skill-tag">Circuit Schematics</span></div></div>
+                <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-tools"></i> IT & Infrastructure</h3><div class="skill-tags"><span class="skill-tag">IT Support</span><span class="skill-tag">Server Monitoring</span><span class="skill-tag">Network Troubleshooting</span><span class="skill-tag">System Backups</span></div></div>
+                <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-lightbulb"></i> Soft Skills</h3><div class="skill-tags"><span class="skill-tag">Analytical Thinking</span><span class="skill-tag">Troubleshooting</span><span class="skill-tag">Team Collaboration</span><span class="skill-tag">Clear Communication</span><span class="skill-tag">Quick Adaptability</span></div></div>
             </div>
         </div>
+    </section>
 
-        <!-- Programming -->
-        <div class="achievement-card-bg stagger-item" data-achievement-card
-        style="background-image: url('images/achievements/programming.jpg');">
-        <div class="ach-overlay"></div>
-        <div class="ach-shine"></div>
-        <div class="ach-content">
-            <span class="ach-medal participant">Participant</span>
-            <h3 class="ach-title">C++ Programming Competition</h3>
-            <p class="ach-event-name">ICpEp.se Region 4A CPE Challenge 2024</p>
-            <p class="ach-venue">De La Salle Lipa, Lipa City, Batangas</p>
-            <p class="ach-date">December 3, 2024</p>
+    <!-- ========== CERTIFICATIONS SECTION ========== -->
+    <section id="certifications" class="section-dark-alt">
+        <div class="section-orb orb-indigo" style="top:10%;left:-5%;"></div>
+        <div class="section-orb orb-cyan" style="top:40%;right:-8%;"></div>
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Credentials</span>
+                <h2 class="section-title">Certifications & Trainings</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="filter-bar" id="certFilterBar">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="webinar">Online Webinar</button>
+                <button class="filter-btn" data-filter="icpep">ICpEP</button>
+                <button class="filter-btn" data-filter="training">Course/Training</button>
+                <button class="filter-btn" data-filter="seminar">Seminar</button>
+                <button class="filter-btn" data-filter="hackathon">Hackathon</button>
+            </div>
+            <div class="certs-grid" id="certsGrid"></div>
         </div>
-    </div>
+    </section>
 
-</div>
-</div>
-</section>
-
-<!-- ========== SKILLS SECTION ========== -->
-<section id="skills" class="section-light">
-    <div class="section-orb orb-blue" style="top:15%;right:-10%;"></div>
-    <div class="section-orb orb-cyan" style="top:70%;left:-8%;"></div>
-    <div class="section-container">
-        <div class="section-header reveal">
-            <span class="section-label">Skills</span>
-            <h2 class="section-title">Technical expertise</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="skills-grid stagger-container reveal" data-stagger>
-            <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-code"></i> Programming</h3><div class="skill-tags"><span class="skill-tag">C++</span><span class="skill-tag">Java</span><span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span></div></div>
-            <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-microchip"></i> Embedded Systems</h3><div class="skill-tags"><span class="skill-tag">ESP32</span><span class="skill-tag">Arduino</span><span class="skill-tag">Raspberry Pi</span><span class="skill-tag">Sensor Integration</span></div></div>
-            <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-globe"></i> Web Development</h3><div class="skill-tags"><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span><span class="skill-tag">MySQL</span><span class="skill-tag">Bootstrap</span></div></div>
-            <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-cube"></i> 3D & PCB Design</h3><div class="skill-tags"><span class="skill-tag">Fusion 360</span><span class="skill-tag">Eagle CAD</span><span class="skill-tag">PCB Design</span><span class="skill-tag">Circuit Schematics</span></div></div>
-            <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-tools"></i> IT & Infrastructure</h3><div class="skill-tags"><span class="skill-tag">IT Support</span><span class="skill-tag">Server Monitoring</span><span class="skill-tag">Network Troubleshooting</span><span class="skill-tag">System Backups</span></div></div>
-            <div class="skill-category-card stagger-item" data-tilt-card><h3><i class="fas fa-lightbulb"></i> Soft Skills</h3><div class="skill-tags"><span class="skill-tag">Analytical Thinking</span><span class="skill-tag">Troubleshooting</span><span class="skill-tag">Team Collaboration</span><span class="skill-tag">Clear Communication</span><span class="skill-tag">Quick Adaptability</span></div></div>
-        </div>
-    </div>
-</section>
-
-<!-- ========== CERTIFICATIONS SECTION ========== -->
-<section id="certifications" class="section-dark-alt">
-    <div class="section-orb orb-indigo" style="top:10%;left:-5%;"></div>
-    <div class="section-orb orb-cyan" style="top:40%;right:-8%;"></div>
-    <div class="section-container">
-        <div class="section-header reveal">
-            <span class="section-label">Credentials</span>
-            <h2 class="section-title">Certifications & Trainings</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="filter-bar" id="certFilterBar">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="webinar">Online Webinar</button>
-            <button class="filter-btn" data-filter="icpep">ICpEP</button>
-            <button class="filter-btn" data-filter="training">Course/Training</button>
-            <button class="filter-btn" data-filter="seminar">Seminar</button>
-            <button class="filter-btn" data-filter="hackathon">Hackathon</button>
-        </div>
-        <div class="certs-grid" id="certsGrid"></div>
-    </div>
-</section>
-
-<!-- ========== CONTACT SECTION ========== -->
-<section id="contact" class="section-light">
-    <div class="section-orb orb-indigo" style="top:20%;left:-10%;"></div>
-    <div class="section-orb orb-cyan" style="top:60%;right:-8%;"></div>
-    <div class="section-container">
-        <div class="section-header reveal">
-            <span class="section-label">Contact</span>
-            <h2 class="section-title">Let's connect</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="contact-layout stagger-container reveal" data-stagger>
-            <div class="contact-info-card card-premium stagger-item">
-                <h3 style="font-weight:700; margin-bottom:12px; color:#fff; font-size:0.95rem;"><i class="fas fa-address-book" style="color:var(--accent-cyan); margin-right:6px;"></i> Reach me</h3>
-                <a href="mailto:lorence.ojales@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> lorence.ojales@gmail.com</a>
-                <a href="mailto:1620052@ub.edu.ph" class="contact-link"><i class="fas fa-building-columns"></i> 1620052@ub.edu.ph</a>
-                <a href="tel:09682313762" class="contact-link"><i class="fas fa-phone"></i> 09682313762</a>
-                <a href="https://maps.google.com/?q=Brgy+San+Isidro+Lipa+City+Batangas" target="_blank" class="contact-link"><i class="fas fa-location-dot"></i> Brgy. San Isidro, Lipa City, Batangas</a>
-                <div class="social-row">
-                    <a href="https://www.facebook.com/lorence.ojales" target="_blank" class="social-btn" title="Facebook" data-ripple><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/lrenceo_/" target="_blank" class="social-btn" title="Instagram" data-ripple><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/in/lorenceojales/" target="_blank" class="social-btn" title="LinkedIn" data-ripple><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/Rensushii" target="_blank" class="social-btn" title="GitHub" data-ripple><i class="fab fa-github"></i></a>
+    <!-- ========== CONTACT SECTION ========== -->
+    <section id="contact" class="section-light">
+        <div class="section-orb orb-indigo" style="top:20%;left:-10%;"></div>
+        <div class="section-orb orb-cyan" style="top:60%;right:-8%;"></div>
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Contact</span>
+                <h2 class="section-title">Let's connect</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="contact-layout stagger-container reveal" data-stagger>
+                <div class="contact-info-card card-premium stagger-item">
+                    <h3 style="font-weight:700; margin-bottom:12px; color:#fff; font-size:0.95rem;"><i class="fas fa-address-book" style="color:var(--accent-cyan); margin-right:6px;"></i> Reach me</h3>
+                    <a href="mailto:lorence.ojales@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> lorence.ojales@gmail.com</a>
+                    <a href="mailto:1620052@ub.edu.ph" class="contact-link"><i class="fas fa-building-columns"></i> 1620052@ub.edu.ph</a>
+                    <a href="tel:09682313762" class="contact-link"><i class="fas fa-phone"></i> 09682313762</a>
+                    <a href="https://maps.google.com/?q=Brgy+San+Isidro+Lipa+City+Batangas" target="_blank" class="contact-link"><i class="fas fa-location-dot"></i> Brgy. San Isidro, Lipa City, Batangas</a>
+                    <div class="social-row">
+                        <a href="https://www.facebook.com/lorence.ojales" target="_blank" class="social-btn" title="Facebook" data-ripple><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/lrenceo_/" target="_blank" class="social-btn" title="Instagram" data-ripple><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/lorenceojales/" target="_blank" class="social-btn" title="LinkedIn" data-ripple><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/Rensushii" target="_blank" class="social-btn" title="GitHub" data-ripple><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form-card card-premium stagger-item">
+                    <h3 style="font-weight:700; margin-bottom:12px; color:#fff; font-size:0.95rem;"><i class="fas fa-paper-plane" style="color:var(--accent-cyan); margin-right:6px;"></i> Send a message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-input" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-input" placeholder="Your email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" class="form-input" rows="4" placeholder="Your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;" data-ripple>
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
                 </div>
             </div>
-            <div class="contact-form-card card-premium stagger-item">
-                <h3 style="font-weight:700; margin-bottom:12px; color:#fff; font-size:0.95rem;"><i class="fas fa-paper-plane" style="color:var(--accent-cyan); margin-right:6px;"></i> Send a message</h3>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <input type="text" name="name" class="form-input" placeholder="Your name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" class="form-input" placeholder="Your email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" class="form-input" rows="4" placeholder="Your message..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;" data-ripple>
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="currentYear">2025</span> <span class="footer-name">Lorence B. Ojales</span> — Computer Engineer. Built with precision.</p>
+    </footer>
+
+    <!-- ========== MODALS ========== -->
+    <div class="modal-overlay" id="modal-tugon">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('modal-tugon')"><i class="fas fa-times"></i></button>
+            <h2>Tugon Lipa · AI‑Powered Smart Community Platform</h2>
+            <p class="modal-tagline">2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge</p>
+            <div class="modal-highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:6px;color:var(--text-secondary); font-size:0.78rem;">University of Batangas, Batangas City · November 21–22, 2025</p></div>
+            <div class="modal-body">
+                <div class="project-gallery" id="tugonGallery">
+                    <img src="tugon1.jpg" alt="Tugon Lipa screenshot 1" loading="lazy" data-gallery="tugon" data-index="0">
+                    <img src="tugon2.jpg" alt="Tugon Lipa screenshot 2" loading="lazy" data-gallery="tugon" data-index="1">
+                    <img src="tugon3.jpg" alt="Tugon Lipa screenshot 3" loading="lazy" data-gallery="tugon" data-index="2">
+                    <img src="tugon4.jpg" alt="Tugon Lipa screenshot 4" loading="lazy" data-gallery="tugon" data-index="3">
+                    <img src="tugon5.jpg" alt="Tugon Lipa screenshot 5" loading="lazy" data-gallery="tugon" data-index="4">
+                    <img src="tugon6.jpg" alt="Tugon Lipa screenshot 6" loading="lazy" data-gallery="tugon" data-index="5">
+                    <img src="tugon7.jpg" alt="Tugon Lipa screenshot 7" loading="lazy" data-gallery="tugon" data-index="6">
+                    <img src="tugon8.jpg" alt="Tugon Lipa screenshot 8" loading="lazy" data-gallery="tugon" data-index="7">
+                </div>
+                <h3>The Problem</h3><p>In Lipa City, citizens struggled with fragmented public service channels. Reporting issues meant navigating confusing phone trees, visiting barangay halls, or relying on social media posts that often went unanswered. LGUs lacked a centralized system to track and resolve citizen reports efficiently.</p>
+                <h3>The Solution</h3><p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent. Citizens submit reports with photos, receive real‑time case updates, and access official announcements — all from one unified interface.</p>
+                <h3>Tech Stack</h3>
+                <div class="modal-tech-stack"><span>AI‑powered ticketing</span><span>Multi‑department admin portals</span><span>Real‑time case tracking</span><span>Automated report categorization</span><span>Citizen‑facing chatbot</span><span>Social feed integration</span></div>
+                <p style="font-style:italic;color:var(--text-muted);">Recognized 2nd Place — a team effort demonstrating rapid prototyping, AI integration, and civic technology innovation.</p>
             </div>
         </div>
     </div>
-</section>
 
-<footer class="site-footer">
-    <p>&copy; <span id="currentYear">2025</span> <span class="footer-name">Lorence B. Ojales</span> — Computer Engineer. Built with precision.</p>
-</footer>
-
-<!-- ========== MODALS ========== -->
-<div class="modal-overlay" id="modal-tugon">
-    <div class="modal-dialog">
-        <button class="modal-close" onclick="closeModal('modal-tugon')"><i class="fas fa-times"></i></button>
-        <h2>Tugon Lipa · AI‑Powered Smart Community Platform</h2>
-        <p class="modal-tagline">2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge</p>
-        <div class="modal-highlight-box"><span class="award-text">🏆 2nd Place Winner — Hack the Future: Smart Batangas Province Hackathon Challenge</span><p style="margin-top:6px;color:var(--text-secondary); font-size:0.78rem;">University of Batangas, Batangas City · November 21–22, 2025</p></div>
-        <div class="modal-body">
-            <div class="project-gallery" id="tugonGallery">
-                <img src="tugon1.jpg" alt="Tugon Lipa screenshot 1" loading="lazy" data-gallery="tugon" data-index="0">
-                <img src="tugon2.jpg" alt="Tugon Lipa screenshot 2" loading="lazy" data-gallery="tugon" data-index="1">
-                <img src="tugon3.jpg" alt="Tugon Lipa screenshot 3" loading="lazy" data-gallery="tugon" data-index="2">
-                <img src="tugon4.jpg" alt="Tugon Lipa screenshot 4" loading="lazy" data-gallery="tugon" data-index="3">
-                <img src="tugon5.jpg" alt="Tugon Lipa screenshot 5" loading="lazy" data-gallery="tugon" data-index="4">
-                <img src="tugon6.jpg" alt="Tugon Lipa screenshot 6" loading="lazy" data-gallery="tugon" data-index="5">
-                <img src="tugon7.jpg" alt="Tugon Lipa screenshot 7" loading="lazy" data-gallery="tugon" data-index="6">
-                <img src="tugon8.jpg" alt="Tugon Lipa screenshot 8" loading="lazy" data-gallery="tugon" data-index="7">
+    <div class="modal-overlay" id="modal-ecoflow">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('modal-ecoflow')"><i class="fas fa-times"></i></button>
+            <h2>Eco Flow: A Greenhouse Management System Integrating IoT Monitoring, Analytics, and AI-Based Water Scheduling</h2>
+            <p class="modal-tagline">Undergraduate Thesis · University of Batangas Lipa Campus (2025‑2026)</p>
+            <a href="https://ecoflowgreenhouse.vercel.app" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
+            <div class="modal-dual-embed modal-dual-3d">
+                <div class="modal-embed"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
+                <div class="modal-embed"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div>
             </div>
-            <h3>The Problem</h3><p>In Lipa City, citizens struggled with fragmented public service channels. Reporting issues meant navigating confusing phone trees, visiting barangay halls, or relying on social media posts that often went unanswered. LGUs lacked a centralized system to track and resolve citizen reports efficiently.</p>
-            <h3>The Solution</h3><p>My team built <strong>TugonLipa</strong>, an integrated smart community platform combining a centralized emergency and service hotline, a barangay‑focused social feed, and an AI‑driven assistance agent. Citizens submit reports with photos, receive real‑time case updates, and access official announcements — all from one unified interface.</p>
-            <h3>Tech Stack</h3>
-            <div class="modal-tech-stack"><span>AI‑powered ticketing</span><span>Multi‑department admin portals</span><span>Real‑time case tracking</span><span>Automated report categorization</span><span>Citizen‑facing chatbot</span><span>Social feed integration</span></div>
-            <p style="font-style:italic;color:var(--text-muted);">Recognized 2nd Place — a team effort demonstrating rapid prototyping, AI integration, and civic technology innovation.</p>
+            <div class="project-gallery" id="ecoflowGallery">
+                <img src="ecoflow1.jpg" alt="Eco Flow screenshot 1" loading="lazy" data-gallery="ecoflow" data-index="0">
+                <img src="ecoflow2.jpg" alt="Eco Flow screenshot 2" loading="lazy" data-gallery="ecoflow" data-index="1">
+                <img src="ecoflow3.jpg" alt="Eco Flow screenshot 3" loading="lazy" data-gallery="ecoflow" data-index="2">
+                <img src="ecoflow4.jpg" alt="Eco Flow screenshot 4" loading="lazy" data-gallery="ecoflow" data-index="3">
+                <img src="ecoflow5.jpg" alt="Eco Flow screenshot 5" loading="lazy" data-gallery="ecoflow" data-index="4">
+                <img src="ecoflow6.jpg" alt="Eco Flow screenshot 6" loading="lazy" data-gallery="ecoflow" data-index="5">
+                <img src="ecoflow7.jpg" alt="Eco Flow screenshot 7" loading="lazy" data-gallery="ecoflow" data-index="6">
+                <img src="ecoflow8.jpg" alt="Eco Flow screenshot 8" loading="lazy" data-gallery="ecoflow" data-index="7">
+                <img src="ecoflow9.jpg" alt="Eco Flow screenshot 9" loading="lazy" data-gallery="ecoflow" data-index="8">
+                <img src="ecoflow10.jpg" alt="Eco Flow screenshot 10" loading="lazy" data-gallery="ecoflow" data-index="9">
+            </div>
+            <div class="modal-body">
+                <h3>The Problem</h3><p>At the University of Batangas Lipa Campus, the <strong>"Punla Para sa Kalikasan"</strong> greenhouse relied on manual irrigation — inconsistent watering, subjective judgment, and no real‑time data.</p>
+                <h3>The Solution</h3><p>I co‑developed <strong>Eco Flow</strong>, a fully automated greenhouse system integrating IoT monitoring, data analytics, and AI‑based water scheduling using <strong>Raspberry Pi 5</strong> and <strong>ESP32</strong>.</p>
+                <h3>The Results</h3><p>Eco Flow achieved <strong>94.74% water utilization efficiency</strong> (vs. 70.83% manual), reduced daily water consumption by 29%, and earned a <strong>95.4% performance rating</strong> under ISO 25010 standards.</p>
+                <h3>Tech Stack</h3>
+                <div class="modal-tech-stack"><span>Raspberry Pi 5</span><span>ESP32</span><span>Python (Flask)</span><span>SQLite</span><span>Scikit-learn</span><span>Arduino IDE</span><span>DHT22</span><span>Capacitive soil moisture</span><span>Solid‑state relays</span><span>Fusion 360</span><span>Eagle CAD</span></div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal-overlay" id="modal-ecoflow">
-    <div class="modal-dialog">
-        <button class="modal-close" onclick="closeModal('modal-ecoflow')"><i class="fas fa-times"></i></button>
-        <h2>Eco Flow: A Greenhouse Management System Integrating IoT Monitoring, Analytics, and AI-Based Water Scheduling</h2>
-        <p class="modal-tagline">Undergraduate Thesis · University of Batangas Lipa Campus (2025‑2026)</p>
-        <a href="https://ecoflowgreenhouse.vercel.app" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
-        <div class="modal-dual-embed modal-dual-3d">
-            <div class="modal-embed"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
-            <div class="modal-embed"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div>
-        </div>
-        <div class="project-gallery" id="ecoflowGallery">
-            <img src="ecoflow1.jpg" alt="Eco Flow screenshot 1" loading="lazy" data-gallery="ecoflow" data-index="0">
-            <img src="ecoflow2.jpg" alt="Eco Flow screenshot 2" loading="lazy" data-gallery="ecoflow" data-index="1">
-            <img src="ecoflow3.jpg" alt="Eco Flow screenshot 3" loading="lazy" data-gallery="ecoflow" data-index="2">
-            <img src="ecoflow4.jpg" alt="Eco Flow screenshot 4" loading="lazy" data-gallery="ecoflow" data-index="3">
-            <img src="ecoflow5.jpg" alt="Eco Flow screenshot 5" loading="lazy" data-gallery="ecoflow" data-index="4">
-            <img src="ecoflow6.jpg" alt="Eco Flow screenshot 6" loading="lazy" data-gallery="ecoflow" data-index="5">
-            <img src="ecoflow7.jpg" alt="Eco Flow screenshot 7" loading="lazy" data-gallery="ecoflow" data-index="6">
-            <img src="ecoflow8.jpg" alt="Eco Flow screenshot 8" loading="lazy" data-gallery="ecoflow" data-index="7">
-            <img src="ecoflow9.jpg" alt="Eco Flow screenshot 9" loading="lazy" data-gallery="ecoflow" data-index="8">
-            <img src="ecoflow10.jpg" alt="Eco Flow screenshot 10" loading="lazy" data-gallery="ecoflow" data-index="9">
-        </div>
-        <div class="modal-body">
-            <h3>The Problem</h3><p>At the University of Batangas Lipa Campus, the <strong>"Punla Para sa Kalikasan"</strong> greenhouse relied on manual irrigation — inconsistent watering, subjective judgment, and no real‑time data.</p>
-            <h3>The Solution</h3><p>I co‑developed <strong>Eco Flow</strong>, a fully automated greenhouse system integrating IoT monitoring, data analytics, and AI‑based water scheduling using <strong>Raspberry Pi 5</strong> and <strong>ESP32</strong>.</p>
-            <h3>The Results</h3><p>Eco Flow achieved <strong>94.74% water utilization efficiency</strong> (vs. 70.83% manual), reduced daily water consumption by 29%, and earned a <strong>95.4% performance rating</strong> under ISO 25010 standards.</p>
-            <h3>Tech Stack</h3>
-            <div class="modal-tech-stack"><span>Raspberry Pi 5</span><span>ESP32</span><span>Python (Flask)</span><span>SQLite</span><span>Scikit-learn</span><span>Arduino IDE</span><span>DHT22</span><span>Capacitive soil moisture</span><span>Solid‑state relays</span><span>Fusion 360</span><span>Eagle CAD</span></div>
+    <div class="modal-overlay" id="modal-mazebot">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('modal-mazebot')"><i class="fas fa-times"></i></button>
+            <h2>MazeBot · Autonomous Wall‑Following Robot</h2>
+            <p class="modal-tagline">Embedded Systems Exercise · Reactive Control &amp; Sensor Fusion</p>
+            <div class="modal-embed modal-embed-3d"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
+            <div class="modal-body">
+                <h3>The Problem</h3><p>Maze navigation and autonomous obstacle avoidance are fundamental challenges in mobile robotics requiring real‑time decision‑making.</p>
+                <h3>The Solution</h3><p>I built <strong>MazeBot</strong> using three VL53L0X TOF sensors, an ESP32, and a DRV8833 motor driver with differential steering.</p>
+                <h3>The Results</h3><p>MazeBot reliably follows walls, navigates 90° and 180° turns, and resolves T‑junctions — built for under ₱2,000.</p>
+                <h3>Tech Stack</h3>
+                <div class="modal-tech-stack"><span>ESP32</span><span>Arduino IDE</span><span>VL53L0X TOF (x3)</span><span>GA12‑NC20 motors</span><span>DRV8833 driver</span><span>18650 Li‑ion</span><span>Fusion 360</span></div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal-overlay" id="modal-mazebot">
-    <div class="modal-dialog">
-        <button class="modal-close" onclick="closeModal('modal-mazebot')"><i class="fas fa-times"></i></button>
-        <h2>MazeBot · Autonomous Wall‑Following Robot</h2>
-        <p class="modal-tagline">Embedded Systems Exercise · Reactive Control &amp; Sensor Fusion</p>
-        <div class="modal-embed modal-embed-3d"><iframe src="https://a360.co/478fxXO" title="Mazebot 3D" loading="lazy" allowfullscreen></iframe></div>
-        <div class="modal-body">
-            <h3>The Problem</h3><p>Maze navigation and autonomous obstacle avoidance are fundamental challenges in mobile robotics requiring real‑time decision‑making.</p>
-            <h3>The Solution</h3><p>I built <strong>MazeBot</strong> using three VL53L0X TOF sensors, an ESP32, and a DRV8833 motor driver with differential steering.</p>
-            <h3>The Results</h3><p>MazeBot reliably follows walls, navigates 90° and 180° turns, and resolves T‑junctions — built for under ₱2,000.</p>
-            <h3>Tech Stack</h3>
-            <div class="modal-tech-stack"><span>ESP32</span><span>Arduino IDE</span><span>VL53L0X TOF (x3)</span><span>GA12‑NC20 motors</span><span>DRV8833 driver</span><span>18650 Li‑ion</span><span>Fusion 360</span></div>
+    <div class="modal-overlay" id="modal-nyc">
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closeModal('modal-nyc')"><i class="fas fa-times"></i></button>
+            <h2>NYC Crash Analytics</h2>
+            <p class="modal-tagline">Full‑stack interactive dashboard for motor‑vehicle collision data</p>
+            <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
+            <div class="project-gallery" id="nycGallery">
+                <img src="nyc1.jpg" alt="NYC Crash Analytics screenshot 1" loading="lazy" data-gallery="nyc" data-index="0">
+                <img src="nyc2.jpg" alt="NYC Crash Analytics screenshot 2" loading="lazy" data-gallery="nyc" data-index="1">
+                <img src="nyc3.jpg" alt="NYC Crash Analytics screenshot 3" loading="lazy" data-gallery="nyc" data-index="2">
+                <img src="nyc4.jpg" alt="NYC Crash Analytics screenshot 4" loading="lazy" data-gallery="nyc" data-index="3">
+                <img src="nyc5.jpg" alt="NYC Crash Analytics screenshot 5" loading="lazy" data-gallery="nyc" data-index="4">
+                <img src="nyc6.jpg" alt="NYC Crash Analytics screenshot 6" loading="lazy" data-gallery="nyc" data-index="5">
+                <img src="nyc7.jpg" alt="NYC Crash Analytics screenshot 7" loading="lazy" data-gallery="nyc" data-index="6">
+                <img src="nyc8.jpg" alt="NYC Crash Analytics screenshot 8" loading="lazy" data-gallery="nyc" data-index="7">
+                <img src="nyc9.jpg" alt="NYC Crash Analytics screenshot 9" loading="lazy" data-gallery="nyc" data-index="8">
+            </div>
+            <div class="modal-body">
+                <h3>Overview</h3><p><strong>NYC Crash Analytics</strong> transforms raw NYC Open Data into an interactive visual exploration tool with PHP, MySQL, and vanilla JavaScript.</p>
+                <h3>Key Features</h3><p>Responsive dark‑theme interface with <strong>Leaflet</strong> maps, marker clustering, heatmaps, time‑slider, and <strong>Chart.js</strong> visualizations.</p>
+                <h3>Tech Stack</h3>
+                <div class="modal-tech-stack"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>Leaflet</span><span>Chart.js</span><span>Bootstrap</span><span>REST APIs</span><span>CSV/JSON/PDF Export</span></div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal-overlay" id="modal-nyc">
-    <div class="modal-dialog">
-        <button class="modal-close" onclick="closeModal('modal-nyc')"><i class="fas fa-times"></i></button>
-        <h2>NYC Crash Analytics</h2>
-        <p class="modal-tagline">Full‑stack interactive dashboard for motor‑vehicle collision data</p>
-        <a href="https://lorence.kesug.com" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
-        <div class="project-gallery" id="nycGallery">
-            <img src="nyc1.jpg" alt="NYC Crash Analytics screenshot 1" loading="lazy" data-gallery="nyc" data-index="0">
-            <img src="nyc2.jpg" alt="NYC Crash Analytics screenshot 2" loading="lazy" data-gallery="nyc" data-index="1">
-            <img src="nyc3.jpg" alt="NYC Crash Analytics screenshot 3" loading="lazy" data-gallery="nyc" data-index="2">
-            <img src="nyc4.jpg" alt="NYC Crash Analytics screenshot 4" loading="lazy" data-gallery="nyc" data-index="3">
-            <img src="nyc5.jpg" alt="NYC Crash Analytics screenshot 5" loading="lazy" data-gallery="nyc" data-index="4">
-            <img src="nyc6.jpg" alt="NYC Crash Analytics screenshot 6" loading="lazy" data-gallery="nyc" data-index="5">
-            <img src="nyc7.jpg" alt="NYC Crash Analytics screenshot 7" loading="lazy" data-gallery="nyc" data-index="6">
-            <img src="nyc8.jpg" alt="NYC Crash Analytics screenshot 8" loading="lazy" data-gallery="nyc" data-index="7">
-            <img src="nyc9.jpg" alt="NYC Crash Analytics screenshot 9" loading="lazy" data-gallery="nyc" data-index="8">
-        </div>
-        <div class="modal-body">
-            <h3>Overview</h3><p><strong>NYC Crash Analytics</strong> transforms raw NYC Open Data into an interactive visual exploration tool with PHP, MySQL, and vanilla JavaScript.</p>
-            <h3>Key Features</h3><p>Responsive dark‑theme interface with <strong>Leaflet</strong> maps, marker clustering, heatmaps, time‑slider, and <strong>Chart.js</strong> visualizations.</p>
-            <h3>Tech Stack</h3>
-            <div class="modal-tech-stack"><span>PHP</span><span>MySQL</span><span>JavaScript</span><span>Leaflet</span><span>Chart.js</span><span>Bootstrap</span><span>REST APIs</span><span>CSV/JSON/PDF Export</span></div>
-        </div>
-    </div>
-</div>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- ========== CORE SCRIPTS ========== -->
+    <script>
+        // Scroll lock helpers – maintains counter for modals/lightbox
+        let activeScrollLocks = 0;
 
-<!-- ========== CORE SCRIPTS ========== -->
-<script>
-    // Scroll lock helpers – maintains counter for modals/lightbox
-    let activeScrollLocks = 0;
-
-    function lockBodyScroll() {
-        activeScrollLocks++;
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
-    }
-
-    function unlockBodyScroll() {
-        activeScrollLocks--;
-        if (activeScrollLocks <= 0) {
-            activeScrollLocks = 0;
-            document.body.style.overflow = '';
-            document.documentElement.style.overflow = '';
+        function lockBodyScroll() {
+            activeScrollLocks++;
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
         }
-    }
 
-    // Modal open/close with scroll lock
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal && !modal.classList.contains('active')) {
-            modal.classList.add('active');
-            lockBodyScroll();
-            modal.scrollTop = 0;
-        }
-    }
-
-    function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal && modal.classList.contains('active')) {
-            modal.classList.remove('active');
-            unlockBodyScroll();
-        }
-    }
-
-    // Certifications data
-    const certificationsData = [
-        { title: "IEEE Open Silicon TinyTapeout Philippine IC Design Bootcamp", date: "April 29, 2026", categories: ["seminar"], imgUrl: "images/certifications/ieee-tinytapeout.jpg" },
-        { title: "Network Support and Security", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/network-support-security.jpg" },
-        { title: "Digital Safety and Security Awareness", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/digital-safety.jpg" },
-        { title: "Introduction to Modern AI", date: "March 9, 2026", categories: ["training"], imgUrl: "images/certifications/intro-modern-ai.jpg" },
-        { title: "Ethical Hacker", date: "February 25, 2026", categories: ["training"], imgUrl: "images/certifications/ethical-hacker.jpg" },
-        { title: "Practical Application of Cybersecurity Framework", date: "December 6, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/cybersecurity-framework.jpg" },
-        { title: "Tugon Lipa – 2nd place in the Hack the Future: Smart Batangas Province Hackathon", date: "November 22, 2025", categories: ["hackathon"], imgUrl: "images/certifications/tugon-lipa-hackathon.jpg" },
-        { title: "Batangas AI and Cybersecurity Congress 2025", date: "November 7, 2025", categories: ["seminar"], imgUrl: "images/certifications/batangas-ai-cybersecurity.jpg" },
-        { title: "Cyber 101 for Institute of Computer Engineers of the Philippines, Inc.", date: "April 24, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/cyber-101.jpg" },
-        { title: "AI and Prompt Engineering in Educational Settings", date: "April 5, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/ai-prompt-engineering.jpg" },
-        { title: "Hybrid AVG-drone using YOLOv8 and Arduino-Raspberry Pi for defect detection and structural health monitoring in built infrastructure", date: "March 22, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/hybrid-drone.jpg" },
-        { title: "Training and Education in Medical Imaging for AI in PACS: Equipping the Next Generation", date: "March 8, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/medical-imaging-ai.jpg" },
-        { title: "CCNAv7: Introduction to Networks", date: "January 21, 2025", categories: ["training"], imgUrl: "images/certifications/ccna-intro-networks.jpg" },
-        { title: "Tech Nexus 2024: Empowering Campus Innovators", date: "December 7, 2024", categories: ["seminar"], imgUrl: "images/certifications/tech-nexus-2024.jpg" }
-    ];
-
-    let currentLightboxImages = [];
-    let currentLightboxIndex = 0;
-    const lightboxEl = document.getElementById('imageLightbox');
-    const lightboxImg = document.getElementById('lightboxImage');
-    const lightboxCounter = document.getElementById('lightboxCounter');
-    const lightboxClose = document.getElementById('lightboxClose');
-    const lightboxPrev = document.getElementById('lightboxPrev');
-    const lightboxNext = document.getElementById('lightboxNext');
-
-    function openLightbox(imagesArray, startIndex) {
-        if (!imagesArray || imagesArray.length === 0) return;
-        currentLightboxImages = imagesArray;
-        currentLightboxIndex = Math.min(startIndex, imagesArray.length - 1);
-        updateLightboxImage();
-        lightboxEl.classList.add('active');
-        lockBodyScroll();
-    }
-
-    function updateLightboxImage() {
-        if (currentLightboxImages.length === 0) return;
-        lightboxImg.src = currentLightboxImages[currentLightboxIndex];
-        lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxImages.length}`;
-        lightboxPrev.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
-        lightboxNext.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
-    }
-
-    function closeLightbox() {
-        lightboxEl.classList.remove('active');
-        unlockBodyScroll();
-        currentLightboxImages = [];
-    }
-
-    function navigateLightbox(delta) {
-        if (currentLightboxImages.length === 0) return;
-        currentLightboxIndex = (currentLightboxIndex + delta + currentLightboxImages.length) % currentLightboxImages.length;
-        updateLightboxImage();
-    }
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
-    lightboxNext.addEventListener('click', () => navigateLightbox(1));
-    lightboxEl.addEventListener('click', (e) => { if (e.target === lightboxEl) closeLightbox(); });
-    document.addEventListener('keydown', (e) => {
-        if (!lightboxEl.classList.contains('active')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') navigateLightbox(-1);
-        if (e.key === 'ArrowRight') navigateLightbox(1);
-    });
-
-    // --- Delegated click handler for ALL gallery images (certifications + project galleries) ---
-    document.addEventListener('click', function(e) {
-        const img = e.target.closest('.cert-img, .project-gallery img');
-        if (!img) return;
-
-        // Certification images: use .cert-img
-        if (img.classList.contains('cert-img')) {
-            const allVisibleImages = Array.from(document.querySelectorAll('.cert-img')).map(i => i.src);
-            const idx = allVisibleImages.indexOf(img.src);
-            if (idx !== -1) {
-                openLightbox(allVisibleImages, idx);
+        function unlockBodyScroll() {
+            activeScrollLocks--;
+            if (activeScrollLocks <= 0) {
+                activeScrollLocks = 0;
+                document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
             }
-            return;
         }
 
-        // Project gallery images: find all in the same .project-gallery container
-        const container = img.closest('.project-gallery');
-        if (!container) return;
-        const allImages = Array.from(container.querySelectorAll('img'));
-        const allUrls = allImages.map(i => i.src);
-        const idx = allUrls.indexOf(img.src);
-        if (idx !== -1) {
-            openLightbox(allUrls, idx);
+        // Modal open/close with scroll lock
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal && !modal.classList.contains('active')) {
+                modal.classList.add('active');
+                lockBodyScroll();
+                modal.scrollTop = 0;
+            }
         }
-    });
 
-    function renderCertifications(filter = 'all') {
-        const container = document.getElementById('certsGrid');
-        if (!container) return;
-        let filtered = certificationsData;
-        if (filter !== 'all') {
-            filtered = certificationsData.filter(cert => cert.categories.includes(filter));
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                unlockBodyScroll();
+            }
         }
-        container.innerHTML = '';
-        filtered.forEach((cert) => {
-            const card = document.createElement('div');
-            card.className = 'cert-card';
-            const img = document.createElement('img');
-            img.src = cert.imgUrl;
-            img.alt = cert.title;
-            img.loading = 'lazy';
-            img.className = 'cert-img';
-            const infoDiv = document.createElement('div');
-            infoDiv.className = 'cert-info';
-            const categoryLabels = {
-                webinar: 'Online Webinar', icpep: 'ICpEP', training: 'Course/Training',
-                seminar: 'Seminar', hackathon: 'Hackathon'
-            };
-            const tagsHtml = cert.categories.map(cat => `<span class="cert-tag">${categoryLabels[cat] || cat}</span>`).join('');
-            infoDiv.innerHTML = `
+
+        // Certifications data
+        const certificationsData = [
+            { title: "IEEE Open Silicon TinyTapeout Philippine IC Design Bootcamp", date: "April 29, 2026", categories: ["seminar"], imgUrl: "images/certifications/ieee-tinytapeout.jpg" },
+            { title: "Network Support and Security", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/network-support-security.jpg" },
+            { title: "Digital Safety and Security Awareness", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/digital-safety.jpg" },
+            { title: "Introduction to Modern AI", date: "March 9, 2026", categories: ["training"], imgUrl: "images/certifications/intro-modern-ai.jpg" },
+            { title: "Ethical Hacker", date: "February 25, 2026", categories: ["training"], imgUrl: "images/certifications/ethical-hacker.jpg" },
+            { title: "Practical Application of Cybersecurity Framework", date: "December 6, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/cybersecurity-framework.jpg" },
+            { title: "Tugon Lipa – 2nd place in the Hack the Future: Smart Batangas Province Hackathon", date: "November 22, 2025", categories: ["hackathon"], imgUrl: "images/certifications/tugon-lipa-hackathon.jpg" },
+            { title: "Batangas AI and Cybersecurity Congress 2025", date: "November 7, 2025", categories: ["seminar"], imgUrl: "images/certifications/batangas-ai-cybersecurity.jpg" },
+            { title: "Cyber 101 for Institute of Computer Engineers of the Philippines, Inc.", date: "April 24, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/cyber-101.jpg" },
+            { title: "AI and Prompt Engineering in Educational Settings", date: "April 5, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/ai-prompt-engineering.jpg" },
+            { title: "Hybrid AVG-drone using YOLOv8 and Arduino-Raspberry Pi for defect detection and structural health monitoring in built infrastructure", date: "March 22, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/hybrid-drone.jpg" },
+            { title: "Training and Education in Medical Imaging for AI in PACS: Equipping the Next Generation", date: "March 8, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/medical-imaging-ai.jpg" },
+            { title: "CCNAv7: Introduction to Networks", date: "January 21, 2025", categories: ["training"], imgUrl: "images/certifications/ccna-intro-networks.jpg" },
+            { title: "Tech Nexus 2024: Empowering Campus Innovators", date: "December 7, 2024", categories: ["seminar"], imgUrl: "images/certifications/tech-nexus-2024.jpg" }
+        ];
+
+        let currentLightboxImages = [];
+        let currentLightboxIndex = 0;
+        const lightboxEl = document.getElementById('imageLightbox');
+        const lightboxImg = document.getElementById('lightboxImage');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+
+        function openLightbox(imagesArray, startIndex) {
+            if (!imagesArray || imagesArray.length === 0) return;
+            currentLightboxImages = imagesArray;
+            currentLightboxIndex = Math.min(startIndex, imagesArray.length - 1);
+            updateLightboxImage();
+            lightboxEl.classList.add('active');
+            lockBodyScroll();
+        }
+
+        function updateLightboxImage() {
+            if (currentLightboxImages.length === 0) return;
+            lightboxImg.src = currentLightboxImages[currentLightboxIndex];
+            lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxImages.length}`;
+            lightboxPrev.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
+            lightboxNext.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
+        }
+
+        function closeLightbox() {
+            lightboxEl.classList.remove('active');
+            unlockBodyScroll();
+            currentLightboxImages = [];
+        }
+
+        function navigateLightbox(delta) {
+            if (currentLightboxImages.length === 0) return;
+            currentLightboxIndex = (currentLightboxIndex + delta + currentLightboxImages.length) % currentLightboxImages.length;
+            updateLightboxImage();
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+        lightboxNext.addEventListener('click', () => navigateLightbox(1));
+        lightboxEl.addEventListener('click', (e) => { if (e.target === lightboxEl) closeLightbox(); });
+        document.addEventListener('keydown', (e) => {
+            if (!lightboxEl.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        // --- Delegated click handler for ALL gallery images (certifications + project galleries) ---
+        document.addEventListener('click', function(e) {
+            const img = e.target.closest('.cert-img, .project-gallery img');
+            if (!img) return;
+
+            // Certification images: use .cert-img
+            if (img.classList.contains('cert-img')) {
+                const allVisibleImages = Array.from(document.querySelectorAll('.cert-img')).map(i => i.src);
+                const idx = allVisibleImages.indexOf(img.src);
+                if (idx !== -1) {
+                    openLightbox(allVisibleImages, idx);
+                }
+                return;
+            }
+
+            // Project gallery images: find all in the same .project-gallery container
+            const container = img.closest('.project-gallery');
+            if (!container) return;
+            const allImages = Array.from(container.querySelectorAll('img'));
+            const allUrls = allImages.map(i => i.src);
+            const idx = allUrls.indexOf(img.src);
+            if (idx !== -1) {
+                openLightbox(allUrls, idx);
+            }
+        });
+
+        function renderCertifications(filter = 'all') {
+            const container = document.getElementById('certsGrid');
+            if (!container) return;
+            let filtered = certificationsData;
+            if (filter !== 'all') {
+                filtered = certificationsData.filter(cert => cert.categories.includes(filter));
+            }
+            container.innerHTML = '';
+            filtered.forEach((cert) => {
+                const card = document.createElement('div');
+                card.className = 'cert-card';
+                const img = document.createElement('img');
+                img.src = cert.imgUrl;
+                img.alt = cert.title;
+                img.loading = 'lazy';
+                img.className = 'cert-img';
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'cert-info';
+                const categoryLabels = {
+                    webinar: 'Online Webinar', icpep: 'ICpEP', training: 'Course/Training',
+                    seminar: 'Seminar', hackathon: 'Hackathon'
+                };
+                const tagsHtml = cert.categories.map(cat => `<span class="cert-tag">${categoryLabels[cat] || cat}</span>`).join('');
+                infoDiv.innerHTML = `
                     <div class="cert-title">${cert.title}</div>
                     <div class="cert-date"><i class="far fa-calendar-alt"></i> ${cert.date}</div>
                     <div class="cert-tags">${tagsHtml}</div>
                 `;
-            card.appendChild(img);
-            card.appendChild(infoDiv);
-            container.appendChild(card);
-        });
-    }
-
-    // Filter buttons
-    document.querySelectorAll('#certFilterBar .filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('#certFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            const filterVal = this.getAttribute('data-filter');
-            renderCertifications(filterVal);
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-        emailjs.init("jJ0ZadOUacvrkPfPT");
-
-        renderCertifications('all');
-
-        const headerInner = document.getElementById('headerInner');
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const mobileNav = document.getElementById('mobileNav');
-        const allNavLinks = document.querySelectorAll('.nav-list a, .mobile-nav a');
-        const revealEls = document.querySelectorAll('.reveal');
-        const yearSpan = document.getElementById('currentYear');
-        const spotlight = document.getElementById('spotlight');
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-        if (headerInner) {
-            window.addEventListener('scroll', () => { headerInner.classList.toggle('scrolled', window.scrollY > 20); });
-        }
-        if (hamburgerBtn && mobileNav) {
-            hamburgerBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mobileNav.classList.toggle('open');
-                const icon = hamburgerBtn.querySelector('i');
-                icon.className = mobileNav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
-            });
-            mobileNav.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => { mobileNav.classList.remove('open');
-                    hamburgerBtn.querySelector('i').className = 'fas fa-bars'; });
-            });
-            document.addEventListener('click', (e) => {
-                if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open');
-                    hamburgerBtn.querySelector('i').className = 'fas fa-bars'; }
+                card.appendChild(img);
+                card.appendChild(infoDiv);
+                container.appendChild(card);
             });
         }
-        allNavLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href && href.startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) { const headerHeight = 80;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                        window.scrollTo({ top: targetPosition, behavior: 'smooth' }); }
-                }
+
+        // Filter buttons
+        document.querySelectorAll('#certFilterBar .filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#certFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filterVal = this.getAttribute('data-filter');
+                renderCertifications(filterVal);
             });
         });
-        const sections = document.querySelectorAll('section[id]');
 
-        function updateActiveNav() {
-            let currentId = '';
-            sections.forEach(section => { const sectionTop = section.offsetTop - 140; if (window.scrollY >= sectionTop)
-                    currentId = section.getAttribute('id'); });
-            allNavLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + currentId) link.classList.add('active'); });
-        }
-        window.addEventListener('scroll', updateActiveNav, { passive: true });
-        updateActiveNav();
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting)
-                        entry.target.classList.add('revealed'); }); }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-        revealEls.forEach(el => observer.observe(el));
-        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-        if (spotlight && !isTouchDevice) {
-            let mouseX = -500,
-                mouseY = -500,
-                targetX = mouseX,
-                targetY = mouseY;
-            document.addEventListener('mousemove', (e) => { targetX = e.clientX;
-                targetY = e.clientY;
-                spotlight.classList.add('active'); });
-            document.addEventListener('mouseleave', () => { spotlight.classList.remove('active'); });
+        document.addEventListener('DOMContentLoaded', () => {
+            emailjs.init("jJ0ZadOUacvrkPfPT");
 
-            function animateSpotlight() { mouseX += (targetX - mouseX) * 0.08;
-                mouseY += (targetY - mouseY) * 0.08;
-                spotlight.style.left = mouseX + 'px';
-                spotlight.style.top = mouseY + 'px';
-                requestAnimationFrame(animateSpotlight); }
-            animateSpotlight();
-        }
-        const magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
-        if (!isTouchDevice) {
-            magneticWraps.forEach(wrap => {
-                wrap.addEventListener('mousemove', (e) => { const rect = wrap.getBoundingClientRect(); const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2; wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`; });
-                wrap.addEventListener('mouseleave', () => { wrap.style.transform = 'translate(0px, 0px)'; });
-            });
-        }
+            renderCertifications('all');
 
-        // Typewriter effect
-        const roleSwitcherText = document.getElementById('roleSwitcherText');
-        if (roleSwitcherText) {
-            const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
-            let roleIndex = 0,
-                currentText = '';
-            const typingSpeed = 80,
-                deletingSpeed = 40,
-                pauseBeforeDelete = 2000,
-                pauseBeforeNext = 500;
+            const headerInner = document.getElementById('headerInner');
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const allNavLinks = document.querySelectorAll('.nav-list a, .mobile-nav a');
+            const revealEls = document.querySelectorAll('.reveal');
+            const yearSpan = document.getElementById('currentYear');
+            const spotlight = document.getElementById('spotlight');
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-            function typeChar() { const full = roles[roleIndex]; if (currentText.length < full.length) { currentText += full.charAt(currentText.length); roleSwitcherText.textContent = currentText; setTimeout(typeChar, typingSpeed); } else { setTimeout(deleteChar, pauseBeforeDelete); } }
-
-            function deleteChar() { if (currentText.length > 0) { currentText = currentText.slice(0, -1); roleSwitcherText.textContent = currentText; setTimeout(deleteChar, deletingSpeed); } else { roleIndex = (roleIndex + 1) % roles.length; setTimeout(typeChar, pauseBeforeNext); } }
-            typeChar();
-        }
-
-        const resumeViewBtn = document.getElementById('resumeViewBtn');
-        if (resumeViewBtn) {
-            resumeViewBtn.addEventListener('click', function(e) { e.preventDefault(); openModal('modal-resume'); });
-        }
-
-        // Contact form handling
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalHTML = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-                emailjs.sendForm('service_76iix6u', 'template_zdd5ea4', this)
-                    .then(() => {
-                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-                        submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                        contactForm.reset();
-                        setTimeout(() => { submitBtn.innerHTML = originalHTML;
-                            submitBtn.style.background = '';
-                            submitBtn.disabled = false; }, 3000);
-                    })
-                    .catch((error) => {
-                        console.error('EmailJS error:', error);
-                        submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed';
-                        submitBtn.style.background = 'linear-gradient(135deg, #f43f5e, #e11d48)';
-                        setTimeout(() => { submitBtn.innerHTML = originalHTML;
-                            submitBtn.style.background = '';
-                            submitBtn.disabled = false; }, 3000);
-                    });
-            });
-        }
-    });
-
-    // Escape key handler for modals
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            const lightbox = document.getElementById('imageLightbox');
-            if (lightbox && lightbox.classList.contains('active')) return;
-            const activeModals = document.querySelectorAll('.modal-overlay.active');
-            if (activeModals.length) {
-                activeModals.forEach(modal => {
-                    const modalId = modal.getAttribute('id');
-                    if (modalId) closeModal(modalId);
+            if (headerInner) {
+                window.addEventListener('scroll', () => { headerInner.classList.toggle('scrolled', window.scrollY > 20); });
+            }
+            if (hamburgerBtn && mobileNav) {
+                hamburgerBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileNav.classList.toggle('open');
+                    const icon = hamburgerBtn.querySelector('i');
+                    icon.className = mobileNav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+                });
+                mobileNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => { mobileNav.classList.remove('open');
+                        hamburgerBtn.querySelector('i').className = 'fas fa-bars'; });
+                });
+                document.addEventListener('click', (e) => {
+                    if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open');
+                        hamburgerBtn.querySelector('i').className = 'fas fa-bars'; }
                 });
             }
-        }
-    });
-
-    // Close modal when clicking on overlay background
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
-            closeModal(e.target.getAttribute('id'));
-        }
-    });
-</script>
-
-<!-- ========== ENHANCED INTERACTIONS SCRIPT (tilt, shine, timeline, etc.) ========== -->
-<script>
-    (function() {
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // STAGGERED REVEAL
-        const staggerContainers = document.querySelectorAll('.stagger-container[data-stagger]');
-        if (!prefersReducedMotion && staggerContainers.length > 0) {
-            const staggerObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        staggerObserver.unobserve(entry.target);
+            allNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) { const headerHeight = 80;
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                            window.scrollTo({ top: targetPosition, behavior: 'smooth' }); }
                     }
                 });
-            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-            staggerContainers.forEach(el => staggerObserver.observe(el));
-        } else if (prefersReducedMotion && staggerContainers.length > 0) {
-            staggerContainers.forEach(el => el.classList.add('revealed'));
-        }
-
-        // 3D TILT (mouse only, not touch)
-        if (!isTouchDevice && !prefersReducedMotion) {
-            const tiltCards = document.querySelectorAll('[data-tilt-card], .card-premium:not(.achievement-card), .card-light-premium, .project-card-horizontal');
-            tiltCards.forEach(card => {
-                card.addEventListener('mousemove', function(e) {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -6;
-                    const rotateY = ((x - centerX) / centerX) * 6;
-                    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
-                    card.style.transition = 'transform 0.1s ease-out, box-shadow 0.4s ease, border-color 0.4s ease';
-                });
-                card.addEventListener('mouseleave', function() {
-                    card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-                    card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease';
-                });
             });
+            const sections = document.querySelectorAll('section[id]');
 
-            const projectCards = document.querySelectorAll('.project-card-horizontal[data-project-card]');
-            projectCards.forEach(card => {
-                const bgLayer = card.querySelector('.card-bg-layer');
-                if (!bgLayer) return;
-                card.addEventListener('mousemove', function(e) {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const moveX = (x / rect.width - 0.5) * -8;
-                    const moveY = (y / rect.height - 0.5) * -8;
-                    bgLayer.style.transform = `scale(1.06) translate(${moveX}px, ${moveY}px)`;
-                    bgLayer.style.transition = 'transform 0.15s ease-out';
+            function updateActiveNav() {
+                let currentId = '';
+                sections.forEach(section => { const sectionTop = section.offsetTop - 140; if (window.scrollY >= sectionTop)
+                        currentId = section.getAttribute('id'); });
+                allNavLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + currentId) link.classList.add('active'); });
+            }
+            window.addEventListener('scroll', updateActiveNav, { passive: true });
+            updateActiveNav();
+            const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting)
+                        entry.target.classList.add('revealed'); }); }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+            revealEls.forEach(el => observer.observe(el));
+            if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+            if (spotlight && !isTouchDevice) {
+                let mouseX = -500,
+                    mouseY = -500,
+                    targetX = mouseX,
+                    targetY = mouseY;
+                document.addEventListener('mousemove', (e) => { targetX = e.clientX;
+                    targetY = e.clientY;
+                    spotlight.classList.add('active'); });
+                document.addEventListener('mouseleave', () => { spotlight.classList.remove('active'); });
+
+                function animateSpotlight() { mouseX += (targetX - mouseX) * 0.08;
+                    mouseY += (targetY - mouseY) * 0.08;
+                    spotlight.style.left = mouseX + 'px';
+                    spotlight.style.top = mouseY + 'px';
+                    requestAnimationFrame(animateSpotlight); }
+                animateSpotlight();
+            }
+            const magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
+            if (!isTouchDevice) {
+                magneticWraps.forEach(wrap => {
+                    wrap.addEventListener('mousemove', (e) => { const rect = wrap.getBoundingClientRect(); const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2; wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`; });
+                    wrap.addEventListener('mouseleave', () => { wrap.style.transform = 'translate(0px, 0px)'; });
                 });
-                card.addEventListener('mouseleave', function() {
-                    bgLayer.style.transform = 'scale(1) translate(0px, 0px)';
-                    bgLayer.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }
+
+            // Typewriter effect
+            const roleSwitcherText = document.getElementById('roleSwitcherText');
+            if (roleSwitcherText) {
+                const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
+                let roleIndex = 0,
+                    currentText = '';
+                const typingSpeed = 80,
+                    deletingSpeed = 40,
+                    pauseBeforeDelete = 2000,
+                    pauseBeforeNext = 500;
+
+                function typeChar() { const full = roles[roleIndex]; if (currentText.length < full.length) { currentText += full.charAt(currentText.length); roleSwitcherText.textContent = currentText; setTimeout(typeChar, typingSpeed); } else { setTimeout(deleteChar, pauseBeforeDelete); } }
+
+                function deleteChar() { if (currentText.length > 0) { currentText = currentText.slice(0, -1); roleSwitcherText.textContent = currentText; setTimeout(deleteChar, deletingSpeed); } else { roleIndex = (roleIndex + 1) % roles.length; setTimeout(typeChar, pauseBeforeNext); } }
+                typeChar();
+            }
+
+            const resumeViewBtn = document.getElementById('resumeViewBtn');
+            if (resumeViewBtn) {
+                resumeViewBtn.addEventListener('click', function(e) { e.preventDefault(); openModal('modal-resume'); });
+            }
+
+            // Contact form handling
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalHTML = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+                    emailjs.sendForm('service_76iix6u', 'template_zdd5ea4', this)
+                        .then(() => {
+                            submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+                            submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                            contactForm.reset();
+                            setTimeout(() => { submitBtn.innerHTML = originalHTML;
+                                submitBtn.style.background = '';
+                                submitBtn.disabled = false; }, 3000);
+                        })
+                        .catch((error) => {
+                            console.error('EmailJS error:', error);
+                            submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed';
+                            submitBtn.style.background = 'linear-gradient(135deg, #f43f5e, #e11d48)';
+                            setTimeout(() => { submitBtn.innerHTML = originalHTML;
+                                submitBtn.style.background = '';
+                                submitBtn.disabled = false; }, 3000);
+                        });
                 });
-            });
-        }
-
-        // SHINE SWEEP
-        if (!prefersReducedMotion) {
-            const shineTargets = document.querySelectorAll('.card-premium, .card-light-premium, .project-card-horizontal, .achievement-card-bg');
-            shineTargets.forEach(card => {
-                let shineTimeout;
-                const triggerShine = () => {
-                    clearTimeout(shineTimeout);
-                    if (card.classList.contains('achievement-card-bg')) {
-                        const innerShine = card.querySelector('.ach-shine');
-                        if (innerShine) { innerShine.classList.remove('shine-active'); void innerShine.offsetWidth; innerShine.classList.add('shine-active'); }
-                    } else if (card.classList.contains('project-card-horizontal')) {
-                        const sweep = card.querySelector('.card-shine-sweep');
-                        if (sweep) { sweep.classList.remove('shine-active'); void sweep.offsetWidth; sweep.classList.add('shine-active'); }
-                    } else {
-                        card.classList.remove('shine-active'); void card.offsetWidth; card.classList.add('shine-active');
-                    }
-                    shineTimeout = setTimeout(() => {
-                        if (card.querySelector('.card-shine-sweep')) card.querySelector('.card-shine-sweep').classList.remove('shine-active');
-                        if (card.querySelector('.ach-shine')) card.querySelector('.ach-shine').classList.remove('shine-active');
-                        card.classList.remove('shine-active');
-                    }, 2600);
-                };
-                card.addEventListener('mouseenter', triggerShine);
-                let idleShineInterval;
-                card.addEventListener('mouseenter', () => clearInterval(idleShineInterval));
-                card.addEventListener('mouseleave', () => { idleShineInterval = setInterval(triggerShine, 6000); });
-                idleShineInterval = setInterval(triggerShine, 6000);
-                card._shineInterval = idleShineInterval;
-            });
-        }
-
-        // TIMELINE ANIMATION
-        const timelines = document.querySelectorAll('[data-timeline-animate]');
-        if (!prefersReducedMotion && timelines.length > 0) {
-            const timelineObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('timeline-animated');
-                        timelineObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.2 });
-            timelines.forEach(tl => timelineObserver.observe(tl));
-        } else if (prefersReducedMotion && timelines.length > 0) {
-            timelines.forEach(tl => tl.classList.add('timeline-animated'));
-        }
-
-        // GLOW BORDER
-        const glowBorders = document.querySelectorAll('[data-glow-border]');
-        if (!prefersReducedMotion && glowBorders.length > 0) {
-            const glowObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('glow-visible');
-                        glowObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.3 });
-            glowBorders.forEach(el => glowObserver.observe(el));
-        } else if (prefersReducedMotion && glowBorders.length > 0) {
-            glowBorders.forEach(el => el.classList.add('glow-visible'));
-        }
-
-        // RIPPLE EFFECT
-        const rippleTargets = document.querySelectorAll('[data-ripple], .btn-primary[data-ripple]');
-        rippleTargets.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
-                ripple.classList.add('ripple');
-                const rect = btn.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                ripple.style.width = size + 'px';
-                ripple.style.height = size + 'px';
-                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-                btn.appendChild(ripple);
-                ripple.addEventListener('animationend', () => ripple.remove());
-            });
+            }
         });
 
-        // ACHIEVEMENT CARD SHINE
-        const achievementCards = document.querySelectorAll('[data-achievement-card]');
-        if (!prefersReducedMotion && achievementCards.length > 0) {
-            achievementCards.forEach(card => {
-                const shineEl = card.querySelector('.ach-shine');
-                if (!shineEl) return;
-                let shineInterval;
-                const triggerAchievementShine = () => { shineEl.classList.remove('shine-active'); void shineEl.offsetWidth; shineEl.classList.add('shine-active'); };
-                card.addEventListener('mouseenter', () => { clearInterval(shineInterval); triggerAchievementShine(); });
-                card.addEventListener('mouseleave', () => { shineInterval = setInterval(triggerAchievementShine, 5000); });
-                shineInterval = setInterval(triggerAchievementShine, 5000);
-                card._achShineInterval = shineInterval;
+        // Escape key handler for modals
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('imageLightbox');
+                if (lightbox && lightbox.classList.contains('active')) return;
+                const activeModals = document.querySelectorAll('.modal-overlay.active');
+                if (activeModals.length) {
+                    activeModals.forEach(modal => {
+                        const modalId = modal.getAttribute('id');
+                        if (modalId) closeModal(modalId);
+                    });
+                }
+            }
+        });
+
+        // Close modal when clicking on overlay background
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
+                closeModal(e.target.getAttribute('id'));
+            }
+        });
+    </script>
+
+    <!-- ========== ENHANCED INTERACTIONS SCRIPT (tilt, shine, timeline, etc.) ========== -->
+    <script>
+        (function() {
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // STAGGERED REVEAL
+            const staggerContainers = document.querySelectorAll('.stagger-container[data-stagger]');
+            if (!prefersReducedMotion && staggerContainers.length > 0) {
+                const staggerObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('revealed');
+                            staggerObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+                staggerContainers.forEach(el => staggerObserver.observe(el));
+            } else if (prefersReducedMotion && staggerContainers.length > 0) {
+                staggerContainers.forEach(el => el.classList.add('revealed'));
+            }
+
+            // 3D TILT (mouse only, not touch)
+            if (!isTouchDevice && !prefersReducedMotion) {
+                const tiltCards = document.querySelectorAll('[data-tilt-card], .card-premium:not(.achievement-card), .card-light-premium, .project-card-horizontal');
+                tiltCards.forEach(card => {
+                    card.addEventListener('mousemove', function(e) {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        const rotateX = ((y - centerY) / centerY) * -6;
+                        const rotateY = ((x - centerX) / centerX) * 6;
+                        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+                        card.style.transition = 'transform 0.1s ease-out, box-shadow 0.4s ease, border-color 0.4s ease';
+                    });
+                    card.addEventListener('mouseleave', function() {
+                        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+                        card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease';
+                    });
+                });
+
+                const projectCards = document.querySelectorAll('.project-card-horizontal[data-project-card]');
+                projectCards.forEach(card => {
+                    const bgLayer = card.querySelector('.card-bg-layer');
+                    if (!bgLayer) return;
+                    card.addEventListener('mousemove', function(e) {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const moveX = (x / rect.width - 0.5) * -8;
+                        const moveY = (y / rect.height - 0.5) * -8;
+                        bgLayer.style.transform = `scale(1.06) translate(${moveX}px, ${moveY}px)`;
+                        bgLayer.style.transition = 'transform 0.15s ease-out';
+                    });
+                    card.addEventListener('mouseleave', function() {
+                        bgLayer.style.transform = 'scale(1) translate(0px, 0px)';
+                        bgLayer.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    });
+                });
+            }
+
+            // SHINE SWEEP
+            if (!prefersReducedMotion) {
+                const shineTargets = document.querySelectorAll('.card-premium, .card-light-premium, .project-card-horizontal, .achievement-card');
+                shineTargets.forEach(card => {
+                    let shineTimeout;
+                    const triggerShine = () => {
+                        clearTimeout(shineTimeout);
+                        if (card.classList.contains('achievement-card')) {
+                            const innerShine = card.querySelector('.achievement-shine');
+                            if (innerShine) { innerShine.classList.remove('shine-active'); void innerShine.offsetWidth; innerShine.classList.add('shine-active'); }
+                        } else if (card.classList.contains('project-card-horizontal')) {
+                            const sweep = card.querySelector('.card-shine-sweep');
+                            if (sweep) { sweep.classList.remove('shine-active'); void sweep.offsetWidth; sweep.classList.add('shine-active'); }
+                        } else {
+                            card.classList.remove('shine-active'); void card.offsetWidth; card.classList.add('shine-active');
+                        }
+                        shineTimeout = setTimeout(() => {
+                            if (card.querySelector('.card-shine-sweep')) card.querySelector('.card-shine-sweep').classList.remove('shine-active');
+                            if (card.querySelector('.achievement-shine')) card.querySelector('.achievement-shine').classList.remove('shine-active');
+                            card.classList.remove('shine-active');
+                        }, 2600);
+                    };
+                    card.addEventListener('mouseenter', triggerShine);
+                    let idleShineInterval;
+                    card.addEventListener('mouseenter', () => clearInterval(idleShineInterval));
+                    card.addEventListener('mouseleave', () => { idleShineInterval = setInterval(triggerShine, 6000); });
+                    idleShineInterval = setInterval(triggerShine, 6000);
+                    card._shineInterval = idleShineInterval;
+                });
+            }
+
+            // TIMELINE ANIMATION
+            const timelines = document.querySelectorAll('[data-timeline-animate]');
+            if (!prefersReducedMotion && timelines.length > 0) {
+                const timelineObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('timeline-animated');
+                            timelineObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                timelines.forEach(tl => timelineObserver.observe(tl));
+            } else if (prefersReducedMotion && timelines.length > 0) {
+                timelines.forEach(tl => tl.classList.add('timeline-animated'));
+            }
+
+            // GLOW BORDER
+            const glowBorders = document.querySelectorAll('[data-glow-border]');
+            if (!prefersReducedMotion && glowBorders.length > 0) {
+                const glowObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('glow-visible');
+                            glowObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                glowBorders.forEach(el => glowObserver.observe(el));
+            } else if (prefersReducedMotion && glowBorders.length > 0) {
+                glowBorders.forEach(el => el.classList.add('glow-visible'));
+            }
+
+            // RIPPLE EFFECT
+            const rippleTargets = document.querySelectorAll('[data-ripple], .btn-primary[data-ripple]');
+            rippleTargets.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    const rect = btn.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = size + 'px';
+                    ripple.style.height = size + 'px';
+                    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                    btn.appendChild(ripple);
+                    ripple.addEventListener('animationend', () => ripple.remove());
+                });
             });
-        }
 
-        setTimeout(() => {
-            document.querySelectorAll('.stagger-container[data-stagger]').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('revealed');
-            });
-        }, 300);
-    })();
-</script>
+            // ACHIEVEMENT CARD SHINE
+            const achievementCards = document.querySelectorAll('[data-achievement-card]');
+            if (!prefersReducedMotion && achievementCards.length > 0) {
+                achievementCards.forEach(card => {
+                    const shineEl = card.querySelector('.achievement-shine');
+                    if (!shineEl) return;
+                    let shineInterval;
+                    const triggerAchievementShine = () => { shineEl.classList.remove('shine-active'); void shineEl.offsetWidth; shineEl.classList.add('shine-active'); };
+                    card.addEventListener('mouseenter', () => { clearInterval(shineInterval); triggerAchievementShine(); });
+                    card.addEventListener('mouseleave', () => { shineInterval = setInterval(triggerAchievementShine, 5000); });
+                    shineInterval = setInterval(triggerAchievementShine, 5000);
+                    card._achShineInterval = shineInterval;
+                });
+            }
 
-<!-- ========== THREE.JS LIGHTRAYS CANVAS ========== -->
-<script>
-    (function() {
-        const container = document.getElementById('canvasContainer');
-        const canvas = document.getElementById('lightraysCanvas');
-        if (!container || !canvas) return;
-        const config = { raysOrigin: 'top-center', raysColor: '#67e8f9', raysSpeed: 1, lightSpread: 1, rayLength: 2,
-            pulsating: false, fadeDistance: 1.0, saturation: 1.0, followMouse: true, mouseInfluence: 0.1,
-            noiseAmount: 0.0, distortion: 0.0 };
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-        camera.position.z = 1;
-        const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255] : [1, 1, 1]; };
-        const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return { anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] }; case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
-        const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE.Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config.lightSpread }, rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ? 1.0 : 0.0 }, fadeDistance: { value: config.fadeDistance }, saturation: { value: config.saturation }, mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence }, noiseAmount: { value: config.noiseAmount }, distortion: { value: config.distortion } };
-        const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-        const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.514)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
-        const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, depthTest: false });
-        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
-        scene.add(mesh);
-        const mouse = { x: 0.5, y: 0.5 },
-            smoothMouse = { x: 0.5, y: 0.5 };
-        window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e.clientX - rect.left) / rect.width;
-            mouse.y = (e.clientY - rect.top) / rect.height; });
-        window.addEventListener('touchmove', (e) => { const rect = container.getBoundingClientRect(); if (e.touches.length > 0) { mouse.x = (e.touches[0].clientX - rect.left) / rect.width;
-                mouse.y = (e.touches[0].clientY - rect.top) / rect.height; } }, { passive: true });
+            setTimeout(() => {
+                document.querySelectorAll('.stagger-container[data-stagger]').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('revealed');
+                });
+            }, 300);
+        })();
+    </script>
 
-        function resize() { const rect = container.getBoundingClientRect(); const w = rect.width,
-                h = rect.height; renderer.setSize(w, h); const dpr = renderer.getPixelRatio(); uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr); uniforms.rayPos.value.set(anchor[0], anchor[1]); uniforms.rayDir.value.set(dir[0], dir[1]); }
-        window.addEventListener('resize', resize);
-        resize();
+    <!-- ========== THREE.JS LIGHTRAYS CANVAS ========== -->
+    <script>
+        (function() {
+            const container = document.getElementById('canvasContainer');
+            const canvas = document.getElementById('lightraysCanvas');
+            if (!container || !canvas) return;
+            const config = { raysOrigin: 'top-center', raysColor: '#67e8f9', raysSpeed: 1, lightSpread: 1, rayLength: 2,
+                pulsating: false, fadeDistance: 1.0, saturation: 1.0, followMouse: true, mouseInfluence: 0.1,
+                noiseAmount: 0.0, distortion: 0.0 };
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            const scene = new THREE.Scene();
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+            camera.position.z = 1;
+            const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255] : [1, 1, 1]; };
+            const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return { anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] }; case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
+            const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE.Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config.lightSpread }, rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ? 1.0 : 0.0 }, fadeDistance: { value: config.fadeDistance }, saturation: { value: config.saturation }, mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence }, noiseAmount: { value: config.noiseAmount }, distortion: { value: config.distortion } };
+            const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+            const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.514)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
+            const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, depthTest: false });
+            const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+            scene.add(mesh);
+            const mouse = { x: 0.5, y: 0.5 },
+                smoothMouse = { x: 0.5, y: 0.5 };
+            window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e.clientX - rect.left) / rect.width;
+                mouse.y = (e.clientY - rect.top) / rect.height; });
+            window.addEventListener('touchmove', (e) => { const rect = container.getBoundingClientRect(); if (e.touches.length > 0) { mouse.x = (e.touches[0].clientX - rect.left) / rect.width;
+                    mouse.y = (e.touches[0].clientY - rect.top) / rect.height; } }, { passive: true });
 
-        function animate(time) { requestAnimationFrame(animate); uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const smoothing = 0.92; smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
-                smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
-                uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); } renderer.render(scene, camera); }
-        requestAnimationFrame(animate);
-    })();
-</script>
+            function resize() { const rect = container.getBoundingClientRect(); const w = rect.width,
+                    h = rect.height; renderer.setSize(w, h); const dpr = renderer.getPixelRatio(); uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr); uniforms.rayPos.value.set(anchor[0], anchor[1]); uniforms.rayDir.value.set(dir[0], dir[1]); }
+            window.addEventListener('resize', resize);
+            resize();
 
-<!-- ========== THREE.JS WEBGL FLUID CANVAS ========== -->
-<script>
-    (function() {
-        const container = document.getElementById('canvasContainer');
-        const webglCanvas = document.getElementById('webglCanvas');
-        if (!container || !webglCanvas) return;
-        const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false, antialias: true });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-        camera.position.z = 1;
-        let fluidRT_A, fluidRT_B;
-        let simScene, simCamera, simQuad;
-        let fluidRes = new THREE.Vector2(512, 512);
-        const mouse = { x: 0.5, y: 0.5, prevX: 0.5, prevY: 0.5, inside: false };
-        let lastMoveTime = performance.now();
-        let idleActive = false;
-        const IDLE_DELAY = 2000;
-        const SWEEP_PAUSE = 4000;
-        let scanVirtualX = 0.0,
-            scanVirtualY = 0.0,
-            scanDirX = 1,
-            scanDirY = 1,
-            scanPauseUntil = 0,
-            scanComplete = true;
-        const SCAN_SPEED_X = 3.5,
-            SCAN_SPEED_Y = 0.5;
-        const loader = new THREE.TextureLoader();
-        let imagesLoaded = 0,
-            animationStarted = false;
+            function animate(time) { requestAnimationFrame(animate); uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const smoothing = 0.92; smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
+                    smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
+                    uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); } renderer.render(scene, camera); }
+            requestAnimationFrame(animate);
+        })();
+    </script>
 
-        function initFluid() {
-            simScene = new THREE.Scene();
-            simCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-            simCamera.position.z = 1;
-            const format = THREE.RGBAFormat,
-                type = THREE.FloatType;
-            fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-            fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-            const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-            const simFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
-            const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture }, uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0, 0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) }, uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
-            simQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMat);
-            simScene.add(simQuad);
-            renderer.setRenderTarget(fluidRT_A);
-            renderer.clear();
-            renderer.setRenderTarget(fluidRT_B);
-            renderer.clear();
-            renderer.setRenderTarget(null);
-        }
+    <!-- ========== THREE.JS WEBGL FLUID CANVAS ========== -->
+    <script>
+        (function() {
+            const container = document.getElementById('canvasContainer');
+            const webglCanvas = document.getElementById('webglCanvas');
+            if (!container || !webglCanvas) return;
+            const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false, antialias: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            const scene = new THREE.Scene();
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+            camera.position.z = 1;
+            let fluidRT_A, fluidRT_B;
+            let simScene, simCamera, simQuad;
+            let fluidRes = new THREE.Vector2(512, 512);
+            const mouse = { x: 0.5, y: 0.5, prevX: 0.5, prevY: 0.5, inside: false };
+            let lastMoveTime = performance.now();
+            let idleActive = false;
+            const IDLE_DELAY = 2000;
+            const SWEEP_PAUSE = 4000;
+            let scanVirtualX = 0.0,
+                scanVirtualY = 0.0,
+                scanDirX = 1,
+                scanDirY = 1,
+                scanPauseUntil = 0,
+                scanComplete = true;
+            const SCAN_SPEED_X = 3.5,
+                SCAN_SPEED_Y = 0.5;
+            const loader = new THREE.TextureLoader();
+            let imagesLoaded = 0,
+                animationStarted = false;
 
-        function resizeFluid() { const rect = container.getBoundingClientRect(); const aspect = rect.width / rect.height; const h = 512; const w = Math.floor(h * aspect); fluidRes.set(w, h); fluidRT_A.setSize(w, h); fluidRT_B.setSize(w, h); simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h); }
-        initFluid();
-        window.addEventListener('resize', resizeFluid);
-        const mainVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
-        const mainFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
-        const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A.texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 }, uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: 0.025 } };
-        const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert, fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
-        const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
-        scene.add(mainQuad);
+            function initFluid() {
+                simScene = new THREE.Scene();
+                simCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+                simCamera.position.z = 1;
+                const format = THREE.RGBAFormat,
+                    type = THREE.FloatType;
+                fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+                fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+                const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+                const simFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
+                const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture }, uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0, 0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) }, uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
+                simQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMat);
+                simScene.add(simQuad);
+                renderer.setRenderTarget(fluidRT_A);
+                renderer.clear();
+                renderer.setRenderTarget(fluidRT_B);
+                renderer.clear();
+                renderer.setRenderTarget(null);
+            }
 
-        function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
-                    container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
-                resizeAll();
-                animate();
-                if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
-        loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
-            imageLoaded(tex, 'barong'); });
-        loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex;
-            imageLoaded(tex, 'toga'); });
+            function resizeFluid() { const rect = container.getBoundingClientRect(); const aspect = rect.width / rect.height; const h = 512; const w = Math.floor(h * aspect); fluidRes.set(w, h); fluidRT_A.setSize(w, h); fluidRT_B.setSize(w, h); simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h); }
+            initFluid();
+            window.addEventListener('resize', resizeFluid);
+            const mainVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
+            const mainFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
+            const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A.texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 }, uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: 0.025 } };
+            const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert, fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
+            const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
+            scene.add(mainQuad);
 
-        function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect(); const newX = (clientX - rect.left) / rect.width,
-                newY = 1.0 - (clientY - rect.top) / rect.height;
-            mouse.prevX = mouse.x;
-            mouse.prevY = mouse.y;
-            mouse.x = newX;
-            mouse.y = newY;
-            lastMoveTime = performance.now();
-            idleActive = false;
-            scanComplete = true; }
-        webglCanvas.addEventListener('mousemove', (e) => { updateMouse(e.clientX, e.clientY);
-            mouse.inside = true; });
-        webglCanvas.addEventListener('mouseenter', () => { mouse.inside = true; });
-        webglCanvas.addEventListener('mouseleave', () => { mouse.inside = false; });
-        webglCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches[0];
-            updateMouse(t.clientX, t.clientY);
-            mouse.inside = true; }, { passive: false });
-        webglCanvas.addEventListener('touchend', () => { mouse.inside = false; });
+            function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
+                        container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
+                    resizeAll();
+                    animate();
+                    if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
+            loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
+                imageLoaded(tex, 'barong'); });
+            loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex;
+                imageLoaded(tex, 'toga'); });
 
-        function updateFluid(dt) { const now = performance.now(); const simMat = simQuad.material; if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) { idleActive = true;
-                scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
-                    scanDirX = 1; } else { scanVirtualX = 1.0;
-                    scanDirX = -1; }
-                scanVirtualY = 0.0;
-                scanDirY = 1;
-                scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
-                            scanDirX = 1; } else { scanVirtualX = 1.0;
-                            scanDirX = -1; }
-                        scanVirtualY = 0.0;
-                        scanDirY = 1; } } else { scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
-                    scanVirtualY += scanDirY * SCAN_SPEED_Y * dt; if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
-                        scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0;
-                        scanDirX = 1; } if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
-                        scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0;
-                        scanComplete = true;
-                        scanPauseUntil = now + SWEEP_PAUSE; } }
-                simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
-                simMat.uniforms.uMouseDown.value = true;
-                simMat.uniforms.uVelocity.value.set(0, 0); } else { simMat.uniforms.uMouse.value.set(mouse.x, mouse.y); const sensitivity = 10.0; const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity; const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
-                simMat.uniforms.uVelocity.value.set(velX, velY); const movingThreshold = 0.01;
-                simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold) && mouse.inside; }
-            mainUniforms.uCursor.value.set(mouse.x, mouse.y);
-            simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
-            renderer.setRenderTarget(fluidRT_B);
-            renderer.render(simScene, simCamera);
-            renderer.setRenderTarget(null);
-            const temp = fluidRT_A;
-            fluidRT_A = fluidRT_B;
-            fluidRT_B = temp;
-            mainUniforms.uFluidMask.value = fluidRT_A.texture; }
+            function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect(); const newX = (clientX - rect.left) / rect.width,
+                    newY = 1.0 - (clientY - rect.top) / rect.height;
+                mouse.prevX = mouse.x;
+                mouse.prevY = mouse.y;
+                mouse.x = newX;
+                mouse.y = newY;
+                lastMoveTime = performance.now();
+                idleActive = false;
+                scanComplete = true; }
+            webglCanvas.addEventListener('mousemove', (e) => { updateMouse(e.clientX, e.clientY);
+                mouse.inside = true; });
+            webglCanvas.addEventListener('mouseenter', () => { mouse.inside = true; });
+            webglCanvas.addEventListener('mouseleave', () => { mouse.inside = false; });
+            webglCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches[0];
+                updateMouse(t.clientX, t.clientY);
+                mouse.inside = true; }, { passive: false });
+            webglCanvas.addEventListener('touchend', () => { mouse.inside = false; });
 
-        function resizeAll() { const rect = container.getBoundingClientRect(); renderer.setSize(rect.width, rect.height);
-            mainUniforms.uAspect.value = rect.width / rect.height;
-            resizeFluid();
-            mainUniforms.uFluidMask.value = fluidRT_A.texture; }
-        let lastTime = 0;
+            function updateFluid(dt) { const now = performance.now(); const simMat = simQuad.material; if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) { idleActive = true;
+                    scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                        scanDirX = 1; } else { scanVirtualX = 1.0;
+                        scanDirX = -1; }
+                    scanVirtualY = 0.0;
+                    scanDirY = 1;
+                    scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                                scanDirX = 1; } else { scanVirtualX = 1.0;
+                                scanDirX = -1; }
+                            scanVirtualY = 0.0;
+                            scanDirY = 1; } } else { scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
+                        scanVirtualY += scanDirY * SCAN_SPEED_Y * dt; if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
+                            scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0;
+                            scanDirX = 1; } if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
+                            scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0;
+                            scanComplete = true;
+                            scanPauseUntil = now + SWEEP_PAUSE; } }
+                    simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
+                    simMat.uniforms.uMouseDown.value = true;
+                    simMat.uniforms.uVelocity.value.set(0, 0); } else { simMat.uniforms.uMouse.value.set(mouse.x, mouse.y); const sensitivity = 10.0; const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity; const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
+                    simMat.uniforms.uVelocity.value.set(velX, velY); const movingThreshold = 0.01;
+                    simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold) && mouse.inside; }
+                mainUniforms.uCursor.value.set(mouse.x, mouse.y);
+                simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
+                renderer.setRenderTarget(fluidRT_B);
+                renderer.render(simScene, simCamera);
+                renderer.setRenderTarget(null);
+                const temp = fluidRT_A;
+                fluidRT_A = fluidRT_B;
+                fluidRT_B = temp;
+                mainUniforms.uFluidMask.value = fluidRT_A.texture; }
 
-        function animate(time) { if (!animationStarted) return;
-            requestAnimationFrame(animate); const dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
-            lastTime = time;
-            updateFluid(dt);
-            renderer.render(scene, camera); }
-    })();
-</script>
+            function resizeAll() { const rect = container.getBoundingClientRect(); renderer.setSize(rect.width, rect.height);
+                mainUniforms.uAspect.value = rect.width / rect.height;
+                resizeFluid();
+                mainUniforms.uFluidMask.value = fluidRT_A.texture; }
+            let lastTime = 0;
+
+            function animate(time) { if (!animationStarted) return;
+                requestAnimationFrame(animate); const dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
+                lastTime = time;
+                updateFluid(dt);
+                renderer.render(scene, camera); }
+        })();
+    </script>
 </body>
 </html>
