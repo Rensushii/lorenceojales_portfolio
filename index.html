@@ -44,6 +44,9 @@
             --spotlight-size: 600px;
             --safe-bottom: env(safe-area-inset-bottom, 0px);
             --safe-top: env(safe-area-inset-top, 0px);
+            --fluid-res-w: 512;
+            --fluid-res-h: 512;
+            --perf-tier: 'high';
         }
 
         * {
@@ -887,6 +890,7 @@
             background-size: cover;
             background-position: center;
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+            will-change: transform, filter;
         }
         .project-card-horizontal:hover .card-bg-layer {
             transform: scale(1.06);
@@ -1399,8 +1403,8 @@
             font-family: var(--font-mono);
             letter-spacing: -0.02em;
             white-space: nowrap;
-            transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
             display: inline-block;
+            transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
         }
         .role-switcher-inner.transitioning {
             opacity: 0;
@@ -1597,10 +1601,12 @@
         }
         #lightraysCanvas {
             z-index: 0;
+            will-change: transform;
         }
         #webglCanvas {
             z-index: 1;
             background: transparent;
+            will-change: transform;
         }
 
         .about-layout {
@@ -1937,7 +1943,6 @@
             transform: translateX(3px);
         }
 
-        /* ========== ENHANCED ACHIEVEMENT CARDS (clickable photo cards) ========== */
         .achievement-photo-card {
             position: relative;
             border-radius: var(--radius-lg);
@@ -1969,6 +1974,7 @@
             background-size: cover;
             background-position: center;
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+            will-change: transform, filter;
         }
         .achievement-photo-card:hover .card-bg-layer {
             transform: scale(1.06);
@@ -2071,7 +2077,6 @@
             align-self: flex-start;
         }
 
-        /* ========== ACHIEVEMENT MODAL ========== */
         .achievement-modal-img {
             width: 100%;
             border-radius: var(--radius-sm);
@@ -2168,7 +2173,6 @@
             z-index: 2;
         }
 
-        /* ========== CERTIFICATIONS ========== */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -2188,6 +2192,7 @@
             transition: all 0.2s ease;
             font-family: var(--font-sans);
             backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
         .filter-btn.active {
             background: var(--accent-cyan);
@@ -2200,6 +2205,7 @@
             color: white;
             border-color: var(--accent-cyan);
         }
+
         .certs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -2208,6 +2214,7 @@
         .cert-card {
             background: rgba(10, 16, 30, 0.6);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             overflow: hidden;
@@ -2721,6 +2728,55 @@
             transform: translateY(0);
         }
 
+        /* ========== PERFORMANCE MODE TOGGLE ========== */
+        .perf-toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            color: #9aa4b8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: all var(--transition-fast);
+            -webkit-tap-highlight-color: transparent;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .perf-toggle-btn:hover {
+            background: rgba(6, 182, 212, 0.12);
+            border-color: rgba(6, 182, 212, 0.3);
+            color: #fff;
+        }
+        .perf-toggle-btn .perf-tooltip {
+            position: absolute;
+            bottom: calc(100% + 6px);
+            right: 0;
+            background: rgba(8, 14, 26, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            font-weight: 500;
+        }
+        .perf-toggle-btn:hover .perf-tooltip {
+            opacity: 1;
+        }
+        .perf-toggle-btn .perf-tooltip .perf-mode-label {
+            color: #67e8f9;
+            font-weight: 600;
+        }
+
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
             .nav-list {
@@ -2820,6 +2876,9 @@
             }
             .achievement-photo-card .achievement-content h3 {
                 font-size: 1rem;
+            }
+            .perf-toggle-btn .perf-tooltip {
+                display: none;
             }
         }
 
@@ -2992,6 +3051,9 @@
             }
             .achievement-modal-img {
                 max-height: 40vh;
+            }
+            .certs-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -3311,6 +3373,14 @@
             .achievement-modal-img {
                 max-height: 32vh;
             }
+            .perf-toggle-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 0.75rem;
+            }
+            .perf-toggle-btn .perf-tooltip {
+                display: none;
+            }
         }
 
         @media (max-width: 360px) {
@@ -3397,6 +3467,166 @@
             .achievement-photo-card {
                 min-height: 200px;
             }
+        }
+
+        /* ========== PERFORMANCE MODE: LOW ========== */
+        body[data-performance="low"] .card-premium,
+        body[data-performance="low"] .card-light-premium,
+        body[data-performance="low"] .skill-category-card {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: rgba(10, 16, 30, 0.85) !important;
+        }
+        body[data-performance="low"] .header-inner {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: rgba(8, 14, 26, 0.95) !important;
+        }
+        body[data-performance="low"] .filter-btn {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        body[data-performance="low"] .btn-premium.secondary {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        body[data-performance="low"] .image-lightbox {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        body[data-performance="low"] .modal-overlay {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        body[data-performance="low"] .modal-dialog {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        body[data-performance="low"] .aurora-bg {
+            animation: none !important;
+        }
+        body[data-performance="low"] .grid-overlay {
+            animation: none !important;
+        }
+        body[data-performance="low"] .hero-aurora-layer {
+            animation: none !important;
+        }
+        body[data-performance="low"] .hero-spotlight-overlay {
+            animation: none !important;
+        }
+        body[data-performance="low"] .hero-float-orb {
+            animation: none !important;
+        }
+        body[data-performance="low"] .hero-spotlight-fixed {
+            animation: none !important;
+        }
+        body[data-performance="low"] .floating-accent {
+            animation: none !important;
+        }
+        body[data-performance="low"] .section-orb {
+            animation: none !important;
+        }
+        body[data-performance="low"] .hero-name-premium .gradient-text {
+            animation: none !important;
+        }
+        body[data-performance="low"] .glow-border-animated::before {
+            animation: none !important;
+        }
+        body[data-performance="low"] .project-card-horizontal .card-bg-layer {
+            transition: none !important;
+        }
+        body[data-performance="low"] .achievement-photo-card .card-bg-layer {
+            transition: none !important;
+        }
+        body[data-performance="low"] .project-card-horizontal:hover .card-bg-layer {
+            transform: none !important;
+        }
+        body[data-performance="low"] .achievement-photo-card:hover .card-bg-layer {
+            transform: none !important;
+        }
+        body[data-performance="low"] .magnetic-wrap {
+            transition: none !important;
+        }
+        body[data-performance="low"] .stagger-container .stagger-item {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        body[data-performance="low"] .reveal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        body[data-performance="low"] #lightraysCanvas {
+            display: none !important;
+        }
+        body[data-performance="low"] .loader-spin-circle {
+            animation: none !important;
+            stroke-dashoffset: 0;
+            stroke-dasharray: 251.33;
+            opacity: 0.6;
+        }
+        body[data-performance="low"] .loader-bar-fill {
+            animation: none !important;
+            transform: translateX(65px);
+        }
+        body[data-performance="low"] .loader-name {
+            animation: none !important;
+            opacity: 1;
+        }
+        body[data-performance="low"] .medal-badge {
+            animation: none !important;
+        }
+        body[data-performance="low"] .card-premium.shine-active::after,
+        body[data-performance="low"] .card-light-premium.shine-active::after,
+        body[data-performance="low"] .project-card-horizontal .card-shine-sweep.shine-active,
+        body[data-performance="low"] .achievement-card .achievement-shine.shine-active,
+        body[data-performance="low"] .achievement-photo-card .card-shine-sweep.shine-active {
+            animation: none !important;
+            opacity: 0 !important;
+        }
+        body[data-performance="low"] .timeline-modern::before {
+            transition: none;
+            transform: scaleY(1);
+        }
+        body[data-performance="low"] .timeline-item-modern {
+            transition: none;
+            opacity: 1;
+            transform: none;
+        }
+        body[data-performance="low"] .skill-tag:hover {
+            transform: none !important;
+        }
+        body[data-performance="low"] .spotlight {
+            display: none !important;
+        }
+        body[data-performance="low"] .card-premium:hover,
+        body[data-performance="low"] .card-light-premium:hover,
+        body[data-performance="low"] .project-card-horizontal:hover,
+        body[data-performance="low"] .skill-category-card:hover,
+        body[data-performance="low"] .achievement-photo-card:hover {
+            transform: none !important;
+        }
+        body[data-performance="low"] .btn-premium.primary:hover {
+            transform: none !important;
+        }
+        body[data-performance="low"] .btn-premium.secondary:hover {
+            transform: none !important;
+        }
+        body[data-performance="low"] .social-btn:hover {
+            transform: none !important;
+        }
+        body[data-performance="low"] .spec-badge:hover {
+            transform: none !important;
+        }
+        body[data-performance="low"] .hero-reveal-col:hover {
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(6, 182, 212, 0.2) !important;
+        }
+
+        /* ========== CONTENT-VISIBILITY ========== */
+        #certifications,
+        #achievements,
+        #projects,
+        #skills,
+        #experience {
+            content-visibility: auto;
+            contain-intrinsic-size: 0 500px;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -3606,7 +3836,7 @@
                     <i class="fas fa-download"></i> Download PDF
                 </a>
             </div>
-            <iframe class="modal-resume-iframe" src="resume.pdf#toolbar=1&navpanes=1&scrollbar=1" title="Lorence Ojales Resume" allowfullscreen></iframe>
+            <iframe class="modal-resume-iframe" src="resume.pdf#toolbar=1&navpanes=1&scrollbar=1" title="Lorence Ojales Resume" allowfullscreen loading="lazy"></iframe>
         </div>
     </div>
 
@@ -3625,6 +3855,10 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+                <button class="perf-toggle-btn" id="perfToggleBtn" title="Toggle performance mode" aria-label="Toggle performance mode">
+                    <i class="fas fa-bolt"></i>
+                    <span class="perf-tooltip">Mode: <span class="perf-mode-label" id="perfModeLabel">Auto</span></span>
+                </button>
             </nav>
         </div>
         <div class="mobile-nav" id="mobileNav">
@@ -3840,7 +4074,6 @@
                     <p class="event-venue">University of Batangas, Batangas City</p>
                     <p class="event-date">November 21–22, 2025</p>
                     <span class="card-view-details-inline">View details <i class="fas fa-arrow-right"></i></span>
-                    <!-- CLICKABLE LINK — text changed to "Read Article" -->
                     <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link" style="margin-top:6px; align-self:flex-start;" onclick="event.stopPropagation();">
                         <i class="fas fa-external-link-alt"></i> Read Article
                     </a>
@@ -3889,7 +4122,7 @@
 <div class="modal-overlay" id="modal-achievement">
     <div class="modal-dialog">
         <button class="modal-close" onclick="closeModal('modal-achievement')"><i class="fas fa-times"></i></button>
-        <img src="" alt="Achievement" class="achievement-modal-img" id="achievementModalImg">
+        <img src="" alt="Achievement" class="achievement-modal-img" id="achievementModalImg" loading="lazy">
         <div class="achievement-modal-details">
             <h2 id="achievementModalTitle"></h2>
             <p class="modal-tagline" id="achievementModalSub"></p>
@@ -3940,6 +4173,11 @@
             <button class="filter-btn" data-filter="hackathon">Hackathon</button>
         </div>
         <div class="certs-grid" id="certsGrid"></div>
+        <div style="text-align:center; margin-top:24px;">
+            <button class="btn-primary" id="loadMoreCertsBtn" style="font-size:0.8rem; padding:10px 24px;">
+                <i class="fas fa-plus"></i> Load More
+            </button>
+        </div>
     </div>
 </section>
 
@@ -4099,8 +4337,53 @@
 
 <!-- ========== CORE SCRIPTS ========== -->
 <script>
-    // Scroll lock helpers
-    let activeScrollLocks = 0;
+    // ===== DEVICE TIER DETECTION =====
+    function getDeviceTier() {
+        var isMobile = /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+        var pixelRatio = window.devicePixelRatio || 1;
+        var memory = navigator.deviceMemory || 4;
+        var isLowEnd = isMobile && (pixelRatio > 2 || memory < 4);
+        var isMedium = isMobile || pixelRatio > 2 || memory < 6;
+        if (isLowEnd) return 'low';
+        if (isMedium) return 'medium';
+        return 'high';
+    }
+    var deviceTier = getDeviceTier();
+    var perfMode = deviceTier; // 'low', 'medium', 'high'
+    var perfOverridden = false;
+
+    // Apply performance mode
+    function applyPerfMode(mode) {
+        perfMode = mode;
+        document.body.dataset.performance = mode;
+        var label = document.getElementById('perfModeLabel');
+        if (label) {
+            var labels = { low: 'Low', medium: 'Medium', high: 'High' };
+            label.textContent = perfOverridden ? labels[mode] : 'Auto (' + labels[mode] + ')';
+        }
+        // Toggle fluid simulation visibility
+        var webglCanvas = document.getElementById('webglCanvas');
+        if (webglCanvas) {
+            webglCanvas.style.display = (mode === 'low') ? 'none' : 'block';
+        }
+        // Toggle lightrays
+        var lightraysCanvas = document.getElementById('lightraysCanvas');
+        if (lightraysCanvas) {
+            lightraysCanvas.style.display = (mode === 'low') ? 'none' : 'block';
+        }
+        // Toggle spotlight
+        var spotlight = document.getElementById('spotlight');
+        if (spotlight) {
+            spotlight.style.display = (mode === 'low' || window.matchMedia('(hover: none)').matches) ? 'none' : 'block';
+        }
+        // Reconfigure Three.js if running
+        if (window._fluidRenderer && window._fluidRenderer.setPerfMode) {
+            window._fluidRenderer.setPerfMode(mode);
+        }
+    }
+
+    // ===== SCROLL LOCK HELPERS =====
+    var activeScrollLocks = 0;
 
     function lockBodyScroll() {
         activeScrollLocks++;
@@ -4118,7 +4401,7 @@
     }
 
     function openModal(modalId) {
-        const modal = document.getElementById(modalId);
+        var modal = document.getElementById(modalId);
         if (modal && !modal.classList.contains('active')) {
             modal.classList.add('active');
             lockBodyScroll();
@@ -4127,25 +4410,22 @@
     }
 
     function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
+        var modal = document.getElementById(modalId);
         if (modal && modal.classList.contains('active')) {
             modal.classList.remove('active');
             unlockBodyScroll();
         }
     }
 
-    // ========== ACHIEVEMENT DATA ==========
-    const achievementData = [{
+    // ===== ACHIEVEMENT DATA =====
+    var achievementData = [{
         id: 'hackathon',
         img: 'images/achievements/hackathon.jpg',
         title: 'Hackathon Winner',
         subtitle: '2nd Place · Hack the Future: Smart Batangas Province Hackathon Challenge',
         venue: 'University of Batangas, Batangas City',
         date: 'November 21–22, 2025',
-        body: `<p>My team and I developed <strong>TugonLipa</strong>, an AI‑powered smart community platform that earned <strong>2nd Place</strong> at the Hack the Future: Smart Batangas Province Hackathon Challenge.</p>
-              <p>The platform integrates a centralized emergency hotline, a barangay‑focused social feed, and an AI‑driven assistance agent to help citizens report issues and receive real‑time updates.</p>
-              <p>This achievement reflects our ability to rapidly prototype, integrate AI, and deliver civic technology that addresses real community needs.</p>
-              <p style="margin-top:12px;"><a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link" style="display:inline-flex;"><i class="fas fa-external-link-alt"></i> Read Article</a></p>`
+        body: '<p>My team and I developed <strong>TugonLipa</strong>, an AI‑powered smart community platform that earned <strong>2nd Place</strong> at the Hack the Future: Smart Batangas Province Hackathon Challenge.</p><p>The platform integrates a centralized emergency hotline, a barangay‑focused social feed, and an AI‑driven assistance agent to help citizens report issues and receive real‑time updates.</p><p>This achievement reflects our ability to rapidly prototype, integrate AI, and deliver civic technology that addresses real community needs.</p><p style="margin-top:12px;"><a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link" style="display:inline-flex;"><i class="fas fa-external-link-alt"></i> Read Article</a></p>'
     }, {
         id: 'breadboarding',
         img: 'images/achievements/breadboarding.jpg',
@@ -4153,8 +4433,7 @@
         subtitle: 'Participant · ICpEp.se Region 4A CPE Challenge 2025',
         venue: 'Colegio de San Juan de Letran, Calamba, Laguna',
         date: 'November 15, 2025',
-        body: `<p>Participated in the Breadboarding Competition at the ICpEp.se Region 4A CPE Challenge 2025, demonstrating hands‑on circuit design and prototyping skills.</p>
-              <p>The competition tested our ability to quickly assemble and debug electronic circuits under time pressure, reinforcing my practical knowledge of analog and digital electronics.</p>`
+        body: '<p>Participated in the Breadboarding Competition at the ICpEp.se Region 4A CPE Challenge 2025, demonstrating hands‑on circuit design and prototyping skills.</p><p>The competition tested our ability to quickly assemble and debug electronic circuits under time pressure, reinforcing my practical knowledge of analog and digital electronics.</p>'
     }, {
         id: 'programming',
         img: 'images/achievements/programming.jpg',
@@ -4162,12 +4441,11 @@
         subtitle: 'Participant · ICpEp.se Region 4A CPE Challenge 2024',
         venue: 'De La Salle Lipa, Lipa City, Batangas',
         date: 'December 3, 2024',
-        body: `<p>Competed in the C++ Programming Competition at the ICpEp.se Region 4A CPE Challenge 2024, solving algorithmic problems under a timed setting.</p>
-              <p>The experience sharpened my problem‑solving skills, algorithmic thinking, and ability to write efficient, clean C++ code under pressure.</p>`
+        body: '<p>Competed in the C++ Programming Competition at the ICpEp.se Region 4A CPE Challenge 2024, solving algorithmic problems under a timed setting.</p><p>The experience sharpened my problem‑solving skills, algorithmic thinking, and ability to write efficient, clean C++ code under pressure.</p>'
     }];
 
     function openAchievementModal(index) {
-        const data = achievementData[index];
+        var data = achievementData[index];
         if (!data) return;
         document.getElementById('achievementModalImg').src = data.img;
         document.getElementById('achievementModalTitle').textContent = data.title;
@@ -4178,8 +4456,8 @@
         openModal('modal-achievement');
     }
 
-    // ========== CERTIFICATIONS DATA ==========
-    const certificationsData = [
+    // ===== CERTIFICATIONS DATA =====
+    var certificationsData = [
         { title: "IEEE Open Silicon TinyTapeout Philippine IC Design Bootcamp", date: "April 29, 2026", categories: ["seminar"], imgUrl: "images/certifications/ieee-tinytapeout.jpg" },
         { title: "Network Support and Security", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/network-support-security.jpg" },
         { title: "Digital Safety and Security Awareness", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/digital-safety.jpg" },
@@ -4196,14 +4474,14 @@
         { title: "Tech Nexus 2024: Empowering Campus Innovators", date: "December 7, 2024", categories: ["seminar"], imgUrl: "images/certifications/tech-nexus-2024.jpg" }
     ];
 
-    let currentLightboxImages = [];
-    let currentLightboxIndex = 0;
-    const lightboxEl = document.getElementById('imageLightbox');
-    const lightboxImg = document.getElementById('lightboxImage');
-    const lightboxCounter = document.getElementById('lightboxCounter');
-    const lightboxClose = document.getElementById('lightboxClose');
-    const lightboxPrev = document.getElementById('lightboxPrev');
-    const lightboxNext = document.getElementById('lightboxNext');
+    var currentLightboxImages = [];
+    var currentLightboxIndex = 0;
+    var lightboxEl = document.getElementById('imageLightbox');
+    var lightboxImg = document.getElementById('lightboxImage');
+    var lightboxCounter = document.getElementById('lightboxCounter');
+    var lightboxClose = document.getElementById('lightboxClose');
+    var lightboxPrev = document.getElementById('lightboxPrev');
+    var lightboxNext = document.getElementById('lightboxNext');
 
     function openLightbox(imagesArray, startIndex) {
         if (!imagesArray || imagesArray.length === 0) return;
@@ -4217,7 +4495,7 @@
     function updateLightboxImage() {
         if (currentLightboxImages.length === 0) return;
         lightboxImg.src = currentLightboxImages[currentLightboxIndex];
-        lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxImages.length}`;
+        lightboxCounter.textContent = (currentLightboxIndex + 1) + ' / ' + currentLightboxImages.length;
         lightboxPrev.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
         lightboxNext.style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
     }
@@ -4235,10 +4513,10 @@
     }
 
     lightboxClose.addEventListener('click', closeLightbox);
-    lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
-    lightboxNext.addEventListener('click', () => navigateLightbox(1));
-    lightboxEl.addEventListener('click', (e) => { if (e.target === lightboxEl) closeLightbox(); });
-    document.addEventListener('keydown', (e) => {
+    lightboxPrev.addEventListener('click', function() { navigateLightbox(-1); });
+    lightboxNext.addEventListener('click', function() { navigateLightbox(1); });
+    lightboxEl.addEventListener('click', function(e) { if (e.target === lightboxEl) closeLightbox(); });
+    document.addEventListener('keydown', function(e) {
         if (!lightboxEl.classList.contains('active')) return;
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') navigateLightbox(-1);
@@ -4247,437 +4525,685 @@
 
     // Gallery click delegation
     document.addEventListener('click', function(e) {
-        const img = e.target.closest('.cert-img, .project-gallery img');
+        var img = e.target.closest('.cert-img, .project-gallery img');
         if (!img) return;
         if (img.classList.contains('cert-img')) {
-            const allVisibleImages = Array.from(document.querySelectorAll('.cert-img')).map(i => i.src);
-            const idx = allVisibleImages.indexOf(img.src);
+            var allVisibleImages = Array.from(document.querySelectorAll('.cert-img')).map(function(i) { return i.src; });
+            var idx = allVisibleImages.indexOf(img.src);
             if (idx !== -1) openLightbox(allVisibleImages, idx);
             return;
         }
-        const container = img.closest('.project-gallery');
+        var container = img.closest('.project-gallery');
         if (!container) return;
-        const allImages = Array.from(container.querySelectorAll('img'));
-        const allUrls = allImages.map(i => i.src);
-        const idx = allUrls.indexOf(img.src);
-        if (idx !== -1) openLightbox(allUrls, idx);
+        var allImages = Array.from(container.querySelectorAll('img'));
+        var allUrls = allImages.map(function(i) { return i.src; });
+        var idx2 = allUrls.indexOf(img.src);
+        if (idx2 !== -1) openLightbox(allUrls, idx2);
     });
 
-    function renderCertifications(filter = 'all') {
-        const container = document.getElementById('certsGrid');
+    // ===== CERTIFICATION PAGINATION =====
+    var certsPerPage = 6;
+    var currentCertPage = 0;
+    var currentCertFilter = 'all';
+    var filteredCerts = [];
+
+    function renderCertifications(filter, page) {
+        var container = document.getElementById('certsGrid');
         if (!container) return;
-        let filtered = certificationsData;
+        filter = filter || 'all';
+        page = page || 0;
+        var allCerts = certificationsData;
+        filteredCerts = allCerts;
         if (filter !== 'all') {
-            filtered = certificationsData.filter(cert => cert.categories.includes(filter));
+            filteredCerts = allCerts.filter(function(cert) { return cert.categories.includes(filter); });
         }
+        var start = page * certsPerPage;
+        var end = start + certsPerPage;
+        var pageItems = filteredCerts.slice(start, end);
         container.innerHTML = '';
-        filtered.forEach((cert) => {
-            const card = document.createElement('div');
+        pageItems.forEach(function(cert) {
+            var card = document.createElement('div');
             card.className = 'cert-card';
-            const img = document.createElement('img');
+            var img = document.createElement('img');
             img.src = cert.imgUrl;
             img.alt = cert.title;
             img.loading = 'lazy';
             img.className = 'cert-img';
-            const infoDiv = document.createElement('div');
+            var infoDiv = document.createElement('div');
             infoDiv.className = 'cert-info';
-            const categoryLabels = {
-                webinar: 'Online Webinar', icpep: 'ICpEP', training: 'Course/Training',
-                seminar: 'Seminar', hackathon: 'Hackathon'
+            var categoryLabels = {
+                webinar: 'Online Webinar',
+                icpep: 'ICpEP',
+                training: 'Course/Training',
+                seminar: 'Seminar',
+                hackathon: 'Hackathon'
             };
-            const tagsHtml = cert.categories.map(cat => `<span class="cert-tag">${categoryLabels[cat] || cat}</span>`).join('');
-            infoDiv.innerHTML = `
-                <div class="cert-title">${cert.title}</div>
-                <div class="cert-date"><i class="far fa-calendar-alt"></i> ${cert.date}</div>
-                <div class="cert-tags">${tagsHtml}</div>
-            `;
+            var tagsHtml = cert.categories.map(function(cat) {
+                return '<span class="cert-tag">' + (categoryLabels[cat] || cat) + '</span>';
+            }).join('');
+            infoDiv.innerHTML = '<div class="cert-title">' + cert.title + '</div><div class="cert-date"><i class="far fa-calendar-alt"></i> ' + cert.date + '</div><div class="cert-tags">' + tagsHtml + '</div>';
             card.appendChild(img);
             card.appendChild(infoDiv);
             container.appendChild(card);
         });
+        var loadMoreBtn = document.getElementById('loadMoreCertsBtn');
+        if (loadMoreBtn) {
+            var totalPages = Math.ceil(filteredCerts.length / certsPerPage);
+            if (page < totalPages - 1) {
+                loadMoreBtn.style.display = 'inline-flex';
+                loadMoreBtn.innerHTML = '<i class="fas fa-plus"></i> Load More (' + (filteredCerts.length - (page + 1) * certsPerPage) + ' remaining)';
+            } else {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
     }
 
-    document.querySelectorAll('#certFilterBar .filter-btn').forEach(btn => {
+    document.querySelectorAll('#certFilterBar .filter-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
-            document.querySelectorAll('#certFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('#certFilterBar .filter-btn').forEach(function(b) { b.classList.remove('active'); });
             this.classList.add('active');
-            renderCertifications(this.getAttribute('data-filter'));
+            currentCertFilter = this.getAttribute('data-filter');
+            currentCertPage = 0;
+            renderCertifications(currentCertFilter, currentCertPage);
         });
     });
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('loadMoreCertsBtn').addEventListener('click', function() {
+        currentCertPage++;
+        renderCertifications(currentCertFilter, currentCertPage);
+    });
+
+    // ===== DOM READY =====
+    document.addEventListener('DOMContentLoaded', function() {
         emailjs.init("jJ0ZadOUacvrkPfPT");
 
-        renderCertifications('all');
+        // Initial cert render
+        renderCertifications('all', 0);
 
-        const headerInner = document.getElementById('headerInner');
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const mobileNav = document.getElementById('mobileNav');
-        const allNavLinks = document.querySelectorAll('.nav-list a, .mobile-nav a');
-        const revealEls = document.querySelectorAll('.reveal');
-        const yearSpan = document.getElementById('currentYear');
-        const spotlight = document.getElementById('spotlight');
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        // Apply performance mode
+        applyPerfMode(deviceTier);
 
-        if (headerInner) {
-            window.addEventListener('scroll', () => { headerInner.classList.toggle('scrolled', window.scrollY > 20); });
+        // Performance toggle
+        var perfBtn = document.getElementById('perfToggleBtn');
+        if (perfBtn) {
+            perfBtn.addEventListener('click', function() {
+                var modes = ['low', 'medium', 'high'];
+                var currentIdx = modes.indexOf(perfMode);
+                var nextIdx = (currentIdx + 1) % modes.length;
+                perfOverridden = true;
+                applyPerfMode(modes[nextIdx]);
+            });
         }
+
+        // Header scroll
+        var headerInner = document.getElementById('headerInner');
+        if (headerInner) {
+            var scrollTicking = false;
+            window.addEventListener('scroll', function() {
+                if (!scrollTicking) {
+                    window.requestAnimationFrame(function() {
+                        headerInner.classList.toggle('scrolled', window.scrollY > 20);
+                        scrollTicking = false;
+                    });
+                    scrollTicking = true;
+                }
+            }, { passive: true });
+        }
+
+        // Hamburger
+        var hamburgerBtn = document.getElementById('hamburgerBtn');
+        var mobileNav = document.getElementById('mobileNav');
         if (hamburgerBtn && mobileNav) {
-            hamburgerBtn.addEventListener('click', (e) => {
+            hamburgerBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 mobileNav.classList.toggle('open');
-                const icon = hamburgerBtn.querySelector('i');
+                var icon = hamburgerBtn.querySelector('i');
                 icon.className = mobileNav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
             });
-            mobileNav.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => { mobileNav.classList.remove('open');
-                    hamburgerBtn.querySelector('i').className = 'fas fa-bars'; });
+            mobileNav.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    mobileNav.classList.remove('open');
+                    hamburgerBtn.querySelector('i').className = 'fas fa-bars';
+                });
             });
-            document.addEventListener('click', (e) => {
-                if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open');
-                    hamburgerBtn.querySelector('i').className = 'fas fa-bars'; }
+            document.addEventListener('click', function(e) {
+                if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+                    mobileNav.classList.remove('open');
+                    hamburgerBtn.querySelector('i').className = 'fas fa-bars';
+                }
             });
         }
-        allNavLinks.forEach(link => {
+
+        // Nav links
+        var allNavLinks = document.querySelectorAll('.nav-list a, .mobile-nav a');
+        allNavLinks.forEach(function(link) {
             link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
+                var href = this.getAttribute('href');
                 if (href && href.startsWith('#')) {
                     e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) { const headerHeight = 80;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                        window.scrollTo({ top: targetPosition, behavior: 'smooth' }); }
+                    var target = document.querySelector(href);
+                    if (target) {
+                        var headerHeight = 80;
+                        var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    }
                 }
             });
         });
-        const sections = document.querySelectorAll('section[id]');
+
+        // Active nav (throttled)
+        var sections = document.querySelectorAll('section[id]');
+        var navTicking = false;
 
         function updateActiveNav() {
-            let currentId = '';
-            sections.forEach(section => { const sectionTop = section.offsetTop - 140; if (window.scrollY >= sectionTop)
-                    currentId = section.getAttribute('id'); });
-            allNavLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + currentId) link.classList.add('active'); });
+            var currentId = '';
+            sections.forEach(function(section) {
+                var sectionTop = section.offsetTop - 140;
+                if (window.scrollY >= sectionTop) currentId = section.getAttribute('id');
+            });
+            allNavLinks.forEach(function(link) {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentId) link.classList.add('active');
+            });
         }
-        window.addEventListener('scroll', updateActiveNav, { passive: true });
+        window.addEventListener('scroll', function() {
+            if (!navTicking) {
+                window.requestAnimationFrame(function() {
+                    updateActiveNav();
+                    navTicking = false;
+                });
+                navTicking = true;
+            }
+        }, { passive: true });
         updateActiveNav();
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting)
-                        entry.target.classList.add('revealed'); }); }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-        revealEls.forEach(el => observer.observe(el));
+
+        // Reveal observer
+        var revealEls = document.querySelectorAll('.reveal');
+        var revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) entry.target.classList.add('revealed');
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+        revealEls.forEach(function(el) { revealObserver.observe(el); });
+
+        // Year
+        var yearSpan = document.getElementById('currentYear');
         if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-        if (spotlight && !isTouchDevice) {
-            let mouseX = -500,
+
+        // Spotlight (only on high/medium, not touch)
+        var spotlight = document.getElementById('spotlight');
+        var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (spotlight && !isTouchDevice && perfMode !== 'low') {
+            var mouseX = -500,
                 mouseY = -500,
                 targetX = mouseX,
                 targetY = mouseY;
-            document.addEventListener('mousemove', (e) => { targetX = e.clientX;
+            var mouseMoveHandler = function(e) {
+                targetX = e.clientX;
                 targetY = e.clientY;
-                spotlight.classList.add('active'); });
-            document.addEventListener('mouseleave', () => { spotlight.classList.remove('active'); });
+                spotlight.classList.add('active');
+            };
+            document.addEventListener('mousemove', mouseMoveHandler, { passive: true });
+            document.addEventListener('mouseleave', function() {
+                spotlight.classList.remove('active');
+            }, { passive: true });
 
-            function animateSpotlight() { mouseX += (targetX - mouseX) * 0.08;
+            function animateSpotlight() {
+                mouseX += (targetX - mouseX) * 0.08;
                 mouseY += (targetY - mouseY) * 0.08;
                 spotlight.style.left = mouseX + 'px';
                 spotlight.style.top = mouseY + 'px';
-                requestAnimationFrame(animateSpotlight); }
+                if (perfMode !== 'low') requestAnimationFrame(animateSpotlight);
+            }
             animateSpotlight();
         }
-        const magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
-        if (!isTouchDevice) {
-            magneticWraps.forEach(wrap => {
-                wrap.addEventListener('mousemove', (e) => { const rect = wrap.getBoundingClientRect(); const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2; wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`; });
-                wrap.addEventListener('mouseleave', () => { wrap.style.transform = 'translate(0px, 0px)'; });
+
+        // Magnetic (only if not low perf and not touch)
+        var magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
+        if (!isTouchDevice && perfMode !== 'low') {
+            magneticWraps.forEach(function(wrap) {
+                wrap.addEventListener('mousemove', function(e) {
+                    var rect = wrap.getBoundingClientRect();
+                    var x = e.clientX - rect.left - rect.width / 2;
+                    var y = e.clientY - rect.top - rect.height / 2;
+                    wrap.style.transform = 'translate(' + (x * 0.18) + 'px, ' + (y * 0.18) + 'px)';
+                }, { passive: true });
+                wrap.addEventListener('mouseleave', function() {
+                    wrap.style.transform = 'translate(0px, 0px)';
+                }, { passive: true });
             });
         }
 
         // Typewriter
-        const roleSwitcherText = document.getElementById('roleSwitcherText');
+        var roleSwitcherText = document.getElementById('roleSwitcherText');
         if (roleSwitcherText) {
-            const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
-            let roleIndex = 0,
+            var roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
+            var roleIndex = 0,
                 currentText = '';
-            const typingSpeed = 80,
+            var typingSpeed = 80,
                 deletingSpeed = 40,
                 pauseBeforeDelete = 2000,
                 pauseBeforeNext = 500;
 
-            function typeChar() { const full = roles[roleIndex]; if (currentText.length < full.length) { currentText += full.charAt(currentText.length); roleSwitcherText.textContent = currentText; setTimeout(typeChar, typingSpeed); } else { setTimeout(deleteChar, pauseBeforeDelete); } }
+            function typeChar() {
+                var full = roles[roleIndex];
+                if (currentText.length < full.length) {
+                    currentText += full.charAt(currentText.length);
+                    roleSwitcherText.textContent = currentText;
+                    setTimeout(typeChar, typingSpeed);
+                } else {
+                    setTimeout(deleteChar, pauseBeforeDelete);
+                }
+            }
 
-            function deleteChar() { if (currentText.length > 0) { currentText = currentText.slice(0, -1); roleSwitcherText.textContent = currentText; setTimeout(deleteChar, deletingSpeed); } else { roleIndex = (roleIndex + 1) % roles.length; setTimeout(typeChar, pauseBeforeNext); } }
+            function deleteChar() {
+                if (currentText.length > 0) {
+                    currentText = currentText.slice(0, -1);
+                    roleSwitcherText.textContent = currentText;
+                    setTimeout(deleteChar, deletingSpeed);
+                } else {
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    setTimeout(typeChar, pauseBeforeNext);
+                }
+            }
             typeChar();
         }
 
-        const resumeViewBtn = document.getElementById('resumeViewBtn');
+        // Resume button
+        var resumeViewBtn = document.getElementById('resumeViewBtn');
         if (resumeViewBtn) {
-            resumeViewBtn.addEventListener('click', function(e) { e.preventDefault(); openModal('modal-resume'); });
+            resumeViewBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal('modal-resume');
+            });
         }
 
         // Contact form
-        const contactForm = document.getElementById('contactForm');
+        var contactForm = document.getElementById('contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalHTML = submitBtn.innerHTML;
+                var submitBtn = contactForm.querySelector('button[type="submit"]');
+                var originalHTML = submitBtn.innerHTML;
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 submitBtn.disabled = true;
                 emailjs.sendForm('service_76iix6u', 'template_zdd5ea4', this)
-                    .then(() => {
+                    .then(function() {
                         submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
                         submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                         contactForm.reset();
-                        setTimeout(() => { submitBtn.innerHTML = originalHTML;
+                        setTimeout(function() {
+                            submitBtn.innerHTML = originalHTML;
                             submitBtn.style.background = '';
-                            submitBtn.disabled = false; }, 3000);
+                            submitBtn.disabled = false;
+                        }, 3000);
                     })
-                    .catch((error) => {
+                    .catch(function(error) {
                         console.error('EmailJS error:', error);
                         submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed';
                         submitBtn.style.background = 'linear-gradient(135deg, #f43f5e, #e11d48)';
-                        setTimeout(() => { submitBtn.innerHTML = originalHTML;
+                        setTimeout(function() {
+                            submitBtn.innerHTML = originalHTML;
                             submitBtn.style.background = '';
-                            submitBtn.disabled = false; }, 3000);
+                            submitBtn.disabled = false;
+                        }, 3000);
                     });
             });
         }
-    });
 
-    // Escape key for modals & lightbox
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            const lightbox = document.getElementById('imageLightbox');
-            if (lightbox && lightbox.classList.contains('active')) return;
-            const activeModals = document.querySelectorAll('.modal-overlay.active');
-            if (activeModals.length) {
-                activeModals.forEach(modal => {
-                    const modalId = modal.getAttribute('id');
-                    if (modalId) closeModal(modalId);
-                });
+        // ESC key for modals & lightbox
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                var lightbox = document.getElementById('imageLightbox');
+                if (lightbox && lightbox.classList.contains('active')) return;
+                var activeModals = document.querySelectorAll('.modal-overlay.active');
+                if (activeModals.length) {
+                    activeModals.forEach(function(modal) {
+                        var modalId = modal.getAttribute('id');
+                        if (modalId) closeModal(modalId);
+                    });
+                }
             }
-        }
-    });
+        });
 
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
-            closeModal(e.target.getAttribute('id'));
-        }
-    });
-</script>
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
+                closeModal(e.target.getAttribute('id'));
+            }
+        });
 
-<!-- ========== ENHANCED INTERACTIONS (tilt, shine, timeline, etc.) ========== -->
-<script>
-    (function() {
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // Staggered reveal
-        const staggerContainers = document.querySelectorAll('.stagger-container[data-stagger]');
+        // ===== STAGGERED REVEAL =====
+        var staggerContainers = document.querySelectorAll('.stagger-container[data-stagger]');
+        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (!prefersReducedMotion && staggerContainers.length > 0) {
-            const staggerObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            var staggerObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('revealed');
                         staggerObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-            staggerContainers.forEach(el => staggerObserver.observe(el));
-        } else if (prefersReducedMotion && staggerContainers.length > 0) {
-            staggerContainers.forEach(el => el.classList.add('revealed'));
+            staggerContainers.forEach(function(el) { staggerObserver.observe(el); });
+        } else if (staggerContainers.length > 0) {
+            staggerContainers.forEach(function(el) { el.classList.add('revealed'); });
         }
 
-        // 3D Tilt (mouse only)
-        if (!isTouchDevice && !prefersReducedMotion) {
-            const tiltCards = document.querySelectorAll('[data-tilt-card], .card-premium:not(.achievement-card), .card-light-premium, .project-card-horizontal, .achievement-photo-card');
-            tiltCards.forEach(card => {
+        // ===== TILT (only on high perf, not touch) =====
+        if (!isTouchDevice && !prefersReducedMotion && perfMode !== 'low') {
+            var tiltCards = document.querySelectorAll('[data-tilt-card], .card-premium:not(.achievement-card), .card-light-premium, .project-card-horizontal, .achievement-photo-card');
+            tiltCards.forEach(function(card) {
                 card.addEventListener('mousemove', function(e) {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -5;
-                    const rotateY = ((x - centerX) / centerX) * 5;
-                    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+                    var rect = card.getBoundingClientRect();
+                    var x = e.clientX - rect.left;
+                    var y = e.clientY - rect.top;
+                    var centerX = rect.width / 2;
+                    var centerY = rect.height / 2;
+                    var rotateX = ((y - centerY) / centerY) * -5;
+                    var rotateY = ((x - centerX) / centerX) * 5;
+                    card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-3px)';
                     card.style.transition = 'transform 0.1s ease-out, box-shadow 0.4s ease, border-color 0.4s ease';
-                });
+                }, { passive: true });
                 card.addEventListener('mouseleave', function() {
                     card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
                     card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease';
-                });
+                }, { passive: true });
             });
 
             // Project card bg parallax
-            const projectCards = document.querySelectorAll('.project-card-horizontal[data-project-card]');
-            projectCards.forEach(card => {
-                const bgLayer = card.querySelector('.card-bg-layer');
+            var projectCards = document.querySelectorAll('.project-card-horizontal[data-project-card]');
+            projectCards.forEach(function(card) {
+                var bgLayer = card.querySelector('.card-bg-layer');
                 if (!bgLayer) return;
                 card.addEventListener('mousemove', function(e) {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const moveX = (x / rect.width - 0.5) * -8;
-                    const moveY = (y / rect.height - 0.5) * -8;
-                    bgLayer.style.transform = `scale(1.06) translate(${moveX}px, ${moveY}px)`;
+                    var rect = card.getBoundingClientRect();
+                    var x = e.clientX - rect.left;
+                    var y = e.clientY - rect.top;
+                    var moveX = (x / rect.width - 0.5) * -8;
+                    var moveY = (y / rect.height - 0.5) * -8;
+                    bgLayer.style.transform = 'scale(1.06) translate(' + moveX + 'px, ' + moveY + 'px)';
                     bgLayer.style.transition = 'transform 0.15s ease-out';
-                });
+                }, { passive: true });
                 card.addEventListener('mouseleave', function() {
                     bgLayer.style.transform = 'scale(1) translate(0px, 0px)';
                     bgLayer.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                });
+                }, { passive: true });
             });
         }
 
-        // Shine sweep
+        // ===== SHINE SWEEP (only if not reduced motion) =====
         if (!prefersReducedMotion) {
-            const shineTargets = document.querySelectorAll('.card-premium, .card-light-premium, .project-card-horizontal, .achievement-card, .achievement-photo-card');
-            shineTargets.forEach(card => {
-                let shineTimeout;
-                const triggerShine = () => {
+            var shineTargets = document.querySelectorAll('.card-premium, .card-light-premium, .project-card-horizontal, .achievement-card, .achievement-photo-card');
+            shineTargets.forEach(function(card) {
+                var shineTimeout;
+                var triggerShine = function() {
+                    if (perfMode === 'low') return;
                     clearTimeout(shineTimeout);
                     if (card.classList.contains('achievement-card')) {
-                        const innerShine = card.querySelector('.achievement-shine');
-                        if (innerShine) { innerShine.classList.remove('shine-active'); void innerShine.offsetWidth;
-                            innerShine.classList.add('shine-active'); }
-                    } else if (card.classList.contains('project-card-horizontal') || card.classList.contains(
-                            'achievement-photo-card')) {
-                        const sweep = card.querySelector('.card-shine-sweep');
-                        if (sweep) { sweep.classList.remove('shine-active'); void sweep.offsetWidth;
-                            sweep.classList.add('shine-active'); }
+                        var innerShine = card.querySelector('.achievement-shine');
+                        if (innerShine) {
+                            innerShine.classList.remove('shine-active');
+                            void innerShine.offsetWidth;
+                            innerShine.classList.add('shine-active');
+                        }
+                    } else if (card.classList.contains('project-card-horizontal') || card.classList.contains('achievement-photo-card')) {
+                        var sweep = card.querySelector('.card-shine-sweep');
+                        if (sweep) {
+                            sweep.classList.remove('shine-active');
+                            void sweep.offsetWidth;
+                            sweep.classList.add('shine-active');
+                        }
                     } else {
-                        card.classList.remove('shine-active'); void card.offsetWidth;
+                        card.classList.remove('shine-active');
+                        void card.offsetWidth;
                         card.classList.add('shine-active');
                     }
-                    shineTimeout = setTimeout(() => {
-                        if (card.querySelector('.card-shine-sweep')) card.querySelector('.card-shine-sweep')
-                            .classList.remove('shine-active');
-                        if (card.querySelector('.achievement-shine')) card.querySelector('.achievement-shine')
-                            .classList.remove('shine-active');
+                    shineTimeout = setTimeout(function() {
+                        if (card.querySelector('.card-shine-sweep')) card.querySelector('.card-shine-sweep').classList.remove('shine-active');
+                        if (card.querySelector('.achievement-shine')) card.querySelector('.achievement-shine').classList.remove('shine-active');
                         card.classList.remove('shine-active');
                     }, 2600);
                 };
-                card.addEventListener('mouseenter', triggerShine);
-                let idleShineInterval;
-                card.addEventListener('mouseenter', () => clearInterval(idleShineInterval));
-                card.addEventListener('mouseleave', () => { idleShineInterval = setInterval(triggerShine, 6000); });
+                card.addEventListener('mouseenter', triggerShine, { passive: true });
+                var idleShineInterval;
+                card.addEventListener('mouseenter', function() { clearInterval(idleShineInterval); }, { passive: true });
+                card.addEventListener('mouseleave', function() {
+                    idleShineInterval = setInterval(triggerShine, 6000);
+                }, { passive: true });
                 idleShineInterval = setInterval(triggerShine, 6000);
                 card._shineInterval = idleShineInterval;
             });
         }
 
-        // Timeline animation
-        const timelines = document.querySelectorAll('[data-timeline-animate]');
+        // ===== TIMELINE =====
+        var timelines = document.querySelectorAll('[data-timeline-animate]');
         if (!prefersReducedMotion && timelines.length > 0) {
-            const timelineObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            var timelineObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('timeline-animated');
                         timelineObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.2 });
-            timelines.forEach(tl => timelineObserver.observe(tl));
-        } else if (prefersReducedMotion && timelines.length > 0) {
-            timelines.forEach(tl => tl.classList.add('timeline-animated'));
+            timelines.forEach(function(tl) { timelineObserver.observe(tl); });
+        } else if (timelines.length > 0) {
+            timelines.forEach(function(tl) { tl.classList.add('timeline-animated'); });
         }
 
-        // Glow border
-        const glowBorders = document.querySelectorAll('[data-glow-border]');
+        // ===== GLOW BORDER =====
+        var glowBorders = document.querySelectorAll('[data-glow-border]');
         if (!prefersReducedMotion && glowBorders.length > 0) {
-            const glowObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            var glowObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('glow-visible');
                         glowObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.3 });
-            glowBorders.forEach(el => glowObserver.observe(el));
-        } else if (prefersReducedMotion && glowBorders.length > 0) {
-            glowBorders.forEach(el => el.classList.add('glow-visible'));
+            glowBorders.forEach(function(el) { glowObserver.observe(el); });
+        } else if (glowBorders.length > 0) {
+            glowBorders.forEach(function(el) { el.classList.add('glow-visible'); });
         }
 
-        // Ripple
-        const rippleTargets = document.querySelectorAll('[data-ripple], .btn-primary[data-ripple]');
-        rippleTargets.forEach(btn => {
+        // ===== RIPPLE =====
+        var rippleTargets = document.querySelectorAll('[data-ripple], .btn-primary[data-ripple]');
+        rippleTargets.forEach(function(btn) {
             btn.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
+                var ripple = document.createElement('span');
                 ripple.classList.add('ripple');
-                const rect = btn.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
+                var rect = btn.getBoundingClientRect();
+                var size = Math.max(rect.width, rect.height);
                 ripple.style.width = size + 'px';
                 ripple.style.height = size + 'px';
                 ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
                 ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
                 btn.appendChild(ripple);
-                ripple.addEventListener('animationend', () => ripple.remove());
-            });
+                ripple.addEventListener('animationend', function() { ripple.remove(); });
+            }, { passive: true });
         });
 
         // Achievement card shine (legacy)
-        const achievementCards = document.querySelectorAll('[data-achievement-card]');
+        var achievementCards = document.querySelectorAll('[data-achievement-card]');
         if (!prefersReducedMotion && achievementCards.length > 0) {
-            achievementCards.forEach(card => {
-                const shineEl = card.querySelector('.achievement-shine');
+            achievementCards.forEach(function(card) {
+                var shineEl = card.querySelector('.achievement-shine');
                 if (!shineEl) return;
-                let shineInterval;
-                const triggerAchievementShine = () => { shineEl.classList.remove('shine-active'); void shineEl
-                        .offsetWidth;
-                    shineEl.classList.add('shine-active'); };
-                card.addEventListener('mouseenter', () => { clearInterval(shineInterval);
-                    triggerAchievementShine(); });
-                card.addEventListener('mouseleave', () => { shineInterval = setInterval(triggerAchievementShine,
-                        5000); });
+                var shineInterval;
+                var triggerAchievementShine = function() {
+                    if (perfMode === 'low') return;
+                    shineEl.classList.remove('shine-active');
+                    void shineEl.offsetWidth;
+                    shineEl.classList.add('shine-active');
+                };
+                card.addEventListener('mouseenter', function() {
+                    clearInterval(shineInterval);
+                    triggerAchievementShine();
+                }, { passive: true });
+                card.addEventListener('mouseleave', function() {
+                    shineInterval = setInterval(triggerAchievementShine, 5000);
+                }, { passive: true });
                 shineInterval = setInterval(triggerAchievementShine, 5000);
                 card._achShineInterval = shineInterval;
             });
         }
 
-        setTimeout(() => {
-            document.querySelectorAll('.stagger-container[data-stagger]').forEach(el => {
-                const rect = el.getBoundingClientRect();
+        // Reveal any already-visible stagger containers
+        setTimeout(function() {
+            document.querySelectorAll('.stagger-container[data-stagger]').forEach(function(el) {
+                var rect = el.getBoundingClientRect();
                 if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('revealed');
             });
         }, 300);
-    })();
+    });
 </script>
 
 <!-- ========== THREE.JS LIGHTRAYS CANVAS ========== -->
 <script>
     (function() {
-        const container = document.getElementById('canvasContainer');
-        const canvas = document.getElementById('lightraysCanvas');
+        var container = document.getElementById('canvasContainer');
+        var canvas = document.getElementById('lightraysCanvas');
         if (!container || !canvas) return;
-        const config = { raysOrigin: 'top-center', raysColor: '#67e8f9', raysSpeed: 1, lightSpread: 1, rayLength: 2,
-            pulsating: false, fadeDistance: 1.0, saturation: 1.0, followMouse: true, mouseInfluence: 0.1,
-            noiseAmount: 0.0, distortion: 0.0 };
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-        camera.position.z = 1;
-        const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255] : [1, 1, 1]; };
-        const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return { anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] }; case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
-        const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE.Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config.lightSpread }, rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ? 1.0 : 0.0 }, fadeDistance: { value: config.fadeDistance }, saturation: { value: config.saturation }, mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence }, noiseAmount: { value: config.noiseAmount }, distortion: { value: config.distortion } };
-        const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-        const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.514)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
-        const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, depthTest: false });
-        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
-        scene.add(mesh);
-        const mouse = { x: 0.5, y: 0.5 },
-            smoothMouse = { x: 0.5, y: 0.5 };
-        window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e.clientX - rect.left) / rect.width;
-            mouse.y = (e.clientY - rect.top) / rect.height; });
-        window.addEventListener('touchmove', (e) => { const rect = container.getBoundingClientRect(); if (e.touches.length > 0) { mouse.x = (e.touches[0].clientX - rect.left) / rect.width;
-                mouse.y = (e.touches[0].clientY - rect.top) / rect.height; } }, { passive: true });
 
-        function resize() { const rect = container.getBoundingClientRect(); const w = rect.width,
-                h = rect.height; renderer.setSize(w, h); const dpr = renderer.getPixelRatio(); uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr); uniforms.rayPos.value.set(anchor[0], anchor[1]); uniforms.rayDir.value.set(dir[0], dir[1]); }
-        window.addEventListener('resize', resize);
+        // Check performance mode
+        var perfMode = document.body.dataset.performance || 'high';
+        if (perfMode === 'low') {
+            canvas.style.display = 'none';
+            return;
+        }
+
+        var config = {
+            raysOrigin: 'top-center',
+            raysColor: '#67e8f9',
+            raysSpeed: 1,
+            lightSpread: 1,
+            rayLength: 2,
+            pulsating: false,
+            fadeDistance: 1.0,
+            saturation: 1.0,
+            followMouse: true,
+            mouseInfluence: 0.1,
+            noiseAmount: 0.0,
+            distortion: 0.0
+        };
+        var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false });
+        var pixelRatio = (perfMode === 'medium') ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window
+        .devicePixelRatio, 2);
+        renderer.setPixelRatio(pixelRatio);
+        var scene = new THREE.Scene();
+        var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+        camera.position.z = 1;
+
+        var hexToRgb = function(hex) {
+            var m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return m ? [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255] : [1, 1, 1];
+        };
+        var getAnchorAndDir = function(origin, w, h) {
+            var outside = 0.2;
+            switch (origin) {
+                case 'top-left':
+                    return { anchor: [0, -outside * h], dir: [0, 1] };
+                case 'top-right':
+                    return { anchor: [w, -outside * h], dir: [0, 1] };
+                case 'left':
+                    return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] };
+                case 'right':
+                    return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] };
+                case 'bottom-left':
+                    return { anchor: [0, (1 + outside) * h], dir: [0, -1] };
+                case 'bottom-center':
+                    return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] };
+                case 'bottom-right':
+                    return { anchor: [w, (1 + outside) * h], dir: [0, -1] };
+                default:
+                    return { anchor: [0.5 * w, -outside * h], dir: [0, 1] };
+            }
+        };
+
+        var uniforms = {
+            iTime: { value: 0 },
+            iResolution: { value: new THREE.Vector2() },
+            rayPos: { value: new THREE.Vector2() },
+            rayDir: { value: new THREE.Vector2() },
+            raysColor: { value: new THREE.Vector3(hexToRgb(config.raysColor)) },
+            raysSpeed: { value: config.raysSpeed },
+            lightSpread: { value: config.lightSpread },
+            rayLength: { value: config.rayLength },
+            pulsating: { value: config.pulsating ? 1.0 : 0.0 },
+            fadeDistance: { value: config.fadeDistance },
+            saturation: { value: config.saturation },
+            mousePos: { value: new THREE.Vector2(0.5, 0.5) },
+            mouseInfluence: { value: config.mouseInfluence },
+            noiseAmount: { value: config.noiseAmount },
+            distortion: { value: config.distortion }
+        };
+
+        var vertexShader =
+            'varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }';
+        var fragmentShader =
+            'precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.514)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }';
+
+        var material = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader,
+            transparent: true, depthWrite: false, depthTest: false });
+        var mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+        scene.add(mesh);
+
+        var mouse = { x: 0.5, y: 0.5 },
+            smoothMouse = { x: 0.5, y: 0.5 };
+        var mouseMoveHandler2 = function(e) {
+            var rect = container.getBoundingClientRect();
+            mouse.x = (e.clientX - rect.left) / rect.width;
+            mouse.y = (e.clientY - rect.top) / rect.height;
+        };
+        window.addEventListener('mousemove', mouseMoveHandler2, { passive: true });
+        window.addEventListener('touchmove', function(e) {
+            var rect = container.getBoundingClientRect();
+            if (e.touches.length > 0) {
+                mouse.x = (e.touches[0].clientX - rect.left) / rect.width;
+                mouse.y = (e.touches[0].clientY - rect.top) / rect.height;
+            }
+        }, { passive: true });
+
+        function resize() {
+            var rect = container.getBoundingClientRect();
+            var w = rect.width,
+                h = rect.height;
+            renderer.setSize(w, h);
+            var dpr = renderer.getPixelRatio();
+            uniforms.iResolution.value.set(w * dpr, h * dpr);
+            var anchorDir = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr);
+            uniforms.rayPos.value.set(anchorDir.anchor[0], anchorDir.anchor[1]);
+            uniforms.rayDir.value.set(anchorDir.dir[0], anchorDir.dir[1]);
+        }
+        window.addEventListener('resize', resize, { passive: true });
         resize();
 
-        function animate(time) { requestAnimationFrame(animate); uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const smoothing = 0.92; smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
+        // Frame rate limiting for medium perf
+        var targetFPS = (perfMode === 'medium') ? 30 : 60;
+        var frameInterval = 1000 / targetFPS;
+        var lastFrameTime = 0;
+
+        function animate(time) {
+            if (document.body.dataset.performance === 'low') {
+                requestAnimationFrame(animate);
+                return;
+            }
+            if (time - lastFrameTime < frameInterval) {
+                requestAnimationFrame(animate);
+                return;
+            }
+            lastFrameTime = time;
+            uniforms.iTime.value = time * 0.001;
+            if (config.followMouse && config.mouseInfluence > 0) {
+                var smoothing = 0.92;
+                smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
                 smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
-                uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); } renderer.render(scene, camera); }
+                uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y);
+            }
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
         requestAnimationFrame(animate);
     })();
 </script>
@@ -4685,45 +5211,69 @@
 <!-- ========== THREE.JS WEBGL FLUID CANVAS ========== -->
 <script>
     (function() {
-        const container = document.getElementById('canvasContainer');
-        const webglCanvas = document.getElementById('webglCanvas');
+        var container = document.getElementById('canvasContainer');
+        var webglCanvas = document.getElementById('webglCanvas');
         if (!container || !webglCanvas) return;
-        const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false, antialias: true });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+
+        var perfMode = document.body.dataset.performance || 'high';
+        if (perfMode === 'low') {
+            webglCanvas.style.display = 'none';
+            return;
+        }
+
+        var renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false,
+            antialias: (perfMode === 'high') });
+        var pixelRatio = (perfMode === 'medium') ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window
+        .devicePixelRatio, 2);
+        renderer.setPixelRatio(pixelRatio);
+        var scene = new THREE.Scene();
+        var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
         camera.position.z = 1;
-        let fluidRT_A, fluidRT_B;
-        let simScene, simCamera, simQuad;
-        let fluidRes = new THREE.Vector2(512, 512);
-        const mouse = { x: 0.5, y: 0.5, prevX: 0.5, prevY: 0.5, inside: false };
-        let lastMoveTime = performance.now();
-        let idleActive = false;
-        const IDLE_DELAY = 2000;
-        const SWEEP_PAUSE = 4000;
-        let scanVirtualX = 0.0,
+
+        var fluidRT_A, fluidRT_B;
+        var simScene, simCamera, simQuad;
+        var fluidRes = new THREE.Vector2(512, 512);
+
+        // Resolution based on perf mode
+        if (perfMode === 'medium') fluidRes.set(256, 256);
+        else fluidRes.set(384, 384);
+        if (perfMode === 'high') fluidRes.set(512, 512);
+
+        var mouse = { x: 0.5, y: 0.5, prevX: 0.5, prevY: 0.5, inside: false };
+        var lastMoveTime = performance.now();
+        var idleActive = false;
+        var IDLE_DELAY = 2000;
+        var SWEEP_PAUSE = 4000;
+        var scanVirtualX = 0.0,
             scanVirtualY = 0.0,
             scanDirX = 1,
             scanDirY = 1,
             scanPauseUntil = 0,
             scanComplete = true;
-        const SCAN_SPEED_X = 3.5,
+        var SCAN_SPEED_X = 3.5,
             SCAN_SPEED_Y = 0.5;
-        const loader = new THREE.TextureLoader();
-        let imagesLoaded = 0,
+        var loader = new THREE.TextureLoader();
+        var imagesLoaded = 0,
             animationStarted = false;
 
         function initFluid() {
             simScene = new THREE.Scene();
             simCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
             simCamera.position.z = 1;
-            const format = THREE.RGBAFormat,
+            var format = THREE.RGBAFormat,
                 type = THREE.FloatType;
-            fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-            fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
-            const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-            const simFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
-            const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture }, uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0, 0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) }, uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
+            fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format: format, type: type, minFilter: THREE
+                    .LinearFilter, magFilter: THREE.LinearFilter });
+            fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format: format, type: type, minFilter: THREE
+                    .LinearFilter, magFilter: THREE.LinearFilter });
+            var simVert =
+                'varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }';
+            var simFrag =
+                'precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }';
+            var simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture }, uMouse: { value: new THREE
+                        .Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0, 0) }, uTexelSize: { value: new THREE
+                        .Vector2(1 / fluidRes.x, 1 / fluidRes.y) }, uMouseDown: { value: false } },
+                vertexShader: simVert, fragmentShader: simFrag });
             simQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMat);
             simScene.add(simQuad);
             renderer.setRenderTarget(fluidRT_A);
@@ -4733,87 +5283,179 @@
             renderer.setRenderTarget(null);
         }
 
-        function resizeFluid() { const rect = container.getBoundingClientRect(); const aspect = rect.width / rect.height; const h = 512; const w = Math.floor(h * aspect); fluidRes.set(w, h); fluidRT_A.setSize(w, h); fluidRT_B.setSize(w, h); simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h); }
+        function resizeFluid() {
+            var rect = container.getBoundingClientRect();
+            var aspect = rect.width / rect.height;
+            var h = (perfMode === 'high') ? 512 : (perfMode === 'medium' ? 256 : 128);
+            var w = Math.floor(h * aspect);
+            fluidRes.set(w, h);
+            fluidRT_A.setSize(w, h);
+            fluidRT_B.setSize(w, h);
+            simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h);
+        }
         initFluid();
-        window.addEventListener('resize', resizeFluid);
-        const mainVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
-        const mainFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
-        const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A.texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 }, uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: 0.025 } };
-        const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert, fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
-        const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
+        window.addEventListener('resize', resizeFluid, { passive: true });
+
+        var mainVert = 'varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }';
+        var mainFrag =
+            'precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }';
+
+        var mainUniforms = {
+            uBarong: { value: null },
+            uToga: { value: null },
+            uFluidMask: { value: fluidRT_A.texture },
+            uAspect: { value: 1.0 },
+            uBarongAspect: { value: 1.0 },
+            uTogaAspect: { value: 1.0 },
+            uCursor: { value: new THREE.Vector2(0.5, 0.5) },
+            uParallaxStrength: { value: (perfMode === 'high') ? 0.025 : 0.015 }
+        };
+        var mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert, fragmentShader: mainFrag,
+            transparent: true, depthWrite: false, depthTest: false });
+        var mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
         scene.add(mainQuad);
 
-        function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
-                        container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
-                    resizeAll();
-                    animate();
-                    if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
-        loader.load('barong.png', (tex) => { mainUniforms.uBarong.value = tex;
+        function imageLoaded(tex, which) {
+            imagesLoaded++;
+            if (tex.image) {
+                if (which === 'barong') {
+                    mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
+                    container.style.aspectRatio = tex.image.width + ' / ' + tex.image.height;
+                } else {
+                    mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height;
+                }
+            }
+            if (imagesLoaded === 2 && !animationStarted) {
+                animationStarted = true;
+                resizeAll();
+                animate();
+                if (window.hideLoadingScreen) window.hideLoadingScreen();
+            }
+        }
+        loader.load('barong.png', function(tex) { mainUniforms.uBarong.value = tex;
             imageLoaded(tex, 'barong'); });
-        loader.load('toga.png', (tex) => { mainUniforms.uToga.value = tex;
+        loader.load('toga.png', function(tex) { mainUniforms.uToga.value = tex;
             imageLoaded(tex, 'toga'); });
 
-        function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect(); const newX = (clientX - rect.left) / rect.width,
-                newY = 1.0 - (clientY - rect.top) / rect.height;
+        function updateMouse(clientX, clientY) {
+            var rect = container.getBoundingClientRect();
+            var newX = (clientX - rect.left) / rect.width;
+            var newY = 1.0 - (clientY - rect.top) / rect.height;
             mouse.prevX = mouse.x;
             mouse.prevY = mouse.y;
             mouse.x = newX;
             mouse.y = newY;
             lastMoveTime = performance.now();
             idleActive = false;
-            scanComplete = true; }
-        webglCanvas.addEventListener('mousemove', (e) => { updateMouse(e.clientX, e.clientY);
-            mouse.inside = true; });
-        webglCanvas.addEventListener('mouseenter', () => { mouse.inside = true; });
-        webglCanvas.addEventListener('mouseleave', () => { mouse.inside = false; });
-        webglCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches[0];
+            scanComplete = true;
+        }
+        webglCanvas.addEventListener('mousemove', function(e) { updateMouse(e.clientX, e.clientY);
+            mouse.inside = true; }, { passive: true });
+        webglCanvas.addEventListener('mouseenter', function() { mouse.inside = true; }, { passive: true });
+        webglCanvas.addEventListener('mouseleave', function() { mouse.inside = false; }, { passive: true });
+        webglCanvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            var t = e.touches[0];
             updateMouse(t.clientX, t.clientY);
-            mouse.inside = true; }, { passive: false });
-        webglCanvas.addEventListener('touchend', () => { mouse.inside = false; });
+            mouse.inside = true;
+        }, { passive: false });
+        webglCanvas.addEventListener('touchend', function() { mouse.inside = false; }, { passive: true });
 
-        function updateFluid(dt) { const now = performance.now(); const simMat = simQuad.material; if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) { idleActive = true;
-                scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
+        function updateFluid(dt) {
+            var now = performance.now();
+            var simMat = simQuad.material;
+            if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) {
+                idleActive = true;
+                scanComplete = false;
+                if (Math.random() < 0.5) { scanVirtualX = 0.0;
                     scanDirX = 1; } else { scanVirtualX = 1.0;
                     scanDirX = -1; }
                 scanVirtualY = 0.0;
                 scanDirY = 1;
-                scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
-                                scanDirX = 1; } else { scanVirtualX = 1.0;
-                                scanDirX = -1; }
-                            scanVirtualY = 0.0;
-                            scanDirY = 1; } } else { scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
-                        scanVirtualY += scanDirY * SCAN_SPEED_Y * dt; if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
-                            scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0;
-                            scanDirX = 1; } if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
-                            scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0;
-                            scanComplete = true;
-                            scanPauseUntil = now + SWEEP_PAUSE; } }
-                    simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
-                    simMat.uniforms.uMouseDown.value = true;
-                    simMat.uniforms.uVelocity.value.set(0, 0); } else { simMat.uniforms.uMouse.value.set(mouse.x, mouse.y); const sensitivity = 10.0; const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity; const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
-                    simMat.uniforms.uVelocity.value.set(velX, velY); const movingThreshold = 0.01;
-                    simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold) && mouse.inside; }
-                mainUniforms.uCursor.value.set(mouse.x, mouse.y);
-                simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
-                renderer.setRenderTarget(fluidRT_B);
-                renderer.render(simScene, simCamera);
-                renderer.setRenderTarget(null);
-                const temp = fluidRT_A;
-                fluidRT_A = fluidRT_B;
-                fluidRT_B = temp;
-                mainUniforms.uFluidMask.value = fluidRT_A.texture; }
+                scanPauseUntil = 0;
+            }
+            if (idleActive) {
+                if (scanComplete) {
+                    if (now > scanPauseUntil) {
+                        scanComplete = false;
+                        if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                            scanDirX = 1; } else { scanVirtualX = 1.0;
+                            scanDirX = -1; }
+                        scanVirtualY = 0.0;
+                        scanDirY = 1;
+                    }
+                } else {
+                    scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
+                    scanVirtualY += scanDirY * SCAN_SPEED_Y * dt;
+                    if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
+                        scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0;
+                        scanDirX = 1; }
+                    if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
+                        scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0;
+                        scanComplete = true;
+                        scanPauseUntil = now + SWEEP_PAUSE; }
+                }
+                simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
+                simMat.uniforms.uMouseDown.value = true;
+                simMat.uniforms.uVelocity.value.set(0, 0);
+            } else {
+                simMat.uniforms.uMouse.value.set(mouse.x, mouse.y);
+                var sensitivity = 10.0;
+                var velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity;
+                var velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
+                simMat.uniforms.uVelocity.value.set(velX, velY);
+                var movingThreshold = 0.01;
+                simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold) && mouse
+                    .inside;
+            }
+            mainUniforms.uCursor.value.set(mouse.x, mouse.y);
+            simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
+            renderer.setRenderTarget(fluidRT_B);
+            renderer.render(simScene, simCamera);
+            renderer.setRenderTarget(null);
+            var temp = fluidRT_A;
+            fluidRT_A = fluidRT_B;
+            fluidRT_B = temp;
+            mainUniforms.uFluidMask.value = fluidRT_A.texture;
+        }
 
-        function resizeAll() { const rect = container.getBoundingClientRect(); renderer.setSize(rect.width, rect.height);
+        function resizeAll() {
+            var rect = container.getBoundingClientRect();
+            renderer.setSize(rect.width, rect.height);
             mainUniforms.uAspect.value = rect.width / rect.height;
             resizeFluid();
-            mainUniforms.uFluidMask.value = fluidRT_A.texture; }
-        let lastTime = 0;
+            mainUniforms.uFluidMask.value = fluidRT_A.texture;
+        }
+        var lastTime = 0;
 
-        function animate(time) { if (!animationStarted) return;
-            requestAnimationFrame(animate); const dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
+        // Frame rate limiting for fluid
+        var fluidTargetFPS = (perfMode === 'medium') ? 30 : 45;
+        if (perfMode === 'high') fluidTargetFPS = 60;
+        var fluidFrameInterval = 1000 / fluidTargetFPS;
+        var fluidLastFrameTime = 0;
+
+        function animate(time) {
+            if (!animationStarted) {
+                requestAnimationFrame(animate);
+                return;
+            }
+            if (document.body.dataset.performance === 'low') {
+                requestAnimationFrame(animate);
+                return;
+            }
+            if (time - fluidLastFrameTime < fluidFrameInterval) {
+                requestAnimationFrame(animate);
+                return;
+            }
+            fluidLastFrameTime = time;
+            var dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
             lastTime = time;
             updateFluid(dt);
-            renderer.render(scene, camera); }
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+        // Will start when images load
+        requestAnimationFrame(animate);
     })();
 </script>
 </body>
