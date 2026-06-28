@@ -1021,6 +1021,14 @@
             background-position: center, center;
             background-color: #0a0a1a;
         }
+        .bg-rentech {
+            background-image:
+                linear-gradient(155deg, rgba(3, 7, 17, 0.35) 0%, rgba(3, 7, 17, 0.22) 35%, rgba(3, 7, 17, 0.3) 100%),
+                url('ren-tech-bg.jpg');
+            background-size: auto, cover;
+            background-position: center, center;
+            background-color: #0c0e1a;
+        }
         .bg-nyc {
             background-image:
                 linear-gradient(155deg, rgba(3, 7, 17, 0.35) 0%, rgba(3, 7, 17, 0.22) 35%, rgba(3, 7, 17, 0.3) 100%),
@@ -3689,7 +3697,7 @@
                     <h3 class="journey-heading">My Journey</h3>
                     <span class="journey-subtitle">From Computer Engineering Student to Technology Builder</span>
                     <p class="journey-text">I'm <strong>Lorence Ojales</strong>, a Computer Engineering graduate passionate about building intelligent systems that combine <strong>software, hardware, and data</strong>. My experience spans full-stack web development, IoT, embedded systems, artificial intelligence, and analytics.</p>
-                    <p class="journey-text" style="margin-top:10px;">I've developed projects including <strong>Eco Flow</strong>, an AI-powered greenhouse automation system, <strong>MazeBot</strong>, an autonomous wall-following robot, <strong>NYC Crash Analytics</strong>, a full-stack data visualization platform, and <strong>TugonLipa</strong>, an award-winning smart community solution that earned <strong>2nd Place</strong> at the Hack the Future Hackathon.</p>
+                    <p class="journey-text" style="margin-top:10px;">I've developed projects including <strong>Eco Flow</strong>, an AI-powered greenhouse automation system, <strong>MazeBot</strong>, an autonomous wall-following robot, <strong>RenTech Attendance</strong>, an offline-first IoT event check-in system, <strong>NYC Crash Analytics</strong>, a full-stack data visualization platform, and <strong>TugonLipa</strong>, an award-winning smart community solution that earned <strong>2nd Place</strong> at the Hack the Future Hackathon.</p>
                     <p class="journey-text" style="margin-top:10px;">With experience in IT support, software development, and emerging technologies, I enjoy transforming complex problems into practical, user-focused solutions that create real-world impact.</p>
                     <span class="exploring-tag"><i class="fas fa-rocket" style="margin-right:5px;"></i> Exploring: AI-powered apps, IoT systems, embedded dev & full-stack engineering</span>
                 </div>
@@ -3796,6 +3804,21 @@
                         <span class="card-view-details-inline">View full case study <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </div>
+                <!-- ========== RENTECH ATTENDANCE PROJECT (NEW) ========== -->
+                <div class="project-card-horizontal stagger-item" onclick="openModal('modal-rentech')" data-project-card>
+                    <div class="card-bg-layer bg-rentech"></div>
+                    <div class="card-fade-overlay"></div>
+                    <div class="card-vignette"></div>
+                    <div class="card-shine-sweep"></div>
+                    <div class="card-content-right">
+                        <h3>RenTech Attendance</h3>
+                        <p>Offline‑first, IoT‑powered event check‑in system with QR, captive portal &amp; MAC tracking.</p>
+                        <div class="project-tech-tags">
+                            <span class="project-tech-tag">ESP32</span><span class="project-tech-tag">IoT</span><span class="project-tech-tag">Next.js</span><span class="project-tech-tag">Supabase</span>
+                        </div>
+                        <span class="card-view-details-inline">View full case study <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
                 <div class="project-card-horizontal stagger-item" onclick="openModal('modal-nyc')" data-project-card>
                     <div class="card-bg-layer bg-nyc"></div>
                     <div class="card-fade-overlay"></div>
@@ -3814,7 +3837,7 @@
         </div>
     </section>
 
-    <!-- ========== ACHIEVEMENTS SECTION (ENHANCED) ========== -->
+    <!-- ========== ACHIEVEMENTS SECTION ========== -->
     <section id="achievements" class="section-dark">
         <div class="section-orb orb-indigo" style="top:30%;left:-10%;"></div>
         <div class="section-orb orb-cyan" style="top:60%;right:-8%;"></div>
@@ -3840,7 +3863,6 @@
                     <p class="event-venue">University of Batangas, Batangas City</p>
                     <p class="event-date">November 21–22, 2025</p>
                     <span class="card-view-details-inline">View details <i class="fas fa-arrow-right"></i></span>
-                    <!-- CLICKABLE LINK — text changed to "Read Article" -->
                     <a href="https://ub.edu.ph/tugon-lipa-project-secures-2nd-place-at-philippine-innovation-conference-2025/" target="_blank" rel="noopener" class="award-link" style="margin-top:6px; align-self:flex-start;" onclick="event.stopPropagation();">
                         <i class="fas fa-external-link-alt"></i> Read Article
                     </a>
@@ -4063,6 +4085,66 @@
             <h3>The Results</h3><p>MazeBot reliably follows walls, navigates 90° and 180° turns, and resolves T‑junctions — built for under ₱2,000.</p>
             <h3>Tech Stack</h3>
             <div class="modal-tech-stack"><span>ESP32</span><span>Arduino IDE</span><span>VL53L0X TOF (x3)</span><span>GA12‑NC20 motors</span><span>DRV8833 driver</span><span>18650 Li‑ion</span><span>Fusion 360</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== RENTECH ATTENDANCE MODAL (NEW) ========== -->
+<div class="modal-overlay" id="modal-rentech">
+    <div class="modal-dialog">
+        <button class="modal-close" onclick="closeModal('modal-rentech')"><i class="fas fa-times"></i></button>
+        <h2>RenTech Attendance</h2>
+        <p class="modal-tagline">Offline‑first, IoT‑powered event check‑in system — QR, captive portal &amp; MAC tracking</p>
+        <a href="https://attendance-rentech.vercel.app" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
+        <div class="project-gallery" id="rentechGallery">
+            <img src="rentech1.jpg" alt="RenTech Attendance screenshot 1" loading="lazy" data-gallery="rentech" data-index="0">
+            <img src="rentech2.jpg" alt="RenTech Attendance screenshot 2" loading="lazy" data-gallery="rentech" data-index="1">
+            <img src="rentech3.jpg" alt="RenTech Attendance screenshot 3" loading="lazy" data-gallery="rentech" data-index="2">
+            <img src="rentech4.jpg" alt="RenTech Attendance screenshot 4" loading="lazy" data-gallery="rentech" data-index="3">
+        </div>
+        <div class="modal-body">
+            <h3>Overview</h3>
+            <p><strong>RenTech Attendance</strong> is an offline‑first, IoT‑powered event check‑in system that eliminates paper queues and prevents fraudulent attendance. Attendees scan a QR code displayed on an ESP32's OLED screen, automatically join a private Wi‑Fi network, and are greeted by a captive portal registration form. Their device's MAC address is captured to enforce a one‑time‑only policy, and after a successful check‑in the device is instantly disconnected. All data is synced via a laptop service to a cloud database and displayed on a live, responsive web dashboard.</p>
+
+            <h3>The Problem</h3>
+            <ul style="color:var(--text-secondary); font-size:0.82rem; line-height:1.65; padding-left:18px; margin-bottom:10px;">
+                <li>Manual paper registration causes long queues and data entry errors.</li>
+                <li>Online registration links can be shared with absentees, making it impossible to verify physical presence.</li>
+                <li>Internet‑dependent solutions fail in remote venues or during network outages.</li>
+                <li>Fraudulent attendance ("buddy punching") is easy when no hardware‑based identity check exists.</li>
+            </ul>
+
+            <h3>The Solution</h3>
+            <ul style="color:var(--text-secondary); font-size:0.82rem; line-height:1.65; padding-left:18px; margin-bottom:10px;">
+                <li><strong>ESP32 + OLED</strong> generates a Wi‑Fi QR code (WPA2‑secured) that attendees scan with their phone camera.</li>
+                <li><strong>Captive portal</strong> automatically opens a registration page – no app installation, no URL typing.</li>
+                <li>The attendee's <strong>MAC address</strong> is logged and checked against a local/cloud database.</li>
+                <li>After successful registration, the ESP32 <strong>deauthenticates</strong> the device, freeing the AP slot and preventing re‑registration.</li>
+                <li>A <strong>Python background service</strong> on a laptop reads data via USB serial, caches it in SQLite, and syncs it to Supabase (cloud PostgreSQL).</li>
+                <li>A <strong>Next.js dashboard</strong> (deployed on Vercel) displays real‑time attendance, supports search &amp; time‑range filtering, and offers a one‑click Windows installer for the laptop service.</li>
+            </ul>
+
+            <h3>Key Features</h3>
+            <ul style="color:var(--text-secondary); font-size:0.82rem; line-height:1.65; padding-left:18px; margin-bottom:10px;">
+                <li><strong>100% Offline Registration</strong> – The registration URL is only accessible when physically connected to the ESP32's Wi‑Fi; no internet is required on‑site.</li>
+                <li><strong>MAC‑Based Blacklist</strong> – Once a device registers, its unique MAC address is stored. The same phone cannot check‑in again, even if it reconnects.</li>
+                <li><strong>Automatic Disconnect</strong> – After successful registration, the ESP32 forces the device off the Wi‑Fi, immediately freeing the slot for the next attendee.</li>
+                <li><strong>Cloud Sync &amp; Live Dashboard</strong> – All registrations are instantly synced to Supabase and displayed on a Vercel‑hosted dashboard with auto‑refresh.</li>
+                <li><strong>Search &amp; Filter</strong> – Dashboard supports searching by name or email, and filtering by custom time range.</li>
+                <li><strong>Plug‑and‑Play Setup</strong> – A single‑click Windows installer sets up Python, dependencies, and launches the background service – no technical knowledge required.</li>
+                <li><strong>No App Needed</strong> – Works with any modern smartphone's camera and built‑in captive portal detection.</li>
+                <li><strong>Dark Minimalist UI</strong> – Professional, eye‑friendly interface built with Tailwind CSS.</li>
+            </ul>
+
+            <h3>Tech Stack</h3>
+            <div class="modal-tech-stack">
+                <span>ESP32</span><span>SSD1306 OLED (I2C)</span><span>Wi‑Fi AP</span>
+                <span>Arduino (C++)</span><span>esp_wifi</span><span>DNSServer</span><span>WebServer</span>
+                <span>Nayuki QR code generator</span><span>Python 3</span><span>pyserial</span>
+                <span>supabase</span><span>sqlite3</span><span>Supabase (PostgreSQL)</span>
+                <span>Next.js 16</span><span>TypeScript</span><span>Tailwind CSS</span>
+                <span>Vercel</span><span>USB Serial</span><span>REST API</span>
+            </div>
         </div>
     </div>
 </div>
