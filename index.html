@@ -1610,6 +1610,17 @@
             z-index: 1;
             background: transparent;
         }
+        /* Mobile hero fallback image */
+        .hero-mobile-fallback {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+        }
 
         /* ===== ABOUT ===== */
         .about-layout {
@@ -2836,11 +2847,11 @@
                 font-size: 1rem;
             }
             /* === FIX: About card overflow on mobile === */
-            .about-main .card-light-premium {
-                overflow: visible;
-                height: auto;
-                min-height: auto;
-                max-height: none;
+            .about-main.card-light-premium {
+                overflow: visible !important;
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
             }
         }
 
@@ -3015,11 +3026,11 @@
                 max-height: 40vh;
             }
             /* === FIX: About card overflow on mobile (small) === */
-            .about-main .card-light-premium {
-                overflow: visible;
-                height: auto;
-                min-height: auto;
-                max-height: none;
+            .about-main.card-light-premium {
+                overflow: visible !important;
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
             }
         }
 
@@ -3340,11 +3351,11 @@
                 max-height: 32vh;
             }
             /* === FIX: About card overflow on mobile (tiny) === */
-            .about-main .card-light-premium {
-                overflow: visible;
-                height: auto;
-                min-height: auto;
-                max-height: none;
+            .about-main.card-light-premium {
+                overflow: visible !important;
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
             }
         }
 
@@ -3408,12 +3419,11 @@
             .achievement-photo-card .achievement-content h3 {
                 font-size: 0.78rem;
             }
-            /* === FIX: About card overflow on mobile (360) === */
-            .about-main .card-light-premium {
-                overflow: visible;
-                height: auto;
-                min-height: auto;
-                max-height: none;
+            .about-main.card-light-premium {
+                overflow: visible !important;
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
             }
         }
 
@@ -3573,25 +3583,13 @@
             #lightraysCanvas {
                 display: none !important;
             }
-            /* Fallback: show a static image or gradient */
-            .hero-reveal-col {
-                background: radial-gradient(ellipse at 50% 40%, rgba(6, 182, 212, 0.15), rgba(3, 7, 17, 0.9));
-                cursor: default;
+            /* Show static image fallback on mobile */
+            .hero-mobile-fallback {
+                display: block !important;
             }
+            /* Hide the "LB" pseudo-element fallback (replaced by image) */
             .hero-reveal-col::after {
-                content: 'LB';
-                position: absolute;
-                inset: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 4rem;
-                font-weight: 900;
-                color: rgba(255, 255, 255, 0.06);
-                letter-spacing: 0.1em;
-                font-family: var(--font-sans);
-                pointer-events: none;
-                z-index: 2;
+                display: none !important;
             }
             /* Reduce animations on mobile */
             .aurora-bg {
@@ -3629,6 +3627,47 @@
             .achievement-photo-card {
                 transform-style: flat !important;
                 perspective: none !important;
+            }
+            /* Mobile: all stagger items visible immediately */
+            .stagger-container .stagger-item {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                transition: none !important;
+            }
+            .stagger-container {
+                opacity: 1 !important;
+            }
+            /* Mobile: timeline items visible immediately */
+            .timeline-modern .timeline-item-modern {
+                opacity: 1 !important;
+                transform: translateX(0) !important;
+                transition: none !important;
+            }
+            .timeline-modern::before {
+                transform: scaleY(1) !important;
+            }
+            /* Mobile: reveal items visible immediately */
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            /* Mobile: glow border visible immediately */
+            .glow-border-animated.glow-visible {
+                opacity: 1 !important;
+            }
+            .glow-border-animated::before {
+                opacity: 0 !important;
+            }
+            /* Mobile: hero animations still work but we keep them */
+            .hero-greeting-badge,
+            .hero-name-premium,
+            .role-switcher-wrapper,
+            .hero-desc-premium,
+            .hero-spec-badges,
+            .hero-cta-premium,
+            .hero-reveal-col {
+                animation-duration: 0.3s !important;
             }
         }
     </style>
@@ -3780,6 +3819,8 @@
             <div class="hero-reveal-col" id="canvasContainer">
                 <canvas id="lightraysCanvas"></canvas>
                 <canvas id="webglCanvas"></canvas>
+                <!-- Static fallback image for mobile -->
+                <img src="images/profile/barong.png" alt="Lorence Ojales" class="hero-mobile-fallback" loading="lazy">
             </div>
         </div>
     </section>
@@ -4196,7 +4237,7 @@
             <p class="modal-tagline">Undergraduate Thesis · University of Batangas Lipa Campus (2025‑2026)</p>
             <a href="https://ecoflowgreenhouse.vercel.app" target="_blank" rel="noopener" class="modal-link"><i class="fas fa-external-link-alt"></i> View Live Site</a>
             <div class="modal-dual-embed modal-dual-3d">
-                <div class="modal-embed"><iframe src="https://a360.co/3Z1v7yZ" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
+                <div class="modal-embed"><iframe src="https://a360.co/3Z1v7yV" title="Greenhouse 3D" loading="lazy" allowfullscreen></iframe></div>
                 <div class="modal-embed"><iframe src="https://a360.co/3Nc3jpi" title="Control Hub 3D" loading="lazy" allowfullscreen></iframe></div>
             </div>
             <div class="project-gallery" id="ecoflowGallery">
@@ -4672,10 +4713,21 @@
             window.addEventListener('scroll', updateActiveNav, { passive: true });
             updateActiveNav();
 
-            const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry
-                        .isIntersecting) entry.target.classList.add('revealed'); }); }, { threshold: 0.08,
-                rootMargin: '0px 0px -30px 0px' });
-            revealEls.forEach(el => observer.observe(el));
+            // ===== REVEAL OBSERVER (desktop only) =====
+            // On mobile, all reveal items are already visible via CSS.
+            // On desktop, use IntersectionObserver.
+            if (!isMobile && !prefersReducedMotion) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) entry.target.classList.add('revealed');
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+                revealEls.forEach(el => observer.observe(el));
+            } else {
+                // On mobile or reduced motion: reveal immediately
+                revealEls.forEach(el => el.classList.add('revealed'));
+            }
+
             if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
             if (spotlight && !isTouchDevice && !isMobile) {
@@ -4768,6 +4820,15 @@
                         });
                 });
             }
+
+            // ===== MOBILE: force stagger containers revealed =====
+            if (isMobile) {
+                document.querySelectorAll('.stagger-container[data-stagger]').forEach(el => el.classList.add(
+                'revealed'));
+                document.querySelectorAll('.timeline-modern[data-timeline-animate]').forEach(el => el.classList.add(
+                    'timeline-animated'));
+                document.querySelectorAll('[data-glow-border]').forEach(el => el.classList.add('glow-visible'));
+            }
         });
 
         // ============================================================
@@ -4798,16 +4859,16 @@
         // ============================================================
         (function() {
             if (isMobile || prefersReducedMotion) {
-                // On mobile: force reveal all staggered items immediately
-                document.querySelectorAll('.stagger-container[data-stagger]').forEach(el => el.classList.add(
-                'revealed'));
+                // On mobile: force reveal all staggered items immediately (already done in DOM ready)
+                // Also ensure timeline is animated
                 document.querySelectorAll('.timeline-modern[data-timeline-animate]').forEach(el => el.classList.add(
                     'timeline-animated'));
                 document.querySelectorAll('[data-glow-border]').forEach(el => el.classList.add('glow-visible'));
                 return;
             }
 
-            // Staggered reveal
+            // Staggered reveal (desktop only - IntersectionObserver already handles this)
+            // But we need to ensure items that are already visible get revealed
             const staggerContainers = document.querySelectorAll('.stagger-container[data-stagger]');
             if (staggerContainers.length > 0) {
                 const staggerObserver = new IntersectionObserver((entries) => {
@@ -4819,6 +4880,14 @@
                     });
                 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
                 staggerContainers.forEach(el => staggerObserver.observe(el));
+                // Check if any are already visible
+                setTimeout(() => {
+                    staggerContainers.forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add(
+                            'revealed');
+                    });
+                }, 200);
             }
 
             // 3D Tilt
@@ -4918,6 +4987,14 @@
                     });
                 }, { threshold: 0.2 });
                 timelines.forEach(tl => timelineObserver.observe(tl));
+                // Check if any are already visible
+                setTimeout(() => {
+                    timelines.forEach(tl => {
+                        const rect = tl.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) tl.classList.add(
+                            'timeline-animated');
+                    });
+                }, 200);
             }
 
             // Glow border
@@ -4932,6 +5009,14 @@
                     });
                 }, { threshold: 0.3 });
                 glowBorders.forEach(el => glowObserver.observe(el));
+                // Check if any are already visible
+                setTimeout(() => {
+                    glowBorders.forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add(
+                            'glow-visible');
+                    });
+                }, 200);
             }
 
             // Ripple
@@ -4967,15 +5052,6 @@
                 shineInterval = setInterval(triggerAchievementShine, 5000);
                 card._achShineInterval = shineInterval;
             });
-
-            // Initial reveal for items already in view
-            setTimeout(() => {
-                document.querySelectorAll('.stagger-container[data-stagger]').forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add(
-                    'revealed');
-                });
-            }, 300);
         })();
 
         // ============================================================
