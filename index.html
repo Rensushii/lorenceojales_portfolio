@@ -1945,6 +1945,7 @@
             transform: translateX(3px);
         }
 
+        /* ========== ENHANCED ACHIEVEMENT CARDS (clickable photo cards) ========== */
         .achievement-photo-card {
             position: relative;
             border-radius: var(--radius-lg);
@@ -2078,6 +2079,7 @@
             align-self: flex-start;
         }
 
+        /* ========== ACHIEVEMENT MODAL ========== */
         .achievement-modal-img {
             width: 100%;
             border-radius: var(--radius-sm);
@@ -2110,6 +2112,7 @@
             margin-bottom: 6px;
         }
 
+        /* ========== UPDATED SKILLS SECTION ========== */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -2174,6 +2177,7 @@
             z-index: 2;
         }
 
+        /* ========== CERTIFICATIONS ========== */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -3524,37 +3528,6 @@
                 filter: none;
             }
         }
-
-        /* ===== MOBILE PERFORMANCE OVERRIDES ===== */
-        @media (max-width: 768px) {
-            .card-premium::after,
-            .card-light-premium::after,
-            .project-card-horizontal .card-shine-sweep,
-            .achievement-photo-card .card-shine-sweep {
-                animation: none !important;
-                opacity: 0 !important;
-            }
-            .hero-float-orb,
-            .floating-accent,
-            .section-orb {
-                animation-duration: 30s !important;
-                opacity: 0.15 !important;
-            }
-            .hero-reveal-col {
-                transition: none !important;
-            }
-            .card-premium,
-            .card-light-premium,
-            .project-card-horizontal,
-            .achievement-photo-card {
-                transform: translateZ(0);
-                backface-visibility: hidden;
-            }
-            .aurora-bg {
-                animation-duration: 40s !important;
-                opacity: 0.3 !important;
-            }
-        }
     </style>
 </head>
 <body>
@@ -3832,6 +3805,7 @@
                         <span class="card-view-details-inline">View more information <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </div>
+                <!-- ========== GENBACHECK ATTENDANCE PROJECT (NEW) ========== -->
                 <div class="project-card-horizontal stagger-item" onclick="openModal('modal-genbacheck')" data-project-card>
                     <div class="card-bg-layer bg-genbacheck"></div>
                     <div class="card-fade-overlay"></div>
@@ -3876,6 +3850,7 @@
             </div>
             <div class="card-grid-3 stagger-container reveal" data-stagger>
 
+                <!-- Hackathon Achievement -->
                 <div class="achievement-photo-card stagger-item" data-achievement-photo
                 onclick="openAchievementModal(0)">
                 <div class="card-bg-layer" style="background-image: linear-gradient(155deg, rgba(3,7,17,0.15) 0%, rgba(3,7,17,0.10) 40%, rgba(3,7,17,0.3) 100%), url('images/achievements/hackathon.jpg'); background-size: auto, cover; background-position: center, center;"></div>
@@ -3895,6 +3870,7 @@
                 </div>
             </div>
 
+            <!-- Breadboarding Achievement -->
             <div class="achievement-photo-card stagger-item" data-achievement-photo
             onclick="openAchievementModal(1)">
             <div class="card-bg-layer" style="background-image: linear-gradient(155deg, rgba(3,7,17,0.15) 0%, rgba(3,7,17,0.10) 40%, rgba(3,7,17,0.3) 100%), url('images/achievements/breadboarding.jpg'); background-size: auto, cover; background-position: center, center;"></div>
@@ -3911,6 +3887,7 @@
             </div>
         </div>
 
+        <!-- Programming Competition Achievement -->
         <div class="achievement-photo-card stagger-item" data-achievement-photo
         onclick="openAchievementModal(2)">
         <div class="card-bg-layer" style="background-image: linear-gradient(155deg, rgba(3,7,17,0.15) 0%, rgba(3,7,17,0.10) 40%, rgba(3,7,17,0.3) 100%), url('images/achievements/programming.jpg'); background-size: auto, cover; background-position: center, center;"></div>
@@ -3946,7 +3923,7 @@
     </div>
 </div>
 
-<!-- ========== SKILLS SECTION ========== -->
+<!-- ========== SKILLS SECTION (UPDATED) ========== -->
 <section id="skills" class="section-light">
     <div class="section-orb orb-blue" style="top:15%;right:-10%;"></div>
     <div class="section-orb orb-cyan" style="top:70%;left:-8%;"></div>
@@ -4173,6 +4150,7 @@
     </div>
 </div>
 
+<!-- ========== GENBACHECK ATTENDANCE MODAL (NEW) ========== -->
 <div class="modal-overlay" id="modal-genbacheck">
     <div class="modal-dialog">
         <button class="modal-close" onclick="closeModal('modal-genbacheck')"><i class="fas fa-times"></i></button>
@@ -4258,35 +4236,11 @@
 </div>
 
 <!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <!-- ========== CORE SCRIPTS ========== -->
 <script>
-    // ===== DEVICE & QUALITY DETECTION =====
-    const isMobile = window.innerWidth < 768 ||
-        ('ontouchstart' in window && window.innerWidth < 1024);
-    const isLowEnd = isMobile || (window.navigator.hardwareConcurrency && window.navigator.hardwareConcurrency < 4);
-    const isVeryLowEnd = window.navigator.hardwareConcurrency && window.navigator.hardwareConcurrency < 4;
-
-    const QUALITY = {
-        fluidRes: isMobile ? 192 : 512,
-        pixelRatio: isMobile ? 1.2 : Math.min(window.devicePixelRatio, 2),
-        parallax: isMobile ? 0.003 : 0.025,
-        lightraysRes: isMobile ? 0.5 : 1.0,
-        idleSpeed: isMobile ? 0.3 : 1.0,
-        disableTilt: isMobile || isLowEnd,
-        disableShine: isMobile || isLowEnd,
-        disableIdleScan: isMobile,
-    };
-    if (isVeryLowEnd) {
-        QUALITY.fluidRes = 128;
-        QUALITY.pixelRatio = 1;
-        QUALITY.disableIdleScan = true;
-    }
-
     // Scroll lock helpers
     let activeScrollLocks = 0;
 
@@ -4368,37 +4322,20 @@
 
     // ========== CERTIFICATIONS DATA ==========
     const certificationsData = [
-        { title: "IEEE Open Silicon TinyTapeout Philippine IC Design Bootcamp", date: "April 29, 2026",
-        categories: ["seminar"], imgUrl: "images/certifications/ieee-tinytapeout.jpg" },
-        { title: "Network Support and Security", date: "March 23, 2026", categories: ["training"],
-        imgUrl: "images/certifications/network-support-security.jpg" },
-        { title: "Digital Safety and Security Awareness", date: "March 23, 2026", categories: ["training"],
-        imgUrl: "images/certifications/digital-safety.jpg" },
-        { title: "Introduction to Modern AI", date: "March 9, 2026", categories: ["training"],
-        imgUrl: "images/certifications/intro-modern-ai.jpg" },
-        { title: "Ethical Hacker", date: "February 25, 2026", categories: ["training"],
-        imgUrl: "images/certifications/ethical-hacker.jpg" },
-        { title: "Practical Application of Cybersecurity Framework", date: "December 6, 2025", categories: ["webinar",
-                "icpep"
-            ], imgUrl: "images/certifications/cybersecurity-framework.jpg" },
-        { title: "Tugon Lipa – 2nd place in the Hack the Future: Smart Batangas Province Hackathon", date: "November 22, 2025",
-            categories: ["hackathon"], imgUrl: "images/certifications/tugon-lipa-hackathon.jpg" },
-        { title: "Batangas AI and Cybersecurity Congress 2025", date: "November 7, 2025", categories: ["seminar"],
-        imgUrl: "images/certifications/batangas-ai-cybersecurity.jpg" },
-        { title: "Cyber 101 for Institute of Computer Engineers of the Philippines, Inc.", date: "April 24, 2025",
-            categories: ["webinar", "icpep"], imgUrl: "images/certifications/cyber-101.jpg" },
-        { title: "AI and Prompt Engineering in Educational Settings", date: "April 5, 2025", categories: ["webinar",
-                "icpep"
-            ], imgUrl: "images/certifications/ai-prompt-engineering.jpg" },
-        { title: "Hybrid AVG-drone using YOLOv8 and Arduino-Raspberry Pi for defect detection and structural health monitoring in built infrastructure",
-            date: "March 22, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/hybrid-drone.jpg" },
-        { title: "Training and Education in Medical Imaging for AI in PACS: Equipping the Next Generation",
-            date: "March 8, 2025", categories: ["webinar", "icpep"],
-            imgUrl: "images/certifications/medical-imaging-ai.jpg" },
-        { title: "CCNAv7: Introduction to Networks", date: "January 21, 2025", categories: ["training"],
-        imgUrl: "images/certifications/ccna-intro-networks.jpg" },
-        { title: "Tech Nexus 2024: Empowering Campus Innovators", date: "December 7, 2024", categories: ["seminar"],
-        imgUrl: "images/certifications/tech-nexus-2024.jpg" }
+        { title: "IEEE Open Silicon TinyTapeout Philippine IC Design Bootcamp", date: "April 29, 2026", categories: ["seminar"], imgUrl: "images/certifications/ieee-tinytapeout.jpg" },
+        { title: "Network Support and Security", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/network-support-security.jpg" },
+        { title: "Digital Safety and Security Awareness", date: "March 23, 2026", categories: ["training"], imgUrl: "images/certifications/digital-safety.jpg" },
+        { title: "Introduction to Modern AI", date: "March 9, 2026", categories: ["training"], imgUrl: "images/certifications/intro-modern-ai.jpg" },
+        { title: "Ethical Hacker", date: "February 25, 2026", categories: ["training"], imgUrl: "images/certifications/ethical-hacker.jpg" },
+        { title: "Practical Application of Cybersecurity Framework", date: "December 6, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/cybersecurity-framework.jpg" },
+        { title: "Tugon Lipa – 2nd place in the Hack the Future: Smart Batangas Province Hackathon", date: "November 22, 2025", categories: ["hackathon"], imgUrl: "images/certifications/tugon-lipa-hackathon.jpg" },
+        { title: "Batangas AI and Cybersecurity Congress 2025", date: "November 7, 2025", categories: ["seminar"], imgUrl: "images/certifications/batangas-ai-cybersecurity.jpg" },
+        { title: "Cyber 101 for Institute of Computer Engineers of the Philippines, Inc.", date: "April 24, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/cyber-101.jpg" },
+        { title: "AI and Prompt Engineering in Educational Settings", date: "April 5, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/ai-prompt-engineering.jpg" },
+        { title: "Hybrid AVG-drone using YOLOv8 and Arduino-Raspberry Pi for defect detection and structural health monitoring in built infrastructure", date: "March 22, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/hybrid-drone.jpg" },
+        { title: "Training and Education in Medical Imaging for AI in PACS: Equipping the Next Generation", date: "March 8, 2025", categories: ["webinar", "icpep"], imgUrl: "images/certifications/medical-imaging-ai.jpg" },
+        { title: "CCNAv7: Introduction to Networks", date: "January 21, 2025", categories: ["training"], imgUrl: "images/certifications/ccna-intro-networks.jpg" },
+        { title: "Tech Nexus 2024: Empowering Campus Innovators", date: "December 7, 2024", categories: ["seminar"], imgUrl: "images/certifications/tech-nexus-2024.jpg" }
     ];
 
     let currentLightboxImages = [];
@@ -4490,8 +4427,7 @@
                 webinar: 'Online Webinar', icpep: 'ICpEP', training: 'Course/Training',
                 seminar: 'Seminar', hackathon: 'Hackathon'
             };
-            const tagsHtml = cert.categories.map(cat => `<span class="cert-tag">${categoryLabels[cat] || cat}</span>`)
-            .join('');
+            const tagsHtml = cert.categories.map(cat => `<span class="cert-tag">${categoryLabels[cat] || cat}</span>`).join('');
             infoDiv.innerHTML = `
                 <div class="cert-title">${cert.title}</div>
                 <div class="cert-date"><i class="far fa-calendar-alt"></i> ${cert.date}</div>
@@ -4540,8 +4476,7 @@
                     hamburgerBtn.querySelector('i').className = 'fas fa-bars'; });
             });
             document.addEventListener('click', (e) => {
-                if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove(
-                        'open');
+                if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) { mobileNav.classList.remove('open');
                     hamburgerBtn.querySelector('i').className = 'fas fa-bars'; }
             });
         }
@@ -4552,8 +4487,7 @@
                     e.preventDefault();
                     const target = document.querySelector(href);
                     if (target) { const headerHeight = 80;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset -
-                            headerHeight;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                         window.scrollTo({ top: targetPosition, behavior: 'smooth' }); }
                 }
             });
@@ -4564,8 +4498,7 @@
             let currentId = '';
             sections.forEach(section => { const sectionTop = section.offsetTop - 140; if (window.scrollY >= sectionTop)
                     currentId = section.getAttribute('id'); });
-            allNavLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' +
-                    currentId) link.classList.add('active'); });
+            allNavLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + currentId) link.classList.add('active'); });
         }
         window.addEventListener('scroll', updateActiveNav, { passive: true });
         updateActiveNav();
@@ -4593,9 +4526,7 @@
         const magneticWraps = document.querySelectorAll('.magnetic-wrap[data-magnetic]');
         if (!isTouchDevice) {
             magneticWraps.forEach(wrap => {
-                wrap.addEventListener('mousemove', (e) => { const rect = wrap.getBoundingClientRect(); const x = e
-                        .clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height /
-                        2; wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`; });
+                wrap.addEventListener('mousemove', (e) => { const rect = wrap.getBoundingClientRect(); const x = e.clientX - rect.left - rect.width / 2; const y = e.clientY - rect.top - rect.height / 2; wrap.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`; });
                 wrap.addEventListener('mouseleave', () => { wrap.style.transform = 'translate(0px, 0px)'; });
             });
         }
@@ -4603,9 +4534,7 @@
         // Typewriter
         const roleSwitcherText = document.getElementById('roleSwitcherText');
         if (roleSwitcherText) {
-            const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast',
-                'Full-Stack Developer'
-            ];
+            const roles = ['Computer Engineer', 'Embedded Systems Developer', 'IoT & Robotics Enthusiast', 'Full-Stack Developer'];
             let roleIndex = 0,
                 currentText = '';
             const typingSpeed = 80,
@@ -4613,15 +4542,9 @@
                 pauseBeforeDelete = 2000,
                 pauseBeforeNext = 500;
 
-            function typeChar() { const full = roles[roleIndex]; if (currentText.length < full.length) { currentText += full
-                        .charAt(currentText.length);
-                    roleSwitcherText.textContent = currentText;
-                    setTimeout(typeChar, typingSpeed); } else { setTimeout(deleteChar, pauseBeforeDelete); } }
+            function typeChar() { const full = roles[roleIndex]; if (currentText.length < full.length) { currentText += full.charAt(currentText.length); roleSwitcherText.textContent = currentText; setTimeout(typeChar, typingSpeed); } else { setTimeout(deleteChar, pauseBeforeDelete); } }
 
-            function deleteChar() { if (currentText.length > 0) { currentText = currentText.slice(0, -1);
-                    roleSwitcherText.textContent = currentText;
-                    setTimeout(deleteChar, deletingSpeed); } else { roleIndex = (roleIndex + 1) % roles.length;
-                    setTimeout(typeChar, pauseBeforeNext); } }
+            function deleteChar() { if (currentText.length > 0) { currentText = currentText.slice(0, -1); roleSwitcherText.textContent = currentText; setTimeout(deleteChar, deletingSpeed); } else { roleIndex = (roleIndex + 1) % roles.length; setTimeout(typeChar, pauseBeforeNext); } }
             typeChar();
         }
 
@@ -4682,7 +4605,7 @@
     });
 </script>
 
-<!-- ========== ENHANCED INTERACTIONS ========== -->
+<!-- ========== ENHANCED INTERACTIONS (tilt, shine, timeline, etc.) ========== -->
 <script>
     (function() {
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -4704,8 +4627,8 @@
             staggerContainers.forEach(el => el.classList.add('revealed'));
         }
 
-        // 3D Tilt (mouse only) — disabled on mobile via QUALITY
-        if (!isTouchDevice && !prefersReducedMotion && !QUALITY.disableTilt) {
+        // 3D Tilt (mouse only)
+        if (!isTouchDevice && !prefersReducedMotion) {
             const tiltCards = document.querySelectorAll('[data-tilt-card], .card-premium:not(.achievement-card), .card-light-premium, .project-card-horizontal, .achievement-photo-card');
             tiltCards.forEach(card => {
                 card.addEventListener('mousemove', function(e) {
@@ -4716,14 +4639,12 @@
                     const centerY = rect.height / 2;
                     const rotateX = ((y - centerY) / centerY) * -5;
                     const rotateY = ((x - centerX) / centerX) * 5;
-                    card.style.transform =
-                        `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+                    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
                     card.style.transition = 'transform 0.1s ease-out, box-shadow 0.4s ease, border-color 0.4s ease';
                 });
                 card.addEventListener('mouseleave', function() {
                     card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-                    card.style.transition =
-                        'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease';
+                    card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease';
                 });
             });
 
@@ -4748,8 +4669,8 @@
             });
         }
 
-        // Shine sweep — disabled on mobile via QUALITY
-        if (!prefersReducedMotion && !QUALITY.disableShine) {
+        // Shine sweep
+        if (!prefersReducedMotion) {
             const shineTargets = document.querySelectorAll('.card-premium, .card-light-premium, .project-card-horizontal, .achievement-card, .achievement-photo-card');
             shineTargets.forEach(card => {
                 let shineTimeout;
@@ -4757,11 +4678,10 @@
                     clearTimeout(shineTimeout);
                     if (card.classList.contains('achievement-card')) {
                         const innerShine = card.querySelector('.achievement-shine');
-                        if (innerShine) { innerShine.classList.remove('shine-active'); void innerShine
-                                .offsetWidth;
+                        if (innerShine) { innerShine.classList.remove('shine-active'); void innerShine.offsetWidth;
                             innerShine.classList.add('shine-active'); }
-                    } else if (card.classList.contains('project-card-horizontal') || card.classList
-                        .contains('achievement-photo-card')) {
+                    } else if (card.classList.contains('project-card-horizontal') || card.classList.contains(
+                            'achievement-photo-card')) {
                         const sweep = card.querySelector('.card-shine-sweep');
                         if (sweep) { sweep.classList.remove('shine-active'); void sweep.offsetWidth;
                             sweep.classList.add('shine-active'); }
@@ -4780,8 +4700,7 @@
                 card.addEventListener('mouseenter', triggerShine);
                 let idleShineInterval;
                 card.addEventListener('mouseenter', () => clearInterval(idleShineInterval));
-                card.addEventListener('mouseleave', () => { idleShineInterval = setInterval(triggerShine,
-                        6000); });
+                card.addEventListener('mouseleave', () => { idleShineInterval = setInterval(triggerShine, 6000); });
                 idleShineInterval = setInterval(triggerShine, 6000);
                 card._shineInterval = idleShineInterval;
             });
@@ -4838,7 +4757,7 @@
 
         // Achievement card shine (legacy)
         const achievementCards = document.querySelectorAll('[data-achievement-card]');
-        if (!prefersReducedMotion && !QUALITY.disableShine && achievementCards.length > 0) {
+        if (!prefersReducedMotion && achievementCards.length > 0) {
             achievementCards.forEach(card => {
                 const shineEl = card.querySelector('.achievement-shine');
                 if (!shineEl) return;
@@ -4874,68 +4793,31 @@
             pulsating: false, fadeDistance: 1.0, saturation: 1.0, followMouse: true, mouseInfluence: 0.1,
             noiseAmount: 0.0, distortion: 0.0 };
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-        renderer.setPixelRatio(QUALITY.pixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
         camera.position.z = 1;
-        const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [
-                parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255
-            ] : [1, 1, 1]; };
-        const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return { anchor: [
-                    0, -outside * h
-                ], dir: [0, 1] }; case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] }; case 'left':
-                    return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] }; case 'right': return { anchor: [(1 +
-                        outside) * w, 0.5 * h], dir: [-1, 0] }; case 'bottom-left': return { anchor: [0, (1 +
-                        outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [0.5 * w, (1 +
-                        outside) * h], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) *
-                        h
-                    ], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
-        const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE
-                    .Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(...
-                    hexToRgb(config.raysColor)
-                ) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config.lightSpread },
-            rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ? 1.0 : 0.0 },
-            fadeDistance: { value: config.fadeDistance }, saturation: { value: config.saturation },
-            mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence },
-            noiseAmount: { value: config.noiseAmount }, distortion: { value: config.distortion } };
-        const vertexShader =
-            `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-        const fragmentShader =
-            `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.514)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
-        const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true,
-            depthWrite: false, depthTest: false });
+        const hexToRgb = (hex) => { const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return m ? [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255] : [1, 1, 1]; };
+        const getAnchorAndDir = (origin, w, h) => { const outside = 0.2; switch (origin) { case 'top-left': return { anchor: [0, -outside * h], dir: [0, 1] }; case 'top-right': return { anchor: [w, -outside * h], dir: [0, 1] }; case 'left': return { anchor: [-outside * w, 0.5 * h], dir: [1, 0] }; case 'right': return { anchor: [(1 + outside) * w, 0.5 * h], dir: [-1, 0] }; case 'bottom-left': return { anchor: [0, (1 + outside) * h], dir: [0, -1] }; case 'bottom-center': return { anchor: [0.5 * w, (1 + outside) * h], dir: [0, -1] }; case 'bottom-right': return { anchor: [w, (1 + outside) * h], dir: [0, -1] }; default: return { anchor: [0.5 * w, -outside * h], dir: [0, 1] }; } };
+        const uniforms = { iTime: { value: 0 }, iResolution: { value: new THREE.Vector2() }, rayPos: { value: new THREE.Vector2() }, rayDir: { value: new THREE.Vector2() }, raysColor: { value: new THREE.Vector3(...hexToRgb(config.raysColor)) }, raysSpeed: { value: config.raysSpeed }, lightSpread: { value: config.lightSpread }, rayLength: { value: config.rayLength }, pulsating: { value: config.pulsating ? 1.0 : 0.0 }, fadeDistance: { value: config.fadeDistance }, saturation: { value: config.saturation }, mousePos: { value: new THREE.Vector2(0.5, 0.5) }, mouseInfluence: { value: config.mouseInfluence }, noiseAmount: { value: config.noiseAmount }, distortion: { value: config.distortion } };
+        const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+        const fragmentShader = `precision highp float; varying vec2 vUv; uniform float iTime; uniform vec2 iResolution; uniform vec2 rayPos; uniform vec2 rayDir; uniform vec3 raysColor; uniform float raysSpeed; uniform float lightSpread; uniform float rayLength; uniform float pulsating; uniform float fadeDistance; uniform float saturation; uniform vec2 mousePos; uniform float mouseInfluence; uniform float noiseAmount; uniform float distortion; float noise(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123); } float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord, float seedA, float seedB, float speed) { vec2 sourceToCoord = coord - raySource; vec2 dirNorm = normalize(sourceToCoord); float cosAngle = dot(dirNorm, rayRefDirection); float distortedAngle = cosAngle + distortion * sin(iTime * 2.0 + length(sourceToCoord) * 0.01) * 0.2; float spreadFactor = pow(max(distortedAngle, 0.0), 1.0 / max(lightSpread, 0.001)); float distance = length(sourceToCoord); float maxDistance = iResolution.x * rayLength; float lengthFalloff = clamp((maxDistance - distance) / maxDistance, 0.0, 1.0); float fadeFalloff = clamp((iResolution.x * fadeDistance - distance) / (iResolution.x * fadeDistance), 0.5, 1.0); float pulse = pulsating > 0.5 ? (0.8 + 0.2 * sin(iTime * speed * 3.0)) : 1.0; float baseStrength = clamp((0.45 + 0.15 * sin(distortedAngle * seedA + iTime * speed)) + (0.3 + 0.2 * cos(-distortedAngle * seedB + iTime * speed)), 0.0, 1.0); return baseStrength * lengthFalloff * fadeFalloff * spreadFactor * pulse; } void main() { vec2 coord = vec2(gl_FragCoord.x, iResolution.y - gl_FragCoord.y); vec2 finalRayDir = rayDir; if (mouseInfluence > 0.0) { vec2 mouseScreenPos = mousePos * iResolution; vec2 mouseDirection = normalize(mouseScreenPos - rayPos); finalRayDir = normalize(mix(rayDir, mouseDirection, mouseInfluence)); } vec4 rays1 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349, 1.5 * raysSpeed); vec4 rays2 = vec4(1.0) * rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234, 1.1 * raysSpeed); vec4 color = rays1 * 0.5 + rays2 * 0.4; if (noiseAmount > 0.0) { float n = noise(coord * 0.01 + iTime * 0.1); color.rgb *= (1.0 - noiseAmount + noiseAmount * n); } float brightness = 1.0 - (coord.y / iResolution.y); color.x *= 0.1 + brightness * 0.8; color.y *= 0.3 + brightness * 0.6; color.z *= 0.5 + brightness * 0.5; if (saturation != 1.0) { float gray = dot(color.rgb, vec3(0.299, 0.587, 0.514)); color.rgb = mix(vec3(gray), color.rgb, saturation); } color.rgb *= raysColor; gl_FragColor = color; }`;
+        const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, depthTest: false });
         const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
         scene.add(mesh);
         const mouse = { x: 0.5, y: 0.5 },
             smoothMouse = { x: 0.5, y: 0.5 };
-        window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e
-                .clientX - rect.left) / rect.width;
+        window.addEventListener('mousemove', (e) => { const rect = container.getBoundingClientRect(); mouse.x = (e.clientX - rect.left) / rect.width;
             mouse.y = (e.clientY - rect.top) / rect.height; });
-        window.addEventListener('touchmove', (e) => { const rect = container.getBoundingClientRect(); if (e.touches
-                .length > 0) { mouse.x = (e.touches[0].clientX - rect.left) / rect.width;
+        window.addEventListener('touchmove', (e) => { const rect = container.getBoundingClientRect(); if (e.touches.length > 0) { mouse.x = (e.touches[0].clientX - rect.left) / rect.width;
                 mouse.y = (e.touches[0].clientY - rect.top) / rect.height; } }, { passive: true });
 
-        function resize() {
-            const rect = container.getBoundingClientRect();
-            const dpr = renderer.getPixelRatio();
-            let w = rect.width * dpr;
-            let h = rect.height * dpr;
-            if (isMobile) {
-                w = Math.min(w, 600);
-                h = Math.min(h, 800);
-            }
-            renderer.setSize(w, h, false);
-            uniforms.iResolution.value.set(w, h);
-            const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w, h);
-            uniforms.rayPos.value.set(anchor[0], anchor[1]);
-            uniforms.rayDir.value.set(dir[0], dir[1]);
-        }
+        function resize() { const rect = container.getBoundingClientRect(); const w = rect.width,
+                h = rect.height; renderer.setSize(w, h); const dpr = renderer.getPixelRatio(); uniforms.iResolution.value.set(w * dpr, h * dpr); const { anchor, dir } = getAnchorAndDir(config.raysOrigin, w * dpr, h * dpr); uniforms.rayPos.value.set(anchor[0], anchor[1]); uniforms.rayDir.value.set(dir[0], dir[1]); }
         window.addEventListener('resize', resize);
         resize();
 
-        function animate(time) { requestAnimationFrame(animate); uniforms.iTime.value = time * 0.001; if (config
-                .followMouse && config.mouseInfluence > 0) { const smoothing = 0.92;
-                smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
+        function animate(time) { requestAnimationFrame(animate); uniforms.iTime.value = time * 0.001; if (config.followMouse && config.mouseInfluence > 0) { const smoothing = 0.92; smoothMouse.x = smoothMouse.x * smoothing + mouse.x * (1 - smoothing);
                 smoothMouse.y = smoothMouse.y * smoothing + mouse.y * (1 - smoothing);
                 uniforms.mousePos.value.set(smoothMouse.x, smoothMouse.y); } renderer.render(scene, camera); }
         requestAnimationFrame(animate);
@@ -4948,15 +4830,14 @@
         const container = document.getElementById('canvasContainer');
         const webglCanvas = document.getElementById('webglCanvas');
         if (!container || !webglCanvas) return;
-        const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false,
-            antialias: false });
-        renderer.setPixelRatio(QUALITY.pixelRatio);
+        const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, premultipliedAlpha: false, antialias: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
         camera.position.z = 1;
         let fluidRT_A, fluidRT_B;
         let simScene, simCamera, simQuad;
-        let fluidRes = new THREE.Vector2(QUALITY.fluidRes, QUALITY.fluidRes);
+        let fluidRes = new THREE.Vector2(512, 512);
         const mouse = { x: 0.5, y: 0.5, prevX: 0.5, prevY: 0.5, inside: false };
         let lastMoveTime = performance.now();
         let idleActive = false;
@@ -4968,8 +4849,8 @@
             scanDirY = 1,
             scanPauseUntil = 0,
             scanComplete = true;
-        const SCAN_SPEED_X = 3.5 * QUALITY.idleSpeed;
-        const SCAN_SPEED_Y = 0.5 * QUALITY.idleSpeed;
+        const SCAN_SPEED_X = 3.5,
+            SCAN_SPEED_Y = 0.5;
         const loader = new THREE.TextureLoader();
         let imagesLoaded = 0,
             animationStarted = false;
@@ -4980,18 +4861,11 @@
             simCamera.position.z = 1;
             const format = THREE.RGBAFormat,
                 type = THREE.FloatType;
-            fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE
-                    .LinearFilter, magFilter: THREE.LinearFilter });
-            fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE
-                    .LinearFilter, magFilter: THREE.LinearFilter });
-            const simVert =
-                `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
-            const simFrag =
-                `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
-            const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture },
-                    uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0,
-                            0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) },
-                    uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
+            fluidRT_A = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+            fluidRT_B = new THREE.WebGLRenderTarget(fluidRes.x, fluidRes.y, { format, type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter });
+            const simVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position, 1.0); }`;
+            const simFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uPrevFrame; uniform vec2 uMouse; uniform vec2 uVelocity; uniform vec2 uTexelSize; uniform bool uMouseDown; void main() { vec2 uv = vUv; vec4 prev = texture2D(uPrevFrame, uv); float inkPrev = prev.r; vec2 velPrev = (prev.gb - 0.5) * 2.0; float advecScale = 1.2; vec2 advectedUV = uv - velPrev * uTexelSize * advecScale; vec4 advected = texture2D(uPrevFrame, advectedUV); vec2 velAdvected = (advected.gb - 0.5) * 2.0; float inkAdvected = advected.r; vec2 diff = uv - uMouse; float dist = length(diff); float inkRadius = 0.04; float inkInject = exp(-dist * dist / (inkRadius * inkRadius)) * (uMouseDown ? 1.0 : 0.0); float velRadius = 0.04; float velWeight = exp(-dist * dist / (velRadius * velRadius)) * (uMouseDown ? 1.0 : 0.0); vec2 injectedVel = mix(vec2(0.0), uVelocity, velWeight); float velDecay = 1.0; vec2 newVel = velAdvected * velDecay + injectedVel * 0.8; float inkDecay = 0.98; float inkNew = inkAdvected * inkDecay + inkInject * 0.9; vec4 n = texture2D(uPrevFrame, uv + vec2(uTexelSize.x, 0.0)); vec4 s = texture2D(uPrevFrame, uv - vec2(uTexelSize.x, 0.0)); vec4 e = texture2D(uPrevFrame, uv + vec2(0.0, uTexelSize.y)); vec4 w = texture2D(uPrevFrame, uv - vec2(0.0, uTexelSize.y)); float inkDiffuse = (inkAdvected + n.r + s.r + e.r + w.r) * 0.2; inkNew = mix(inkNew, inkDiffuse, 0.02); gl_FragColor = vec4(inkNew, newVel * 0.5 + 0.5, 1.0); }`;
+            const simMat = new THREE.ShaderMaterial({ uniforms: { uPrevFrame: { value: fluidRT_A.texture }, uMouse: { value: new THREE.Vector2(0.5, 0.5) }, uVelocity: { value: new THREE.Vector2(0, 0) }, uTexelSize: { value: new THREE.Vector2(1 / fluidRes.x, 1 / fluidRes.y) }, uMouseDown: { value: false } }, vertexShader: simVert, fragmentShader: simFrag });
             simQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMat);
             simScene.add(simQuad);
             renderer.setRenderTarget(fluidRT_A);
@@ -5001,50 +4875,27 @@
             renderer.setRenderTarget(null);
         }
 
-        function resizeFluid() {
-            const rect = container.getBoundingClientRect();
-            const aspect = rect.width / rect.height;
-            const baseRes = QUALITY.fluidRes;
-            const h = baseRes;
-            const w = Math.floor(h * aspect);
-            const maxW = baseRes * 2.5;
-            const finalW = Math.min(w, maxW);
-            fluidRes.set(finalW, h);
-            fluidRT_A.setSize(finalW, h);
-            fluidRT_B.setSize(finalW, h);
-            if (simQuad && simQuad.material) {
-                simQuad.material.uniforms.uTexelSize.value.set(1 / finalW, 1 / h);
-            }
-        }
+        function resizeFluid() { const rect = container.getBoundingClientRect(); const aspect = rect.width / rect.height; const h = 512; const w = Math.floor(h * aspect); fluidRes.set(w, h); fluidRT_A.setSize(w, h); fluidRT_B.setSize(w, h); simQuad.material.uniforms.uTexelSize.value.set(1 / w, 1 / h); }
         initFluid();
         window.addEventListener('resize', resizeFluid);
-        const mainVert =
-            `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
-        const mainFrag =
-            `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
-        const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A
-                    .texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 },
-            uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: QUALITY.parallax } };
-        const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert,
-            fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
+        const mainVert = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
+        const mainFrag = `precision highp float; varying vec2 vUv; uniform sampler2D uBarong; uniform sampler2D uToga; uniform sampler2D uFluidMask; uniform float uAspect; uniform float uBarongAspect; uniform float uTogaAspect; uniform vec2 uCursor; uniform float uParallaxStrength; vec2 coverUV(vec2 uv, float imageAspect, float canvasAspect) { vec2 newUV = uv - 0.5; if (canvasAspect > imageAspect) { newUV.x *= canvasAspect / imageAspect; } else { newUV.y *= imageAspect / canvasAspect; } newUV += 0.5; return clamp(newUV, 0.0, 1.0); } void main() { vec2 centerOffset = uCursor - 0.5; vec2 offsetBarong = -centerOffset * uParallaxStrength * 0.5; vec2 offsetToga = -centerOffset * uParallaxStrength * 0.5; vec2 uvBarong = coverUV(vUv + offsetBarong, uBarongAspect, uAspect); vec2 uvToga = coverUV(vUv + offsetToga, uTogaAspect, uAspect); float water = texture2D(uFluidMask, vUv).r; float blend = smoothstep(0.18, 0.22, water); vec4 barongColor = texture2D(uBarong, uvBarong); vec4 togaColor = texture2D(uToga, uvToga); vec3 mixedRGB = mix(barongColor.rgb, togaColor.rgb, blend); float mixedAlpha = mix(barongColor.a, togaColor.a, blend); gl_FragColor = vec4(mixedRGB, mixedAlpha); }`;
+        const mainUniforms = { uBarong: { value: null }, uToga: { value: null }, uFluidMask: { value: fluidRT_A.texture }, uAspect: { value: 1.0 }, uBarongAspect: { value: 1.0 }, uTogaAspect: { value: 1.0 }, uCursor: { value: new THREE.Vector2(0.5, 0.5) }, uParallaxStrength: { value: 0.025 } };
+        const mainMat = new THREE.ShaderMaterial({ uniforms: mainUniforms, vertexShader: mainVert, fragmentShader: mainFrag, transparent: true, depthWrite: false, depthTest: false });
         const mainQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mainMat);
         scene.add(mainQuad);
 
-        function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms
-                    .uBarongAspect.value = tex.image.width / tex.image.height;
-                    container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms
-                    .uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !
-                animationStarted) { animationStarted = true;
-                resizeAll();
-                animate();
-                if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
+        function imageLoaded(tex, which) { imagesLoaded++; if (tex.image) { if (which === 'barong') { mainUniforms.uBarongAspect.value = tex.image.width / tex.image.height;
+                        container.style.aspectRatio = `${tex.image.width} / ${tex.image.height}`; } else { mainUniforms.uTogaAspect.value = tex.image.width / tex.image.height; } } if (imagesLoaded === 2 && !animationStarted) { animationStarted = true;
+                    resizeAll();
+                    animate();
+                    if (window.hideLoadingScreen) window.hideLoadingScreen(); } }
         loader.load('images/profile/barong.png', (tex) => { mainUniforms.uBarong.value = tex;
             imageLoaded(tex, 'barong'); });
         loader.load('images/profile/toga.png', (tex) => { mainUniforms.uToga.value = tex;
             imageLoaded(tex, 'toga'); });
 
-        function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect(); const newX = (clientX -
-                rect.left) / rect.width,
+        function updateMouse(clientX, clientY) { const rect = container.getBoundingClientRect(); const newX = (clientX - rect.left) / rect.width,
                 newY = 1.0 - (clientY - rect.top) / rect.height;
             mouse.prevX = mouse.x;
             mouse.prevY = mouse.y;
@@ -5062,90 +4913,49 @@
             mouse.inside = true; }, { passive: false });
         webglCanvas.addEventListener('touchend', () => { mouse.inside = false; });
 
-        function updateFluid(dt) {
-            const now = performance.now();
-            const simMat = simQuad.material;
-            if (!QUALITY.disableIdleScan) {
-                if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) { idleActive = true;
-                    scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
-                        scanDirX = 1; } else { scanVirtualX = 1.0;
-                        scanDirX = -1; }
-                    scanVirtualY = 0.0;
-                    scanDirY = 1;
-                    scanPauseUntil = 0; }
-                if (idleActive) {
-                    if (scanComplete) {
-                        if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX =
-                                0.0;
+        function updateFluid(dt) { const now = performance.now(); const simMat = simQuad.material; if (!idleActive && (now - lastMoveTime) > IDLE_DELAY) { idleActive = true;
+                scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
+                    scanDirX = 1; } else { scanVirtualX = 1.0;
+                    scanDirX = -1; }
+                scanVirtualY = 0.0;
+                scanDirY = 1;
+                scanPauseUntil = 0; } if (idleActive) { if (scanComplete) { if (now > scanPauseUntil) { scanComplete = false; if (Math.random() < 0.5) { scanVirtualX = 0.0;
                                 scanDirX = 1; } else { scanVirtualX = 1.0;
                                 scanDirX = -1; }
                             scanVirtualY = 0.0;
-                            scanDirY = 1; }
-                    } else {
-                        scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
-                        scanVirtualY += scanDirY * SCAN_SPEED_Y * dt;
-                        if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
+                            scanDirY = 1; } } else { scanVirtualX += scanDirX * SCAN_SPEED_X * dt;
+                        scanVirtualY += scanDirY * SCAN_SPEED_Y * dt; if (scanVirtualX >= 1.0) { scanVirtualX = 1.0;
                             scanDirX = -1; } else if (scanVirtualX <= 0.0) { scanVirtualX = 0.0;
-                            scanDirX = 1; }
-                        if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
+                            scanDirX = 1; } if (scanVirtualY >= 1.0) { scanVirtualY = 1.0;
                             scanVirtualX = scanVirtualX < 0.5 ? 0.0 : 1.0;
                             scanComplete = true;
-                            scanPauseUntil = now + SWEEP_PAUSE; }
-                    }
+                            scanPauseUntil = now + SWEEP_PAUSE; } }
                     simMat.uniforms.uMouse.value.set(scanVirtualX, 1.0 - scanVirtualY);
                     simMat.uniforms.uMouseDown.value = true;
-                    simMat.uniforms.uVelocity.value.set(0, 0);
-                } else {
-                    simMat.uniforms.uMouse.value.set(mouse.x, mouse.y);
-                    const sensitivity = 10.0;
-                    const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity;
-                    const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
-                    simMat.uniforms.uVelocity.value.set(velX, velY);
-                    const movingThreshold = 0.01;
-                    simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) >
-                        movingThreshold) && mouse.inside;
-                }
-            } else {
-                simMat.uniforms.uMouse.value.set(mouse.x, mouse.y);
-                const sensitivity = 10.0;
-                const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity;
-                const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
-                simMat.uniforms.uVelocity.value.set(velX, velY);
-                const movingThreshold = 0.01;
-                simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) >
-                    movingThreshold) && mouse.inside;
-            }
-            mainUniforms.uCursor.value.set(mouse.x, mouse.y);
-            simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
-            renderer.setRenderTarget(fluidRT_B);
-            renderer.render(simScene, simCamera);
-            renderer.setRenderTarget(null);
-            const temp = fluidRT_A;
-            fluidRT_A = fluidRT_B;
-            fluidRT_B = temp;
-            mainUniforms.uFluidMask.value = fluidRT_A.texture;
-        }
+                    simMat.uniforms.uVelocity.value.set(0, 0); } else { simMat.uniforms.uMouse.value.set(mouse.x, mouse.y); const sensitivity = 10.0; const velX = ((mouse.x - mouse.prevX) / Math.max(0.016, dt)) * sensitivity; const velY = ((mouse.y - mouse.prevY) / Math.max(0.016, dt)) * sensitivity;
+                    simMat.uniforms.uVelocity.value.set(velX, velY); const movingThreshold = 0.01;
+                    simMat.uniforms.uMouseDown.value = (Math.abs(velX) > movingThreshold || Math.abs(velY) > movingThreshold) && mouse.inside; }
+                mainUniforms.uCursor.value.set(mouse.x, mouse.y);
+                simMat.uniforms.uPrevFrame.value = fluidRT_A.texture;
+                renderer.setRenderTarget(fluidRT_B);
+                renderer.render(simScene, simCamera);
+                renderer.setRenderTarget(null);
+                const temp = fluidRT_A;
+                fluidRT_A = fluidRT_B;
+                fluidRT_B = temp;
+                mainUniforms.uFluidMask.value = fluidRT_A.texture; }
 
         function resizeAll() { const rect = container.getBoundingClientRect(); renderer.setSize(rect.width, rect.height);
             mainUniforms.uAspect.value = rect.width / rect.height;
             resizeFluid();
             mainUniforms.uFluidMask.value = fluidRT_A.texture; }
         let lastTime = 0;
-        let frameCount = 0;
-        const FRAME_SKIP = isMobile ? 1 : 0;
 
-        function animate(time) {
-            if (!animationStarted) return;
-            requestAnimationFrame(animate);
-            if (FRAME_SKIP > 0) {
-                frameCount++;
-                if (frameCount % (FRAME_SKIP + 1) !== 0) return;
-            }
-            const dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
+        function animate(time) { if (!animationStarted) return;
+            requestAnimationFrame(animate); const dt = lastTime ? (time - lastTime) * 0.001 : 0.016;
             lastTime = time;
             updateFluid(dt);
-            renderer.render(scene, camera);
-        }
+            renderer.render(scene, camera); }
     })();
 </script>
 </body>
