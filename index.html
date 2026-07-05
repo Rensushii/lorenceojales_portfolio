@@ -80,6 +80,7 @@
             -moz-osx-font-smoothing: grayscale;
             cursor: default;
             padding-bottom: var(--safe-bottom);
+            overflow-y: visible;
         }
 
         body.loading {
@@ -3002,6 +3003,13 @@
             .achievement-modal-img {
                 max-height: 40vh;
             }
+            /* Extra bottom padding for sections on mobile to prevent content cut-off */
+            .section-light,
+            .section-dark,
+            .section-dark-alt,
+            .section-light-alt {
+                padding-bottom: 60px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -3060,6 +3068,7 @@
             .section-dark-alt,
             .section-light-alt {
                 padding: 40px 10px;
+                padding-bottom: 50px;
             }
             .section-header {
                 margin-bottom: 24px;
