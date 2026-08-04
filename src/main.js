@@ -77,8 +77,8 @@ function initAll() {
   initAchievements();
   initModals();
   initContactForm();
-  initLightRays();
-  initFluidHero();
+  try { initLightRays(); } catch (e) { console.error('Light rays init failed:', e); }
+  try { initFluidHero(); } catch (e) { console.error('Fluid hero init failed:', e); }
 
   // If Three.js never loaded (offline / blocked CDN), don't leave the
   // loading screen up forever — the window 'load' fallback in loading.js

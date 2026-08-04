@@ -121,11 +121,25 @@
   box-shadow: var(--shadow-md);
 }
 
+/* Stacking order (bottom → top): the static fallback photo is always
+   present as a base layer, so something is always visible even if WebGL
+   fails to init, a shader errors out, or the CDN script gets blocked —
+   the canvases only need to render *opaque* pixels to visibly take over,
+   and stay fully transparent (letting the fallback show through) until
+   they do. This also means mobile "just works" without extra CSS, since
+   initFluidHero()/initLightRays() intentionally skip mobile entirely. */
+.hero-mobile-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
 #lightraysCanvas {
   position: absolute;
   inset: 0;
   width: 100%; height: 100%;
-  z-index: 1;
+  z-index: 2;
   mix-blend-mode: screen;
   opacity: 0.6;
 }
@@ -133,16 +147,8 @@
   position: absolute;
   inset: 0;
   width: 100%; height: 100%;
-  z-index: 2;
-  display: none; /* enabled by JS on desktop */
-}
-.hero-mobile-fallback {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  z-index: 2;
-  display: none; /* only the mobile fallback path uses this; desktop renders the WebGL canvas instead */
+  z-index: 3;
+  display: none; /* JS flips this to block on desktop once Three.js is ready to draw */
 }
 
 /* Cursor-follow spotlight (desktop only) */
@@ -174,8 +180,6 @@
   .hero-text-col { max-width: none; }
   .hero-cta-premium .btn-premium { flex: 1; justify-content: center; }
   .spotlight { display: none; }
-  #webglCanvas, #lightraysCanvas { display: none; }
-  .hero-mobile-fallback { display: block; }
 }
 
 @media (hover: none) {

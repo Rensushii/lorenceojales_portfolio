@@ -100,8 +100,18 @@ export function initFluidHero() {
       window.hideLoadingScreen?.();
     }
   }
-  loader.load('/images/profile/barong.png', (tex) => { mainUniforms.uBarong.value = tex; imageLoaded(tex, 'barong'); });
-  loader.load('/images/profile/toga.png', (tex) => { mainUniforms.uToga.value = tex; imageLoaded(tex, 'toga'); });
+  loader.load(
+    '/images/profile/barong.png',
+    (tex) => { mainUniforms.uBarong.value = tex; imageLoaded(tex, 'barong'); },
+    undefined,
+    (err) => console.error('Fluid hero: failed to load /images/profile/barong.png — check the file exists in public/images/profile/.', err)
+  );
+  loader.load(
+    '/images/profile/toga.png',
+    (tex) => { mainUniforms.uToga.value = tex; imageLoaded(tex, 'toga'); },
+    undefined,
+    (err) => console.error('Fluid hero: failed to load /images/profile/toga.png — check the file exists in public/images/profile/.', err)
+  );
 
   function updateMouse(clientX, clientY) {
     const rect = container.getBoundingClientRect();
